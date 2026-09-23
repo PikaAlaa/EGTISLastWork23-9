@@ -1,0 +1,34 @@
+{
+  "input_rows": 85992,
+  "output_rows": 85992,
+  "canonical_or_exact_duplicates_removed": 650,
+  "resolved_label_conflicts": [
+    {
+      "identity": "https://kakaku.com",
+      "labels": ["legitimate", "phishing"],
+      "kept_label": "legitimate"
+    },
+    {
+      "identity": "https://pokeapi.co",
+      "labels": ["legitimate", "phishing"],
+      "kept_label": "legitimate"
+    }
+  ],
+  "source_input_rows": 86642,
+  "label_override_sources": {
+    "https://kakaku.com": "https://corporate.kakaku.com/",
+    "https://pokeapi.co": "https://github.com/PokeAPI/pokeapi.co"
+  },
+  "near_duplicate_pairs_grouped": 406,
+  "leakage_groups": 85767,
+  "split_counts": {
+    "test": 12900,
+    "train": 60191,
+    "val": 12901
+  },
+  "label_counts": {
+    "legitimate": 20950,
+    "phishing": 65042
+  },
+  "removed_ids": []
+}

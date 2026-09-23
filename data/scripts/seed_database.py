@@ -27,9 +27,10 @@ sys.path.insert(0, str(BACKEND_DIR))
 
 from sqlalchemy.exc import IntegrityError
 
-from app.core.database import SessionLocal
+from app.core.database import SessionLocal, create_schema
 from app.core.egyptian_brands import EGYPTIAN_BRAND_DOMAINS
 from app.engines.rule_based.domain_typosquatting_detector import normalize_domain
+from app.engines.rule_based.url_utils import canonicalize_url
 from app.models import BlacklistEntry, BrandDomain, EgyptianBrand, FeedUpdate
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -39,7 +40,7 @@ BATCH_SIZE = 2000
 
 
 def _hash_url(url: str) -> str:
-    return hashlib.sha256(url.encode("utf-8")).hexdigest()
+    return hashlib.sha256(canonicalize_url(url).encode("utf-8")).hexdigest()
 
 
 def seed_blacklist_entries(db) -> tuple[int, int]:
@@ -133,6 +134,7 @@ def seed_brand_registry(db) -> tuple[int, int]:
 
 
 def main() -> None:
+    create_schema()
     db = SessionLocal()
 
     print("Seeding blacklist_entries from PhishTank + OpenPhish...")

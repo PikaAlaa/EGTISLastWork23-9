@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-09-22T15:36:01.321394+00:00",
+  "environment": "local SQLite, canonically seeded blacklist, validation-selected TF-IDF model",
+  "passed": true,
+  "cases": [
+    {
+      "name": "known_blacklisted_url",
+      "expected": "HIGH",
+      "actual": "HIGH",
+      "score": 69.71,
+      "status_code": 200,
+      "latency_ms": 24.46,
+      "passed": true
+    },
+    {
+      "name": "verified_egyptian_bank",
+      "expected": "LOW",
+      "actual": "LOW",
+      "score": 0.0,
+      "status_code": 200,
+      "latency_ms": 8.7,
+      "passed": true
+    },
+    {
+      "name": "arabic_credential_phishing",
+      "expected": "HIGH",
+      "actual": "HIGH",
+      "score": 78.44,
+      "status_code": 200,
+      "latency_ms": 2073.26,
+      "passed": true
+    },
+    {
+      "name": "mixed_language_phishing",
+      "expected": "HIGH",
+      "actual": "HIGH",
+      "score": 78.47,
+      "status_code": 200,
+      "latency_ms": 8.77,
+      "passed": true
+    },
+    {
+      "name": "legitimate_arabic_notice",
+      "expected": "LOW",
+      "actual": "LOW",
+      "score": 16.04,
+      "status_code": 200,
+      "latency_ms": 8.21,
+      "passed": true
+    },
+    {
+      "name": "legitimate_security_warning",
+      "expected": "LOW",
+      "actual": "LOW",
+      "score": 7.5,
+      "status_code": 200,
+      "latency_ms": 8.16,
+      "passed": true
+    },
+    {
+      "name": "verified_domain_with_phishing_text",
+      "expected": "HIGH",
+      "actual": "HIGH",
+      "score": 46.96,
+      "status_code": 200,
+      "latency_ms": 9.2,
+      "passed": true
+    },
+    {
+      "name": "unrelated_domain_containing_brand_letters",
+      "expected": "LOW",
+      "actual": "LOW",
+      "score": 0.0,
+      "status_code": 200,
+      "latency_ms": 8.01,
+      "passed": true
+    }
+  ],
+  "average_latency_ms": 268.6,
+  "limitations": [
+    "Not a hosted-environment benchmark",
+    "Commercial-tool comparison requires an authorized external API key",
+    "BiLSTM was evaluated separately and not selected because validation F1 was lower"
+  ]
+}
