@@ -1,22 +1,27 @@
-from __future__ import annotations
+"""
+exceptions.py
 
-from fastapi import Request
-from fastapi.responses import JSONResponse
+Shared ETIS exception hierarchy, per CLAUDE.md's error-handling convention:
+custom exception classes + a global FastAPI exception handler (added in
+Phase 6), rather than bare try/except with HTTPException scattered through
+routes.
+"""
 
 
 class ETISException(Exception):
-    status_code = 400
-    code = "etis_error"
-
-    def __init__(self, message: str):
-        super().__init__(message)
-        self.message = message
+    """Base exception for all ETIS-specific errors."""
 
 
-class InvalidAnalysisInput(ETISException):
-    status_code = 422
-    code = "invalid_analysis_input"
+class InvalidScanInputError(ETISException):
+    """Raised when input passed to a detection engine is not usable
+    (empty, wrong type, or otherwise malformed)."""
 
 
-async def etis_exception_handler(_: Request, exc: ETISException) -> JSONResponse:
-    return JSONResponse(status_code=exc.status_code, content={"error": {"code": exc.code, "message": exc.message}})
+class EngineFailureError(ETISException):
+    """Raised when a detection engine fails to complete scoring for a
+    reason other than invalid input (e.g. an unexpected internal error)."""
+
+
+class BlacklistLookupError(ETISException):
+    """Raised when a threat-intelligence blacklist lookup fails
+    (used starting in Phase 3)."""

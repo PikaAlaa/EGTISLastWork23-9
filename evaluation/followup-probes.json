@@ -1,0 +1,108 @@
+[
+  {
+    "name": "brand domain as subdomain",
+    "body": {
+      "url": "https://www.cibeg.com.account-check.example/login"
+    },
+    "expected": "HIGH"
+  },
+  {
+    "name": "cyrillic c in cibeg",
+    "body": {
+      "url": "https://сibeg.com/login"
+    },
+    "expected": "HIGH"
+  },
+  {
+    "name": "instapay lookalike",
+    "body": {
+      "url": "https://instapay-eg.com/verify"
+    },
+    "expected": "HIGH"
+  },
+  {
+    "name": "fawry lookalike, no action word",
+    "body": {
+      "url": "https://fawry-eg.net/"
+    },
+    "expected": "MEDIUM/HIGH"
+  },
+  {
+    "name": "banquemisr typo",
+    "body": {
+      "url": "https://banquemlsr.com/login"
+    },
+    "expected": "MEDIUM/HIGH"
+  },
+  {
+    "name": "vodafone cash lookalike",
+    "body": {
+      "url": "http://vodafone-cash-gift.com/claim"
+    },
+    "expected": "MEDIUM/HIGH"
+  },
+  {
+    "name": "official NBE deep link",
+    "body": {
+      "url": "https://www.nbe.com.eg/NBE/E/#/EN/Home"
+    },
+    "expected": "LOW"
+  },
+  {
+    "name": "official Banque Misr subdomain",
+    "body": {
+      "url": "https://bm-online.banquemisr.com/"
+    },
+    "expected": "LOW"
+  },
+  {
+    "name": "official vodafone subdomain",
+    "body": {
+      "url": "https://web.vodafone.com.eg/"
+    },
+    "expected": "LOW"
+  },
+  {
+    "name": "defanged link in SMS",
+    "body": {
+      "text": "حدث بياناتك هنا hxxps://cib-egypt-secure[.]com/verify"
+    },
+    "expected": "HIGH"
+  },
+  {
+    "name": "bare domain in SMS",
+    "body": {
+      "text": "ادخل على cib-eg-update.com وأكد بياناتك"
+    },
+    "expected": "HIGH"
+  },
+  {
+    "name": "legit NBE SMS with official link",
+    "body": {
+      "text": "البنك الأهلي المصري: لمعرفة تفاصيل حسابك زوروا www.nbe.com.eg"
+    },
+    "expected": "LOW/MEDIUM",
+    "known_limitation": true
+  },
+  {
+    "name": "scheme bare domain",
+    "body": {
+      "url": "cibeg.com"
+    },
+    "expected": "LOW"
+  },
+  {
+    "name": "https on port 80",
+    "body": {
+      "url": "https://example.com:80/"
+    },
+    "expected": "not 400"
+  },
+  {
+    "name": "11 links",
+    "body": {
+      "text": "https://example0.com/ https://example1.com/ https://example2.com/ https://example3.com/ https://example4.com/ https://example5.com/ https://example6.com/ https://example7.com/ https://example8.com/ https://example9.com/ https://example10.com/"
+    },
+    "expected": "INCOMPLETE"
+  }
+]

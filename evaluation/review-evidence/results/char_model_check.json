@@ -1,0 +1,60 @@
+{
+ "note": "Single-example model outputs, P(phishing) x 100; not detection accuracy.",
+ "filler_sentence": "أخبار الفريق والمشروع ماشية كويس والحمد لله",
+ "probes": [
+  {
+   "probe": "phishing SMS alone",
+   "text": "عميلنا العزيز، تم إيقاف بطاقتك مؤقتاً لأسباب أمنية. لإعادة التفعيل أدخل بيانات البطاقة ورمز التحقق خلال 24 ساعة على الرابط المرفق",
+   "bilstm": 99.7,
+   "char_model": 99.2
+  },
+  {
+   "probe": "same SMS after 10 filler sentences",
+   "text": "أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس... [569 chars]",
+   "bilstm": 99.7,
+   "char_model": 80.0
+  },
+  {
+   "probe": "same SMS after 40 filler sentences",
+   "text": "أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس... [1889 chars]",
+   "bilstm": 0.3,
+   "char_model": 61.7
+  },
+  {
+   "probe": "long_legit",
+   "text": "الاجتماع الأسبوعي للفريق هيكون يوم الأحد الساعة 11 الصبح في قاعة الاجتماعات الاجتماع الأسبوعي للفريق هيكون يوم الأحد الس... [1899 chars]",
+   "bilstm": 0.3,
+   "char_model": 6.8
+  },
+  {
+   "probe": "long_phish_tail",
+   "text": "أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس... [1889 chars]",
+   "bilstm": 0.3,
+   "char_model": 61.7
+  },
+  {
+   "probe": "short_phish",
+   "text": "حسابك اتقفل، ابعت الكود",
+   "bilstm": 75.2,
+   "char_model": 45.7
+  },
+  {
+   "probe": "mixed_lang",
+   "text": "Dear customer حسابك هيتقفل today، verify بياناتك now",
+   "bilstm": 85.9,
+   "char_model": 66.7
+  },
+  {
+   "probe": "english_phish",
+   "text": "Your account has been suspended. Verify your card details within 24 hours to avoid closure.",
+   "bilstm": 85.6,
+   "char_model": 39.9
+  },
+  {
+   "probe": "english_legit",
+   "text": "Hi, the team meeting moved to 3 pm tomorrow. See you there.",
+   "bilstm": 0.8,
+   "char_model": 1.9
+  }
+ ]
+}

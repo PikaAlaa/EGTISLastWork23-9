@@ -1,0 +1,1742 @@
+{
+ "cases": [
+  {
+   "id": "D1a",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "userinfo_brand",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 99.51,
+    "decisive_reason": "userinfo_brand",
+    "supporting_signals": [
+     "text_high",
+     "url_patterns",
+     "userinfo_brand"
+    ],
+    "checked_links": [
+     {
+      "url": "https://evil.example/login",
+      "host": "evil.example",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "userinfo_brand",
+       "normalized_domain": "evil.example",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "userinfo_in_url",
+        20,
+        null
+       ],
+       [
+        "suspicious_path_keyword",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 99.51,
+     "probability": 0.9951431296845592,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 20.21,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D1b",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "userinfo_brand",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 95.0,
+    "decisive_reason": "userinfo_brand",
+    "supporting_signals": [
+     "url_patterns",
+     "userinfo_brand"
+    ],
+    "checked_links": [
+     {
+      "url": "https://evil.example/login",
+      "host": "evil.example",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "userinfo_brand",
+       "normalized_domain": "evil.example",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "userinfo_in_url",
+        20,
+        null
+       ],
+       [
+        "suspicious_path_keyword",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 20.24,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D2",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "text_high",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 99.51,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [
+     {
+      "url": "https://www.cibeg.com/",
+      "host": "www.cibeg.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "exact_match",
+       "normalized_domain": "www.cibeg.com",
+       "decisive": false,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 99.51,
+     "probability": 0.9951431296845592,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 17.92,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D4",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "brand_label_reuse",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 97.73,
+    "decisive_reason": "brand_label_reuse",
+    "supporting_signals": [
+     "brand_label_reuse",
+     "text_high",
+     "url_patterns"
+    ],
+    "checked_links": [
+     {
+      "url": "http://cib-egypt-secure.com/verify",
+      "host": "cib-egypt-secure.com",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "brand_label_reuse",
+       "normalized_domain": "cib-egypt-secure.com",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "no_https",
+        8,
+        null
+       ],
+       [
+        "suspicious_path_keyword",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 97.73,
+     "probability": 0.9772807210145461,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 18.74,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D5a",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "blacklist_exact",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact"
+    ],
+    "checked_links": [
+     {
+      "url": "https://rllling.shop/spid/",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 19.39,
+     "probability": 0.19386252638199616,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 16.65,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D5b",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "blacklist_exact",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact"
+    ],
+    "checked_links": [
+     {
+      "url": "https://rllling.shop/spid/",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 14.18,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D6a",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "brand_label_reuse",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 95.0,
+    "decisive_reason": "brand_label_reuse",
+    "supporting_signals": [
+     "brand_label_reuse",
+     "url_patterns"
+    ],
+    "checked_links": [
+     {
+      "url": "http://nbe-online-login.com/",
+      "host": "nbe-online-login.com",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "National Bank of Egypt (NBE)",
+       "matched_brand_domain": "nbe.com.eg",
+       "technique": "brand_label_reuse",
+       "normalized_domain": "nbe-online-login.com",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19623",
+        "source": "https://www.nbe.com.eg/NBE/E/",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "no_https",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 15.89,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D6b",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "brand_label_reuse",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 95.0,
+    "decisive_reason": "brand_label_reuse",
+    "supporting_signals": [
+     "brand_label_reuse",
+     "url_patterns"
+    ],
+    "checked_links": [
+     {
+      "url": "http://cib-eg.net/login",
+      "host": "cib-eg.net",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "brand_label_reuse",
+       "normalized_domain": "cib-eg.net",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "no_https",
+        8,
+        null
+       ],
+       [
+        "suspicious_path_keyword",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 13.64,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D6c",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "brand_label_reuse",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 95.0,
+    "decisive_reason": "brand_label_reuse",
+    "supporting_signals": [
+     "brand_label_reuse",
+     "url_patterns"
+    ],
+    "checked_links": [
+     {
+      "url": "http://qnb-verify-account.com/",
+      "host": "qnb-verify-account.com",
+      "bare": false,
+      "brand": {
+       "score": 95.0,
+       "matched_brand": "QNB Al Ahli",
+       "matched_brand_domain": "qnbalahli.com",
+       "technique": "brand_label_reuse",
+       "normalized_domain": "qnb-verify-account.com",
+       "decisive": true,
+       "official_contact": {
+        "phone": "19700",
+        "source": "https://www.qnb.com.eg/sites/qnb/qnbegypt/page/en/encontactus.html",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [
+       [
+        "no_https",
+        8,
+        null
+       ]
+      ],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 19.06,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D7",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://ebanking.cibeg.com/",
+      "host": "ebanking.cibeg.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": "Commercial International Bank (CIB)",
+       "matched_brand_domain": "cibeg.com",
+       "technique": "exact_match",
+       "normalized_domain": "ebanking.cibeg.com",
+       "decisive": false,
+       "official_contact": {
+        "phone": "19666",
+        "source": "https://www.cibeg.com/ar/complaint-form",
+        "verified_on": "2026-10-08",
+        "country": "EG"
+       }
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 17.08,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D8a",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://afternoon.com/",
+      "host": "afternoon.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "afternoon.com",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 20.98,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D8b",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://elite.eg/",
+      "host": "elite.eg",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "elite.eg",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 15.82,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D9a",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "blacklist_exact",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact"
+    ],
+    "checked_links": [
+     {
+      "url": "https://rllling.shop/spid/",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 20.36,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D9b",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "blacklist_exact",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact"
+    ],
+    "checked_links": [
+     {
+      "url": "https://rllling.shop/spid/",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 14.59,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D9c",
+   "status": 200,
+   "verdict": "HIGH",
+   "reason": "blacklist_exact",
+   "accept": [
+    "HIGH"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact"
+    ],
+    "checked_links": [
+     {
+      "url": "https://rllling.shop/spid/?utm_source=sms",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 14.45,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D10a",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://www.google.com/",
+      "host": "www.google.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "www.google.com",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 13.87,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D10b",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://wa.me/201000000000",
+      "host": "wa.me",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "wa.me",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 18.22,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D10c",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://forms.office.com/r/AbC123xyz",
+      "host": "forms.office.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "forms.office.com",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 12.75,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D10d",
+   "status": 200,
+   "verdict": "LOW",
+   "reason": "no_warning_signs",
+   "accept": [
+    "LOW"
+   ],
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 0.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [
+     {
+      "url": "https://1drv.ms/w/s!AbCdEf123",
+      "host": "1drv.ms",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "1drv.ms",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": null,
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 14.82,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "D12a",
+   "status": 400,
+   "verdict": null,
+   "reason": null,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "pass": true,
+   "resp": {
+    "error": "InvalidScanInputError",
+    "detail": "invalid_url"
+   }
+  },
+  {
+   "id": "D12b",
+   "status": 400,
+   "verdict": null,
+   "reason": null,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "pass": true,
+   "resp": {
+    "error": "InvalidScanInputError",
+    "detail": "invalid_url"
+   }
+  },
+  {
+   "id": "D13",
+   "status": 400,
+   "verdict": null,
+   "reason": null,
+   "accept": [
+    "400",
+    "413",
+    "422"
+   ],
+   "pass": true,
+   "resp": {
+    "error": "InvalidScanInputError",
+    "detail": "invalid_input"
+   }
+  },
+  {
+   "id": "D14",
+   "status": 400,
+   "verdict": null,
+   "reason": null,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "pass": true,
+   "resp": {
+    "error": "InvalidScanInputError",
+    "detail": "invalid_url"
+   }
+  }
+ ],
+ "sms": [
+  {
+   "i": 1,
+   "verdict": "HIGH",
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 70.73,
+     "probability": 0.7073275533323873,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.73,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 2,
+   "verdict": "HIGH",
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 42.7,
+     "probability": 0.4269552440944591,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.7,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 3,
+   "verdict": "MEDIUM",
+   "resp": {
+    "verdict": "MEDIUM",
+    "final_score": 27.85,
+    "decisive_reason": "text_medium",
+    "supporting_signals": [
+     "text_medium"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 27.85,
+     "probability": 0.2785120335470196,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.56,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 4,
+   "verdict": "LOW",
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 18.58,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 18.58,
+     "probability": 0.18579299403990987,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 2.17,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 5,
+   "verdict": "LOW",
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 16.17,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 16.17,
+     "probability": 0.16170225676126393,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.93,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 6,
+   "verdict": "MEDIUM",
+   "resp": {
+    "verdict": "MEDIUM",
+    "final_score": 25.57,
+    "decisive_reason": "text_medium",
+    "supporting_signals": [
+     "text_medium"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 25.57,
+     "probability": 0.2556918968161498,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.95,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 7,
+   "verdict": "HIGH",
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 46.92,
+     "probability": 0.46922421301513323,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 2.05,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 8,
+   "verdict": "HIGH",
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 45.66,
+     "probability": 0.45659549881150535,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.95,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 9,
+   "verdict": "LOW",
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 4.0,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 4.0,
+     "probability": 0.04003914404801564,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.65,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 10,
+   "verdict": "LOW",
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 9.19,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 9.19,
+     "probability": 0.09186876063096172,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.7,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 11,
+   "verdict": "HIGH",
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 44.73,
+     "probability": 0.4472930016490901,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.57,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "i": 12,
+   "verdict": "MEDIUM",
+   "resp": {
+    "verdict": "MEDIUM",
+    "final_score": 21.51,
+    "decisive_reason": "text_medium",
+    "supporting_signals": [
+     "text_medium"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 21.51,
+     "probability": 0.2150530985851004,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.52,
+    "saved": true,
+    "save_error": null
+   }
+  }
+ ],
+ "robust": [
+  {
+   "id": "long_legit",
+   "verdict": "LOW",
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 9.22,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 9.22,
+     "probability": 0.09216723093261385,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 3,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 4.65,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "long_phish_tail",
+   "verdict": "HIGH",
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 89.01,
+     "probability": 0.8900686340596657,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 4,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 5.19,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "short_phish",
+   "verdict": "HIGH",
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 45.49,
+     "probability": 0.454909914875076,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.66,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "mixed_lang",
+   "verdict": "HIGH",
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 68.53,
+     "probability": 0.6853491615690647,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 2.89,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "english_phish",
+   "verdict": "HIGH",
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "text_high",
+    "supporting_signals": [
+     "text_high"
+    ],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 66.38,
+     "probability": 0.6638048650256102,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.72,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "english_legit",
+   "verdict": "LOW",
+   "pass": true,
+   "resp": {
+    "verdict": "LOW",
+    "final_score": 3.19,
+    "decisive_reason": "no_warning_signs",
+    "supporting_signals": [],
+    "checked_links": [],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 3.19,
+     "probability": 0.031899178611792756,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 1.85,
+    "saved": true,
+    "save_error": null
+   }
+  },
+  {
+   "id": "multi_link",
+   "verdict": "HIGH",
+   "pass": true,
+   "resp": {
+    "verdict": "HIGH",
+    "final_score": 90.0,
+    "decisive_reason": "blacklist_exact",
+    "supporting_signals": [
+     "blacklist_exact",
+     "text_high"
+    ],
+    "checked_links": [
+     {
+      "url": "https://www.google.com/",
+      "host": "www.google.com",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "www.google.com",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 0.0,
+       "match_type": null,
+       "matched_entry": null
+      },
+      "analysis_complete": true
+     },
+     {
+      "url": "https://rllling.shop/spid/",
+      "host": "rllling.shop",
+      "bare": false,
+      "brand": {
+       "score": 0.0,
+       "matched_brand": null,
+       "matched_brand_domain": null,
+       "technique": null,
+       "normalized_domain": "rllling.shop",
+       "decisive": false,
+       "official_contact": null
+      },
+      "patterns": [],
+      "blacklist": {
+       "score": 90.0,
+       "match_type": "exact",
+       "matched_entry": {
+        "source": "phishtank",
+        "brand_target": null,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10"
+       }
+      },
+      "analysis_complete": true
+     }
+    ],
+    "links_truncated": false,
+    "text_finding": {
+     "score": 53.25,
+     "probability": 0.5325429090227867,
+     "model": "char",
+     "version": "8f5489ba82604084",
+     "windows": 1,
+     "low_threshold": 0.2,
+     "high_threshold": 0.38999999999999996
+    },
+    "analysis_complete": true,
+    "checks_unavailable": [],
+    "policy_version": "decision-v2",
+    "timing_ms": 117.44,
+    "saved": true,
+    "save_error": null
+   }
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+  "source_archive_sha256": "4edefe29809cbdaf57eb3d30ad48c2ca22b207807227e884eb898777dd18ef9c",
+  "imported_at": "2026-10-08",
+  "files": {
+    "run_upd.py": "e4b85099205ccddfc26eadf1f30d679772c5905abbe93b2682286856f761c2c4",
+    "unseen_probes_results.json": "8273593707e4ee53def0b8a39f67ba64fb9d7c05982fce77c43ce06a5bd1d334",
+    "README.md": "f1f24de9c92975ced303566548ba0a8bbcafbc0f4346b6fb70adecf45b8b61aa",
+    "review_cases_results.json": "63e2f41ec925a949fb50a813a7e2a1006ee49a27bd1377e2fa37a2e119d11a13",
+    "probe.py": "cbba461ec13b190430b78c1b4ff46d5c22a18b6534cb349cd6a9629141e6b628"
+  },
+  "original_cases_sha256": "e019c2f7c8a01d9ab1e56cfb1c19e1cf77bdea8f2d8042e42d6db32e7a725e9f",
+  "preserved_original_files": true,
+  "role": "Reviewer-supplied development evidence. Now exposed; not held out or training data."
+}

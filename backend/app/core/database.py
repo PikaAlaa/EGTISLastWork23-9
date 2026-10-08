@@ -1,33 +1,17 @@
-from __future__ import annotations
-
+"""Database configuration. Submitted values are never logged."""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
-from sqlalchemy.pool import StaticPool
+from app.core.settings import settings, PROJECT_ROOT
 
-from .config import settings
-
-
+(PROJECT_ROOT / 'var').mkdir(exist_ok=True)
+engine = create_engine(settings.database_url, hide_parameters=True, pool_pre_ping=True,
+                       connect_args={'check_same_thread': False} if settings.database_url.startswith('sqlite') else {'connect_timeout': 3})
+SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
 class Base(DeclarativeBase):
     pass
-
-
-connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
-engine_options = {"pool_pre_ping": True, "connect_args": connect_args}
-if settings.database_url in {"sqlite://", "sqlite:///:memory:"}:
-    engine_options["poolclass"] = StaticPool
-engine = create_engine(settings.database_url, **engine_options)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
-
-
-def get_db():
+def get_db_session():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-
-def create_schema() -> None:
-    from app import models  # noqa: F401
-
-    Base.metadata.create_all(bind=engine)

@@ -1,0 +1,17 @@
+...........................................................              [100%]
+59 passed in 7.02s
+
+Tests that take the live-database fixture `db` (conftest.py, SessionLocal on DATABASE_URL): 13
+test_risk_scoring.py::test_text_only_excludes_blacklist_and_redistributes
+test_risk_scoring.py::test_url_only_excludes_lstm_and_redistributes
+test_risk_scoring.py::test_both_provided_all_three_engines_run
+test_risk_scoring.py::test_verified_egyptian_domain_is_allowlisted_to_low
+test_risk_scoring.py::test_typosquat_domain_is_not_allowlisted
+test_risk_scoring.py::test_domain_embedding_is_not_allowlisted
+test_risk_scoring.py::test_unrelated_legitimate_domain_is_not_allowlisted
+test_blacklist_lookup.py::test_exact_match_returns_stored_reputation_score
+test_blacklist_lookup.py::test_unrelated_clean_url_scores_zero
+test_blacklist_lookup.py::test_shared_hosting_domain_suppresses_domain_level_match
+test_blacklist_lookup.py::test_shared_hosting_domain_exact_match_still_works
+test_blacklist_lookup.py::test_edge_case_empty_string_raises
+test_blacklist_lookup.py::test_edge_case_non_string_raises

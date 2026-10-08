@@ -1,0 +1,122 @@
+{
+ "blacklist_counts": {
+  "phishing_url_source_rows": 65101,
+  "unique_raw_urls_in_source": 65090,
+  "unique_entries_in_database": 65090
+ },
+ "E12_egyptian": {
+  "denominator": "unique phishing URLs (= unique database entries)",
+  "denominator_n": 65090,
+  "strict_token_or_dot_eg": 10,
+  "strict_matches": [
+   "https://mechanic.com.eg/sbbredirect.php/",
+   "https://orange-verification-fr.s-host.net/login.php",
+   "https://weloveyou.orange-maroc.net/login",
+   "https://soportetuexperto-orange-es.webflow.io/",
+   "https://consent.orange.fr/global-cookies/1ede4bb66a8455a4eb47892198bd0d2344f0602d/global-cookies.1ede4bb66a8455a4eb47892198bd0d2344f0602d.html",
+   "https://consent.orange.fr/global-cookies/8dec7fbb0c125663851c77c545cca3e85ca43e04/global-cookies.8dec7fbb0c125663851c77c545cca3e85ca43e04.html",
+   "https://consent.orange.fr/global-cookies/968d93d203bbb936b692a6213de9ec26fd6b2bde/global-cookies.968d93d203bbb936b692a6213de9ec26fd6b2bde.html",
+   "https://consent.orange.fr/global-cookies.166d8bd5d06f8cfc9dc3559ef2bc012dbfd5134a.html",
+   "https://orange-nl.comparecycle.com/faq/presse",
+   "https://orange.iobeya.com/s/download/resources/client-html-plugin/4.5.19.83329/public/"
+  ],
+  "token_matches_by_brand": {
+   "orange": 9
+  },
+  "loose_substring_nbe": 48,
+  "loose_nbe_examples": [
+   "https://www.google.com/share.google?q=XM6nBEx3X8YysB1Uy",
+   "https://fnbevants.weebly.com/",
+   "https://twint.kundenbereich-1821.info/",
+   "https://www.h2betloginbet.com/cocoemenz",
+   "http://www.h2betloginbet.com/cocoemenz/"
+  ]
+ },
+ "E2_E3": {
+  "test_phishing_urls": 9765,
+  "in_blacklist_exact": 9765,
+  "share_parsed_hostname_with_train": 5164,
+  "share_etis_normalised_domain_with_train": 5213
+ },
+ "E4_rules_only_url": {
+  "all_test_phishing": {
+   "n": 9765,
+   "score_ge_50": 2,
+   "score_gt_0": 3016
+  },
+  "unseen_host": {
+   "n": 4601,
+   "score_ge_50": 0,
+   "score_gt_0": 1034
+  }
+ },
+ "E1_duplicates": {
+  "groups": 29,
+  "rows": 64,
+  "cross_split_groups": 13,
+  "cross_split_rows": 31,
+  "conflicting_label_groups": 0,
+  "test_rows_also_in_train": 8,
+  "val_rows_also_in_train": 6
+ },
+ "E11_text_language": {
+  "test": {
+   "ar": 251,
+   "en": 0,
+   "mixed": 50
+  },
+  "train": {
+   "ar": 1173,
+   "en": 4,
+   "mixed": 235
+  },
+  "val": {
+   "ar": 252,
+   "en": 0,
+   "mixed": 50
+  }
+ },
+ "E11_english_rows": {
+  "n": 4,
+  "sources": {
+   "synthetic_egyptian_brands": 4
+  },
+  "splits": {
+   "train": 4
+  }
+ },
+ "transactional_wording": {
+  "pattern": "(جنيه|رصيد|حسابك|تم خصم|تم تحويل|تم إيداع|تم ايداع|بطاقتك)",
+  "legitimate": {
+   "n": 1399,
+   "with_wording": 14
+  },
+  "phishing": {
+   "n": 616,
+   "with_wording": 191
+  }
+ },
+ "median_words": {
+  "legitimate": 12.0,
+  "phishing": 45.0
+ },
+ "sources_text": {
+  "kaggle_arabic_phishing_fully_dataset": 1250,
+  "kaggle_dialectal_arabic_sms": 333,
+  "salloum_gaber_bilingual_corpus": 300,
+  "github_arabic_text_spam_detection": 78,
+  "synthetic_egyptian_brands": 54
+ },
+ "E12_brand_field": {
+  "n": 65090,
+  "other_or_blank": 59234,
+  "share_other": 0.91,
+  "top_named": {
+   "Allegro": 2495,
+   "Internal Revenue Service": 824,
+   "Facebook": 346,
+   "Microsoft": 304,
+   "Amazon.com": 289
+  }
+ }
+}

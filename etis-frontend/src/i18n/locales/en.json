@@ -1,0 +1,148 @@
+{
+  "app": {
+    "title": "ETIS",
+    "subtitle": "Egypt-Specific Threat Intelligence System"
+  },
+  "nav": {
+    "scan": "Live Analysis",
+    "threats": "Threat Feed",
+    "stats": "Statistics"
+  },
+  "scan": {
+    "urlLabel": "URL",
+    "textLabel": "Email or message text",
+    "submit": "Analyze",
+    "verdictLow": "LOW",
+    "verdictMedium": "MEDIUM",
+    "verdictHigh": "HIGH",
+    "engineRuleBased": "Rule-Based Analysis",
+    "engineBlacklist": "Threat Database",
+    "engineLstm": "AI Language Model",
+    "notApplicable": "Not applicable for this input",
+    "skipReasonNoUrl": "No URL was submitted, so this engine did not run.",
+    "skipReasonNoText": "No message text was submitted, so this engine did not run.",
+    "score": "Score",
+    "timingLabel": "Time",
+    "totalTimeLabel": "Total processing time: {{ms}} ms",
+    "noKeywordMatches": "No keyword matches",
+    "noTyposquatting": "No domain typosquatting detected",
+    "impersonates": "Impersonates",
+    "noUrlFlags": "No suspicious URL patterns",
+    "notInBlacklist": "Not found in threat database",
+    "seenBefore": "{{count}}× seen before",
+    "exactMatch": "Exact match on record",
+    "lastSeen": "Last seen",
+    "reasonBlacklistExact": "This exact URL is a known phishing entry in the threat database.",
+    "reasonBlacklistDomain": "This domain has appeared in the threat database {{count}} time(s) before.",
+    "reasonKeywordMatch": "Contains urgency/phishing-style phrasing: {{terms}}.",
+    "reasonTyposquat": "Domain closely resembles the brand \"{{brand}}\".",
+    "reasonUrlFlags": "URL shows {{count}} suspicious structural pattern(s).",
+    "reasonNoIndicators": "No phishing indicators were detected by any engine.",
+    "reasonLowConfidence": "A low-confidence signal was detected; no single engine found a strong indicator.",
+    "intro": "Paste a suspicious link or message. Arabic-first detection; English model coverage is experimental.",
+    "textLimit": "{{count}} / 5000 characters",
+    "loading": "Analyzing",
+    "notSaved": "The result is available, but could not be saved.",
+    "incompleteDetail": "Some checks did not finish. A strong warning can still apply to the evidence found.",
+    "checkedLinks": "Checked destinations ({{count}})",
+    "totalTime": "Analysis completed in {{ms}} ms",
+    "experimental": "Experimental scanner: routine bank messages can trigger false alarms. Verify warnings through official channels.",
+    "officialNumber": "Official number in Egypt",
+    "officialSource": "Official contact page"
+  },
+  "threats": {
+    "domain": "Domain",
+    "source": "Source",
+    "brandTarget": "Impersonated brand",
+    "reputationScore": "Reputation score",
+    "lastSeen": "Last seen",
+    "active": "Active",
+    "inactive": "Inactive",
+    "allSources": "All sources",
+    "totalMatching": "total matching",
+    "previous": "Previous",
+    "next": "Next",
+    "noResults": "No threats match these filters."
+  },
+  "stats": {
+    "totalEntries": "Total blacklist entries",
+    "activeEntries": "Active entries",
+    "totalScans": "Total scans",
+    "averageScore": "Average indicator strength",
+    "bySourceHeading": "Blacklist by source",
+    "byVerdictHeading": "Scans by verdict"
+  },
+  "common": {
+    "retry": "Try again",
+    "navigation": "Main navigation"
+  },
+  "error": {
+    "inputRequired": "Enter a link, a message, or both.",
+    "invalidInput": "Check the link and message length, then try again.",
+    "tooMany": "Too many requests. Wait a minute and try again.",
+    "requestFailed": "We could not complete the request. Please try again."
+  },
+  "verdict": {
+    "LOW": "No known warning signs",
+    "MEDIUM": "Needs verification",
+    "HIGH": "Strong phishing warning",
+    "INCOMPLETE": "Could not check fully"
+  },
+  "advice": {
+    "heading": "What to do next",
+    "LOW": [
+      "No known warning signs were found. This does not guarantee the content is safe.",
+      "Never share passwords, card details or verification codes."
+    ],
+    "MEDIUM": [
+      "Verify the message through the official app or a contact number you already trust.",
+      "Avoid using the link or phone number in the message."
+    ],
+    "HIGH": [
+      "Do not open the link, reply or share any verification codes.",
+      "Contact the organization through its official app or website.",
+      "If you already shared details, contact your bank immediately and change affected passwords."
+    ],
+    "INCOMPLETE": [
+      "Some required checks were unavailable. Treat the message with caution.",
+      "Verify through the official app or a trusted number, or try again later."
+    ]
+  },
+  "reason": {
+    "no_warning_signs": "Completed checks found no known warning signs.",
+    "blacklist_exact": "A checked link matches a reported phishing URL.",
+    "userinfo_brand": "The link disguises a brand before its real destination.",
+    "domain_embedding": "The destination embeds an official domain inside another domain.",
+    "brand_label_reuse": "The destination combines a brand name with an account-related action.",
+    "homoglyph_confusable": "The destination uses lookalike letters to impersonate an official domain.",
+    "text_high": "The message contains a strong phishing signal.",
+    "blacklist_domain": "The destination domain has previous phishing reports.",
+    "brand_resemblance": "The destination resembles a known brand.",
+    "url_patterns": "The link has patterns that deserve verification.",
+    "text_medium": "The message needs independent verification.",
+    "text_keywords": "The message contains suspicious phrases.",
+    "database_unavailable": "The threat database could not be checked.",
+    "blacklist_empty": "The threat database has no usable entries.",
+    "blacklist_stale": "The threat database needs a fresh update.",
+    "text_model_unavailable": "The language model could not check the message.",
+    "links_truncated": "There were more links than could be checked.",
+    "invalid_embedded_url": "A link inside the message could not be validated.",
+    "supporting_evidence": "The content needs independent verification.",
+    "blacklist_missing_source": "A required threat feed has not been loaded."
+  },
+  "pattern": {
+    "ip_address_host": "IP address destination",
+    "userinfo_in_url": "Credentials before the host",
+    "non_standard_port": "Unusual destination port",
+    "punycode_domain": "Internationalized domain",
+    "no_https": "Unencrypted HTTP link",
+    "suspicious_path_keyword": "Account-related URL path",
+    "long_url": "Long URL",
+    "many_subdomains": "Many subdomains"
+  },
+  "source": {
+    "manual": "Reviewed registry",
+    "phishtank": "PhishTank",
+    "openphish": "OpenPhish"
+  }
+}

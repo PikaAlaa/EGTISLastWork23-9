@@ -1,0 +1,438 @@
+{
+  "model": "bilstm_candidate",
+  "dataset_sha256": "13b0539d9f3cd730b31ebea3f319a76b0e065f1b2d4d1ca53bc88e0d043bf81c",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "cbf10d93319d39d848de513967395a117e1248546b43c77d54906fc944514e68",
+  "validation_n": 282,
+  "n": 282,
+  "phishing_n": 93,
+  "legitimate_n": 189,
+  "precision": 0.9680851063829787,
+  "recall": 0.978494623655914,
+  "f1": 0.9732620320855615,
+  "auc": 0.9970415884394379,
+  "rates": {
+    "precision": {
+      "value": 0.9680851063829787,
+      "n": 94,
+      "ci95": [
+        0.9103268539187764,
+        0.9890873725316923
+      ]
+    },
+    "recall": {
+      "value": 0.978494623655914,
+      "n": 93,
+      "ci95": [
+        0.9249453736530886,
+        0.9940825001915952
+      ]
+    },
+    "false_positive_rate": {
+      "value": 0.015873015873015872,
+      "n": 189,
+      "ci95": [
+        0.005412689893746943,
+        0.045621246900128955
+      ]
+    },
+    "confusion": {
+      "tp": 91,
+      "fp": 3,
+      "fn": 2,
+      "tn": 186
+    }
+  },
+  "low_threshold": 0.2,
+  "high_threshold": 0.69,
+  "final_test_run": false,
+  "interpretation": "Pooled validation selects candidates; source mix is not representative of everyday Egyptian SMS. Sparse or single-class groups cannot establish deployment accuracy.",
+  "by_source": {
+    "kaggle_arabic_phishing_fully_dataset": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 0.9142857142857143,
+      "recall": 1.0,
+      "f1": 0.9552238805970149,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 0.9142857142857143,
+          "n": 35,
+          "ci95": [
+            0.7762072603410349,
+            0.9704176317330301
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.02040816326530612,
+          "n": 147,
+          "ci95": [
+            0.0069645133345185885,
+            0.058279212744746595
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 3,
+          "fn": 0,
+          "tn": 144
+        }
+      }
+    },
+    "kaggle_dialectal_arabic_sms": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    },
+    "salloum_gaber_bilingual_corpus": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 0.9047619047619048,
+      "f1": 0.95,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 19,
+          "ci95": [
+            0.8318207759473837,
+            1
+          ]
+        },
+        "recall": {
+          "value": 0.9047619047619048,
+          "n": 21,
+          "ci95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 19,
+          "fp": 0,
+          "fn": 2,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "by_language": {
+    "ar": {
+      "n": 227,
+      "phishing_n": 53,
+      "legitimate_n": 174,
+      "precision": 0.9444444444444444,
+      "recall": 0.9622641509433962,
+      "f1": 0.9532710280373832,
+      "auc": 0.9953372370418565,
+      "rates": {
+        "precision": {
+          "value": 0.9444444444444444,
+          "n": 54,
+          "ci95": [
+            0.8489278568183386,
+            0.9809267315453091
+          ]
+        },
+        "recall": {
+          "value": 0.9622641509433962,
+          "n": 53,
+          "ci95": [
+            0.8724571280258164,
+            0.9895897127241731
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.017241379310344827,
+          "n": 174,
+          "ci95": [
+            0.005880660883649733,
+            0.049457722449207556
+          ]
+        },
+        "confusion": {
+          "tp": 51,
+          "fp": 3,
+          "fn": 2,
+          "tn": 171
+        }
+      }
+    },
+    "mixed": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    }
+  },
+  "by_content_type": {
+    "text": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "precision": 0.9680851063829787,
+      "recall": 0.978494623655914,
+      "f1": 0.9732620320855615,
+      "auc": 0.9970415884394379,
+      "rates": {
+        "precision": {
+          "value": 0.9680851063829787,
+          "n": 94,
+          "ci95": [
+            0.9103268539187764,
+            0.9890873725316923
+          ]
+        },
+        "recall": {
+          "value": 0.978494623655914,
+          "n": 93,
+          "ci95": [
+            0.9249453736530886,
+            0.9940825001915952
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.015873015873015872,
+          "n": 189,
+          "ci95": [
+            0.005412689893746943,
+            0.045621246900128955
+          ]
+        },
+        "confusion": {
+          "tp": 91,
+          "fp": 3,
+          "fn": 2,
+          "tn": 186
+        }
+      }
+    }
+  },
+  "by_source_content_type": {
+    "kaggle_arabic_phishing_fully_dataset / text": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 0.9142857142857143,
+      "recall": 1.0,
+      "f1": 0.9552238805970149,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 0.9142857142857143,
+          "n": 35,
+          "ci95": [
+            0.7762072603410349,
+            0.9704176317330301
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.02040816326530612,
+          "n": 147,
+          "ci95": [
+            0.0069645133345185885,
+            0.058279212744746595
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 3,
+          "fn": 0,
+          "tn": 144
+        }
+      }
+    },
+    "kaggle_dialectal_arabic_sms / text": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    },
+    "salloum_gaber_bilingual_corpus / text": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 0.9047619047619048,
+      "f1": 0.95,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 19,
+          "ci95": [
+            0.8318207759473837,
+            1
+          ]
+        },
+        "recall": {
+          "value": 0.9047619047619048,
+          "n": 21,
+          "ci95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 19,
+          "fp": 0,
+          "fn": 2,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "parameters": {
+    "vocabulary": 5000,
+    "embedding": 32,
+    "lstm_units": 16,
+    "seed": 42,
+    "epochs_max": 20,
+    "window_words": 150,
+    "stride": 75
+  },
+  "artifact_sha256": "fbeeee6a5df70d800c21e02a0410c82b7a466738dc3450f66e041a5f1c6d9b5c",
+  "tokenizer_sha256": "10f50ae736b836d9b2c0e978e0f859f27c30b92aa9172dfff2354d9a7b8fa7ee"
+}

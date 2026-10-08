@@ -1,14 +1,9 @@
-from app.engines.rule_based.url_pattern_analyzer import analyze_url_patterns
-
-
-def test_suspicious_url_accumulates_explainable_flags():
-    result = analyze_url_patterns("http://192.0.2.4/account/verify?otp=1")
-    names = {item["name"] for item in result["flags"]}
-    assert {"ip_host", "no_https", "credential_path"} <= names
-    assert result["score"] >= 70
-
-
-def test_clean_https_url_has_no_flags():
-    result = analyze_url_patterns("https://example.com/about")
-    assert result["score"] == 0
-    assert result["flags"] == []
+import pytest
+from app.engines.rule_based.url_pattern_analyzer import calculate_url_pattern_score
+@pytest.mark.parametrize('url,flag',[('http://example.com','no_https'),('http://192.0.2.1/login','ip_address_host'),('https://x@example.com/','userinfo_in_url'),('https://example.com:80','non_standard_port')])
+def test_warning_flags(url,flag):
+    assert flag in [x[0] for x in calculate_url_pattern_score(url)['flags']]
+def test_bare_domain_does_not_invent_http_warning():
+    assert calculate_url_pattern_score('cibeg.com')['flags']==[]
+def test_https_clean():
+    assert calculate_url_pattern_score('https://example.com')['score']==0

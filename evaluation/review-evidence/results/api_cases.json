@@ -1,0 +1,1304 @@
+{
+ "meta": {
+  "base": "http://127.0.0.1:8000",
+  "run_at": "2026-10-01T14:57:44",
+  "python": "3.12.3",
+  "blacklisted_url_used": "https://rllling.shop/spid/",
+  "blacklisted_url_upper": "https://RLLLING.SHOP/spid/"
+ },
+ "cases": [
+  {
+   "id": "D1a",
+   "description": "Userinfo trick: official host before @, real host after",
+   "request": {
+    "url": "https://cibeg.com:443@evil.example/login",
+    "text": "عميلنا العزيز، تم إيقاف بطاقتك مؤقتاً لأسباب أمنية. لإعادة التفعيل أدخل بيانات البطاقة ورمز التحقق خلال 24 ساعة على الرابط المرفق"
+   },
+   "http_status": 200,
+   "latency_ms": 1665.2,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 0.0,
+   "verdict": "LOW",
+   "allowlisted": true,
+   "engine_scores": {
+    "rule_based": 46.4,
+    "blacklist": 0.0,
+    "lstm": 99.68
+   },
+   "rule_parts": {
+    "arabic_keyword": 20.0,
+    "english_keyword": 0.0,
+    "domain_typosquatting": 0.0,
+    "url_pattern": 33.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 50.16,
+    "coverage": 100.0,
+    "agreement": 0.32,
+    "engines_considered": 3
+   },
+   "pass": false
+  },
+  {
+   "id": "D1b",
+   "description": "Same URL, no text",
+   "request": {
+    "url": "https://cibeg.com:443@evil.example/login"
+   },
+   "http_status": 200,
+   "latency_ms": 14.5,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 0.0,
+   "verdict": "LOW",
+   "allowlisted": true,
+   "engine_scores": {
+    "rule_based": 33.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 33.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 66.84,
+    "coverage": 66.67,
+    "agreement": 67.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D2",
+   "description": "Official CIB URL with a phishing message",
+   "request": {
+    "url": "https://www.cibeg.com/",
+    "text": "عميلنا العزيز، تم إيقاف بطاقتك مؤقتاً لأسباب أمنية. لإعادة التفعيل أدخل بيانات البطاقة ورمز التحقق خلال 24 ساعة على الرابط المرفق"
+   },
+   "http_status": 200,
+   "latency_ms": 125.7,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 0.0,
+   "verdict": "LOW",
+   "allowlisted": true,
+   "engine_scores": {
+    "rule_based": 20.0,
+    "blacklist": 0.0,
+    "lstm": 99.68
+   },
+   "rule_parts": {
+    "arabic_keyword": 20.0,
+    "english_keyword": 0.0,
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 50.16,
+    "coverage": 100.0,
+    "agreement": 0.32,
+    "engines_considered": 3
+   },
+   "pass": false
+  },
+  {
+   "id": "D4",
+   "description": "CIB impersonation message and look-alike link",
+   "request": {
+    "url": "http://cib-egypt-secure.com/verify",
+    "text": "CIB: تم تعليق حسابك لأسباب أمنية. قم بتحديث بياناتك فوراً عبر الرابط لتجنب إغلاق الحساب نهائياً"
+   },
+   "http_status": 200,
+   "latency_ms": 94.9,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 44.77,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 49.6,
+    "blacklist": 0.0,
+    "lstm": 99.64
+   },
+   "rule_parts": {
+    "arabic_keyword": 40.0,
+    "english_keyword": 0.0,
+    "domain_typosquatting": 0.0,
+    "url_pattern": 16.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 50.18,
+    "coverage": 100.0,
+    "agreement": 0.36,
+    "engines_considered": 3
+   },
+   "pass": false
+  },
+  {
+   "id": "D5a",
+   "description": "Blacklisted URL inside the message, URL field empty",
+   "request": {
+    "text": "شوف اللينك ده: https://rllling.shop/spid/"
+   },
+   "http_status": 200,
+   "latency_ms": 88.8,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 2.92,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 3.9
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 81.38,
+    "coverage": 66.67,
+    "agreement": 96.1,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D5b",
+   "description": "Same blacklisted URL in the URL field (reference)",
+   "request": {
+    "url": "https://rllling.shop/spid/"
+   },
+   "http_status": 200,
+   "latency_ms": 16.1,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 51.43,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 90.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "exact",
+   "confidence": {
+    "score": 38.34,
+    "coverage": 66.67,
+    "agreement": 10.0,
+    "engines_considered": 2
+   },
+   "pass": true
+  },
+  {
+   "id": "D6a",
+   "description": "Short-name look-alike: NBE",
+   "request": {
+    "url": "http://nbe-online-login.com/"
+   },
+   "http_status": 200,
+   "latency_ms": 11.9,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 3.43,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 8.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 8.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.34,
+    "coverage": 66.67,
+    "agreement": 92.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D6b",
+   "description": "Short-name look-alike: CIB",
+   "request": {
+    "url": "http://cib-eg.net/login"
+   },
+   "http_status": 200,
+   "latency_ms": 13.0,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 6.86,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 16.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 16.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 75.34,
+    "coverage": 66.67,
+    "agreement": 84.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D6c",
+   "description": "Short-name look-alike: QNB",
+   "request": {
+    "url": "http://qnb-verify-account.com/"
+   },
+   "http_status": 200,
+   "latency_ms": 14.5,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 3.43,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 8.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 8.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.34,
+    "coverage": 66.67,
+    "agreement": 92.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D7",
+   "description": "Official CIB subdomain",
+   "request": {
+    "url": "https://ebanking.cibeg.com/"
+   },
+   "http_status": 200,
+   "latency_ms": 24.8,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 40.71,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 95.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 95.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 35.84,
+    "coverage": 66.67,
+    "agreement": 5.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D8a",
+   "description": "Unrelated word containing a brand label",
+   "request": {
+    "url": "https://afternoon.com/"
+   },
+   "http_status": 200,
+   "latency_ms": 12.8,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 40.71,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 95.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 95.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 35.84,
+    "coverage": 66.67,
+    "agreement": 5.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D8b",
+   "description": "Unrelated word containing a brand label",
+   "request": {
+    "url": "https://elite.eg/"
+   },
+   "http_status": 200,
+   "latency_ms": 15.5,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 40.71,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 95.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 95.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 35.84,
+    "coverage": 66.67,
+    "agreement": 5.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D9a",
+   "description": "Blacklisted URL with upper-case host",
+   "request": {
+    "url": "https://RLLLING.SHOP/spid/"
+   },
+   "http_status": 200,
+   "latency_ms": 12.7,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 34.29,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 60.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 53.34,
+    "coverage": 66.67,
+    "agreement": 40.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D9b",
+   "description": "Blacklisted URL with a fragment",
+   "request": {
+    "url": "https://rllling.shop/spid/#x"
+   },
+   "http_status": 200,
+   "latency_ms": 11.7,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 34.29,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 60.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 53.34,
+    "coverage": 66.67,
+    "agreement": 40.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D9c",
+   "description": "Blacklisted URL with a tracking parameter",
+   "request": {
+    "url": "https://rllling.shop/spid/?utm_source=sms"
+   },
+   "http_status": 200,
+   "latency_ms": 16.9,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 34.29,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 60.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 53.34,
+    "coverage": 66.67,
+    "agreement": 40.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D10a",
+   "description": "Popular legitimate link",
+   "request": {
+    "url": "https://www.google.com/"
+   },
+   "http_status": 200,
+   "latency_ms": 16.1,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 48.57,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 85.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 40.84,
+    "coverage": 66.67,
+    "agreement": 15.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D10b",
+   "description": "WhatsApp click-to-chat link",
+   "request": {
+    "url": "https://wa.me/201000000000"
+   },
+   "http_status": 200,
+   "latency_ms": 12.3,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 45.71,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 80.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 43.34,
+    "coverage": 66.67,
+    "agreement": 20.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D10c",
+   "description": "Microsoft Forms link",
+   "request": {
+    "url": "https://forms.office.com/r/AbC123xyz"
+   },
+   "http_status": 200,
+   "latency_ms": 14.1,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 48.57,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 85.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 40.84,
+    "coverage": 66.67,
+    "agreement": 15.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D10d",
+   "description": "OneDrive short link",
+   "request": {
+    "url": "https://1drv.ms/w/s!AbCdEf123"
+   },
+   "http_status": 200,
+   "latency_ms": 13.0,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 42.86,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 75.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 0.0
+   },
+   "blacklist_match": "domain",
+   "confidence": {
+    "score": 45.84,
+    "coverage": 66.67,
+    "agreement": 25.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D12a",
+   "description": "javascript: scheme",
+   "request": {
+    "url": "javascript:alert(1)"
+   },
+   "http_status": 500,
+   "latency_ms": 5.6,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "error": {
+    "raw": "Internal Server Error"
+   },
+   "pass": false
+  },
+  {
+   "id": "D12b",
+   "description": "Invalid port",
+   "request": {
+    "url": "http://example.com:99999/"
+   },
+   "http_status": 500,
+   "latency_ms": 6.2,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "error": {
+    "raw": "Internal Server Error"
+   },
+   "pass": false
+  },
+  {
+   "id": "D13",
+   "description": "50,000-character URL",
+   "request": {
+    "url": "https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...[50020 chars]"
+   },
+   "http_status": 200,
+   "latency_ms": 19.4,
+   "accept": [
+    "400",
+    "413",
+    "422"
+   ],
+   "final_score": 3.43,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 8.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 8.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.34,
+    "coverage": 66.67,
+    "agreement": 92.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "D14",
+   "description": "Plain word in the URL field",
+   "request": {
+    "url": "hello"
+   },
+   "http_status": 200,
+   "latency_ms": 13.9,
+   "accept": [
+    "400",
+    "422"
+   ],
+   "final_score": 3.43,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 8.0,
+    "blacklist": 0.0
+   },
+   "rule_parts": {
+    "domain_typosquatting": 0.0,
+    "url_pattern": 8.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.34,
+    "coverage": 66.67,
+    "agreement": 92.0,
+    "engines_considered": 2
+   },
+   "pass": false
+  }
+ ],
+ "everyday_sms": [
+  {
+   "id": "E14-01",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم خصم 350.00 جنيه من بطاقتك المنتهية بـ 0000 لدى كارفور مصر بتاريخ 28/09"
+   },
+   "http_status": 200,
+   "latency_ms": 118.4,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 49.91,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 66.55
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 50.06,
+    "coverage": 66.67,
+    "agreement": 33.45,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-02",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "كود التحقق الخاص بك هو 000000. لا تشارك هذا الكود مع أي شخص"
+   },
+   "http_status": 200,
+   "latency_ms": 125.7,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 35.31,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 30.0,
+    "lstm": 37.08
+   },
+   "rule_parts": {
+    "arabic_keyword": 30.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.8,
+    "coverage": 66.67,
+    "agreement": 92.92,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-03",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم شحن رصيدك بمبلغ 50 جنيه. رصيدك الحالي 63.25 جنيه"
+   },
+   "http_status": 200,
+   "latency_ms": 128.9,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 4.7,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 6.27
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 80.2,
+    "coverage": 66.67,
+    "agreement": 93.73,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-04",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "موعدك مع دكتور الأسنان يوم الخميس الساعة 7 مساءً. للإلغاء اتصل بالعيادة"
+   },
+   "http_status": 200,
+   "latency_ms": 96.1,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 0.9,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 1.2
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 82.73,
+    "coverage": 66.67,
+    "agreement": 98.8,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-05",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "طلبك في الطريق، المندوب هيوصل خلال 20 دقيقة"
+   },
+   "http_status": 200,
+   "latency_ms": 149.9,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 7.4,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 9.87
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 78.4,
+    "coverage": 66.67,
+    "agreement": 90.13,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-06",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم سداد فاتورة الكهرباء لشهر سبتمبر بقيمة 412 جنيه. شكراً لاستخدامك فوري"
+   },
+   "http_status": 200,
+   "latency_ms": 113.2,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 6.32,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 8.43
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.12,
+    "coverage": 66.67,
+    "agreement": 91.57,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-07",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم إيداع راتب شهر سبتمبر في حسابك المنتهي بـ 0000. الرصيد المتاح 12,450 جنيه"
+   },
+   "http_status": 200,
+   "latency_ms": 120.1,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 26.24,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 34.99
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 65.84,
+    "coverage": 66.67,
+    "agreement": 65.01,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-08",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "شحنتك رقم 0000 هتتسلم بكرة بين 9 الصبح و 5 المغرب"
+   },
+   "http_status": 200,
+   "latency_ms": 132.4,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 2.76,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 3.68
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 81.5,
+    "coverage": 66.67,
+    "agreement": 96.32,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-09",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تذكير: آخر موعد لسداد قسط المدرسة يوم 15 أكتوبر"
+   },
+   "http_status": 200,
+   "latency_ms": 82.7,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 5.51,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 7.35
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.66,
+    "coverage": 66.67,
+    "agreement": 92.65,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-10",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "اجتماع أولياء الأمور يوم السبت الساعة 10 صباحاً في المدرسة"
+   },
+   "http_status": 200,
+   "latency_ms": 113.2,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 1.27,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 1.69
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 82.49,
+    "coverage": 66.67,
+    "agreement": 98.31,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-11",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم تجديد باقة الإنترنت الخاصة بك بنجاح"
+   },
+   "http_status": 200,
+   "latency_ms": 125.0,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 61.32,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 81.76
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 42.45,
+    "coverage": 66.67,
+    "agreement": 18.24,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "E14-12",
+   "description": "Everyday Egyptian SMS",
+   "request": {
+    "text": "تم تفعيل خدمة الإنترنت البنكي بنجاح. لأي استفسار اتصل بخدمة العملاء"
+   },
+   "http_status": 200,
+   "latency_ms": 83.2,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 68.69,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 91.59
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 37.54,
+    "coverage": 66.67,
+    "agreement": 8.41,
+    "engines_considered": 2
+   },
+   "pass": false
+  }
+ ],
+ "robustness": [
+  {
+   "id": "long_legit",
+   "description": "Legitimate message longer than 200 tokens",
+   "request": {
+    "text": "الاجتماع الأسبوعي للفريق هيكون يوم الأحد الساعة 11 الصبح في قاعة الاجتماعات الاجتماع الأسبوعي للفريق هيكون يوم الأحد الس...[1899 chars]"
+   },
+   "http_status": 200,
+   "latency_ms": 75.4,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 0.26,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 0.34
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 83.16,
+    "coverage": 66.67,
+    "agreement": 99.66,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "long_phish_tail",
+   "description": "Phishing request placed after 200 tokens of filler",
+   "request": {
+    "text": "أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس والحمد لله أخبار الفريق والمشروع ماشية كويس...[1889 chars]"
+   },
+   "http_status": 200,
+   "latency_ms": 114.0,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 5.25,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 20.0,
+    "lstm": 0.33
+   },
+   "rule_parts": {
+    "arabic_keyword": 20.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 73.5,
+    "coverage": 66.67,
+    "agreement": 80.33,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "short_phish",
+   "description": "Very short phishing message",
+   "request": {
+    "text": "حسابك اتقفل، ابعت الكود"
+   },
+   "http_status": 200,
+   "latency_ms": 86.3,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 56.39,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 75.18
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 45.75,
+    "coverage": 66.67,
+    "agreement": 24.82,
+    "engines_considered": 2
+   },
+   "pass": true
+  },
+  {
+   "id": "mixed_lang",
+   "description": "Mixed Arabic and English phishing",
+   "request": {
+    "text": "Dear customer حسابك هيتقفل today، verify بياناتك now"
+   },
+   "http_status": 200,
+   "latency_ms": 95.2,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 64.44,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 85.92
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 40.38,
+    "coverage": 66.67,
+    "agreement": 14.08,
+    "engines_considered": 2
+   },
+   "pass": true
+  },
+  {
+   "id": "english_phish",
+   "description": "English phishing",
+   "request": {
+    "text": "Your account has been suspended. Verify your card details within 24 hours to avoid closure."
+   },
+   "http_status": 200,
+   "latency_ms": 97.9,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 69.17,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 20.0,
+    "lstm": 85.56
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 20.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 50.55,
+    "coverage": 66.67,
+    "agreement": 34.44,
+    "engines_considered": 2
+   },
+   "pass": true
+  },
+  {
+   "id": "english_legit",
+   "description": "English legitimate",
+   "request": {
+    "text": "Hi, the team meeting moved to 3 pm tomorrow. See you there."
+   },
+   "http_status": 200,
+   "latency_ms": 102.5,
+   "accept": [
+    "LOW"
+   ],
+   "final_score": 0.56,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 0.75
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 82.96,
+    "coverage": 66.67,
+    "agreement": 99.25,
+    "engines_considered": 2
+   },
+   "pass": false
+  },
+  {
+   "id": "multi_link",
+   "description": "Message with a clean link then a blacklisted link",
+   "request": {
+    "text": "الجدول هنا https://www.google.com/ والدفع هنا https://rllling.shop/spid/"
+   },
+   "http_status": 200,
+   "latency_ms": 96.1,
+   "accept": [
+    "HIGH"
+   ],
+   "final_score": 6.27,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "engine_scores": {
+    "rule_based": 0.0,
+    "lstm": 8.36
+   },
+   "rule_parts": {
+    "arabic_keyword": 0.0,
+    "english_keyword": 0.0
+   },
+   "blacklist_match": null,
+   "confidence": {
+    "score": 79.16,
+    "coverage": 66.67,
+    "agreement": 91.64,
+    "engines_considered": 2
+   },
+   "pass": false
+  }
+ ]
+}

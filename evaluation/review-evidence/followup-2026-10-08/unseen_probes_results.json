@@ -1,0 +1,92 @@
+[
+ {
+  "probe": "brand domain as subdomain",
+  "expected": "HIGH",
+  "got": "HIGH",
+  "reason": "domain_embedding"
+ },
+ {
+  "probe": "cyrillic c in cibeg",
+  "expected": "HIGH",
+  "got": "HIGH",
+  "reason": "homoglyph_confusable"
+ },
+ {
+  "probe": "instapay lookalike",
+  "expected": "HIGH",
+  "got": "HIGH",
+  "reason": "brand_label_reuse"
+ },
+ {
+  "probe": "fawry lookalike, no action word",
+  "expected": "MEDIUM/HIGH",
+  "got": "MEDIUM",
+  "reason": "brand_resemblance"
+ },
+ {
+  "probe": "banquemisr typo",
+  "expected": "MEDIUM/HIGH",
+  "got": "MEDIUM",
+  "reason": "brand_resemblance"
+ },
+ {
+  "probe": "vodafone cash lookalike",
+  "expected": "MEDIUM/HIGH",
+  "got": "MEDIUM",
+  "reason": "brand_resemblance"
+ },
+ {
+  "probe": "official NBE deep link",
+  "expected": "LOW",
+  "got": "LOW",
+  "reason": "no_warning_signs"
+ },
+ {
+  "probe": "official Banque Misr subdomain",
+  "expected": "LOW",
+  "got": "LOW",
+  "reason": "no_warning_signs"
+ },
+ {
+  "probe": "official vodafone subdomain",
+  "expected": "LOW",
+  "got": "LOW",
+  "reason": "no_warning_signs"
+ },
+ {
+  "probe": "defanged link in SMS",
+  "expected": "HIGH",
+  "got": "HIGH",
+  "reason": "brand_label_reuse"
+ },
+ {
+  "probe": "bare domain in SMS",
+  "expected": "HIGH",
+  "got": "HIGH",
+  "reason": "brand_label_reuse"
+ },
+ {
+  "probe": "legit NBE SMS with official link",
+  "expected": "LOW/MEDIUM",
+  "got": "HIGH",
+  "reason": "text_high"
+ },
+ {
+  "probe": "scheme bare domain",
+  "expected": "LOW",
+  "got": "LOW",
+  "reason": "no_warning_signs"
+ },
+ {
+  "probe": "https on port 80",
+  "expected": "not 400",
+  "got": "MEDIUM",
+  "reason": "url_patterns"
+ },
+ {
+  "probe": "11 links",
+  "expected": "INCOMPLETE",
+  "got": "INCOMPLETE",
+  "reason": "links_truncated"
+ }
+]

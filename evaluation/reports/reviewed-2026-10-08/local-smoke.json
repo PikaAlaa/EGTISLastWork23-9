@@ -1,0 +1,36 @@
+{
+  "component_health": {
+    "status": "ready",
+    "blacklist": {
+      "available": true,
+      "reason": null,
+      "count": 69486,
+      "last_seen": "2026-10-08",
+      "sources": {
+        "openphish": {
+          "last_seen": "2026-10-08",
+          "stale": false
+        },
+        "phishtank": {
+          "last_seen": "2026-10-08",
+          "stale": false
+        }
+      }
+    },
+    "text_model": {
+      "available": true,
+      "backend": "char"
+    }
+  },
+  "userinfo_disguise": "passed",
+  "official_subdomain": "passed",
+  "privacy_marker_database_logs_errors": "passed",
+  "authentication_proxy_origin_host_size_session": "passed",
+  "browser_bundle_has_no_server_key": "passed",
+  "browser_route_refresh": "passed",
+  "concurrent_proxy_requests": {
+    "n": 10,
+    "passed": true,
+    "p95_ms": 149.6057149994158
+  }
+}

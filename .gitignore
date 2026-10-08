@@ -1,15 +1,58 @@
-﻿.env
-.pytest_cache/
+# Python
+venv/
 __pycache__/
 *.pyc
-.DS_Store
-.venv/
-venv/
+*.egg-info/
+.pytest_cache/
+
+# Env files
+.env
+.env.local
+.env.*
+!.env.example
+
+# Node / React
 node_modules/
-dist/
+frontend/dist/
+frontend/build/
+etis-frontend/dist/
+
+# ML artifacts (large files -- generally track structure, not weights,
+# EXCEPT the two production inference artifacts below, which are
+# deliberately committed. See CLAUDE.md "LSTM artifact storage" for the
+# reasoning: these are NOT bit-identical-reproducible via retraining
+# (weight init is random), so a fresh clone / hosted deployment
+# (Railway/Render) needs them tracked in git, not regenerated.
+ml/models/*.h5
+ml/models/*.keras
+ml/models/*.pkl
+!ml/models/lstm_phishing_classifier.keras
+
+# Data: dataset.csv is tracked intentionally (thesis deliverable, small
+# enough). The preprocessed .npy arrays are large and fully regenerable
+# by re-running ml/preprocess_lstm_data.py against the tracked dataset,
+# so those stay ignored. tokenizer.pkl is the other exception -- like the
+# model weights, it's not deterministically reproducible (Keras Tokenizer
+# fit order/hashing), so it's committed alongside the model.
+ml/data/*.npy
+!ml/data/tokenizer.pkl
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local implementation runtime and private submissions
+.venv/
+var/
+.local/
+*.log
 *.db
+*.sqlite
 *.sqlite3
-ml/artifacts/*
-!ml/artifacts/.gitkeep
-!ml/artifacts/*.keras
-!ml/artifacts/*.joblib
+.env
+data/private/
+data/processed/v2/
+ml/models/*candidate*
+evaluation/local-results/

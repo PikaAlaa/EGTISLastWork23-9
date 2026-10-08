@@ -1,0 +1,19 @@
+{
+ "first_start": {
+  "startup_s": 7.9,
+  "idle_rss_mb": 661,
+  "first_text_scan_s": 1.65,
+  "warm_text_scan_s_median": 0.1,
+  "warm_url_scan_s_median": 0.008,
+  "rss_after_scans_mb": 714
+ },
+ "second_start": {
+  "startup_s": 4.2,
+  "idle_rss_mb": 666,
+  "first_text_scan_s": 1.38,
+  "warm_text_scan_s_median": 0.096,
+  "warm_url_scan_s_median": 0.009,
+  "rss_after_scans_mb": 715
+ },
+ "note": "first_start may include cold disk cache; second_start is the warm start-up figure."
+}

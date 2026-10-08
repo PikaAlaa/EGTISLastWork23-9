@@ -1,0 +1,7 @@
+.git
+.env
+.venv
+var
+etis-frontend/node_modules
+data/private
+evaluation/review-evidence

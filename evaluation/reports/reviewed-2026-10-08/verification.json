@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-08",
+  "base_commit": "bd56f3b",
+  "tests_passed": 144,
+  "build": "passed",
+  "lint": "passed",
+  "development_cases_passed": 23,
+  "robustness_passed": 7,
+  "original_artifacts_unchanged": true,
+  "model_artifact_sha256": "8f5489ba82604084886080501da6306b8b6b5d784a8b83271f52034b00b533e6",
+  "dataset_sha256": "13b0539d9f3cd730b31ebea3f319a76b0e065f1b2d4d1ca53bc88e0d043bf81c",
+  "final_test_run": false,
+  "push_performed": false,
+  "acceptance_status": "incomplete: real data, approvals, SMS false alarms and new-domain detection remain",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "e1d5ce124b465f413699e54fd9890c7e8bf61617dd0eeba2d9ab42a91b9776e7",
+  "followup": "three-candidate comparison, source-level validation and portable content identity",
+  "full_corpus_portability": "passed",
+  "candidates_compared": [
+    "char",
+    "bilstm",
+    "lightgbm"
+  ],
+  "tests_expected_failures": 1,
+  "expected_failure": "Supplied NBE notice still HIGH instead of LOW/MEDIUM",
+  "reviewer_followup": {
+    "detection_passed": 23,
+    "detection_total": 23,
+    "robustness_passed": 7,
+    "robustness_total": 7,
+    "followup_passed": 14,
+    "followup_total": 15,
+    "supplied_probe_results_matched": 15,
+    "known_limitations": [
+      "legit NBE SMS with official link"
+    ]
+  },
+  "reviewer_evidence_original_checksums": "verified"
+}

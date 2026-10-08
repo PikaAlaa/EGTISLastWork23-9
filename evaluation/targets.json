@@ -1,0 +1,15 @@
+{
+  "status": "proposed; supervisor approval required before final test",
+  "text_high_precision": 0.90,
+  "text_high_recall": 0.85,
+  "known_domain_medium_recall": 0.80,
+  "new_domain_minimum_recall": null,
+  "real_sms_minimum": 200,
+  "real_sms_high_maximum": 0.05,
+  "real_sms_low_minimum": 0.80,
+  "real_shared_links_minimum": 200,
+  "real_shared_high_maximum": 0.02,
+  "real_shared_low_minimum": 0.90,
+  "approved_by": null,
+  "approved_at": null
+}

@@ -1,0 +1,10 @@
+{
+ "internet_reachable": false,
+ "engines_applied": [
+  "rule_based",
+  "blacklist",
+  "lstm"
+ ],
+ "verdict": "MEDIUM",
+ "final_score": 22.58
+}

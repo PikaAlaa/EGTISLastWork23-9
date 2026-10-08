@@ -1,0 +1,264 @@
+{
+  "kind": "development fixtures; invented messages; not population accuracy",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "model": "char",
+  "policy": "decision-v2",
+  "api_cases": [
+    {
+      "id": "D1a",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D1b",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D2",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D4",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D5a",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D5b",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D6a",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D6b",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D6c",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D7",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D8a",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D8b",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D9a",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D9b",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D9c",
+      "actual": "HIGH",
+      "expected": [
+        "HIGH"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D10a",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D10b",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D10c",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D10d",
+      "actual": "LOW",
+      "expected": [
+        "LOW"
+      ],
+      "passed": true
+    },
+    {
+      "id": "D12a",
+      "actual": 400,
+      "expected": [
+        400,
+        422
+      ],
+      "passed": true
+    },
+    {
+      "id": "D12b",
+      "actual": 400,
+      "expected": [
+        400,
+        422
+      ],
+      "passed": true
+    },
+    {
+      "id": "D13",
+      "actual": 400,
+      "expected": [
+        400,
+        413,
+        422
+      ],
+      "passed": true
+    },
+    {
+      "id": "D14",
+      "actual": 400,
+      "expected": [
+        400,
+        422
+      ],
+      "passed": true
+    }
+  ],
+  "robustness": [
+    {
+      "id": "long_legit",
+      "actual": "LOW",
+      "passed": true,
+      "model_probability": 0.09216723093261385
+    },
+    {
+      "id": "long_phish_tail",
+      "actual": "HIGH",
+      "passed": true,
+      "model_probability": 0.8900686340596657
+    },
+    {
+      "id": "short_phish",
+      "actual": "HIGH",
+      "passed": true,
+      "model_probability": 0.454909914875076
+    },
+    {
+      "id": "mixed_lang",
+      "actual": "HIGH",
+      "passed": true,
+      "model_probability": 0.6853491615690647
+    },
+    {
+      "id": "english_phish",
+      "actual": "HIGH",
+      "passed": true,
+      "model_probability": 0.6638048650256102
+    },
+    {
+      "id": "english_legit",
+      "actual": "LOW",
+      "passed": true,
+      "model_probability": 0.031899178611792756
+    },
+    {
+      "id": "multi_link",
+      "actual": "HIGH",
+      "passed": true,
+      "model_probability": 0.46235594550503806
+    }
+  ],
+  "everyday_invented": {
+    "LOW": 4,
+    "HIGH": 5,
+    "MEDIUM": 3
+  },
+  "warm_latency": {
+    "url": {
+      "n": 30,
+      "p50_ms": 0.9075499983737245,
+      "p95_ms": 1.0589750014332817
+    },
+    "text": {
+      "n": 30,
+      "p50_ms": 0.5944500007899478,
+      "p95_ms": 0.7569000023067924
+    },
+    "mixed": {
+      "n": 30,
+      "p50_ms": 1.5789000026416034,
+      "p95_ms": 1.7013649965520017
+    }
+  },
+  "final_test_run": false
+}

@@ -1,0 +1,55 @@
+{
+  "stage": "development",
+  "dataset_sha256": "13b0539d9f3cd730b31ebea3f319a76b0e065f1b2d4d1ca53bc88e0d043bf81c",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "e1d5ce124b465f413699e54fd9890c7e8bf61617dd0eeba2d9ab42a91b9776e7",
+  "policy": "decision-v2",
+  "live_blacklist_used": false,
+  "known_url_functional": {
+    "functional_only": true,
+    "all_high": true,
+    "matched": 1000,
+    "variants": 1000
+  },
+  "new_registered_domains": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.9868073878627969,
+        "n": 1137,
+        "ci95": [
+          0.9783474073972518,
+          0.9919889977543663
+        ]
+      },
+      "recall": {
+        "value": 0.17179604960955444,
+        "n": 6531,
+        "ci95": [
+          0.16284148194701722,
+          0.18113648186212303
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.00505902192242833,
+        "n": 2965,
+        "ci95": [
+          0.0030682765994642894,
+          0.008330600467597718
+        ]
+      },
+      "confusion": {
+        "tp": 1122,
+        "fp": 15,
+        "fn": 5409,
+        "tn": 2950
+      }
+    },
+    "verdicts": {
+      "LOW": 8359,
+      "MEDIUM": 1136,
+      "HIGH": 1
+    },
+    "n": 9496
+  },
+  "sample_limit": 0
+}

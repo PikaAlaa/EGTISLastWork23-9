@@ -1,0 +1,15 @@
+{
+  "kind": "full rebuilt corpus LF/CRLF equivalence check",
+  "lf": {
+    "dataset_sha256": "13b0539d9f3cd730b31ebea3f319a76b0e065f1b2d4d1ca53bc88e0d043bf81c",
+    "dataset_fingerprint_method": "etis-csv-content-v1",
+    "dataset_file_sha256": "e1d5ce124b465f413699e54fd9890c7e8bf61617dd0eeba2d9ab42a91b9776e7"
+  },
+  "crlf": {
+    "dataset_sha256": "13b0539d9f3cd730b31ebea3f319a76b0e065f1b2d4d1ca53bc88e0d043bf81c",
+    "dataset_fingerprint_method": "etis-csv-content-v1",
+    "dataset_file_sha256": "cbf10d93319d39d848de513967395a117e1248546b43c77d54906fc944514e68"
+  },
+  "content_equal": true,
+  "raw_bytes_equal": false
+}

@@ -1,81 +1,228 @@
-"""Calibrate a binary phishing decision threshold on the validation split."""
+"""
+calibrate_thresholds.py
 
-from __future__ import annotations
+Runs the actual risk_scoring aggregator (app/engines/risk_scoring.py)
+against every VALIDATION-split row (never test -- picking thresholds using
+test data would let them overfit to numbers meant to be reported unbiased
+later) and uses the real score distributions to pick LOW/MEDIUM/HIGH
+cutoffs, replacing the provisional 39/69 round numbers.
 
-import csv
-import json
+Methodology: set the HIGH cutoff at the score below which 95% of TRUE
+LEGITIMATE validation examples fall (so only the riskiest-looking 5% of
+legitimate traffic would be HIGH-flagged), and the LOW cutoff at the score
+above which 95% of TRUE PHISHING validation examples fall (so only the
+least-obvious 5% of real phishing could slip into LOW). Both cutoffs are
+then rounded in the conservative direction -- LOW rounded down, HIGH
+rounded up -- shrinking the outer bands and growing MEDIUM, consistent
+with this project's stated preference (Chapter 5.2/5.4) for over-flagging
+over under-flagging in a security tool.
+
+KNOWN CAVEAT (see conversation record / Chapter 7): blacklist_entries was
+seeded from the full PhishTank/OpenPhish feeds, not just the training
+split, so some validation-split phishing URLs are themselves already in
+the blacklist. This inflates their scores via trivial exact-match rather
+than genuine generalization. The resulting thresholds reflect how the
+actual deployed system scores these inputs (still meaningful), but are
+NOT a clean measure of generalization to unseen phishing -- worth stating
+as a limitation.
+
+Run from the project root:
+    python evaluation/calibrate_thresholds.py
+"""
+
+import sys
+import time
 from pathlib import Path
 
-from sklearn.metrics import precision_recall_fscore_support
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
-import sys
-sys.path.insert(0, str(ROOT / "backend"))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT / "backend"))  # so `app.*` imports resolve
 
-from app.engines.ml import calculate_ml_score  # noqa: E402
+from app.core.database import SessionLocal  # noqa: E402
 from app.engines.risk_scoring import calculate_final_risk_score  # noqa: E402
-from app.engines.rule_based import calculate_rule_based_score  # noqa: E402
-from app.engines.rule_based.domain_typosquatting_detector import normalize_domain  # noqa: E402
-from app.engines.rule_based.url_utils import canonicalize_url  # noqa: E402
-from app.engines.blacklist import SHARED_HOSTING_SUFFIXES  # noqa: E402
 
-DATASET = ROOT / "data" / "processed" / "dataset.csv"
-REPORT = ROOT / "evaluation" / "reports" / "threshold_calibration.json"
+DATASET_PATH = PROJECT_ROOT / "data" / "processed" / "dataset.csv"
+OUTPUT_DIR = PROJECT_ROOT / "evaluation"
+TEXT_CONTENT_TYPES = ("text", "email")
+
+PURITY_TARGET = 0.95  # 95th percentile in each direction
 
 
-def main() -> None:
-    with DATASET.open(newline="", encoding="utf-8-sig") as stream:
-        rows = list(csv.DictReader(stream))
-    train_bad_urls = {
-        canonicalize_url(row["text"]) for row in rows
-        if row["split"] == "train" and row["content_type"] == "url" and row["label"] == "phishing"
-    }
-    train_bad_domains = {normalize_domain(url) for url in train_bad_urls}
-    scores, labels = [], []
-    for row in rows:
-        if row["split"] != "val":
-            continue
-        url = row["text"] if row["content_type"] == "url" else None
-        text = row["text"] if row["content_type"] in {"text", "email"} else None
-        if not url:
-            blacklist = {"applicable": False, "score": None, "reason": "No URL supplied"}
-        elif canonicalize_url(url) in train_bad_urls:
-            blacklist = {"applicable": True, "score": 98.0, "match_type": "exact", "reason": "Train-split exact match"}
-        elif normalize_domain(url) in train_bad_domains and not any(
-            normalize_domain(url) == suffix or normalize_domain(url).endswith(f".{suffix}")
-            for suffix in SHARED_HOSTING_SUFFIXES
-        ):
-            blacklist = {"applicable": True, "score": 75.0, "match_type": "domain", "reason": "Train-split domain match"}
+def score_row(row, db):
+    """Run one dataset row through the aggregator. Returns final_score, or
+    None if the row errors out (logged, not fatal -- a handful of bad rows
+    shouldn't kill a 13,000-row run)."""
+    try:
+        if row["content_type"] in TEXT_CONTENT_TYPES:
+            result = calculate_final_risk_score(text=row["text"])
         else:
-            blacklist = {"applicable": True, "score": 0.0, "match_type": None, "reason": "No train-split match"}
-        engines = {
-            "rule_based": calculate_rule_based_score(text=text, url=url),
-            "blacklist": blacklist,
-            "ml": calculate_ml_score(text),
-        }
-        scores.append(calculate_final_risk_score(engines)["final_score"])
-        labels.append(1 if row["label"] == "phishing" else 0)
+            result = calculate_final_risk_score(url=row["text"], db=db)
+        return result["final_score"]
+    except Exception as e:
+        return None, str(e)
 
-    candidates = []
-    for threshold in range(20, 91):
-        predictions = [int(score >= threshold) for score in scores]
-        precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions, average="binary", zero_division=0)
-        false_positives = sum(pred == 1 and label == 0 for pred, label in zip(predictions, labels))
-        candidates.append({"threshold": threshold, "precision": precision, "recall": recall, "f1": f1, "false_positives": false_positives})
-    best = max(candidates, key=lambda item: (item["f1"], item["precision"], -item["false_positives"]))
-    report = {
-        "validation_samples": len(labels),
-        "blacklist_protocol": "built from training-split phishing URLs only; validation/test feed rows were not seeded",
-        "selected_high_threshold": best["threshold"],
-        # The dataset is binary, so MEDIUM cannot be directly optimized. Keep it
-        # close to the validated phishing threshold to protect boundary precision.
-        "selected_medium_threshold": max(10, round(best["threshold"] * 0.85)),
-        "validation_metrics_at_high_threshold": {key: round(value, 6) if isinstance(value, float) else value for key, value in best.items() if key != "threshold"},
-        "warning": "Test-set metrics must be produced only after these thresholds are frozen.",
-    }
-    REPORT.parent.mkdir(parents=True, exist_ok=True)
-    REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(report, indent=2))
+
+def main():
+    df = pd.read_csv(DATASET_PATH)
+    val_df = df[df["split"] == "val"].copy()
+    print(f"Scoring {len(val_df)} validation-split rows through the full aggregator...")
+    print("(this includes real blacklist DB lookups + LSTM inference on text rows -- expect a few minutes)\n")
+
+    db = SessionLocal()
+    scores = []
+    labels = []
+    errors = 0
+    start = time.time()
+
+    for i, (_, row) in enumerate(val_df.iterrows()):
+        result = score_row(row, db)
+        if isinstance(result, tuple):  # error case
+            errors += 1
+            continue
+        scores.append(result)
+        labels.append(row["label"])
+
+        if (i + 1) % 2000 == 0:
+            elapsed = time.time() - start
+            print(f"  ...{i + 1}/{len(val_df)} rows ({elapsed:.0f}s elapsed)")
+
+    db.close()
+
+    elapsed_total = time.time() - start
+    print(f"\nDone in {elapsed_total:.0f}s. {errors} rows errored and were skipped.\n")
+
+    results_df = pd.DataFrame({"score": scores, "label": labels})
+    legit_scores = results_df[results_df["label"] == "legitimate"]["score"]
+    phishing_scores = results_df[results_df["label"] == "phishing"]["score"]
+
+    print("=== Score distribution by true label ===")
+    print("Legitimate:")
+    print(legit_scores.describe())
+    print("\nPhishing:")
+    print(phishing_scores.describe())
+
+    # LOW's upper edge comes from the LEGITIMATE distribution (95th percentile
+    # of legitimate scores). HIGH's lower edge comes from the PHISHING
+    # distribution (5th percentile of phishing scores).
+    low_raw = np.percentile(legit_scores, PURITY_TARGET * 100)
+    high_raw = np.percentile(phishing_scores, (1 - PURITY_TARGET) * 100)
+
+    low_threshold = int(np.floor(low_raw))    # round DOWN -- more conservative, stricter LOW
+
+    # HIGH threshold: floor rather than ceil, by deliberate product decision --
+    # a bare blacklist exact-match at the default reputation score (no other
+    # corroborating signal) produces a score of ~51.43 for URL-only
+    # submissions. Ceiling this to 52 would exclude that entire common case
+    # from HIGH, pushing the majority of real phishing into MEDIUM instead.
+    # Decision: a bare blacklist match alone should be enough to reach HIGH.
+    high_threshold = int(np.floor(high_raw))
+
+    print(f"\n=== Calibration result ===")
+    print(f"Raw 95th-percentile-of-legitimate (LOW boundary):  {low_raw:.2f} -> rounded down to {low_threshold}")
+    print(f"Raw 5th-percentile-of-phishing (HIGH boundary):     {high_raw:.2f} -> rounded down to {high_threshold}")
+
+    if low_threshold >= high_threshold:
+        print("\n*** WARNING: low_threshold >= high_threshold. Score distributions overlap")
+        print("*** too much at these percentiles for clean separation. Do not use these")
+        print("*** thresholds as-is -- inspect the histogram and consider a less strict")
+        print("*** purity target (e.g. 90th percentile instead of 95th).")
+    else:
+        print(f"\nRecommended: LOW = 0-{low_threshold}, MEDIUM = {low_threshold + 1}-{high_threshold - 1}, HIGH = {high_threshold}-100")
+
+    # Bucket purity check: with the NEW thresholds, how many of each true
+    # label land in each bucket? This is the real-world validation of the
+    # choice above, not just the percentile math in isolation.
+    def bucket(score):
+        if score <= low_threshold:
+            return "LOW"
+        if score < high_threshold:
+            return "MEDIUM"
+        return "HIGH"
+
+    results_df["bucket"] = results_df["score"].apply(bucket)
+    crosstab = pd.crosstab(results_df["bucket"], results_df["label"])
+    print("\n=== Bucket composition under recommended thresholds ===")
+    print(crosstab)
+
+    # Outlier rows worth manual inspection: legitimate examples that scored
+    # highest (candidate false positives), and phishing examples that scored
+    # lowest (candidate false negatives / hardest cases). Useful for
+    # thesis Chapter 6 error analysis and Section 5.8 worked examples.
+    results_with_input = results_df.copy()
+    results_with_input["text"] = val_df["text"].values
+    results_with_input["content_type"] = val_df["content_type"].values
+
+    top_legit_outliers = results_with_input[results_with_input["label"] == "legitimate"].nlargest(5, "score")
+    bottom_phishing_outliers = results_with_input[results_with_input["label"] == "phishing"].nsmallest(5, "score")
+
+    print("\n=== Top 5 highest-scoring LEGITIMATE examples (candidate false positives) ===")
+    print(top_legit_outliers[["text", "content_type", "score"]].to_string(index=False))
+
+    print("\n=== Bottom 5 lowest-scoring PHISHING examples (candidate false negatives) ===")
+    print(bottom_phishing_outliers[["text", "content_type", "score"]].to_string(index=False))
+
+    # Diagnostic re-run: for the false-positive candidates specifically, pull
+    # the full engine breakdown (not just the final score) so we can see
+    # WHICH engine drove the high score -- e.g. confirming whether these are
+    # hitting the blacklist's domain-level match on platforms not covered by
+    # SHARED_HOSTING_DOMAINS (see blacklist_lookup.py), the same false-positive
+    # mechanism that list was originally built to prevent for docs.google.com etc.
+    print("\n=== Diagnostic: engine breakdown for false-positive candidates ===")
+    db_diag = SessionLocal()
+    for _, outlier_row in top_legit_outliers.iterrows():
+        detail = calculate_final_risk_score(
+            url=outlier_row["text"] if outlier_row["content_type"] == "url" else None,
+            text=outlier_row["text"] if outlier_row["content_type"] != "url" else None,
+            db=db_diag,
+        )
+        bl = detail["engine_details"]["blacklist"]
+        print(f"\n{outlier_row['text'][:60]!r} (score {outlier_row['score']})")
+        if bl:
+            print(f"  blacklist match_type={bl['match_type']}, score={bl['score']}, matched_entry={bl['matched_entry']}")
+        else:
+            print("  blacklist: not applicable")
+    db_diag.close()
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_DIR / "threshold_calibration_report.txt", "w", encoding="utf-8") as f:
+        f.write("ETIS Risk Scoring -- Threshold Calibration Report\n")
+        f.write(f"Validation rows scored: {len(results_df)} ({errors} errored/skipped)\n\n")
+        f.write("Legitimate score distribution:\n")
+        f.write(str(legit_scores.describe()) + "\n\n")
+        f.write("Phishing score distribution:\n")
+        f.write(str(phishing_scores.describe()) + "\n\n")
+        f.write(f"Recommended LOW threshold:  <= {low_threshold}\n")
+        f.write(f"Recommended HIGH threshold: >= {high_threshold}\n\n")
+        f.write("Bucket composition:\n")
+        f.write(str(crosstab) + "\n\n")
+        f.write("CAVEAT: blacklist_entries was seeded from the full PhishTank/OpenPhish\n")
+        f.write("feeds, not just the training split, so some validation-split phishing\n")
+        f.write("URLs are themselves already in the blacklist. This inflates their scores\n")
+        f.write("via exact-match rather than genuine generalization -- see module docstring.\n\n")
+        f.write("Top 5 highest-scoring LEGITIMATE examples (candidate false positives):\n")
+        f.write(top_legit_outliers[["text", "content_type", "score"]].to_string(index=False) + "\n\n")
+        f.write("Bottom 5 lowest-scoring PHISHING examples (candidate false negatives):\n")
+        f.write(bottom_phishing_outliers[["text", "content_type", "score"]].to_string(index=False) + "\n")
+
+    # Histogram
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.hist(legit_scores, bins=30, alpha=0.6, label="legitimate", color="#4f5fe0")
+    ax.hist(phishing_scores, bins=30, alpha=0.6, label="phishing", color="#d6453c")
+    ax.axvline(low_threshold, color="green", linestyle="--", label=f"LOW cutoff ({low_threshold})")
+    ax.axvline(high_threshold, color="red", linestyle="--", label=f"HIGH cutoff ({high_threshold})")
+    ax.set_xlabel("Final risk score")
+    ax.set_ylabel("Count")
+    ax.set_title("Validation score distribution by true label")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(OUTPUT_DIR / "threshold_calibration_histogram.png", dpi=150)
+
+    print(f"\nSaved report and histogram to {OUTPUT_DIR}")
+    print(f"\nNext step: update PROVISIONAL_LOW_MAX and PROVISIONAL_MEDIUM_MAX")
+    print(f"in app/engines/risk_scoring.py to {low_threshold} and {high_threshold - 1}.")
 
 
 if __name__ == "__main__":

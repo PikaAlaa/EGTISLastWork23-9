@@ -1,0 +1,14 @@
+Server log excerpts for the two D12 requests (uvicorn stderr):
+
+  File "/home/claude/etis-group/backend/app/engines/rule_based/url_pattern_analyzer.py", line 95, in calculate_url_pattern_score
+  File "/usr/lib/python3.12/urllib/parse.py", line 182, in port
+    raise ValueError(f"Port could not be cast to integer value as {port!r}")
+ValueError: Port could not be cast to integer value as 'alert(1)'
+INFO:     127.0.0.1:36490 - "POST /analyze HTTP/1.1" 500 Internal Server Error
+
+---
+
+  File "/home/claude/etis-group/backend/app/engines/rule_based/url_pattern_analyzer.py", line 95, in calculate_url_pattern_score
+  File "/usr/lib/python3.12/urllib/parse.py", line 184, in port
+    raise ValueError("Port out of range 0-65535")
+ValueError: Port out of range 0-65535

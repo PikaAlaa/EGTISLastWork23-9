@@ -1,0 +1,257 @@
+{
+ "blacklisted_url_used": "https://rllling.shop/spid/",
+ "D1_parsing": {
+  "input": "https://cibeg.com:443@evil.example/login",
+  "etis_normalize_domain": "cibeg.com",
+  "urllib_hostname": "evil.example"
+ },
+ "D3_controlled": [
+  {
+   "input": {
+    "text": "عميلنا العزيز، تم إيقاف بطاقتك مؤقتاً لأسباب أمنية. لإعادة التفعيل أدخل بيانات البطاقة ورمز التحقق خلال 24 ساعة على الرابط المرفق",
+    "url": null
+   },
+   "fixed": {
+    "lstm": 95
+   },
+   "engine_scores": {
+    "rule_based": 20.0,
+    "lstm": 95.0
+   },
+   "final_score": 76.25,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "confidence": {
+    "score": 45.84,
+    "coverage": 66.67,
+    "agreement": 25.0,
+    "engines_considered": 2
+   }
+  },
+  {
+   "input": {
+    "text": "عميلنا العزيز، تم إيقاف بطاقتك مؤقتاً لأسباب أمنية. لإعادة التفعيل أدخل بيانات البطاقة ورمز التحقق خلال 24 ساعة على الرابط المرفق",
+    "url": "https://www.example.com/"
+   },
+   "fixed": {
+    "lstm": 95
+   },
+   "engine_scores": {
+    "rule_based": 20.0,
+    "blacklist": 0.0,
+    "lstm": 95.0
+   },
+   "final_score": 34.5,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "confidence": {
+    "score": 52.5,
+    "coverage": 100.0,
+    "agreement": 5.0,
+    "engines_considered": 3
+   }
+  },
+  {
+   "input": {
+    "text": null,
+    "url": "https://rllling.shop/spid/"
+   },
+   "fixed": {},
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 90.0
+   },
+   "final_score": 51.43,
+   "verdict": "HIGH",
+   "allowlisted": false,
+   "confidence": {
+    "score": 38.34,
+    "coverage": 66.67,
+    "agreement": 10.0,
+    "engines_considered": 2
+   }
+  },
+  {
+   "input": {
+    "text": "شوف اللينك ده",
+    "url": "https://rllling.shop/spid/"
+   },
+   "fixed": {
+    "lstm": 5
+   },
+   "engine_scores": {
+    "rule_based": 0.0,
+    "blacklist": 90.0,
+    "lstm": 5.0
+   },
+   "final_score": 37.5,
+   "verdict": "MEDIUM",
+   "allowlisted": false,
+   "confidence": {
+    "score": 55.0,
+    "coverage": 100.0,
+    "agreement": 10.0,
+    "engines_considered": 3
+   }
+  }
+ ],
+ "D6_D8_brand_checker": {
+  "http://nbe-online-login.com/": 0.0,
+  "http://cib-eg.net/login": 0.0,
+  "http://qnb-verify-account.com/": 0.0,
+  "https://ebanking.cibeg.com/": 95.0,
+  "https://bm-online.banquemisr.com/": 95.0,
+  "https://web.vodafone.com.eg/": 95.0,
+  "https://afternoon.com/": 95.0,
+  "https://elite.eg/": 95.0,
+  "https://cibeg.com/": 0.0
+ },
+ "boundaries": {
+  "0.0": "LOW",
+  "0.01": "MEDIUM",
+  "49.99": "MEDIUM",
+  "50.0": "MEDIUM",
+  "50.01": "HIGH"
+ },
+ "E10_confidence_example": {
+  "engine_scores": {
+   "rule_based": 0.0,
+   "blacklist": 0.0,
+   "lstm": 95.0
+  },
+  "result": {
+   "score": 52.5,
+   "coverage": 100.0,
+   "agreement": 5.0,
+   "engines_considered": 3
+  }
+ },
+ "model_pairs": [
+  {
+   "pair": "Bank notice",
+   "with_money_wording": {
+    "text": "البنك الأهلي المصري: تم إضافة راتب شهر سبتمبر إلى حسابك",
+    "lstm": 94.49
+   },
+   "without": {
+    "text": "البنك الأهلي المصري: تم تحديث تطبيق الهاتف إلى الإصدار الجديد",
+    "lstm": 88.05
+   }
+  },
+  {
+   "pair": "Wallet notice",
+   "with_money_wording": {
+    "text": "تم تحويل 500 جنيه إلى محفظتك فودافون كاش. الرصيد الحالي 750 جنيه",
+    "lstm": 68.05
+   },
+   "without": {
+    "text": "تم تحديث باقة فودافون الخاصة بك بنجاح. شكرا لك",
+    "lstm": 92.32
+   }
+  },
+  {
+   "pair": "Clinic reminder",
+   "with_money_wording": {
+    "text": "تم إضافة 500 جنيه إلى حسابك. موعدك في العيادة غدا الساعة 5 مساء",
+    "lstm": 83.89
+   },
+   "without": {
+    "text": "موعدك في العيادة غدا الساعة 5 مساء",
+    "lstm": 2.95
+   }
+  },
+  {
+   "pair": "Delivery",
+   "with_money_wording": {
+    "text": "تم خصم 250 جنيه من حسابك مقابل شحنتك من جوميا",
+    "lstm": 92.31
+   },
+   "without": {
+    "text": "شحنتك من جوميا في الطريق، سيتواصل معك المندوب اليوم",
+    "lstm": 3.79
+   }
+  }
+ ],
+ "E9_acceptance_report": [
+  {
+   "id": 1,
+   "expected": "HIGH",
+   "actual": "HIGH",
+   "score": 51.43,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 2,
+   "expected": "LOW",
+   "actual": "LOW",
+   "score": 0.0,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 3,
+   "expected": "MEDIUM",
+   "actual": "MEDIUM",
+   "score": 40.89,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 4,
+   "expected": "MEDIUM/HIGH",
+   "actual": "MEDIUM",
+   "score": 39.7,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 5,
+   "expected": "HIGH",
+   "actual": "HIGH",
+   "score": 77.53,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 6,
+   "expected": "LOW",
+   "actual": "MEDIUM",
+   "score": 13.01,
+   "status": "OK",
+   "verdict_matches": false
+  },
+  {
+   "id": 7,
+   "expected": "HIGH",
+   "actual": "MEDIUM",
+   "score": 21.77,
+   "status": "OK",
+   "verdict_matches": false
+  },
+  {
+   "id": 8,
+   "expected": "LOW",
+   "actual": "MEDIUM",
+   "score": 1.25,
+   "status": "OK",
+   "verdict_matches": false
+  },
+  {
+   "id": 9,
+   "expected": "MEDIUM/HIGH",
+   "actual": "MEDIUM",
+   "score": 9.8,
+   "status": "OK",
+   "verdict_matches": true
+  },
+  {
+   "id": 10,
+   "expected": "MEDIUM",
+   "actual": "MEDIUM",
+   "score": 17.57,
+   "status": "OK",
+   "verdict_matches": true
+  }
+ ]
+}

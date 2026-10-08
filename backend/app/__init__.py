@@ -1,1 +1,0 @@
-"""ETIS backend package."""
