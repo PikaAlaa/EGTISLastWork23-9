@@ -1,5 +1,8 @@
 # Preserve corpus cell whitespace; it belongs to historical input data.
 data/processed/dataset.csv whitespace=-blank-at-eol
+evaluation/threshold_calibration_report*.txt whitespace=-blank-at-eol
+# The supplied evidence checksums refer to exact bytes on every platform.
+evaluation/review-evidence/** -text whitespace=cr-at-eol
 *.joblib binary
 *.keras binary
 *.pkl binary
