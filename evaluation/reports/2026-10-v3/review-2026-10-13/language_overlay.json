@@ -1,0 +1,1754 @@
+{
+  "frozen_manifest_file_sha256": "a404a48c0018143f5842018c602fc4d99499bacf9e1229ff5b05bfe21bee57f0",
+  "frozen_split_changed": false,
+  "method": "Arabic-script and Latin-letter detection, applied only to dialectal source metadata",
+  "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+  "rows": [
+    {
+      "row_id": "MAN-001571",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001671",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001701",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001883",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001572",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001576",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001638",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001573",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001724",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001841",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001855",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001574",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001616",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001575",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001697",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001823",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001834",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001577",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001579",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001725",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001816",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001864",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001580",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001665",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001696",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001757",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001810",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001842",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001581",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001717",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001741",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001845",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001582",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001681",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001783",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001820",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001583",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001623",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001641",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001689",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001887",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001584",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001585",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001587",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001656",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001779",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001844",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001588",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001707",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001836",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001867",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001892",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001589",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001590",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001592",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001742",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001593",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001595",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001596",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001597",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001599",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001716",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001766",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001600",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001645",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001890",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001601",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001659",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001749",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001884",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001602",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001644",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001693",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001797",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001853",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001603",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001648",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001837",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001604",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001702",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001605",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001686",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001777",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001809",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001606",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001607",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001608",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001610",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001618",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001784",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001835",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001893",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001611",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001728",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001814",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001613",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001785",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001614",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001615",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001639",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001800",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001617",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001619",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001620",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001621",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001755",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001622",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001712",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001748",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001624",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001856",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001879",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001885",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001625",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001637",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001698",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001876",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001626",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001830",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001627",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001715",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001747",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001848",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001628",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001629",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001630",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001631",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001768",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001632",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001633",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001746",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001886",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001634",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001636",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001795",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001900",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001640",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001773",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001642",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001646",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001647",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001649",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001650",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001651",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001718",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001652",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001654",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001683",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001813",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001658",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001660",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001739",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001865",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001661",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001664",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001703",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001735",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001662",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001692",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001770",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001663",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001772",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001796",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001878",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001666",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001705",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001888",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001667",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001731",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001769",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001898",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001669",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001670",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001673",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001721",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001870",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001674",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001675",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001676",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001866",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001677",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001678",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001711",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001765",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001881",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001679",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001680",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001699",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001743",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001682",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001684",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001873",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001685",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001687",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001688",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001787",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001852",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001690",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001694",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001801",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001805",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001695",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001700",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001771",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001804",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001824",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001851",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001704",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001761",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001789",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001880",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001706",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001708",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001709",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001798",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001840",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001714",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001719",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001722",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001723",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001726",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001727",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001762",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001838",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001891",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001729",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001730",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001733",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001734",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001818",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001903",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001737",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001738",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001740",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001774",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001750",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001752",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001753",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001799",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001847",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001756",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001758",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001759",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001760",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001764",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001775",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001776",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001815",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001857",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001780",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001781",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001822",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001846",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001786",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001788",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001790",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001791",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001793",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001895",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001901",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001794",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001802",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001862",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001803",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001871",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001899",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001806",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001807",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001808",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001811",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001817",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001819",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001821",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001825",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001826",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001827",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001831",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001839",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001858",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001861",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001863",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001868",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001874",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001875",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001882",
+      "split": "val",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001889",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001894",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    },
+    {
+      "row_id": "MAN-001896",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "ar"
+    },
+    {
+      "row_id": "MAN-001902",
+      "split": "train",
+      "old_language": "mixed",
+      "corrected_language": "mixed"
+    }
+  ],
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

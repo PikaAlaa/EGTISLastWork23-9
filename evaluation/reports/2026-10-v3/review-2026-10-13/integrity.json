@@ -1,0 +1,104 @@
+{
+  "model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+  "protected_files": [
+    {
+      "path": "evaluation/targets.json",
+      "sha256": "cbd9b0492e0642760235e7b3947053251db4b50f225c74868e5ee068e1c1dedd",
+      "unchanged": true
+    },
+    {
+      "path": "data/processed/dataset.csv",
+      "sha256": "879c4321ff384f24139b0ab560241fbc52b686f7ad48d756c9b774b3c9532745",
+      "unchanged": true
+    },
+    {
+      "path": "ml/models/deployed_char.joblib",
+      "sha256": "8f5489ba82604084886080501da6306b8b6b5d784a8b83271f52034b00b533e6",
+      "unchanged": true
+    },
+    {
+      "path": "ml/models/deployment_model.json",
+      "sha256": "8c8bacb64241847b3ba2e954ed0a6c534df571cb484e213b474a72e3b1a4b195",
+      "unchanged": true
+    },
+    {
+      "path": "ml/models/lstm_phishing_classifier.keras",
+      "sha256": "9a6c72d5bb771726b29da6cded76acfa5dd30aeee5f760de787824c34ef3810a",
+      "unchanged": true
+    },
+    {
+      "path": "ml/data/tokenizer.pkl",
+      "sha256": "836478ed604ee570d05e3c71f27aae34cc70f8c2f6a7c77ba6f13bab8aeca10e",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/bilstm-validation.json",
+      "sha256": "98cb3700dbb91b215909e9035e3da5daa5c44a295bb59870140b2cf5c6d8639e",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/char-validation.json",
+      "sha256": "3f92c87d9ded5b894ad3e7d5f49c347b0d493c18f0c808078bf39372a87f4949",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/dataset-portability.json",
+      "sha256": "fc4cdebde23511b695885f9e2ccd6980f00cb9792b72444e697fa416119cf4e2",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/development.json",
+      "sha256": "ec69993bdfe3a9e7663cde9cc8605f44b3e50f96587336714e09c387a2084aec",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/followup-replay.json",
+      "sha256": "88b2098059400c9baf410b7b3d39b6a90af97f48d92266c5177c9d0b8cab39dc",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/lightgbm-validation.json",
+      "sha256": "56e16a28671150d6d282998b76b526eb26227c3d19006320848938bc3b4a939f",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/local-smoke.json",
+      "sha256": "2c2a324deb6f27e753fd0252877ae3435b0271e6fe8dd479bc121961015c9175",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/model-selection.json",
+      "sha256": "7ee3b36032832610d6ae8c1b863a4475c8d7fa96475b5b38998f3369bb91126e",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/README.md",
+      "sha256": "9cd4cceb503310786a7b4cbc0bd4e83551146c8e21734cca4af35037bc792115",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/url-development.json",
+      "sha256": "5c25628e72aacbbc59be9003cc2d215d076f347c945a04a4e00262ee5411fe41",
+      "unchanged": true
+    },
+    {
+      "path": "evaluation/reports/reviewed-2026-10-08/verification.json",
+      "sha256": "4ea25c13974c38c481d2e027d26ea7a1692e884966571c894ad9fbbb9623a22b",
+      "unchanged": true
+    }
+  ],
+  "frozen_text_manifest_file_sha256": "a404a48c0018143f5842018c602fc4d99499bacf9e1229ff5b05bfe21bee57f0",
+  "all_protected_files_byte_identical": true,
+  "raw_files_deleted": false,
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

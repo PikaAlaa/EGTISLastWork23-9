@@ -1,0 +1,244 @@
+{
+  "model": "bilstm_candidate",
+  "dataset_sha256": "8296ac79bc54447765bf56127696f271795fabd838d663c945f20e0d508e213e",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "ad4e4c2f7d2cfbfcf78e4c06b1aab1c733d47256c7cf4ca6ba33539216629c78",
+  "validation_n": 48,
+  "n": 48,
+  "phishing_n": 21,
+  "legitimate_n": 27,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "auc": 1.0,
+  "rates": {
+    "precision": {
+      "value": 1.0,
+      "n": 21,
+      "ci95": [
+        0.8453609810751531,
+        1
+      ]
+    },
+    "recall": {
+      "value": 1.0,
+      "n": 21,
+      "ci95": [
+        0.8453609810751531,
+        1
+      ]
+    },
+    "false_positive_rate": {
+      "value": 0.0,
+      "n": 27,
+      "ci95": [
+        0,
+        0.12455502974186705
+      ]
+    },
+    "confusion": {
+      "tp": 21,
+      "fp": 0,
+      "fn": 0,
+      "tn": 27
+    }
+  },
+  "low_threshold": 0.2,
+  "high_threshold": 0.3,
+  "final_test_run": false,
+  "interpretation": "Pooled validation selects candidates; source mix is not representative of everyday Egyptian SMS. Sparse or single-class groups cannot establish deployment accuracy.",
+  "by_source": {
+    "salloum_gaber_bilingual_corpus": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "by_language": {
+    "ar": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "by_content_type": {
+    "text": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "by_source_content_type": {
+    "salloum_gaber_bilingual_corpus / text": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 21,
+          "ci95": [
+            0.8453609810751531,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "parameters": {
+    "vocabulary": 5000,
+    "embedding": 32,
+    "lstm_units": 16,
+    "seed": 42,
+    "epochs_max": 20,
+    "window_words": 150,
+    "stride": 75
+  },
+  "artifact_sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+  "tokenizer_sha256": "98e31be1e7a1181114d35bd1dd7c71b2498e19c0dc009293a385c5958df454c7",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  }
+}

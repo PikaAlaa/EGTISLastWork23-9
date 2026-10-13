@@ -1,0 +1,24 @@
+{
+  "winner": "tfidf_lightgbm",
+  "rule_sha256": "0a4e57521b64567aa2ab4a26de999a0b41c47d891db4ef74b2e7dfac97cde0bb",
+  "final_choice": false,
+  "model_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+  "provenance": {
+    "kaggle_arabic_phishing_fully_dataset": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+    "salloum_gaber_bilingual_corpus": "translated/parallel emails; not Egyptian SMS",
+    "kaggle_dialectal_arabic_sms": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+    "everyday_probes": "12 existing invented development fixtures; not authentic Egyptian SMS"
+  },
+  "final_choice_requires": "Transformer source-held-out and everyday results under the same rule, not validation predictions alone.",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

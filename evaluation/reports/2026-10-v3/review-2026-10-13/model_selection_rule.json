@@ -1,0 +1,44 @@
+{
+  "version": "v3-review-2026-10-13-primary-source-probes",
+  "frozen_at_utc": "2026-10-13T19:00:04.988419+00:00",
+  "frozen_before_new_results": true,
+  "informed_by_previous_v3_results": true,
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "primary_sources": [
+    "kaggle_arabic_phishing_fully_dataset",
+    "salloum_gaber_bilingual_corpus"
+  ],
+  "training_only_sources": [
+    "kaggle_dialectal_arabic_sms"
+  ],
+  "max_p95_cpu_ms": 300,
+  "threshold": "95% phishing recall on other-source validation, never on excluded source or probes",
+  "primary_loss": "(equal-source-mean LOSO false-negative rate + equal-source-mean LOSO false-positive rate + everyday MEDIUM-or-HIGH rate)/3",
+  "tie_tolerance": 1e-06,
+  "tie_breaker": "higher macro-F1 on frozen validation excluding training-only source, then simpler model",
+  "simplicity_order": [
+    "char_tfidf_logistic",
+    "word_char_tfidf_logistic",
+    "char_tfidf_calibrated_svm",
+    "tfidf_lightgbm",
+    "bilstm"
+  ],
+  "final_model_waits_for_transformers": true,
+  "frozen_split_changed": false,
+  "provenance": {
+    "kaggle_arabic_phishing_fully_dataset": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+    "salloum_gaber_bilingual_corpus": "translated/parallel emails; not Egyptian SMS",
+    "kaggle_dialectal_arabic_sms": "non-Egyptian; templated; collection/licence unverified; training only",
+    "everyday_probes": "12 existing invented development fixtures; not authentic SMS"
+  }
+}

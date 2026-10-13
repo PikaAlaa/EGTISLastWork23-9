@@ -1,0 +1,1 @@
+{"initialized": true, "database": "project-local SQLite unless DATABASE_URL explicitly configured", "key": "stored in ignored .env; never printed"}

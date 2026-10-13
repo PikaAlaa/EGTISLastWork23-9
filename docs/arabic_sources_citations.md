@@ -35,16 +35,15 @@ Available at: https://www.kaggle.com/code/ahmadhosni/bert-for-arabic-phishing-an
 
 ---
 
-**3. Dialectal Arabic phishing/safe SMS dataset (~333 unique rows after
-deduplication of 167 exact duplicates from the original 500)**
+**3. Kaggle dialectal Arabic phishing/safe SMS — training only**
 
-Nizar, S., n.d. *Arabic Phishing & Social Engineering Dataset*. [Online]
-Available at: https://www.kaggle.com/datasets/sultannizar/arabic-phishing-dataset
-[Accessed 15 7 2026].
+Listed as dialectal Arabic phishing/safe SMS; 500 rows, 250/250, 333 unique; Moroccan and Levantine dialect markers alongside Egyptian-associated wording; patterns consistent with template generation; collection method and licence not verified; used for training only and reported separately; not evidence of Egyptian-dialect performance.
 
-> Note: unverified with full confidence — the filename matched this dataset
-> page, but wasn't independently confirmed against the page's actual file
-> listing. Worth a final visual check before submission.
+Correction to the supplied review: the local safe rows include `النهارده` and `متتأخرش`. Thus “no Egyptian markers found in legitimate rows” is not supported by the file. Regional wording does not establish origin, authenticity or consent. The source is a mixed-regional, apparently templated resource, not an authenticated Egyptian SMS collection.
+
+Candidate source: Nizar, S., n.d. *Arabic Phishing & Social Engineering Dataset*.
+https://www.kaggle.com/datasets/sultannizar/arabic-phishing-dataset
+The local file-to-page identity remains unverified. These are reviewer provenance findings, not a verified collection-method statement.
 
 ---
 
@@ -81,14 +80,6 @@ Genres*. IEEE Access, 12, pp.94216-94230.
 
 ---
 
-## Suggested Chapter 3.3 paragraph (draft, edit as needed)
+## Methodology wording
 
-"Given the scarcity of publicly available Arabic phishing corpora noted in
-prior work (Zawari et al., 2025; Alhayan et al., 2024), this study combined
-four independently sourced Arabic-language datasets: a peer-reviewed
-English/Arabic parallel phishing email corpus (Salloum et al., 2023), a
-translated advance-fee-fraud and SMS-ham corpus (Hosni, n.d.), a dialectal
-Arabic phishing/safe SMS dataset (Nizar, n.d.), and an authentic
-Gulf-dialect spam/ham message set (Mukhairez, n.d.). These were supplemented
-with synthetic Egyptian-brand-specific phishing samples (see §3.3.x) to
-address the remaining gap in Egyptian-dialect, brand-specific coverage."
+The development material includes translated fraud letters and UCI ham, translated/parallel emails, and a mixed-regional dialectal source whose patterns are consistent with templates. The dialectal source is training-only. Its collection origin is unverified and cannot be called Egyptian. The GitHub spam source is excluded from the phishing benchmark. These data do not provide an authentic Egyptian SMS test set. Existing synthetic fixtures are labelled and are never evidence of real-message accuracy.

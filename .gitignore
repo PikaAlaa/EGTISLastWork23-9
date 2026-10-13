@@ -56,3 +56,6 @@ data/private/
 data/processed/v2/
 ml/models/*candidate*
 evaluation/local-results/
+
+# PhreshPhish: only download code, hashes and aggregate results belong in Git.
+data/external/phreshphish/

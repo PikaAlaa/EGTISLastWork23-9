@@ -4,6 +4,7 @@ No HTTP requests, live-feed changes, training, final-test access or external ser
 The author's Linux HTTP scripts and captured results remain unchanged as provenance.
 """
 import importlib.util
+import importlib.metadata
 import json
 import sys
 import hashlib
@@ -21,6 +22,7 @@ from app.core.settings import settings
 from app.core.url_utils import url_hash
 from app.engines import risk_scoring
 from app.models import BlacklistEntry
+from app.services.registry import populate_registry
 
 def run():
     source=ROOT/'evaluation/review-evidence'
@@ -36,6 +38,7 @@ def run():
     risk_scoring.blacklist_health=lambda db:{'available':True,'reason':None,'mode':'isolated_frozen_followup_fixture'}
     try:
         with Session(engine) as db:
+            populate_registry(db)
             db.add(BlacklistEntry(url=blacklisted,url_hash=url_hash(blacklisted),domain='rllling.shop',
                 source='manual',first_seen=date(2026,7,1),last_seen=date(2026,7,1),is_active=True,reputation_score=90))
             db.commit()
@@ -75,7 +78,11 @@ def run():
             'followup_passed':sum(row['pass'] for row in extra),'followup_total':len(extra),
             'supplied_probe_results_matched':sum(row['matches_supplied_result'] for row in extra),
             'known_limitations':[row['probe'] for row in extra if not row['pass'] and row['known_limitation']]}}
-    output=ROOT/'evaluation/local-results/followup-replay.json'
+    report['data_sha256']=hashlib.sha256((source/'cases.py').read_bytes()+(ROOT/'evaluation/followup-probes.json').read_bytes()).hexdigest()
+    report['model_sha256']=hashlib.sha256((ROOT/'ml/models/deployed_char.joblib').read_bytes()).hexdigest()
+    report['url_model_sha256']=hashlib.sha256((ROOT/'ml/models/url_host_v3.joblib').read_bytes()).hexdigest()
+    report['libraries']={name:importlib.metadata.version(name) for name in ['numpy','pandas','scikit-learn','joblib','tldextract','SQLAlchemy']}
+    output=ROOT/'evaluation/reports/2026-10-v3/review-2026-10-13/followup-replay.json'
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return report

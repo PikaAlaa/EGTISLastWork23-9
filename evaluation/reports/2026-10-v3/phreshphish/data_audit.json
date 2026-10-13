@@ -1,0 +1,266 @@
+{
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+  "dataset_revision": "eabec4b7a66324b79cc8a0ad856d1731dc26fe1a",
+  "psl_sha256": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612",
+  "etis_split_manifest_sha256": "5f65968d776e052797c666245530f4eae9f5ab77b1d4a9116dac14f424eb45bd",
+  "official_train": {
+    "rows": 498255,
+    "phishing_n": 221526,
+    "benign_n": 276729,
+    "unparseable_hosts": 261,
+    "registered_domains": 211496,
+    "arabic_n": 164,
+    "egyptian_registry_target_n": 0,
+    "url_over_runtime_2048_chars_n": 7
+  },
+  "official_test": {
+    "rows": 168060,
+    "phishing_n": 76800,
+    "benign_n": 91260,
+    "unparseable_hosts": 122,
+    "registered_domains": 78624,
+    "arabic_n": 46,
+    "egyptian_registry_target_n": 1,
+    "url_over_runtime_2048_chars_n": 11
+  },
+  "etis_evaluation": {
+    "rows": 8889,
+    "phishing_n": 5973,
+    "benign_n": 2916,
+    "unparseable_hosts": 0,
+    "registered_domains": 6982,
+    "arabic_n": 0,
+    "egyptian_registry_target_n": 0,
+    "url_over_runtime_2048_chars_n": 0
+  },
+  "settings": {
+    "etis": {
+      "input_pool": {
+        "rows": 45465,
+        "phishing_n": 31929,
+        "benign_n": 13536,
+        "unparseable_hosts": 0,
+        "registered_domains": 31515,
+        "arabic_n": 0,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 0
+      },
+      "evaluation_domain_overlap_rows_excluded": 6032,
+      "evaluation_domain_overlap_domains_excluded": 3283,
+      "mixed_label_domains_excluded": 0,
+      "mixed_label_domain_rows_excluded": 0,
+      "same_label_exact_duplicate_rows_removed": 0,
+      "fit": {
+        "rows": 32995,
+        "phishing_n": 24654,
+        "benign_n": 8341,
+        "unparseable_hosts": 0,
+        "registered_domains": 22663,
+        "arabic_n": 0,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 0
+      },
+      "calibration": {
+        "rows": 6438,
+        "phishing_n": 4373,
+        "benign_n": 2065,
+        "unparseable_hosts": 0,
+        "registered_domains": 5569,
+        "arabic_n": 0,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 0
+      },
+      "fit_sha256": "e9afea8b43391ccd2207fd8861347cb5e40142a85117e48a72ff6603be1aecbb",
+      "calibration_sha256": "b37218f105ec5529650c6ef89e7ab28fd92d1e0bbe888c6ff4a1639dd7fe8008",
+      "fit_source_counts": {
+        "phishtank": 24475,
+        "tranco": 8332,
+        "openphish": 179,
+        "manual": 9
+      },
+      "calibration_source_counts": {
+        "phishtank": 4313,
+        "tranco": 2063,
+        "openphish": 60,
+        "manual": 2
+      }
+    },
+    "phreshphish": {
+      "input_pool": {
+        "rows": 498255,
+        "phishing_n": 221526,
+        "benign_n": 276729,
+        "unparseable_hosts": 261,
+        "registered_domains": 211496,
+        "arabic_n": 164,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 7
+      },
+      "evaluation_domain_overlap_rows_excluded": 218065,
+      "evaluation_domain_overlap_domains_excluded": 17891,
+      "mixed_label_domains_excluded": 113,
+      "mixed_label_domain_rows_excluded": 720,
+      "same_label_exact_duplicate_rows_removed": 0,
+      "fit": {
+        "rows": 222139,
+        "phishing_n": 137919,
+        "benign_n": 84220,
+        "unparseable_hosts": 0,
+        "registered_domains": 154734,
+        "arabic_n": 104,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 3
+      },
+      "calibration": {
+        "rows": 57070,
+        "phishing_n": 35883,
+        "benign_n": 21187,
+        "unparseable_hosts": 0,
+        "registered_domains": 38758,
+        "arabic_n": 28,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 3
+      },
+      "fit_sha256": "940aba0d8391e29c925be6ce5a1476653b243a4d88a16ce02c1f245f43dc915a",
+      "calibration_sha256": "5831c2605990f0ca2077875ff36f458941c065f8adf5edb92bf0466bb0a37d77",
+      "fit_source_counts": {
+        "phreshphish": 222139
+      },
+      "calibration_source_counts": {
+        "phreshphish": 57070
+      }
+    },
+    "combined": {
+      "input_pool": {
+        "rows": 530184,
+        "phishing_n": 253455,
+        "benign_n": 276729,
+        "unparseable_hosts": 261,
+        "registered_domains": 225640,
+        "arabic_n": 164,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 7
+      },
+      "evaluation_domain_overlap_rows_excluded": 220967,
+      "evaluation_domain_overlap_domains_excluded": 17955,
+      "mixed_label_domains_excluded": 124,
+      "mixed_label_domain_rows_excluded": 925,
+      "same_label_exact_duplicate_rows_removed": 4795,
+      "fit": {
+        "rows": 242644,
+        "phishing_n": 158436,
+        "benign_n": 84208,
+        "unparseable_hosts": 0,
+        "registered_domains": 166063,
+        "arabic_n": 102,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 3
+      },
+      "calibration": {
+        "rows": 60592,
+        "phishing_n": 39414,
+        "benign_n": 21178,
+        "unparseable_hosts": 0,
+        "registered_domains": 41498,
+        "arabic_n": 28,
+        "egyptian_registry_target_n": 0,
+        "url_over_runtime_2048_chars_n": 3
+      },
+      "fit_sha256": "b26d0c938d2248a56d2ebaed75ea1552137f9c1e075e45ed4b4be0999f545078",
+      "calibration_sha256": "172d34a4387b96c740e72e1f37b1f4f74e0642c350a3f93cfeb24e9d6a55f4e1",
+      "fit_source_counts": {
+        "phreshphish": 218162,
+        "phishtank": 24303,
+        "openphish": 179
+      },
+      "calibration_source_counts": {
+        "phreshphish": 56231,
+        "phishtank": 4301,
+        "openphish": 60
+      }
+    }
+  },
+  "card_test_counts": {
+    "stated_total": 168060,
+    "stated_benign": 91260,
+    "stated_phish": 76876,
+    "sum": 168136,
+    "discrepancy": 76
+  },
+  "benign_url_source": "not stated on dataset card",
+  "subgroup_target_matching": "Strict predeclared registry names/domains and aliases; generic international brand family targets counted as ambiguous.",
+  "train_arabic": {
+    "rows": 164,
+    "phishing_n": 102,
+    "benign_n": 62,
+    "unparseable_hosts": 0,
+    "registered_domains": 146,
+    "arabic_n": 164,
+    "egyptian_registry_target_n": 0,
+    "url_over_runtime_2048_chars_n": 0
+  },
+  "train_egyptian_registry_targets": {
+    "rows": 0,
+    "phishing_n": 0,
+    "benign_n": 0,
+    "unparseable_hosts": 0,
+    "registered_domains": 0,
+    "arabic_n": 0,
+    "egyptian_registry_target_n": 0,
+    "url_over_runtime_2048_chars_n": 0
+  },
+  "train_egyptian_target_labels": {},
+  "train_ambiguous_global_target_labels": {
+    "amazon": 298,
+    "orange": 190,
+    "vodafone": 16
+  },
+  "test_arabic": {
+    "rows": 46,
+    "phishing_n": 32,
+    "benign_n": 14,
+    "unparseable_hosts": 0,
+    "registered_domains": 40,
+    "arabic_n": 46,
+    "egyptian_registry_target_n": 0,
+    "url_over_runtime_2048_chars_n": 0
+  },
+  "test_egyptian_registry_targets": {
+    "rows": 1,
+    "phishing_n": 1,
+    "benign_n": 0,
+    "unparseable_hosts": 0,
+    "registered_domains": 1,
+    "arabic_n": 0,
+    "egyptian_registry_target_n": 1,
+    "url_over_runtime_2048_chars_n": 0
+  },
+  "test_egyptian_target_labels": {
+    "qnb_al_ahli": 1
+  },
+  "test_ambiguous_global_target_labels": {
+    "amazon": 1007,
+    "vodafone": 38,
+    "orange": 24,
+    "noon": 8,
+    "etisalat": 4
+  },
+  "genuine_benign_nonroot_path_or_query_counts": {
+    "official_train": 257396,
+    "official_test": 83180
+  },
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0",
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  },
+  "etis_sealed_test_evaluated": false
+}

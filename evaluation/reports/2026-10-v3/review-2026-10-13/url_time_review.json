@@ -1,0 +1,83 @@
+{
+  "data_sha256": "326add89ab44dc60a8ae8ede6747bb737e101fa6907d351f006238e184254ef8",
+  "model_sha256": "f7c7912cf9ec051c01fcc0bea963824906a8c27927d6055b0b42c520a0289a7e",
+  "prior_time_manifest_sha256": "5ea55b151ec8a5b5c544eef9e3fb22d54aa6c9abd8f3bcdfc683950da3aafae6",
+  "cutoff_utc": "2026-06-08T15:12:55+00:00",
+  "train_rows": 35710,
+  "validation_rows": 18380,
+  "metrics": {
+    "n": 18380,
+    "phishing_n": 15464,
+    "legitimate_n": 2916,
+    "threshold_at_recall_95": 0.10485324335497727,
+    "phishing_recall_at_threshold": 0.9882953957578893,
+    "legitimate_fpr_at_recall_95": 0.39300411522633744,
+    "recall_at_fpr_le_1pct": 0.3850232798758407,
+    "threshold_at_fpr_le_1pct": 0.708190152795566,
+    "recall_at_fpr_le_0_1pct": 0.2600232798758407,
+    "threshold_at_fpr_le_0_1pct": 0.9386620613841001,
+    "pr_auc": 0.9740792094405101,
+    "ece_15_bins": 0.3720691705791567,
+    "confusion_at_recall_95": {
+      "tp": 15283,
+      "fp": 1146,
+      "fn": 181,
+      "tn": 1770
+    },
+    "bootstrap_domain_95": {
+      "method": "registered-domain bootstrap, percentile",
+      "replicates_requested": 300,
+      "replicates_used": 300,
+      "recall_at_fpr_le_1pct_ci95": [
+        0.22510802341403027,
+        0.7449518503091859
+      ],
+      "recall_at_fpr_le_0_1pct_ci95": [
+        0.15086363794893548,
+        0.5142650715442103
+      ],
+      "pr_auc_ci95": [
+        0.9583446635194569,
+        0.9888412129057462
+      ],
+      "ece_15_bins_ci95": [
+        0.11027166088788669,
+        0.5242294609447783
+      ],
+      "legitimate_fpr_at_recall_95_ci95": [
+        0.09371629308524979,
+        0.40869454583124465
+      ]
+    },
+    "cpu_latency": {
+      "cpu_only": true,
+      "batch_size": 1,
+      "n": 300,
+      "p50_ms": 0.42544997995719314,
+      "p95_ms": 0.6104750442318619
+    }
+  },
+  "source_counts": {
+    "train/manual/legitimate": 11,
+    "train/phishtank/phishing": 22174,
+    "train/tranco/legitimate": 13525,
+    "val/manual/legitimate": 3,
+    "val/phishtank/phishing": 15464,
+    "val/tranco/legitimate": 2913
+  },
+  "limitations": [
+    "Domain-recency stress test, not strictly forward-time: latest date assigns the whole domain including earlier URLs.",
+    "Tranco original list ID/date unknown; negatives use the repository list, not a historical snapshot matched to the cutoff.",
+    "Tests character-logistic host representation, not a temporal estimate for deployed LightGBM."
+  ],
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

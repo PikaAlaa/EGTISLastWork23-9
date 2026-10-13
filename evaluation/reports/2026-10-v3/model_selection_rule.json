@@ -1,0 +1,37 @@
+{
+  "version": "etis-v3-local-text-selection-rule-1",
+  "frozen_before_comparison": true,
+  "date": "2026-10-09",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "macro_f1_tolerance": 0.01,
+  "max_p95_cpu_ms": 300,
+  "threshold_for_macro_f1": "highest validation score threshold retaining at least 95% phishing recall",
+  "secondary_metrics": [
+    "legitimate FPR at 95% phishing recall",
+    "recall at FPR <= 1%",
+    "ECE",
+    "model size",
+    "CPU p50/p95 latency"
+  ],
+  "simplicity_order": [
+    "char_tfidf_logistic",
+    "word_char_tfidf_logistic",
+    "char_tfidf_calibrated_svm",
+    "tfidf_lightgbm",
+    "bilstm"
+  ],
+  "final_selection_waits_for_transformers": true,
+  "sealed_test_used": false,
+  "superseded_by": "review-2026-10-13/REPORT.md",
+  "historical_status": "Historical 9–10 October run; see revised report for current evidence."
+}

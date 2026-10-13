@@ -1,0 +1,740 @@
+{
+  "stage": "development_validation",
+  "final_test_run": false,
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "text_split_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "models": {
+    "char_tfidf_logistic": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "threshold_at_recall_95": 0.7079097075359819,
+      "macro_f1_at_recall_95": 0.9837753869167482,
+      "legitimate_fpr_at_recall_95": 0.0,
+      "phishing_recall_at_recall_95": 0.956989247311828,
+      "recall_at_fpr_le_1pct": 0.989247311827957,
+      "threshold_at_fpr_le_1pct": 0.42865921908077337,
+      "ece_15_bins": 0.06767889876266192,
+      "confusion_at_recall_95": {
+        "tp": 89,
+        "fp": 0,
+        "fn": 4,
+        "tn": 189
+      },
+      "macro_f1_by_language_and_source": {
+        "language": {
+          "ar": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9811633889303792,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9433962264150944,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.06139500281429993,
+            "confusion_at_recall_95": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 3,
+              "tn": 174
+            }
+          },
+          "mixed": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.09361425113135598,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        },
+        "source": {
+          "kaggle_arabic_phishing_fully_dataset": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9903685768092547,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.96875,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.07287976767153428,
+            "confusion_at_recall_95": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "kaggle_dialectal_arabic_sms": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.09361425113135598,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          },
+          "salloum_gaber_bilingual_corpus": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9571428571428571,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9047619047619048,
+            "recall_at_fpr_le_1pct": 0.9523809523809523,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.051754972782139,
+            "confusion_at_recall_95": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        },
+        "kaggle_dialectal_source": {
+          "source": "kaggle_dialectal_arabic_sms",
+          "geographic_interpretation": "Non-Egyptian and templated, as specified by project context",
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7079097075359819,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.09361425113135598,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.4211999985272996,
+        "p95_ms": 1.515449990256456,
+        "n": 282
+      },
+      "model_size_bytes": 3549042,
+      "model_sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e"
+    },
+    "char_tfidf_calibrated_svm": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "threshold_at_recall_95": 0.7469744431729981,
+      "macro_f1_at_recall_95": 0.9837753869167482,
+      "legitimate_fpr_at_recall_95": 0.0,
+      "phishing_recall_at_recall_95": 0.956989247311828,
+      "recall_at_fpr_le_1pct": 0.989247311827957,
+      "threshold_at_fpr_le_1pct": 0.38824500594948463,
+      "ece_15_bins": 0.06095993220391328,
+      "confusion_at_recall_95": {
+        "tp": 89,
+        "fp": 0,
+        "fn": 4,
+        "tn": 189
+      },
+      "macro_f1_by_language_and_source": {
+        "language": {
+          "ar": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9811633889303792,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9433962264150944,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.04722635425658418,
+            "confusion_at_recall_95": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 3,
+              "tn": 174
+            }
+          },
+          "mixed": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.11764215391379881,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        },
+        "source": {
+          "kaggle_arabic_phishing_fully_dataset": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9903685768092547,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.96875,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.05480761717574925,
+            "confusion_at_recall_95": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "kaggle_dialectal_arabic_sms": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.11764215391379881,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          },
+          "salloum_gaber_bilingual_corpus": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9571428571428571,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9047619047619048,
+            "recall_at_fpr_le_1pct": 0.9523809523809523,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.05028586476515126,
+            "confusion_at_recall_95": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        },
+        "kaggle_dialectal_source": {
+          "source": "kaggle_dialectal_arabic_sms",
+          "geographic_interpretation": "Non-Egyptian and templated, as specified by project context",
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7469744431729981,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.11764215391379881,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 1.3942000005044974,
+        "p95_ms": 2.5943250053387588,
+        "n": 282
+      },
+      "model_size_bytes": 5528689,
+      "model_sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de"
+    },
+    "word_char_tfidf_logistic": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "threshold_at_recall_95": 0.6554436210988795,
+      "macro_f1_at_recall_95": 0.9837753869167482,
+      "legitimate_fpr_at_recall_95": 0.0,
+      "phishing_recall_at_recall_95": 0.956989247311828,
+      "recall_at_fpr_le_1pct": 0.989247311827957,
+      "threshold_at_fpr_le_1pct": 0.4338885710771693,
+      "ece_15_bins": 0.085639820474126,
+      "confusion_at_recall_95": {
+        "tp": 89,
+        "fp": 0,
+        "fn": 4,
+        "tn": 189
+      },
+      "macro_f1_by_language_and_source": {
+        "language": {
+          "ar": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9811633889303792,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9433962264150944,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.07406396664127454,
+            "confusion_at_recall_95": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 3,
+              "tn": 174
+            }
+          },
+          "mixed": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.1334165262933493,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        },
+        "source": {
+          "kaggle_arabic_phishing_fully_dataset": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9903685768092547,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.96875,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.08416054560906393,
+            "confusion_at_recall_95": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "kaggle_dialectal_arabic_sms": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.1334165262933493,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          },
+          "salloum_gaber_bilingual_corpus": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9571428571428571,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9047619047619048,
+            "recall_at_fpr_le_1pct": 0.9523809523809523,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.07031847698981769,
+            "confusion_at_recall_95": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        },
+        "kaggle_dialectal_source": {
+          "source": "kaggle_dialectal_arabic_sms",
+          "geographic_interpretation": "Non-Egyptian and templated, as specified by project context",
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.6554436210988795,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.1334165262933493,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.9168499964289367,
+        "p95_ms": 2.2570249886484817,
+        "n": 282
+      },
+      "model_size_bytes": 2786994,
+      "model_sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8"
+    },
+    "tfidf_lightgbm": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "threshold_at_recall_95": 0.0077979374360896865,
+      "macro_f1_at_recall_95": 0.7988926779300598,
+      "legitimate_fpr_at_recall_95": 0.2698412698412698,
+      "phishing_recall_at_recall_95": 0.956989247311828,
+      "recall_at_fpr_le_1pct": 0.7096774193548387,
+      "threshold_at_fpr_le_1pct": 0.8538038123724939,
+      "ece_15_bins": 0.08576325730790783,
+      "confusion_at_recall_95": {
+        "tp": 89,
+        "fp": 51,
+        "fn": 4,
+        "tn": 138
+      },
+      "macro_f1_by_language_and_source": {
+        "language": {
+          "ar": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.789480657127716,
+            "legitimate_fpr_at_recall_95": 0.2413793103448276,
+            "phishing_recall_at_recall_95": 1.0,
+            "recall_at_fpr_le_1pct": 0.8867924528301887,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.023682113141463575,
+            "confusion_at_recall_95": {
+              "tp": 53,
+              "fp": 42,
+              "fn": 0,
+              "tn": 132
+            }
+          },
+          "mixed": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.6635294117647059,
+            "legitimate_fpr_at_recall_95": 0.6,
+            "phishing_recall_at_recall_95": 0.9,
+            "recall_at_fpr_le_1pct": 0.475,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.35616969889658184,
+            "confusion_at_recall_95": {
+              "tp": 36,
+              "fp": 9,
+              "fn": 4,
+              "tn": 6
+            }
+          }
+        },
+        "source": {
+          "kaggle_arabic_phishing_fully_dataset": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.7556647556647558,
+            "legitimate_fpr_at_recall_95": 0.23809523809523808,
+            "phishing_recall_at_recall_95": 1.0,
+            "recall_at_fpr_le_1pct": 0.96875,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.023912248511508586,
+            "confusion_at_recall_95": {
+              "tp": 32,
+              "fp": 35,
+              "fn": 0,
+              "tn": 112
+            }
+          },
+          "kaggle_dialectal_arabic_sms": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.6635294117647059,
+            "legitimate_fpr_at_recall_95": 0.6,
+            "phishing_recall_at_recall_95": 0.9,
+            "recall_at_fpr_le_1pct": 0.475,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.35616969889658184,
+            "confusion_at_recall_95": {
+              "tp": 36,
+              "fp": 9,
+              "fn": 4,
+              "tn": 6
+            }
+          },
+          "salloum_gaber_bilingual_corpus": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.8541033434650456,
+            "legitimate_fpr_at_recall_95": 0.25925925925925924,
+            "phishing_recall_at_recall_95": 1.0,
+            "recall_at_fpr_le_1pct": 0.7619047619047619,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.08728828069788663,
+            "confusion_at_recall_95": {
+              "tp": 21,
+              "fp": 7,
+              "fn": 0,
+              "tn": 20
+            }
+          }
+        },
+        "kaggle_dialectal_source": {
+          "source": "kaggle_dialectal_arabic_sms",
+          "geographic_interpretation": "Non-Egyptian and templated, as specified by project context",
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.0077979374360896865,
+            "macro_f1_at_recall_95": 0.6635294117647059,
+            "legitimate_fpr_at_recall_95": 0.6,
+            "phishing_recall_at_recall_95": 0.9,
+            "recall_at_fpr_le_1pct": 0.475,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.35616969889658184,
+            "confusion_at_recall_95": {
+              "tp": 36,
+              "fp": 9,
+              "fn": 4,
+              "tn": 6
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.6394000010914169,
+        "p95_ms": 0.8372300027986056,
+        "n": 282
+      },
+      "model_size_bytes": 1217596,
+      "model_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58"
+    },
+    "bilstm": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "threshold_at_recall_95": 0.7793880701065063,
+      "macro_f1_at_recall_95": 0.9837753869167482,
+      "legitimate_fpr_at_recall_95": 0.0,
+      "phishing_recall_at_recall_95": 0.956989247311828,
+      "recall_at_fpr_le_1pct": 0.967741935483871,
+      "threshold_at_fpr_le_1pct": 0.736862599849701,
+      "ece_15_bins": 0.03259435465810359,
+      "confusion_at_recall_95": {
+        "tp": 89,
+        "fp": 0,
+        "fn": 4,
+        "tn": 189
+      },
+      "macro_f1_by_language_and_source": {
+        "language": {
+          "ar": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.7793880701065063,
+            "macro_f1_at_recall_95": 0.9811633889303792,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.9433962264150944,
+            "recall_at_fpr_le_1pct": 0.9433962264150944,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.032296145634340044,
+            "confusion_at_recall_95": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 3,
+              "tn": 174
+            }
+          },
+          "mixed": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7793880701065063,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.051048827899450595,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          }
+        },
+        "source": {
+          "kaggle_arabic_phishing_fully_dataset": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_at_recall_95": 0.7793880701065063,
+            "macro_f1_at_recall_95": 1.0,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 1.0,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.049224643299470565,
+            "confusion_at_recall_95": {
+              "tp": 32,
+              "fp": 0,
+              "fn": 0,
+              "tn": 147
+            }
+          },
+          "kaggle_dialectal_arabic_sms": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_at_recall_95": 0.7793880701065063,
+            "macro_f1_at_recall_95": 0.9775418538178848,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.975,
+            "recall_at_fpr_le_1pct": 1.0,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.051048827899450595,
+            "confusion_at_recall_95": {
+              "tp": 39,
+              "fp": 0,
+              "fn": 1,
+              "tn": 15
+            }
+          },
+          "salloum_gaber_bilingual_corpus": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_at_recall_95": 0.7793880701065063,
+            "macro_f1_at_recall_95": 0.9352226720647774,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "phishing_recall_at_recall_95": 0.8571428571428571,
+            "recall_at_fpr_le_1pct": 0.8571428571428571,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.05897219520799506,
+            "confusion_at_recall_95": {
+              "tp": 18,
+              "fp": 0,
+              "fn": 3,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 48.20425000070827,
+        "p95_ms": 59.95203499842319,
+        "n": 282
+      },
+      "model_size_bytes": 2044650,
+      "tokenizer_sha256": "101c4c89a6d719e3bfc261eca6849fa694044c94aed188ebf2a66ad29bd14afd",
+      "model_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1"
+    }
+  },
+  "provisional_rule_applied": {
+    "eligible_within_tolerance": [
+      "char_tfidf_logistic",
+      "char_tfidf_calibrated_svm",
+      "word_char_tfidf_logistic",
+      "bilstm"
+    ],
+    "winner": "char_tfidf_logistic",
+    "best_macro_f1": 0.9837753869167482,
+    "final_model_choice_waits_for_transformers": true,
+    "deployed_model_changed": false
+  },
+  "limitations": [
+    "No authentic Egyptian SMS validation cohort; source mix is not representative.",
+    "No English validation guarantee beyond the supplied data."
+  ],
+  "model_sha256": null,
+  "superseded_by": "review-2026-10-13/REPORT.md",
+  "historical_status": "Historical 9–10 October run; see revised report for current evidence."
+}

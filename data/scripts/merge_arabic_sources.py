@@ -1,7 +1,7 @@
 """
 merge_arabic_sources.py
 
-Merges the 4 vetted real Arabic sources into data/processed/dataset.csv:
+Merges four public Arabic sources of differing, partly unverified provenance:
   1. Salloum/Gaber et al. bilingual academic corpus (phishing + legit, 300 rows)
   2. Kaggle "Fully Dataset" Arabic phishing/legit emails (1,250 rows, translated 419-style)
   3. Dialectal Arabic phishing/safe SMS dataset (500 rows, deduplicated -> ~333 unique)
@@ -16,6 +16,7 @@ Usage:
 """
 
 import csv
+import re
 from datetime import date
 from pathlib import Path
 
@@ -92,7 +93,7 @@ def load_kaggle_dialectal() -> list[dict]:
             "text": str(entry["text"]).strip(),
             "content_type": "text",
             "label": label,
-            "language": "mixed",  # dialectal Arabic frequently code-switches with English
+            "language": "mixed" if re.search(r"[A-Za-z]", str(entry["text"])) else "ar",
             "source": "kaggle_dialectal_arabic_sms",
         })
     return rows

@@ -1,0 +1,57 @@
+{
+  "data_sha256": "326add89ab44dc60a8ae8ede6747bb737e101fa6907d351f006238e184254ef8",
+  "model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+  "scope": "Current integrated MEDIUM-or-HIGH policy on the cleaned development validation cohort, using training-only frozen blacklist.",
+  "result": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.9962505513895016,
+        "n": 4534,
+        "ci95": [
+          0.9940032634370126,
+          0.997657648658729
+        ]
+      },
+      "recall": {
+        "value": 0.756236397120375,
+        "n": 5973,
+        "ci95": [
+          0.7451855370573953,
+          0.7669578786730887
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.005829903978052126,
+        "n": 2916,
+        "ci95": [
+          0.0036431484965870624,
+          0.009316958877180436
+        ]
+      },
+      "confusion": {
+        "tp": 4517,
+        "fp": 17,
+        "fn": 1456,
+        "tn": 2899
+      }
+    },
+    "verdicts": {
+      "MEDIUM": 4533,
+      "LOW": 4355,
+      "HIGH": 1
+    },
+    "n": 8889
+  },
+  "psl_refines_frozen_groups_verified": true,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false,
+  "sealed_rows_selected_or_scored": false
+}

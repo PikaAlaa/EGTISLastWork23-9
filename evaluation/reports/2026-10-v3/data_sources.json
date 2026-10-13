@@ -1,0 +1,64 @@
+{
+  "retrieved_at_utc": "2026-10-09T19:35:25.152733+00:00",
+  "tranco": {
+    "list_id": "PY35J",
+    "list_date": "2026-10-08",
+    "list_page": "https://tranco-list.eu/list/PY35J",
+    "downloaded_rows_limit": 20000,
+    "api_metadata": {
+      "list_id": "PY35J",
+      "available": true,
+      "failed": false,
+      "download": "https://tranco-list.eu/download/PY35J/1000000",
+      "created_on": "2026-10-08T22:00:02.553351",
+      "configuration": {
+        "isDailyList": true,
+        "combinationMethod": "dowdall",
+        "filterTLD": "false",
+        "filterPLD": "on",
+        "startDate": "2026-09-09",
+        "endDate": "2026-10-08",
+        "listPrefix": "1000000",
+        "providers": [
+          "crux",
+          "farsight",
+          "majestic",
+          "radar",
+          "umbrella"
+        ]
+      }
+    }
+  },
+  "files": {
+    "tranco-PY35J-top-20000.csv": {
+      "source_url": "https://tranco-list.eu/download/PY35J/20000",
+      "bytes": 387923,
+      "sha256": "f06bbb86bb81ceb803b9a539514cf306bad080892373daaa35da4140fded97f5",
+      "last_modified": "Fri, 09 Oct 2026 19:35:08 GMT",
+      "content_type": "text/csv; charset=utf-8"
+    },
+    "public_suffix_list.dat": {
+      "source_url": "https://publicsuffix.org/list/public_suffix_list.dat",
+      "bytes": 335478,
+      "sha256": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612",
+      "last_modified": "Wed, 07 Oct 2026 07:28:30 GMT",
+      "content_type": "text/plain; charset=UTF-8"
+    }
+  },
+  "data_sha256": {
+    "tranco-PY35J-top-20000.csv": "f06bbb86bb81ceb803b9a539514cf306bad080892373daaa35da4140fded97f5",
+    "public_suffix_list.dat": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612"
+  },
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "superseded_by": "review-2026-10-13/REPORT.md",
+  "historical_status": "Historical 9–10 October run; see revised report for current evidence."
+}

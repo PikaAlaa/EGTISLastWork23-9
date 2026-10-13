@@ -1,0 +1,2027 @@
+{
+  "dataset": "phreshphish/phreshphish",
+  "revision": "eabec4b7a66324b79cc8a0ad856d1731dc26fe1a",
+  "card_version": "1.0.1 (2026-02-07)",
+  "download_date": "2026-10-13",
+  "complete": true,
+  "columns": [
+    "url",
+    "label",
+    "target",
+    "date",
+    "lang"
+  ],
+  "html_column_downloaded_decoded_or_stored": false,
+  "hash_scope": "Upstream whole-file hashes declared by Hugging Face; verified local SHA-256 for selected source ranges and five-column projections only.",
+  "licence": "CC BY 4.0; card additionally requests anti-phishing research use only",
+  "files": [
+    {
+      "upstream_file": "data/test-000.parquet",
+      "upstream_bytes": 55340975,
+      "upstream_declared_sha256": "9ae7908b64cc75669e4be4cbd0fec884ac2b3f4984211eacfbf013a2ada12851",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "cb48a4b34704210a2ffeaacc02ab39ea96f96f00782aa93a8548bedced3eb0a2",
+      "selected_ranges": [
+        {
+          "start": 35125,
+          "end_exclusive": 72941,
+          "sha256": "2f71393d8d8c0b81df012c2aa252f90f272134aa0cebe5b54ee8db3d3acffa71"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:29.291650+00:00",
+      "rows": 1000,
+      "projected_sha256": "897f9bd72bb2a116eba993b52ec8932b0b454c498d2e2d3a3810183f4b2767b1",
+      "projected_bytes": 39001
+    },
+    {
+      "upstream_file": "data/test-001.parquet",
+      "upstream_bytes": 349640343,
+      "upstream_declared_sha256": "bb122ccb309436b92e7edf11792d53efdbde46c4b5d2ad7d39a7d48b50d2b00f",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "9f4aa31fa2d8a809d57771dabe9a10afb34a22cdbb8e3baab834cbd14c4a988e",
+      "selected_ranges": [
+        {
+          "start": 187504,
+          "end_exclusive": 363498,
+          "sha256": "ad53ffa96d7fb8d20f8ab40ad5b63172c9452fa13df87f3ceab01ef87279fad7"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:29.606189+00:00",
+      "rows": 5236,
+      "projected_sha256": "c54f61f298686702e06f688967a611d95e546e13e78bae7d9fbdc65ee36fc0de",
+      "projected_bytes": 177139
+    },
+    {
+      "upstream_file": "data/test-002.parquet",
+      "upstream_bytes": 309443239,
+      "upstream_declared_sha256": "da3e9b1fb7e537ea951bb6e9ac68ae5a0c48e6590714f2b90ecf5dd96276d894",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2988a21f63ca3a60789a1f828d1d85ea50823c3ce5f8bcc7af16d06bac8bdd9f",
+      "selected_ranges": [
+        {
+          "start": 204724,
+          "end_exclusive": 391218,
+          "sha256": "f5cdd07f3953cee62be829a53c2e564d5a57411dcbe05c06c3c74b54b7411ec2"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:29.949192+00:00",
+      "rows": 5759,
+      "projected_sha256": "51eccc21a8a91484d96ae3c455112aca8fefce5ecce38ba59f7f84edc9574cdf",
+      "projected_bytes": 187606
+    },
+    {
+      "upstream_file": "data/test-003.parquet",
+      "upstream_bytes": 371223967,
+      "upstream_declared_sha256": "c6157aeddfc5eff2728e88ccc61186464e4e6861bee0ae841a830be9ebc7cf17",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "c2ed937bb574390fe8183a83ecf9a2f119e30e6e1ddd0bfd931c3d66d93aa10f",
+      "selected_ranges": [
+        {
+          "start": 231714,
+          "end_exclusive": 452781,
+          "sha256": "b8bbf2b52dea0f7c0812fec348d42efb550908468a5cd9d93bb413194d0aafd2"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:29.880513+00:00",
+      "rows": 6558,
+      "projected_sha256": "3245226a1b00aa88b9266c3380b20f8a9c1b1e6e2765bb3a643e491ad8888bf2",
+      "projected_bytes": 222177
+    },
+    {
+      "upstream_file": "data/test-004.parquet",
+      "upstream_bytes": 378348158,
+      "upstream_declared_sha256": "b20de434400f3030dd711a1e4f6e012397d1c2889d575b21aa747f8c5ae04df1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "f3b26d92bc58bda12b7264134b8d145a31928331ba80cd59f4cd9e7b8bff6c65",
+      "selected_ranges": [
+        {
+          "start": 257394,
+          "end_exclusive": 485709,
+          "sha256": "ec7c8ab2bb6c7a3210e96c668beeada33ea0dc014b7a7b656755262c8540f1f7"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:33.463871+00:00",
+      "rows": 7098,
+      "projected_sha256": "29da638be91dd988e3f841c53fc3473df53f70748cd7dc99a9598341d7bd852b",
+      "projected_bytes": 229476
+    },
+    {
+      "upstream_file": "data/test-005.parquet",
+      "upstream_bytes": 401642506,
+      "upstream_declared_sha256": "19b0ecd6a657a11a3fb43dcb22e260eb5b5c8d7a0dcee880b4705a9ee2ef1c6f",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "446adeaf1997434c41a8db0f53447a0613955695d492a8f95750255da4bdddff",
+      "selected_ranges": [
+        {
+          "start": 273516,
+          "end_exclusive": 525113,
+          "sha256": "7eed1dc20c86221e204e84b229c8fa2adc655a62c5f0c9576093a862a04c6c31"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:33.931449+00:00",
+      "rows": 7645,
+      "projected_sha256": "2351276c0411fce642b186d30c7eb3a104a1236d092df789de4e531b23be3d9f",
+      "projected_bytes": 252712
+    },
+    {
+      "upstream_file": "data/test-006.parquet",
+      "upstream_bytes": 421478326,
+      "upstream_declared_sha256": "a34c4ad85cf863af950cad8251717cba3642ae0c0e7bd8ab245a29a63139d187",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "848cbbba32f34fb5a6944225c52744bce86f71f4e800659a79b14bbd7305cfb2",
+      "selected_ranges": [
+        {
+          "start": 287164,
+          "end_exclusive": 555593,
+          "sha256": "579268a9aaab7cd3ff2a4a24498bc006cd31cece0e8e7df76dfbd37f9c9f7a49"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:34.188007+00:00",
+      "rows": 8111,
+      "projected_sha256": "07b98834b55e0c718a1996c3f0dd79c0a3439fdf3eaf49bb978413e7f2e2b995",
+      "projected_bytes": 269575
+    },
+    {
+      "upstream_file": "data/test-007.parquet",
+      "upstream_bytes": 454488388,
+      "upstream_declared_sha256": "f91281ac9a8bbf39fe9146e115be5e74cf3d59719c2f06bb38178fbaa9d6719b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "00ef2e64f0ebee09e874d8172793e8b9b405c1760b0cee422e374e549e3faef5",
+      "selected_ranges": [
+        {
+          "start": 304851,
+          "end_exclusive": 584119,
+          "sha256": "9afcbd5686a3bbddeb6b748a18c5ba24cf1bc8349b5592845ab922c9c0be3334"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:34.317916+00:00",
+      "rows": 8506,
+      "projected_sha256": "d0f6ef3dfc033ac62ae7625fd0e1a12102071a1707226cf571144761eadc9a39",
+      "projected_bytes": 280391
+    },
+    {
+      "upstream_file": "data/test-008.parquet",
+      "upstream_bytes": 456990152,
+      "upstream_declared_sha256": "82e7216cef17bd78f83ee3339a980d0e09ef864c83f3e8222ef809b961821252",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "1fbfebbe288a50b323d861ff48b63106d9c87d27e808024a4dc51c37ce28e8ec",
+      "selected_ranges": [
+        {
+          "start": 313873,
+          "end_exclusive": 601162,
+          "sha256": "789185de6e290f8464960cff2c205d532d4cea69680f9384015a0534881b9d49"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:36.488737+00:00",
+      "rows": 8767,
+      "projected_sha256": "7c3fa03e816f4256248e18af1161bbd06836fcb216325c68f6746e825f97047b",
+      "projected_bytes": 288436
+    },
+    {
+      "upstream_file": "data/test-009.parquet",
+      "upstream_bytes": 483918414,
+      "upstream_declared_sha256": "a18e27d35f3a06983c1734f875093f45dbd041ea39e796f8d762f5712f800be6",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "32e8874ef9695a9c84305ae1b10577c70cfdbc98a41c73fdcae7588c0dcc0c3f",
+      "selected_ranges": [
+        {
+          "start": 327113,
+          "end_exclusive": 619160,
+          "sha256": "b307ba602bd3097fd3e44510bae15fe605c553e7b5b75e57753cc0f26fcef1d7"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:37.221886+00:00",
+      "rows": 9025,
+      "projected_sha256": "e8d4010d6b983042587b759292351ca51444333704df7b95fbf34d8478420aa0",
+      "projected_bytes": 293189
+    },
+    {
+      "upstream_file": "data/test-010.parquet",
+      "upstream_bytes": 530323891,
+      "upstream_declared_sha256": "b5d9ca33207b70e2c22aeef6cdec1f294a7ce5f843c6033e208c6f520c85cfdd",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "a0a0684adeae1bee909d744bf5fc6eeba7647281a2b8a324c5fb2320e8e9fd53",
+      "selected_ranges": [
+        {
+          "start": 326440,
+          "end_exclusive": 627840,
+          "sha256": "02cdd513a5269c4887a066ca1d3024272a9687dc60cc20fd12fa165fb434c13e"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:36.866341+00:00",
+      "rows": 9175,
+      "projected_sha256": "b5af5bb83878714b308665c5df74326e817efa0afb917928a19d0d666f59cace",
+      "projected_bytes": 302613
+    },
+    {
+      "upstream_file": "data/test-011.parquet",
+      "upstream_bytes": 500273254,
+      "upstream_declared_sha256": "585cf9cfa0ddb54421bfccedb26590dd87426908e814f1290b1986c2e750f0e5",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "7bef6bb21d9aaa44a49a544f42aecec83db63885bf143600e67db00482b8d7c8",
+      "selected_ranges": [
+        {
+          "start": 326682,
+          "end_exclusive": 629740,
+          "sha256": "288fffa5159d41d225bb12894664fb971c32296c04585cb1668e068bb5e41d84"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:37.312941+00:00",
+      "rows": 9154,
+      "projected_sha256": "7fcdd992ba5a35468e70eecf7d123403c0acfae5148e7fd59ecb4eff210c541b",
+      "projected_bytes": 304201
+    },
+    {
+      "upstream_file": "data/test-012.parquet",
+      "upstream_bytes": 524605977,
+      "upstream_declared_sha256": "3bbffccd4269ac723febeacc01905b2d52d1f98242f5bf18a82093cc4f4cdf97",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "9b8a33ac1152246eb440f6dc8165ad47b0c23e1662fa5449a4dfcbb456ef7aae",
+      "selected_ranges": [
+        {
+          "start": 330613,
+          "end_exclusive": 633472,
+          "sha256": "83ff3367bae04d18ada727fadce4d1b3a69c8ec18ee8dcafccf1b2cd14f391dc"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:39.491091+00:00",
+      "rows": 9241,
+      "projected_sha256": "b9087e1cb33a284b5078947dac9fafaf8f7a303a53509be515cdede75e70cf4f",
+      "projected_bytes": 304039
+    },
+    {
+      "upstream_file": "data/test-013.parquet",
+      "upstream_bytes": 497270955,
+      "upstream_declared_sha256": "81daa4b68fca7b2df4d144145e80a09355d963e290d277c9976fb5a988b5e1f3",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "7fdb7952c37a1326f31acd23e2c67a45134447b5b916d175175f104acb9a6d15",
+      "selected_ranges": [
+        {
+          "start": 327697,
+          "end_exclusive": 632851,
+          "sha256": "a4ad3986aa3cf996ee5c2a68b29f092db6f5ffc03de8c77ceef1476a17ab2078"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:40.032643+00:00",
+      "rows": 9239,
+      "projected_sha256": "b420d522fcd31669a612cf9a88baba6c10dd3be836af7a936a50c1d2c44235a9",
+      "projected_bytes": 306303
+    },
+    {
+      "upstream_file": "data/test-014.parquet",
+      "upstream_bytes": 478593835,
+      "upstream_declared_sha256": "8e30a3b2419604ce578f341392bd6e3878abdae38d7b3e38adb107bf2f557c03",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "ade40ab0d1f9fad73626cceec9d0301d0810a4c263a8a1d038675c1fc4edb8bf",
+      "selected_ranges": [
+        {
+          "start": 334708,
+          "end_exclusive": 643611,
+          "sha256": "84c6f28b3477914681d1bc64199e4dd1cd97a2c69d1fd65c820ed7b1e64277e8"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:40.686380+00:00",
+      "rows": 9339,
+      "projected_sha256": "b912f1f539ecd3ca2cd17acd0d42c7878670132cd56dcd3edd801ca415dbd06a",
+      "projected_bytes": 310044
+    },
+    {
+      "upstream_file": "data/test-015.parquet",
+      "upstream_bytes": 502425981,
+      "upstream_declared_sha256": "9d2589e528116c862aba4eed4ce0b4778172e8b82f2ac3c4157153666bb68adc",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "4dfebcb90e460786834adf24bebacfd872d0864f865e19933561995d427f39e5",
+      "selected_ranges": [
+        {
+          "start": 338097,
+          "end_exclusive": 649277,
+          "sha256": "34a3316325b9e6246b5f49bc2e559bbfc011498d15dbb87ca05fb8f7b196fd1f"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:40.529585+00:00",
+      "rows": 9517,
+      "projected_sha256": "12338d99941828443c551fae634b43f4ca8afa95c7312263a8d24ef9297377ff",
+      "projected_bytes": 312302
+    },
+    {
+      "upstream_file": "data/test-016.parquet",
+      "upstream_bytes": 523758907,
+      "upstream_declared_sha256": "3d9f97863ee0c88448487d4a13c4947951d62e65e571ed695e8bb69108995ba7",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "44408304bff3fb02884b3c9ba2435a84a6faee5c2896732cd5b89302d8b29af5",
+      "selected_ranges": [
+        {
+          "start": 343613,
+          "end_exclusive": 661801,
+          "sha256": "64ab0cd0e3c6b36ba7ddabc60e16354141787a69b40944d01a0ffb034bd3379d"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:43.138198+00:00",
+      "rows": 9599,
+      "projected_sha256": "1f18a3e7684331f4dfa551b93f62839bfe92881465f6a9f9576c55ff9912642a",
+      "projected_bytes": 319351
+    },
+    {
+      "upstream_file": "data/test-017.parquet",
+      "upstream_bytes": 516672678,
+      "upstream_declared_sha256": "66b916bc81a28f172ee807acedb497096993f64266459af8d785bc09d4d127d1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "826c760af256d3b12263bb2614b14b1c011e144ccf7b4c29b20ec9b371c7d941",
+      "selected_ranges": [
+        {
+          "start": 344455,
+          "end_exclusive": 658488,
+          "sha256": "e44d24c87f6adef2c9dfdb282ae19dcf05166692de797090f85625c49330b93e"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:43.350617+00:00",
+      "rows": 9600,
+      "projected_sha256": "857b0e7d3a8841f7fc055443dc6022ce93571e9d43c31cd7919c3d03eb6e4618",
+      "projected_bytes": 315183
+    },
+    {
+      "upstream_file": "data/test-018.parquet",
+      "upstream_bytes": 567766583,
+      "upstream_declared_sha256": "aaa23d30b1c242b94000b5243dfb855f715f95fdbc0fd345f9ec4d30aeda36b1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "51ca038238d853539b432985e01fa781e48edee5decf8fd54b1c7e441bf3cd20",
+      "selected_ranges": [
+        {
+          "start": 344049,
+          "end_exclusive": 655901,
+          "sha256": "1b013ef62dcadf7f1533cfa8f325f4b36c1192846eefa068485566a958c8e7f1"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:43.946604+00:00",
+      "rows": 9628,
+      "projected_sha256": "9881e7f42b3660984471c3e4c7c37632fa674d61303ad71cee2f8fb39559a497",
+      "projected_bytes": 313001
+    },
+    {
+      "upstream_file": "data/test-019.parquet",
+      "upstream_bytes": 504129805,
+      "upstream_declared_sha256": "c7169aa4564a95e4950f05bc3281a66fe58f2b31eb1594b62a693de65da7508c",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "e20212034c520a395157c051a839cd80c57e4f59ecd01cf6acb2fa04738348da",
+      "selected_ranges": [
+        {
+          "start": 339748,
+          "end_exclusive": 653456,
+          "sha256": "c7d32296b83f192e7a94108fa6188b68341f8dd78b25de40fe160bc4d363d8ce"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:43.929969+00:00",
+      "rows": 9480,
+      "projected_sha256": "4a172ff4c4914a1c03be3107ce25338bfbfb542d83b8f378c61477b46b1d1bbc",
+      "projected_bytes": 314884
+    },
+    {
+      "upstream_file": "data/test-020.parquet",
+      "upstream_bytes": 347423824,
+      "upstream_declared_sha256": "77d312fe7dc92fc3b2ed208ab55b148b2032345091ad44d513b479241013d18e",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "a0c0305221b368b0648a06c627b260ad7d9d48dfe653caac6117f7d7e122995c",
+      "selected_ranges": [
+        {
+          "start": 229409,
+          "end_exclusive": 440912,
+          "sha256": "2097a0db104de5a5c72db5f6066a0e846ebd98e13dbe54a79e8b9fcf307bafd4"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:45.932534+00:00",
+      "rows": 6383,
+      "projected_sha256": "dae614cca3a3e2c837bed1eac8ae6fe29dddc4c551dde7a7b6eacf2a57ca720a",
+      "projected_bytes": 212645
+    },
+    {
+      "upstream_file": "data/train-000.parquet",
+      "upstream_bytes": 49639686,
+      "upstream_declared_sha256": "9a9c693a95daeddb127c4446df4c5673b3f1a39e457ffe964b9849069bd739fe",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2bbfd85d370f539ff0da7fe839852195c27774cbe3931eaae4090819b915132f",
+      "selected_ranges": [
+        {
+          "start": 35256,
+          "end_exclusive": 70364,
+          "sha256": "7c2aaaf5eface99fd9c1b7e5c16a068b72abfcde304c2d972e11a1c537e1992f"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:45.718604+00:00",
+      "rows": 1000,
+      "projected_sha256": "7e9a9d5d2e1d6a9d52b0d782ba65579f3eb6b0e61262a2aa5cdda9c15cc5a213",
+      "projected_bytes": 36259
+    },
+    {
+      "upstream_file": "data/train-001.parquet",
+      "upstream_bytes": 322018201,
+      "upstream_declared_sha256": "260cb9c93299f6b244d48321fe115523159770f4e73446b382473628c6e81d74",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "bc6f55c9199124ebdd15ea7c504ba7073f34b9332617ac550a9dbc76dca03d2f",
+      "selected_ranges": [
+        {
+          "start": 206684,
+          "end_exclusive": 396342,
+          "sha256": "ac0ded16a36dc63910da1d917b1995b605897bad552d5200c3a934fbd53ef9d7"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:46.598396+00:00",
+      "rows": 5780,
+      "projected_sha256": "88cafdce22e582274cc5e1c9cc45c2557ebf4768176bc107f4b790b2430ea653",
+      "projected_bytes": 190787
+    },
+    {
+      "upstream_file": "data/train-002.parquet",
+      "upstream_bytes": 354725131,
+      "upstream_declared_sha256": "75d891908c1f921542ea9e4f94578f8442da05333621f1cb3ef386c9698935a7",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2fa324281bee26a7fa157b39407132458464f28e2037e5ff8791fafb0ca787ad",
+      "selected_ranges": [
+        {
+          "start": 231691,
+          "end_exclusive": 445557,
+          "sha256": "2f345651f02e60329f4f5815f20699674b1eb200b694727ca34e6335cd9da925"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:46.665308+00:00",
+      "rows": 6506,
+      "projected_sha256": "ec30984aac6ddeb41b2df227cc4b2bb717ae3167b8771a20cf03177bb0f2355b",
+      "projected_bytes": 215057
+    },
+    {
+      "upstream_file": "data/train-003.parquet",
+      "upstream_bytes": 433568855,
+      "upstream_declared_sha256": "0f6bd169f813a9446294597602d1b93457da62c753594d8d1ecb78d20d5dec40",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "795524e00ff22953a4ef4468da5b51b50ffdd9af7c871ce293a179b1fc4b2498",
+      "selected_ranges": [
+        {
+          "start": 251331,
+          "end_exclusive": 496060,
+          "sha256": "735b76b649bb891f6798359a15435d7e7bc18879e34d8f0dec0fcc65d47f9e2c"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:48.443596+00:00",
+      "rows": 7127,
+      "projected_sha256": "3902f3c9d9033ece7ae221efe2b09a664c424fcff158228a8f0361ddafdb9e62",
+      "projected_bytes": 245799
+    },
+    {
+      "upstream_file": "data/train-004.parquet",
+      "upstream_bytes": 403296550,
+      "upstream_declared_sha256": "82fa46160b9d7779994f7f7ec8cb612f942b8410a0a3325e26134bad72c708ab",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "40564eac3fb3613c9164eba306d862b730b237764d6f9fc1bfa156f9ab60e3ed",
+      "selected_ranges": [
+        {
+          "start": 267707,
+          "end_exclusive": 507970,
+          "sha256": "0ce8a421ae34d2dd3b5c00bee81cef12c62bf8f858cf785dc068340c7a47966f"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:48.585008+00:00",
+      "rows": 7425,
+      "projected_sha256": "a38f2921d5e4dbc054ee39800e770ff63b16e546ad354e038a629d9e14fd1d26",
+      "projected_bytes": 241419
+    },
+    {
+      "upstream_file": "data/train-005.parquet",
+      "upstream_bytes": 463326261,
+      "upstream_declared_sha256": "d5dde3895c6a78daf59ef8c3ee3e67a72a30bc7a7e34782a9dfa503d998334fa",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2a9b1b2116899e1a40067a37b50cf219a3da4ae3233440fdc8b8bc22a4c722ab",
+      "selected_ranges": [
+        {
+          "start": 283822,
+          "end_exclusive": 536965,
+          "sha256": "dc7464891f7dec9fa79ecaff63ed58ec0f3f2982740781ef2a9235681de625d5"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:49.474771+00:00",
+      "rows": 7870,
+      "projected_sha256": "0cfc0013a80b54b2571266ea79e0824c0fbcdb4c1fee0a51767f66aa1ab28244",
+      "projected_bytes": 254297
+    },
+    {
+      "upstream_file": "data/train-006.parquet",
+      "upstream_bytes": 421664373,
+      "upstream_declared_sha256": "a09a5acf3e160c0449ec829c02b9868181e0832895fe096ce50671c9f6b21186",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "6e706d6ca2d19c3dee6baa10e1f05b882a7bffbcb582f59eb9cc6917642cdc8e",
+      "selected_ranges": [
+        {
+          "start": 290752,
+          "end_exclusive": 554367,
+          "sha256": "020f3da5fdab0e77334561cd8bd1e1a0b84de671ebeb0d1e8d9c61598466320c"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:49.586694+00:00",
+      "rows": 8077,
+      "projected_sha256": "763d878c37bf57b23a57ab00f6a4d257b1e00e818353c8211a45996750b9a4db",
+      "projected_bytes": 264799
+    },
+    {
+      "upstream_file": "data/train-007.parquet",
+      "upstream_bytes": 470883056,
+      "upstream_declared_sha256": "6ea74e3fe2fb8e60aeb1e839b768c63f847a53a4b522eaeb039f646fef7e6d99",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "04044300eadd4ecca1526884d73d30272db788c9fa2dee77b0bd7716911fed6e",
+      "selected_ranges": [
+        {
+          "start": 303686,
+          "end_exclusive": 579618,
+          "sha256": "8ee8cef60a5e61cb5779a8bbd9346e0d95b260a53cb86502a84c7b8acae988fe"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:51.248978+00:00",
+      "rows": 8470,
+      "projected_sha256": "fb43e8205cf9927b8c5d3bc549d92b7ccef33e1b12da32cbf4b4f0afe9042362",
+      "projected_bytes": 277123
+    },
+    {
+      "upstream_file": "data/train-008.parquet",
+      "upstream_bytes": 489853296,
+      "upstream_declared_sha256": "744bfac082fcc8f038c69b87a89d5232e8d89eee56f5c5da13507cafc271a3a1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "dcef7f3eb42cf9440bc8204bb132149341a2b4d6bd119d068487eae65687deb0",
+      "selected_ranges": [
+        {
+          "start": 306739,
+          "end_exclusive": 586917,
+          "sha256": "13f23b157c4e4ed3ef294ab55e39ffd2ee560e219e50b766c095884bd98dcb41"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:51.533926+00:00",
+      "rows": 8662,
+      "projected_sha256": "882fec349a5620087d77d31655c8eaa886de7ec0a7e38da13ae64849d0da5cea",
+      "projected_bytes": 281282
+    },
+    {
+      "upstream_file": "data/train-009.parquet",
+      "upstream_bytes": 459330640,
+      "upstream_declared_sha256": "1f2c36eb106e707efad78ad6daa31bb5a9935a1b3c223007a9306768585b794b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "5c88c0dcfad4486faaa1fed26f046a1369a58a88d7ee2d117df7ec450be75a3b",
+      "selected_ranges": [
+        {
+          "start": 312347,
+          "end_exclusive": 604283,
+          "sha256": "65b0d1511c2d0ddb26b2664826ad8f1a714e02709eb235cd86bf6b5a7410a481"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:52.578321+00:00",
+      "rows": 8783,
+      "projected_sha256": "fb0af10cc84a2bd09a9f54c237b75259fe354c7652c941932a1b452e7359f6f9",
+      "projected_bytes": 293134
+    },
+    {
+      "upstream_file": "data/train-010.parquet",
+      "upstream_bytes": 496786679,
+      "upstream_declared_sha256": "2248103f6867733767b12abbe7f39d2e0c8f9872be1c2889f7fe12c7ba8fd9ed",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "0ce7a463e02df558dac93e2c0da5b9558899ec8d84b34ce0fe99c7427f6b18e9",
+      "selected_ranges": [
+        {
+          "start": 322668,
+          "end_exclusive": 619553,
+          "sha256": "03c63db1cebe54987391b1f8414917b724277947d5847211b73a334690525bca"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:52.482529+00:00",
+      "rows": 9031,
+      "projected_sha256": "3e36d559ceb63023c499c661483cc84d080fe06f34df0103dd71f7e830cc9698",
+      "projected_bytes": 298035
+    },
+    {
+      "upstream_file": "data/train-011.parquet",
+      "upstream_bytes": 489298015,
+      "upstream_declared_sha256": "f0444a6a5ac7931141be5853f46ef4c0ca5cffb1e0954c0fac378f5b4901a089",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "bfdf620b3422b376a2beeb87681ff0341d2bb896ac6f3fb392e2241c200cc0d4",
+      "selected_ranges": [
+        {
+          "start": 330389,
+          "end_exclusive": 631334,
+          "sha256": "556fdd3357ce1ae93911d847654f61d26fd527933fdc5e4b8d24c2d6e91d50b3"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:54.319067+00:00",
+      "rows": 9130,
+      "projected_sha256": "25e7b24758a48b35463d5ebf0d46081850cf2157dc224c90562e259fbf2b7ab2",
+      "projected_bytes": 302143
+    },
+    {
+      "upstream_file": "data/train-012.parquet",
+      "upstream_bytes": 539858399,
+      "upstream_declared_sha256": "ac98e35172589cfb4fb3ba0995edd893691b5a56270f5984491c9b1482920e63",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "dfe9770d5f3be066a09faacc7617ed8cc8bba59e7a72b01df9c75ec5db82f7f3",
+      "selected_ranges": [
+        {
+          "start": 334912,
+          "end_exclusive": 635567,
+          "sha256": "3802f222ebab001fe90970f1f5c7c64aae7e8bc8e30d1e4a3631928de440d3b8"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:54.393626+00:00",
+      "rows": 9260,
+      "projected_sha256": "e90d1e89921294ca6857f0923560e39d78fa860abd6d03832878c99a634410e8",
+      "projected_bytes": 301765
+    },
+    {
+      "upstream_file": "data/train-013.parquet",
+      "upstream_bytes": 516513156,
+      "upstream_declared_sha256": "c8ffb87097fcda5c3b8ec8e7fda7b23351bd39e6f32aa32e4641ad9b68ba48f7",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "1aecbb62e106b7dd0b7ae126751bc0173edb18a381a7a83432bdab9b2b10b32e",
+      "selected_ranges": [
+        {
+          "start": 330107,
+          "end_exclusive": 628057,
+          "sha256": "703efabccd98b127fe2f668ec5e60788ca2dd1b6688c8761defb94fe992a39b6"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:55.277918+00:00",
+      "rows": 9206,
+      "projected_sha256": "e3b3890373b0f36506b7f90b652d3eb3a8fcc9fb4bb234c05b068a412b2c2a4a",
+      "projected_bytes": 299113
+    },
+    {
+      "upstream_file": "data/train-014.parquet",
+      "upstream_bytes": 528280696,
+      "upstream_declared_sha256": "e179724438ea500e2a171b8b8f7b01dc51f312fb7bad94af4657bf199fff65c6",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "895193c07367de5fea69a73ee3d922dfb488004fd001ab438ff121bd50918ec5",
+      "selected_ranges": [
+        {
+          "start": 330761,
+          "end_exclusive": 633017,
+          "sha256": "4c117dbd798d2406b7c1e8ef1e2cbf0dfcdc779a7781189b67fd1ab0b7b6d1fe"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:55.727258+00:00",
+      "rows": 9233,
+      "projected_sha256": "c937f09cf1f1812131a6ef1ce3ecd8eed3a0ecce9565a3eca4d161d75e4d9a7c",
+      "projected_bytes": 303414
+    },
+    {
+      "upstream_file": "data/train-015.parquet",
+      "upstream_bytes": 491305707,
+      "upstream_declared_sha256": "483887bf4501d7a61d1f816ee01c52c5acb8c7329db91f9e0e788249f24809ff",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "1c3b4666e3c49729635c7da7ff4a6c099005abbc9198422216bfd632f58ccf39",
+      "selected_ranges": [
+        {
+          "start": 330251,
+          "end_exclusive": 636422,
+          "sha256": "c1283002452bf3ebff92f140fcd972ab2db005b3536eff2529afdc75dbc0324d"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:00.404033+00:00",
+      "rows": 9219,
+      "projected_sha256": "9fa8f4752b3ed288dc48aa48a37aac70b185d369eca6f9a619471cdeb7300690",
+      "projected_bytes": 307317
+    },
+    {
+      "upstream_file": "data/train-016.parquet",
+      "upstream_bytes": 481450112,
+      "upstream_declared_sha256": "abb2a14210d0061da98e0efa567f5ea59be5e3fdbc89fdebbd79926582e79344",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "1ca8a2494609472867de1aedc7a18d031b376528ba4d83ca34604abc450b4402",
+      "selected_ranges": [
+        {
+          "start": 334765,
+          "end_exclusive": 638349,
+          "sha256": "753ecdb19112acc91f918ac9c01fea5322a402f9d75ba20c4f28d7995e172673"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:58.623793+00:00",
+      "rows": 9342,
+      "projected_sha256": "557f0e3f3354663ad17409bf5a30833f830c4b912405b64267febffcec4bb761",
+      "projected_bytes": 304764
+    },
+    {
+      "upstream_file": "data/train-017.parquet",
+      "upstream_bytes": 553260365,
+      "upstream_declared_sha256": "3745a8434d1cc44a29e7925f200d070ec023301224573a87732458d9d69416d1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "42c78713d48372dfc7809d93190531b515f78afaaa8fd7b55f12c735fc706ea2",
+      "selected_ranges": [
+        {
+          "start": 336819,
+          "end_exclusive": 652647,
+          "sha256": "ee9722e00c6e9b3ae6f975b39987a8bad8616ea1e7ebad2b58a554b5c0419e2f"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:59.556915+00:00",
+      "rows": 9508,
+      "projected_sha256": "c1cfea56ecce46744f7da2589bd03ee6fae5a6a57b4ea84460cfc7ceb1d7a8cc",
+      "projected_bytes": 316959
+    },
+    {
+      "upstream_file": "data/train-018.parquet",
+      "upstream_bytes": 512599049,
+      "upstream_declared_sha256": "a95f097bd5f90d90520cdbe425832cb60a4772e945ef6a06f02eaf1244eefb3b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "116d605fc3dacfc1f894bda183a91cc8d2e6fe191bc2d9c72d63852da1866a1c",
+      "selected_ranges": [
+        {
+          "start": 333554,
+          "end_exclusive": 641819,
+          "sha256": "e5a31c8e712340ed83b3e3d2670ddf231216042cfecef3f84aa50852d4c00c98"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:32:59.235822+00:00",
+      "rows": 9408,
+      "projected_sha256": "26037d92152a917d17271d3b2937ba6358c4a3af90b777384daff7d3b9e8a0b6",
+      "projected_bytes": 309417
+    },
+    {
+      "upstream_file": "data/train-019.parquet",
+      "upstream_bytes": 531769758,
+      "upstream_declared_sha256": "d0758feaabe72748f7dce8a097dba32ac3380f1325a6a333b48d4062e6899913",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "3fab514c24a5eaf0efe229e559e313096065c08b5c1ac507cb27ba6d7c7385bf",
+      "selected_ranges": [
+        {
+          "start": 339035,
+          "end_exclusive": 652633,
+          "sha256": "f3f0645dc17bc23427dcb413cc26cd2869ef319d8c777e84edb9693a29564f1c"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:02.120690+00:00",
+      "rows": 9450,
+      "projected_sha256": "d4c9d467e7cb45389462d928cc39227e89aa8b35c1d537a74e4faea43233ede8",
+      "projected_bytes": 314726
+    },
+    {
+      "upstream_file": "data/train-020.parquet",
+      "upstream_bytes": 516696945,
+      "upstream_declared_sha256": "2ac1568a8cc7725db7c9ac655d27b7b4425dbef304d0fb2694330bf0087d1015",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "58acdd161e9aa0c6b2b03d6d0ba3a22c6009c3d1f7e1504d043d6a9162eaf9d6",
+      "selected_ranges": [
+        {
+          "start": 335488,
+          "end_exclusive": 646789,
+          "sha256": "3123d9d60d48b792a67138c59dee7f19a927a6a3f4bf3452a1b8f9f731cae25b"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:03.132068+00:00",
+      "rows": 9423,
+      "projected_sha256": "d3ce9225721217b730faac5c9cd10bd26c1eced53d1b86a0f878b0c04ed89537",
+      "projected_bytes": 312511
+    },
+    {
+      "upstream_file": "data/train-021.parquet",
+      "upstream_bytes": 542055394,
+      "upstream_declared_sha256": "86b046714343896da9d33a47b650ddc3fa7dda16c46b613919c9e121e68131c4",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "af33bebc7c37a288ab46ce34ebbe1331652c5213047d29150516736a08406eb5",
+      "selected_ranges": [
+        {
+          "start": 338195,
+          "end_exclusive": 644801,
+          "sha256": "64b92564dd260828fe93f583af5f4f13610efbfa63812c66c83578b7b663f247"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:02.983804+00:00",
+      "rows": 9450,
+      "projected_sha256": "709b7f4fbb874d4ed96f0d10ad62daf09a7a81fc1eb95cbeb1136df163dd8c8c",
+      "projected_bytes": 307725
+    },
+    {
+      "upstream_file": "data/train-022.parquet",
+      "upstream_bytes": 519913293,
+      "upstream_declared_sha256": "48bb12db73d2920adf6fab9065aef6458cef4c68a63bdf8d17cef31411ed9dbd",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "17667011e476e2b9107682dd278258e2eac64e7a27f08ce4991fa193825173df",
+      "selected_ranges": [
+        {
+          "start": 337877,
+          "end_exclusive": 652463,
+          "sha256": "3c7a5259392cdc16abc04501c27856d4a504e5a986f0740613fb89652040f9ed"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:03.444181+00:00",
+      "rows": 9388,
+      "projected_sha256": "45ecfb844bce1dd4e7296358ded06eb7cfaa1936839488ef94baa2b86f51e83c",
+      "projected_bytes": 315842
+    },
+    {
+      "upstream_file": "data/train-023.parquet",
+      "upstream_bytes": 512579781,
+      "upstream_declared_sha256": "7049741383572bb85be44adae7185f782be808f89bd61ce20814a58a728a507f",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "fb2ca31f22640754967789673cc3ebdd08b4cf243985797ff396ad70a2d9a118",
+      "selected_ranges": [
+        {
+          "start": 336985,
+          "end_exclusive": 646192,
+          "sha256": "a28b230ba327629abb96daf1a0195e5ad4b6b3755a480565bb89aba4be820849"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:05.411632+00:00",
+      "rows": 9403,
+      "projected_sha256": "3a0fc0c47fab599c4ecefe01da212c4f0f744b29eb8bc6809f91474b7d1e73b1",
+      "projected_bytes": 310467
+    },
+    {
+      "upstream_file": "data/train-024.parquet",
+      "upstream_bytes": 490380787,
+      "upstream_declared_sha256": "159b165bf076df74e3836b0a2735c50f4065cbd1c6db5980bdb6b1798e7fd909",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "4f8270407a17c69a5224330378ad7266e4af5a5a2602ed8ad05a31848d45f7d0",
+      "selected_ranges": [
+        {
+          "start": 337604,
+          "end_exclusive": 645152,
+          "sha256": "c1d86944ab2c2934160ae9afe88988c378fbf7c86bfe51fbb8f1be29e81f18e9"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:06.311234+00:00",
+      "rows": 9445,
+      "projected_sha256": "66966c2ac70bb62b218bb798169e4d7b378171de1f679c55fb8e61ba2c59a926",
+      "projected_bytes": 308717
+    },
+    {
+      "upstream_file": "data/train-025.parquet",
+      "upstream_bytes": 522028796,
+      "upstream_declared_sha256": "1eebce31468381626456360527a1ef6d4b1e22322f0f58e027e9e5ed5e21415a",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "f5bfef47c0b8685e0ed5a2851a22e9c7c124509af8c8db279e05dc0285b2f195",
+      "selected_ranges": [
+        {
+          "start": 339716,
+          "end_exclusive": 670909,
+          "sha256": "d870c759d9dd0dba60edc3fe56b530582457d97d907bbe8223fc466c46020eb0"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:06.550406+00:00",
+      "rows": 9575,
+      "projected_sha256": "cc694d00f4795e97f480db2263d59dea49b6ccbd47f272144ffdd50dfc91e6aa",
+      "projected_bytes": 332435
+    },
+    {
+      "upstream_file": "data/train-026.parquet",
+      "upstream_bytes": 507351379,
+      "upstream_declared_sha256": "c34b1dcb379bf1cd1140cd5f0a58eaaa97970a99d389daca63a2e2895855aba3",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "0ae7f071d2092360dfa4fea21b9ed05e16c2e7860ffd581bf7fc99d89a3bcee9",
+      "selected_ranges": [
+        {
+          "start": 342164,
+          "end_exclusive": 655704,
+          "sha256": "b0290eb8b901e12d2d127077fd23dd82cfee5fb9c4773ed472a7b1f6679371d2"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:07.024527+00:00",
+      "rows": 9583,
+      "projected_sha256": "63a7d5e82a56b5be52200865a26a8fb53ef0ab38010e0f75e1d2062f2d34153a",
+      "projected_bytes": 314713
+    },
+    {
+      "upstream_file": "data/train-027.parquet",
+      "upstream_bytes": 518847095,
+      "upstream_declared_sha256": "4ce97aa143903066c1de3e0c6031970b24f182f83a10288b6f2d6e51bc83422d",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "28f5f571a5ffe64940af46d82fe14e5cb48bd6d91f98ae3850a0c204246f41af",
+      "selected_ranges": [
+        {
+          "start": 344776,
+          "end_exclusive": 656327,
+          "sha256": "7ab0eac058e06fff0f2809fe5b4debf4096e0601ac8705cb31ab7413e11d7ad3"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:08.798073+00:00",
+      "rows": 9646,
+      "projected_sha256": "79a42bf06b63138bc303c4d842dad8c2f509f8f0fd679c3cac03c39acf02a5cc",
+      "projected_bytes": 312744
+    },
+    {
+      "upstream_file": "data/train-028.parquet",
+      "upstream_bytes": 519883269,
+      "upstream_declared_sha256": "30b2b5f3dbcaeae4da5a2d08d1021e5bb365404592994d0c824b34477284f4af",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "0c548d063b39201d24a0357c5cab04416349cc98929adf771c7ce96b5e2ffa6a",
+      "selected_ranges": [
+        {
+          "start": 346351,
+          "end_exclusive": 661741,
+          "sha256": "e9ed7806e1833af0a3baeb3a26a03c634fe8c86f9ea6dd1ee02da85a9c98bd5a"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:09.500166+00:00",
+      "rows": 9666,
+      "projected_sha256": "27d4b3effea7a06561cbe829e914e26bf2758eea19462adcb709204484fcc3fc",
+      "projected_bytes": 316565
+    },
+    {
+      "upstream_file": "data/train-029.parquet",
+      "upstream_bytes": 521537139,
+      "upstream_declared_sha256": "789e323570701fec1af3f5476d7bfbdf9eab9f874239d0368bc9ae88ae89e20b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "865e78902e852ff14dbccd316f10f56c7dc05d0881aaeb2505523645dba9436b",
+      "selected_ranges": [
+        {
+          "start": 346370,
+          "end_exclusive": 665547,
+          "sha256": "9dc7cb3cf869895a96dd5f07dbe7f13512ed0fe3461ee22c670ac074bb673191"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:10.424690+00:00",
+      "rows": 9682,
+      "projected_sha256": "ceedacd8c49ea28632ac2485db2fa71261c30203df8e87b4cfd32a1e240421bd",
+      "projected_bytes": 320292
+    },
+    {
+      "upstream_file": "data/train-030.parquet",
+      "upstream_bytes": 517131354,
+      "upstream_declared_sha256": "b75045291d54c0854929d284733ceeeccbfda149964a852f5a7d0f90fef1ea22",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "a5a52689631d807bceadc1ed922b229af458f7ceb09e5d108b8f58d63fe4b848",
+      "selected_ranges": [
+        {
+          "start": 354175,
+          "end_exclusive": 668251,
+          "sha256": "7770412c7ec3e1f2126b060934d388a5cd4c5fa4dca23c13a30fbca7c772588f"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:10.089032+00:00",
+      "rows": 9692,
+      "projected_sha256": "8e50b6b076fed97204efc186006d156385919d8c1d0056fe3ae7e39962606212",
+      "projected_bytes": 315213
+    },
+    {
+      "upstream_file": "data/train-031.parquet",
+      "upstream_bytes": 546849720,
+      "upstream_declared_sha256": "83498eba336260a39c55d10db06fbd8c04424aee0835d59bc0fcafb12aef2c1a",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2e31fde23fb1f26afe66e426307729bdd9878f68ba816b060dc8caa6fac99ea6",
+      "selected_ranges": [
+        {
+          "start": 347543,
+          "end_exclusive": 662320,
+          "sha256": "f56ad3363fab8eb585408248136550cba7e646a922ba3d6734e557b773995d16"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:12.140301+00:00",
+      "rows": 9718,
+      "projected_sha256": "fd2dc78526775a310bba6e7be87e8e60a8547fdb7286b590ee752ec71801fac5",
+      "projected_bytes": 315946
+    },
+    {
+      "upstream_file": "data/train-032.parquet",
+      "upstream_bytes": 516975992,
+      "upstream_declared_sha256": "5b066986fff36d56ef9fa9f0de918504db4b9bf4774c0feed07d4ec34ed48f2d",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "ebc798a28b9f179c37aa8208c072297fd4bb7821adfb64a84130b30a89fd35bd",
+      "selected_ranges": [
+        {
+          "start": 341216,
+          "end_exclusive": 664482,
+          "sha256": "2bf173c33521b30a20141bd6ef2009a37bf2a6f69f561e5dd1a50cccf2f40a18"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:12.679962+00:00",
+      "rows": 9637,
+      "projected_sha256": "973802afeef57625ecde3ff4c0c6bb1618a2fe538b0b60783b4fa50ad9fc1b45",
+      "projected_bytes": 324486
+    },
+    {
+      "upstream_file": "data/train-033.parquet",
+      "upstream_bytes": 518462738,
+      "upstream_declared_sha256": "367c3645a0a467f9deec17ca293d136c8967928c01ed0a1ac6b1b64cf5e1d9ff",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "2bdd2775893332f6e5e88cf249392c71091681be4db68ca91c4ab00c69f08de1",
+      "selected_ranges": [
+        {
+          "start": 345573,
+          "end_exclusive": 662363,
+          "sha256": "c1fed9345fcc76ff7accacd8a5646099d665454b22e3ef9115fd4c524fb2df5b"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:13.305011+00:00",
+      "rows": 9664,
+      "projected_sha256": "63966a238f2aaeb70ac3c51e10cf56ad13659b4ac83e4ca239dc92ea8b864966",
+      "projected_bytes": 317921
+    },
+    {
+      "upstream_file": "data/train-034.parquet",
+      "upstream_bytes": 523909100,
+      "upstream_declared_sha256": "e3a28dbca782859e274d977206607cc5cb13407ce1a533e2649a291854d858e3",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "e3c11aef7bc9b864ab747891e8a13d7086d7aa114aa7c34ee8169f1e50dd9778",
+      "selected_ranges": [
+        {
+          "start": 343950,
+          "end_exclusive": 662925,
+          "sha256": "2e6df769f7fd8987433292309f8b078af5c77167c45d5651110c200b8e702dfd"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:13.575797+00:00",
+      "rows": 9685,
+      "projected_sha256": "4f0dcdff5699a6613e99309867eff5f0a1b107a42e6a831ce562e67482d6ab28",
+      "projected_bytes": 320129
+    },
+    {
+      "upstream_file": "data/train-035.parquet",
+      "upstream_bytes": 539652745,
+      "upstream_declared_sha256": "7a416d88e6788a27433844dfce0dacaaf24c7e239ae15ef175444e0dd5eb6232",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "48a79fbf35d89d01f07b0514e8685efdca848725272bd6bb678872d95669b575",
+      "selected_ranges": [
+        {
+          "start": 347110,
+          "end_exclusive": 661773,
+          "sha256": "625f24cda91ba25977dcadc4ea4f54898b37c6253358caf741ef99df165f710c"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:15.002230+00:00",
+      "rows": 9686,
+      "projected_sha256": "4d2e58a3d596d74b96a05250c908be257357504e90e0194b2b7a249ea116940f",
+      "projected_bytes": 315881
+    },
+    {
+      "upstream_file": "data/train-036.parquet",
+      "upstream_bytes": 526415880,
+      "upstream_declared_sha256": "f48e5a561233bd48911af175030d2538eb306c1d01150c93046298ac13f594cd",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "607057620770754984619bdfea0344f508f6ba441e740951188df76e719a5331",
+      "selected_ranges": [
+        {
+          "start": 341211,
+          "end_exclusive": 659220,
+          "sha256": "c8b05fc408cc2cf034e049f9c780dc68a403b773f099553134bda9560a3438d8"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:15.821577+00:00",
+      "rows": 9630,
+      "projected_sha256": "802fa682e9cf00cbd19c24b435580824c684e50bcc703a59ca66ff094e4dac42",
+      "projected_bytes": 319172
+    },
+    {
+      "upstream_file": "data/train-037.parquet",
+      "upstream_bytes": 528799237,
+      "upstream_declared_sha256": "276b68b7cb60892c5da21df662d9c4dcfef481767ca1c81fc4bddc22e26664c1",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "318608f608b09c70e541152eeca59de0e7a37651e0ccbc8e0cb941913caef47e",
+      "selected_ranges": [
+        {
+          "start": 343898,
+          "end_exclusive": 658145,
+          "sha256": "e407e2203cf1800c14bb6bccbb17eb30184365f44fd0b084e2b6b29a9cfa3b95"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:16.483904+00:00",
+      "rows": 9622,
+      "projected_sha256": "984e9b1a5d742e47c92fdbb04ffcd0f5d53cfd6da1e4dc96135d1b4feb1dbba9",
+      "projected_bytes": 315389
+    },
+    {
+      "upstream_file": "data/train-038.parquet",
+      "upstream_bytes": 540585532,
+      "upstream_declared_sha256": "0c26f10b73c0d9485198e404d1f96d53e1a04accf3229334176ff768baa3ee35",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "3a2d20c9e21df134fdd68256f237273c8af1ac03360d5ba3b732317d70caeb63",
+      "selected_ranges": [
+        {
+          "start": 342918,
+          "end_exclusive": 659101,
+          "sha256": "291f5adaafc2a28c58ec6d1cd9064148919691421ac6181bc41a5042e9ed5cc0"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:16.737455+00:00",
+      "rows": 9605,
+      "projected_sha256": "b057b13460f3cd9b5b3292beb78203977fbd15eefdc5fb9fb17c0ec01341e0e3",
+      "projected_bytes": 317322
+    },
+    {
+      "upstream_file": "data/train-039.parquet",
+      "upstream_bytes": 519866563,
+      "upstream_declared_sha256": "1d0af9e0f725d9347310299299f7f30c95613274bcee6dbd2300215709d67aa5",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "94b85e2058313e8fbce2e3abb938dbf30552baac33faa4f116d2ce46be062027",
+      "selected_ranges": [
+        {
+          "start": 342222,
+          "end_exclusive": 656512,
+          "sha256": "f7f4799e12ec122448efdadb37874f6c5bf4aaf51dd1ffdbbe5dd45f079b3eec"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:17.722695+00:00",
+      "rows": 9547,
+      "projected_sha256": "025f9de2bf22ac950a51ef9f99f966dc7697f65542ca7c398a4ab63ad0db3af2",
+      "projected_bytes": 315432
+    },
+    {
+      "upstream_file": "data/train-040.parquet",
+      "upstream_bytes": 516416700,
+      "upstream_declared_sha256": "86226915ddb5487b0eec6922f93b5e677226b6bff73d42e4a761a80e2edd6513",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "76ee2b814951810f3059623a741c5d7ee03aa99768346d72629d18cb65beb654",
+      "selected_ranges": [
+        {
+          "start": 348754,
+          "end_exclusive": 661511,
+          "sha256": "7814a6619890516c04bfc0293a9c75005113968d04a60b8ad02fba5f1f34f28b"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:18.706235+00:00",
+      "rows": 9563,
+      "projected_sha256": "1c3d1b73902a71448325861bd490911c073a0099af69bbc2687b996b6e824e30",
+      "projected_bytes": 313963
+    },
+    {
+      "upstream_file": "data/train-041.parquet",
+      "upstream_bytes": 521429018,
+      "upstream_declared_sha256": "84b5bc3b32c5aad110928e19d19db4cae72f5f33987ae481b43edcea8194144e",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "3ed5030ee0ae4c49fa03c0de004e0e34bdfbf96a0f16ea513e3d0ac8dd1ce7bc",
+      "selected_ranges": [
+        {
+          "start": 345713,
+          "end_exclusive": 659261,
+          "sha256": "08dfd36b849599ba765fe6544937ac1c0899331442a7f615eb87c8b29eca29fd"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:19.655453+00:00",
+      "rows": 9592,
+      "projected_sha256": "f379f6081a6ebe356a8ec13a5b1585c8b9a2727382d5f9184f8d6d6e88dddcf4",
+      "projected_bytes": 314677
+    },
+    {
+      "upstream_file": "data/train-042.parquet",
+      "upstream_bytes": 556020581,
+      "upstream_declared_sha256": "efc332a8f4e84acd524e34e4b862f3a9f6d415ca2227c4fe5f12cad2e2d0033b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "e9fe68705343c6f5332cc3ac1cd14ed4428a5b29ac1a482e713aa14fbeeb82d5",
+      "selected_ranges": [
+        {
+          "start": 340826,
+          "end_exclusive": 656759,
+          "sha256": "b1e1b4d1dbc9e01d71839490ec301fa5a3bdd412268e95dc077686c60259da9b"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:19.625806+00:00",
+      "rows": 9602,
+      "projected_sha256": "2bd427f567161d32d2335b1a7b49a1aff2ea470cfc7feb702f536cb09e70fa97",
+      "projected_bytes": 317088
+    },
+    {
+      "upstream_file": "data/train-043.parquet",
+      "upstream_bytes": 517091171,
+      "upstream_declared_sha256": "3e483aea9ee38c0ba8c67dad8c7fac25600735aa359ad91de118539549fa80b7",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "4c437c76f47bff121a67fd26c9df772aa70e50cc2d1ad1742b2cf38d12eaea31",
+      "selected_ranges": [
+        {
+          "start": 337001,
+          "end_exclusive": 648992,
+          "sha256": "3a23d084bae94e2b9a66f90190788e39ba46e2d21084f2da0072e32309f0be45"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:20.594525+00:00",
+      "rows": 9492,
+      "projected_sha256": "bf997aa8acc3089b756989f58d1c0e7b8362043d3bdd5bcde0a5d735b44cd073",
+      "projected_bytes": 313165
+    },
+    {
+      "upstream_file": "data/train-044.parquet",
+      "upstream_bytes": 512627533,
+      "upstream_declared_sha256": "ba619d9ac74ffe4e9b90887c7c91c2c47dbd91dfee2db4fde9009fca91ac042d",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "c5a70910f4eae1949ad3a10f72f8ff4478dbb8a5ceb60e67848a077941339f8e",
+      "selected_ranges": [
+        {
+          "start": 338170,
+          "end_exclusive": 650545,
+          "sha256": "4a10d5fe70417daca181649cb275ffb6c4b9c97f1dea025b6715d0d610276ade"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:21.432051+00:00",
+      "rows": 9518,
+      "projected_sha256": "3656abe5a1100d9525eca06fa9fb17a47148c55f33c955618d01ae0fac346f2b",
+      "projected_bytes": 313572
+    },
+    {
+      "upstream_file": "data/train-045.parquet",
+      "upstream_bytes": 512117091,
+      "upstream_declared_sha256": "54469b16320ca7587ee5f691f5401b7d31021695d9021c0f98dd1d4c31288460",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "b39a4162512ef968a68201cb6346d9ad63b402a6cc0691f9dcd2d93828af9044",
+      "selected_ranges": [
+        {
+          "start": 339070,
+          "end_exclusive": 653687,
+          "sha256": "19320765063e3f46305d1c9e6a48f1f01feaa942f0f2549152125b381d3f3fe2"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:22.421597+00:00",
+      "rows": 9561,
+      "projected_sha256": "4f2672e4e37b9f097e97432dcde7f3095727b8402e0cf5f25044eca0b7d27797",
+      "projected_bytes": 315775
+    },
+    {
+      "upstream_file": "data/train-046.parquet",
+      "upstream_bytes": 513316966,
+      "upstream_declared_sha256": "08e2335e64e63edf16f0d42ea176586b0aec2730ab9bef79b99e3b53b8ab901b",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "68019b0bdecda80def2f905f2578241d39fa97dbf727400588c97423d3b17da3",
+      "selected_ranges": [
+        {
+          "start": 343686,
+          "end_exclusive": 656208,
+          "sha256": "1e9dafa3df46f8d6601601db9b2610fd50a7b8513aa56a1285671bfd6188e54a"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:22.928248+00:00",
+      "rows": 9606,
+      "projected_sha256": "7a679be79cd0230367682d431531c1882fb797bacd0c936a0259c16ccb01752f",
+      "projected_bytes": 313757
+    },
+    {
+      "upstream_file": "data/train-047.parquet",
+      "upstream_bytes": 563189367,
+      "upstream_declared_sha256": "e6a32db1be3425639ee51c1766ad4ed5a1466158e7086b7d7652da22a85ee2df",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "3909e1da0c7b60bd044f861ef3d65f51de6a880924fc608dc2b2f2ea677f7d88",
+      "selected_ranges": [
+        {
+          "start": 355926,
+          "end_exclusive": 672012,
+          "sha256": "98a16e985c13b7bba2fb85b8b8204717feb266d201d47d95d633af86b2e3b372"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:23.556868+00:00",
+      "rows": 9647,
+      "projected_sha256": "9425abecbb743ba3ab054c352b9658cfcf9c308277431dd205bd2458320ae449",
+      "projected_bytes": 317218
+    },
+    {
+      "upstream_file": "data/train-048.parquet",
+      "upstream_bytes": 526941482,
+      "upstream_declared_sha256": "aa0c9a46debda13fca2f774ec17d19f5aedc7b4c0bf4bf52592b25c21dde2bf9",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "39ec6ad799a2398fffbc352c413f4824451eb704cb226324bf37f5b8314bf80d",
+      "selected_ranges": [
+        {
+          "start": 339522,
+          "end_exclusive": 648701,
+          "sha256": "b675f9f636a2e3a34c72551aaebc52d68c44e6fb90ca64756dfcdc8fc92cbba0"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:24.806053+00:00",
+      "rows": 9513,
+      "projected_sha256": "38047ba72c1411b520f5768f7910ed9ee4f493eb089fec9779a7a152af438d34",
+      "projected_bytes": 310315
+    },
+    {
+      "upstream_file": "data/train-049.parquet",
+      "upstream_bytes": 493483710,
+      "upstream_declared_sha256": "f33cade179e5463c199be6d91697780dee5e9a968719979f679f0948776e87d5",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "b9616834ff6292e589e143d26edb3ed3857832d3f1d0e5e7340b6a3940f41219",
+      "selected_ranges": [
+        {
+          "start": 336605,
+          "end_exclusive": 651243,
+          "sha256": "ad2c1dfb1176ea845a936c6e5459a327728e90d2572152e1c62e5686723ecedb"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:25.462588+00:00",
+      "rows": 9503,
+      "projected_sha256": "0c112cd24692593946e72953d1670c40a2144a8e8592c5f6b697748c091eb1e8",
+      "projected_bytes": 315776
+    },
+    {
+      "upstream_file": "data/train-050.parquet",
+      "upstream_bytes": 518835096,
+      "upstream_declared_sha256": "1c3c98c903909617af11206af2c0cbe2c49a8c03f5612c9bab217efbdd704819",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "27e59000f7b74e296e2d5de389cfa8623c4bc9966fe2776042393dac66fa0ad1",
+      "selected_ranges": [
+        {
+          "start": 344817,
+          "end_exclusive": 654887,
+          "sha256": "d7d911c87342ea3fae7ede43a5a24aee8eb50b5ea25b7a746609b7632b0f7cd8"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:25.739223+00:00",
+      "rows": 9621,
+      "projected_sha256": "23ea20731fd8872d2b7e9f4c5d6dabe31d52ecbdb2724636e69e37e851392fb6",
+      "projected_bytes": 311245
+    },
+    {
+      "upstream_file": "data/train-051.parquet",
+      "upstream_bytes": 526031430,
+      "upstream_declared_sha256": "d8006a6d88d129a6e320b5607632c23cb2bd78b67de387917ec0339f9d53a845",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "16da25a53bdf7201b474e41278586e1fb1ec50cdfb0ad4c59527349721742985",
+      "selected_ranges": [
+        {
+          "start": 344572,
+          "end_exclusive": 661617,
+          "sha256": "3758d5123fb4b0afdb17eb8ac19ffe2d725d0cde27ca75b1f1aa053d95609235"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:26.487837+00:00",
+      "rows": 9641,
+      "projected_sha256": "8f3ec10dc88051885ad99f6c6b3450ad0d2510a43893423fae171aff8d434f12",
+      "projected_bytes": 318216
+    },
+    {
+      "upstream_file": "data/train-052.parquet",
+      "upstream_bytes": 510965576,
+      "upstream_declared_sha256": "0ed7dd02d05e3308b0ee92032e70c056f6dd72f38e23d04be432697da30cffcd",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "5a01dd8493794e435c38f78a8e7d5ca8df28b25a5f33e584e46b717112cb0728",
+      "selected_ranges": [
+        {
+          "start": 344087,
+          "end_exclusive": 660385,
+          "sha256": "831ec27c3db87a149ab85029305b15dbd3c36852d1608115c67b7c0f78c7c951"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:27.601579+00:00",
+      "rows": 9634,
+      "projected_sha256": "65fe9d554bf14877552f02cd6e97f2324a66205a433def3791c496485dc63375",
+      "projected_bytes": 317492
+    },
+    {
+      "upstream_file": "data/train-053.parquet",
+      "upstream_bytes": 584768973,
+      "upstream_declared_sha256": "c5b45165e8b54894b0268f8a0a39fed8e5e598e9bf30211dac18ba06db8796c2",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "502f60c90e4b75589635eb72ba58af794ee6f6bb133919cfb2ec8e5eb647b32b",
+      "selected_ranges": [
+        {
+          "start": 350573,
+          "end_exclusive": 667953,
+          "sha256": "d2cd1b778e6bf077d4ced6b9ce6b74e8ea1e50683e2a5af204ad1f9308cf3980"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:28.554312+00:00",
+      "rows": 9684,
+      "projected_sha256": "61999cf7c133265d1ba9fd477da71441198ea3f4b2ad44b8e7461a80416bc542",
+      "projected_bytes": 318560
+    },
+    {
+      "upstream_file": "data/train-054.parquet",
+      "upstream_bytes": 547814803,
+      "upstream_declared_sha256": "f862faba880c17573779cdfd4e93b4152edcaa12fb0ac237deae0a2adfa7674c",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "549ffb5498b74ef02df8a93435cb2c75f5e16d0b66dac1a5fea089ee67a235ab",
+      "selected_ranges": [
+        {
+          "start": 336308,
+          "end_exclusive": 654190,
+          "sha256": "552e5d4f4f1fd59ea4416a301adb3443e16d4031ba08f14bd220f891b923a2e0"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:28.722240+00:00",
+      "rows": 9483,
+      "projected_sha256": "5d8b7659d611f5d317512454150fc29eaa379f1ab9ec8d0f77ac3485fbc7f7a9",
+      "projected_bytes": 319060
+    },
+    {
+      "upstream_file": "data/train-055.parquet",
+      "upstream_bytes": 20213199,
+      "upstream_declared_sha256": "205a7e1cf4fb11032683e90fdbd1c13ddc9d9dd86109658d13e69929b53b31d0",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "75026dc5d0d24ede86e20a78d15045ec007ca396b861478d80fbc2034741b27b",
+      "selected_ranges": [
+        {
+          "start": 12837,
+          "end_exclusive": 26196,
+          "sha256": "1fe22e4500fae9a3f55498d3347e3577e630cdfe5f2b0df0db953d35168ee9b8"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:33:29.053143+00:00",
+      "rows": 361,
+      "projected_sha256": "6bb043ceea64b9e750cea667091840ddc1d11cbfb98ec03b6770ee80139137fb",
+      "projected_bytes": 14517
+    }
+  ],
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "model_sha256": null,
+  "libraries": {
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  }
+}

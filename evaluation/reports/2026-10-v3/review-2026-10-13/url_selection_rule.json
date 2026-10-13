@@ -1,0 +1,31 @@
+{
+  "host_only_primary": true,
+  "candidate_order": [
+    "lightgbm",
+    "char_logistic",
+    "char_calibrated_svm"
+  ],
+  "selection": "Highest development recall at FPR <= 0.1%, CPU p95 <= 300 ms; exact tie follows candidate_order.",
+  "ablation": "Identical development rows for host-only, full URLs, and shortcut-only model. Per-model validation thresholds; paired full-URL path removal keeps its threshold fixed.",
+  "path_removal": "Replace path with / and remove query/fragment, preserve scheme and authority. Diagnostic perturbation, not new genuine data.",
+  "tranco_source": "data/raw/tranco_final_approved.csv",
+  "tranco_list_id": null,
+  "tranco_list_date": null,
+  "limitations": [
+    "Tranco list ID and original download date not recorded.",
+    "No licensed genuine legitimate path URLs available; import pending GramBeddings attachment.",
+    "Thresholds and model selection share exposed validation; results are development estimates."
+  ],
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

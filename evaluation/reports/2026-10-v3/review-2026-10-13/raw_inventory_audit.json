@@ -1,0 +1,17 @@
+{
+  "data_sha256": "8574e89c7e284703b541c22728eb9897f2a2142f92c05298b95663de6be3a52e",
+  "raw_file_count": 89,
+  "manifest_sha256": "0cad155e195b1534832d0f4a2296cbfdceb0fa18a8409835cec40e3fcd837b8a",
+  "no_data_deleted": true,
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false
+}

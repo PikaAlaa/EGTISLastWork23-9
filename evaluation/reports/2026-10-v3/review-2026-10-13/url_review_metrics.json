@@ -1,0 +1,675 @@
+{
+  "data_sha256": "326add89ab44dc60a8ae8ede6747bb737e101fa6907d351f006238e184254ef8",
+  "rule_sha256": "1a608d9a00b28d8e2da0676ffd778481bb4108fcb9e90658faac76980617127f",
+  "psl_sha256": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612",
+  "tranco_raw_sha256": "f96de91fd7f29396441d6be6f1bc7b68aa4ccb2a3d2b214a9f6a44d0e09ffe20",
+  "tranco_approved_sha256": "63210d5924a910a25f587ba8de0ffb5983f99e26b44eede91c529ecb8b5d04f0",
+  "tranco_list_id": null,
+  "tranco_list_date": null,
+  "source_counts": {
+    "train/manual/legitimate": 11,
+    "train/openphish/phishing": 244,
+    "train/phishtank/phishing": 31685,
+    "train/tranco/legitimate": 13525,
+    "val/manual/legitimate": 3,
+    "val/openphish/phishing": 20,
+    "val/phishtank/phishing": 5953,
+    "val/tranco/legitimate": 2913
+  },
+  "development_before_exclusions": {
+    "legitimate": {
+      "n": 16679,
+      "median_length": 21.0,
+      "path_fraction": 0.0,
+      "query_fraction": 0.0,
+      "https_fraction": 1.0,
+      "sources": {
+        "tranco": 16665,
+        "manual": 14
+      }
+    },
+    "phishing": {
+      "n": 52460,
+      "median_length": 40.0,
+      "path_fraction": 0.6088448341593595,
+      "query_fraction": 0.17849790316431566,
+      "https_fraction": 0.9322912695386961,
+      "sources": {
+        "phishtank": 52194,
+        "openphish": 266
+      }
+    }
+  },
+  "development_after_exclusions": {
+    "legitimate": {
+      "n": 16452,
+      "median_length": 21.0,
+      "path_fraction": 0.0,
+      "query_fraction": 0.0,
+      "https_fraction": 1.0,
+      "sources": {
+        "tranco": 16438,
+        "manual": 14
+      }
+    },
+    "phishing": {
+      "n": 37902,
+      "median_length": 37.0,
+      "path_fraction": 0.5880692311751359,
+      "query_fraction": 0.08113028336235555,
+      "https_fraction": 0.9091868502981373,
+      "sources": {
+        "phishtank": 37638,
+        "openphish": 264
+      }
+    }
+  },
+  "train_rows": 45465,
+  "validation_rows": 8889,
+  "cross_split_domains_excluded": 0,
+  "cross_class_domains_excluded": 227,
+  "legitimate_path_data_status": "BLOCKED: PhiUSIIL legitimate URLs contain no non-root path/query; GramBeddings requires personal-information form. Await attachment.",
+  "variants": {
+    "host_only": {
+      "char_logistic": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.15189250187244968,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.2222222222222222,
+        "recall_at_fpr_le_1pct": 0.8113175958479826,
+        "threshold_at_fpr_le_1pct": 0.6715373870926054,
+        "recall_at_fpr_le_0_1pct": 0.3798761091578771,
+        "threshold_at_fpr_le_0_1pct": 0.9030902489173027,
+        "pr_auc": 0.9855167650699315,
+        "ece_15_bins": 0.11111442260369495,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 648,
+          "fn": 298,
+          "tn": 2268
+        },
+        "model_sha256": "0eb99b620214b0a78b0b6fe48a85f5fd4ff0120975c7fbf6e3a1cef1c5759505",
+        "model_size_bytes": 2098581,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 0.43235000339336693,
+          "p95_ms": 0.7238549820613116
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.780996516662552,
+            0.8446676357705128
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.15628679970405002,
+            0.6129376072694567
+          ],
+          "pr_auc_ci95": [
+            0.9823085781520661,
+            0.9882850596224524
+          ],
+          "ece_15_bins_ci95": [
+            0.09906972767847752,
+            0.12476675212863195
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.17011444600684034,
+            0.2536859850030942
+          ]
+        },
+        "at_1pct": {
+          "tp": 4846,
+          "fp": 29,
+          "fn": 1127,
+          "tn": 2887,
+          "recall": 0.8113175958479826,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.6715373870926054
+        },
+        "at_0_1pct": {
+          "tp": 2269,
+          "fp": 2,
+          "fn": 3704,
+          "tn": 2914,
+          "recall": 0.3798761091578771,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.9030902489173027
+        }
+      },
+      "char_calibrated_svm": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.45915142135166087,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.2187928669410151,
+        "recall_at_fpr_le_1pct": 0.7602544784865227,
+        "threshold_at_fpr_le_1pct": 0.8894272451643328,
+        "recall_at_fpr_le_0_1pct": 0.5566716892683744,
+        "threshold_at_fpr_le_0_1pct": 0.9718716951763562,
+        "pr_auc": 0.9850109739611366,
+        "ece_15_bins": 0.05035078916378926,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 638,
+          "fn": 298,
+          "tn": 2278
+        },
+        "model_sha256": "85f538c918b3eb3116d3625ba2728266eee98dda5bd22320d642f2654dc65236",
+        "model_size_bytes": 2499570,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 2.9135500080883503,
+          "p95_ms": 4.20939502073452
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.7023236584706503,
+            0.79282090442947
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.4990240772225229,
+            0.6600975701192013
+          ],
+          "pr_auc_ci95": [
+            0.9819731097227902,
+            0.987704269851837
+          ],
+          "ece_15_bins_ci95": [
+            0.044456300694889185,
+            0.059844878838591596
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.17594502261518596,
+            0.24221939147540558
+          ]
+        },
+        "at_1pct": {
+          "tp": 4541,
+          "fp": 29,
+          "fn": 1432,
+          "tn": 2887,
+          "recall": 0.7602544784865227,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.8894272451643328
+        },
+        "at_0_1pct": {
+          "tp": 3325,
+          "fp": 2,
+          "fn": 2648,
+          "tn": 2914,
+          "recall": 0.5566716892683744,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.9718716951763562
+        }
+      },
+      "lightgbm": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.12540535556278473,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.20130315500685872,
+        "recall_at_fpr_le_1pct": 0.8774485183324963,
+        "threshold_at_fpr_le_1pct": 0.7224826521010363,
+        "recall_at_fpr_le_0_1pct": 0.7356437301188682,
+        "threshold_at_fpr_le_0_1pct": 0.979680498647069,
+        "pr_auc": 0.9875820934716901,
+        "ece_15_bins": 0.04295576207635563,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 587,
+          "fn": 298,
+          "tn": 2329
+        },
+        "model_sha256": "babbf1d279b663d0343c654a6e8a285d17aa9675d94ad08dc9aa58d23903908d",
+        "model_size_bytes": 925364,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 1.2420499988365918,
+          "p95_ms": 1.7074650182621554
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.8570981637446173,
+            0.8949360582427742
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.50760246351215,
+            0.8496090289695711
+          ],
+          "pr_auc_ci95": [
+            0.9843091454004724,
+            0.9903040167543232
+          ],
+          "ece_15_bins_ci95": [
+            0.03427254425609665,
+            0.053189078079700275
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.13960588676718386,
+            0.3128387799636085
+          ]
+        },
+        "at_1pct": {
+          "tp": 5241,
+          "fp": 29,
+          "fn": 732,
+          "tn": 2887,
+          "recall": 0.8774485183324963,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.7224826521010363
+        },
+        "at_0_1pct": {
+          "tp": 4394,
+          "fp": 2,
+          "fn": 1579,
+          "tn": 2914,
+          "recall": 0.7356437301188682,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.979680498647069
+        }
+      }
+    },
+    "full_url": {
+      "char_logistic": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.4204856693362251,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.01440329218106996,
+        "recall_at_fpr_le_1pct": 0.943412020760087,
+        "threshold_at_fpr_le_1pct": 0.4819875925898045,
+        "recall_at_fpr_le_0_1pct": 0.9069144483509124,
+        "threshold_at_fpr_le_0_1pct": 0.7511264071608192,
+        "pr_auc": 0.9965808873344543,
+        "ece_15_bins": 0.049136921839915346,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 42,
+          "fn": 298,
+          "tn": 2874
+        },
+        "model_sha256": "58b3b1af292ae2c55d40b67bf7f01b2216194673f989f086ef6de2566b39cbb9",
+        "model_size_bytes": 2094245,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 1.0786500060930848,
+          "p95_ms": 1.4606700045987964
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.9268885886855991,
+            0.9573508876245159
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.8817495134112542,
+            0.9297656401167016
+          ],
+          "pr_auc_ci95": [
+            0.9954533801377479,
+            0.9974191553010673
+          ],
+          "ece_15_bins_ci95": [
+            0.04154700041710822,
+            0.05896507130854071
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.006797538490404593,
+            0.02234921051039545
+          ]
+        },
+        "at_1pct": {
+          "tp": 5635,
+          "fp": 29,
+          "fn": 338,
+          "tn": 2887,
+          "recall": 0.943412020760087,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.4819875925898045
+        },
+        "at_0_1pct": {
+          "tp": 5417,
+          "fp": 2,
+          "fn": 556,
+          "tn": 2914,
+          "recall": 0.9069144483509124,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.7511264071608192
+        },
+        "same_model_paths_removed": {
+          "fixed_1pct_threshold": {
+            "tp": 5088,
+            "fp": 29,
+            "fn": 885,
+            "tn": 2887,
+            "recall": 0.8518332496233049,
+            "false_positive_rate": 0.009945130315500686,
+            "threshold": 0.4819875925898045
+          },
+          "fixed_0_1pct_threshold": {
+            "tp": 3577,
+            "fp": 2,
+            "fn": 2396,
+            "tn": 2914,
+            "recall": 0.5988615436129249,
+            "false_positive_rate": 0.0006858710562414266,
+            "threshold": 0.7511264071608192
+          },
+          "mean_probability_delta_full_minus_stripped_phishing": 0.16909818380478997,
+          "mean_probability_delta_full_minus_stripped_legitimate": 0.0,
+          "interpretation": "Paired feature sensitivity, not a causal fraction of phishing detection."
+        }
+      },
+      "char_calibrated_svm": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.6949975582146892,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.013717421124828532,
+        "recall_at_fpr_le_1pct": 0.943412020760087,
+        "threshold_at_fpr_le_1pct": 0.7418715390088847,
+        "recall_at_fpr_le_0_1pct": 0.8732630169094258,
+        "threshold_at_fpr_le_0_1pct": 0.9588536567544325,
+        "pr_auc": 0.9963957057901043,
+        "ece_15_bins": 0.01592018259972123,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 40,
+          "fn": 298,
+          "tn": 2876
+        },
+        "model_sha256": "1b078c1221e05b7c5382dddc854da5ba06977bd1f9e8852497e5c59f8e16bf64",
+        "model_size_bytes": 2495250,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 2.441049990011379,
+          "p95_ms": 3.4211149642942478
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.9274273005388725,
+            0.9565509951185396
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.8483729899860272,
+            0.9071214909310091
+          ],
+          "pr_auc_ci95": [
+            0.9951804971592829,
+            0.9973161754104473
+          ],
+          "ece_15_bins_ci95": [
+            0.012710223642401887,
+            0.02058279492706486
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.007305255788785974,
+            0.025478757685186128
+          ]
+        },
+        "at_1pct": {
+          "tp": 5635,
+          "fp": 29,
+          "fn": 338,
+          "tn": 2887,
+          "recall": 0.943412020760087,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.7418715390088847
+        },
+        "at_0_1pct": {
+          "tp": 5216,
+          "fp": 2,
+          "fn": 757,
+          "tn": 2914,
+          "recall": 0.8732630169094258,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.9588536567544325
+        },
+        "same_model_paths_removed": {
+          "fixed_1pct_threshold": {
+            "tp": 5156,
+            "fp": 29,
+            "fn": 817,
+            "tn": 2887,
+            "recall": 0.8632178134940566,
+            "false_positive_rate": 0.009945130315500686,
+            "threshold": 0.7418715390088847
+          },
+          "fixed_0_1pct_threshold": {
+            "tp": 4076,
+            "fp": 2,
+            "fn": 1897,
+            "tn": 2914,
+            "recall": 0.6824041520174117,
+            "false_positive_rate": 0.0006858710562414266,
+            "threshold": 0.9588536567544325
+          },
+          "mean_probability_delta_full_minus_stripped_phishing": 0.07106972139393031,
+          "mean_probability_delta_full_minus_stripped_legitimate": 0.0,
+          "interpretation": "Paired feature sensitivity, not a causal fraction of phishing detection."
+        }
+      },
+      "lightgbm": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.9109988721365729,
+        "phishing_recall_at_threshold": 0.9501088230369998,
+        "legitimate_fpr_at_recall_95": 0.0017146776406035665,
+        "recall_at_fpr_le_1pct": 0.9661811485015905,
+        "threshold_at_fpr_le_1pct": 0.39575613293763934,
+        "recall_at_fpr_le_0_1pct": 0.9422400803616273,
+        "threshold_at_fpr_le_0_1pct": 0.971889365731748,
+        "pr_auc": 0.9976216582576444,
+        "ece_15_bins": 0.014620270966013713,
+        "confusion_at_recall_95": {
+          "tp": 5675,
+          "fp": 5,
+          "fn": 298,
+          "tn": 2911
+        },
+        "model_sha256": "e23644fa095f08257798db3d6a96077bdd5155c8f58d22b05b464fb0e3876fa7",
+        "model_size_bytes": 925748,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 1.6193499905057251,
+          "p95_ms": 1.9755849643843248
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.9589178770825185,
+            0.9726168325587017
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.9212326189509472,
+            0.9589719995929491
+          ],
+          "pr_auc_ci95": [
+            0.9968450530538224,
+            0.998187127941007
+          ],
+          "ece_15_bins_ci95": [
+            0.012155792995575707,
+            0.01827646891478057
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.0003411163598609972,
+            0.0037954951323040417
+          ]
+        },
+        "at_1pct": {
+          "tp": 5771,
+          "fp": 29,
+          "fn": 202,
+          "tn": 2887,
+          "recall": 0.9661811485015905,
+          "false_positive_rate": 0.009945130315500686,
+          "threshold": 0.39575613293763934
+        },
+        "at_0_1pct": {
+          "tp": 5628,
+          "fp": 2,
+          "fn": 345,
+          "tn": 2914,
+          "recall": 0.9422400803616273,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.971889365731748
+        },
+        "same_model_paths_removed": {
+          "fixed_1pct_threshold": {
+            "tp": 5221,
+            "fp": 29,
+            "fn": 752,
+            "tn": 2887,
+            "recall": 0.8741001171940398,
+            "false_positive_rate": 0.009945130315500686,
+            "threshold": 0.39575613293763934
+          },
+          "fixed_0_1pct_threshold": {
+            "tp": 3896,
+            "fp": 2,
+            "fn": 2077,
+            "tn": 2914,
+            "recall": 0.6522685417713042,
+            "false_positive_rate": 0.0006858710562414266,
+            "threshold": 0.971889365731748
+          },
+          "mean_probability_delta_full_minus_stripped_phishing": 0.11339117685842642,
+          "mean_probability_delta_full_minus_stripped_legitimate": 0.0,
+          "interpretation": "Paired feature sensitivity, not a causal fraction of phishing detection."
+        }
+      }
+    },
+    "shortcut_only": {
+      "lightgbm": {
+        "n": 8889,
+        "phishing_n": 5973,
+        "legitimate_n": 2916,
+        "threshold_at_recall_95": 0.42150751567687783,
+        "phishing_recall_at_threshold": 0.9551314247446844,
+        "legitimate_fpr_at_recall_95": 0.05898491083676269,
+        "recall_at_fpr_le_1pct": 0.9206428930185836,
+        "threshold_at_fpr_le_1pct": 0.8388425726290106,
+        "recall_at_fpr_le_0_1pct": 0.895195044366315,
+        "threshold_at_fpr_le_0_1pct": 0.9773351125647438,
+        "pr_auc": 0.9936119022561025,
+        "ece_15_bins": 0.014009880883464347,
+        "confusion_at_recall_95": {
+          "tp": 5705,
+          "fp": 172,
+          "fn": 268,
+          "tn": 2744
+        },
+        "model_sha256": "56793fea05e5c8a5036fb06c9437d4a4843ca1bd473a3aa30809079e536e1daf",
+        "model_size_bytes": 897918,
+        "cpu_latency": {
+          "cpu_only": true,
+          "batch_size": 1,
+          "n": 300,
+          "p50_ms": 0.9562999766785651,
+          "p95_ms": 1.326184970093891
+        },
+        "bootstrap_domain_95": {
+          "method": "registered-domain bootstrap, percentile",
+          "replicates_requested": 300,
+          "replicates_used": 300,
+          "recall_at_fpr_le_1pct_ci95": [
+            0.9090254822965944,
+            0.9369274650144215
+          ],
+          "recall_at_fpr_le_0_1pct_ci95": [
+            0.8741794205642701,
+            0.915132580123719
+          ],
+          "pr_auc_ci95": [
+            0.9919001096878349,
+            0.994883419900219
+          ],
+          "ece_15_bins_ci95": [
+            0.011768381750926355,
+            0.019388341414123714
+          ],
+          "legitimate_fpr_at_recall_95_ci95": [
+            0.027354350383695346,
+            0.07987160930397162
+          ]
+        },
+        "at_1pct": {
+          "tp": 5499,
+          "fp": 14,
+          "fn": 474,
+          "tn": 2902,
+          "recall": 0.9206428930185836,
+          "false_positive_rate": 0.004801097393689987,
+          "threshold": 0.8388425726290106
+        },
+        "at_0_1pct": {
+          "tp": 5347,
+          "fp": 2,
+          "fn": 626,
+          "tn": 2914,
+          "recall": 0.895195044366315,
+          "false_positive_rate": 0.0006858710562414266,
+          "threshold": 0.9773351125647438
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Tranco list ID and original download date not recorded.",
+    "No licensed genuine legitimate path URLs available; import pending GramBeddings attachment.",
+    "Thresholds and model selection share exposed validation; results are development estimates."
+  ],
+  "final_test_run": false,
+  "model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "deployment": {
+    "model": "lightgbm",
+    "features": "host_only",
+    "threshold": 0.979680498647069,
+    "artifact_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232"
+  }
+}
