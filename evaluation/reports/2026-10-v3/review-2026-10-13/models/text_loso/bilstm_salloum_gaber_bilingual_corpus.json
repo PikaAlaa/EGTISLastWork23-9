@@ -1,0 +1,244 @@
+{
+  "model": "bilstm_candidate",
+  "dataset_sha256": "63cc5137231295b0cf0e496c64f510349b39a222d32f2ec568932c9cee95bedc",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "1b8dcdecf28a86e71742749eeb2a2dc72d1720a54a4ee8569786118617882211",
+  "validation_n": 179,
+  "n": 179,
+  "phishing_n": 32,
+  "legitimate_n": 147,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "auc": 1.0,
+  "rates": {
+    "precision": {
+      "value": 1.0,
+      "n": 32,
+      "ci95": [
+        0.8928208017449293,
+        1
+      ]
+    },
+    "recall": {
+      "value": 1.0,
+      "n": 32,
+      "ci95": [
+        0.8928208017449293,
+        1
+      ]
+    },
+    "false_positive_rate": {
+      "value": 0.0,
+      "n": 147,
+      "ci95": [
+        0,
+        0.02546686335923391
+      ]
+    },
+    "confusion": {
+      "tp": 32,
+      "fp": 0,
+      "fn": 0,
+      "tn": 147
+    }
+  },
+  "low_threshold": 0.2,
+  "high_threshold": 0.8399999999999999,
+  "final_test_run": false,
+  "interpretation": "Pooled validation selects candidates; source mix is not representative of everyday Egyptian SMS. Sparse or single-class groups cannot establish deployment accuracy.",
+  "by_source": {
+    "kaggle_arabic_phishing_fully_dataset": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 147,
+          "ci95": [
+            0,
+            0.02546686335923391
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 147
+        }
+      }
+    }
+  },
+  "by_language": {
+    "ar": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 147,
+          "ci95": [
+            0,
+            0.02546686335923391
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 147
+        }
+      }
+    }
+  },
+  "by_content_type": {
+    "text": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 147,
+          "ci95": [
+            0,
+            0.02546686335923391
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 147
+        }
+      }
+    }
+  },
+  "by_source_content_type": {
+    "kaggle_arabic_phishing_fully_dataset / text": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 147,
+          "ci95": [
+            0,
+            0.02546686335923391
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 147
+        }
+      }
+    }
+  },
+  "parameters": {
+    "vocabulary": 5000,
+    "embedding": 32,
+    "lstm_units": 16,
+    "seed": 42,
+    "epochs_max": 20,
+    "window_words": 150,
+    "stride": 75
+  },
+  "artifact_sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+  "tokenizer_sha256": "6cc9c21367fd8d63ac0a7ddcc37505504f9f7a0a45ff3892a0a08b8f0bb9192d",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  }
+}

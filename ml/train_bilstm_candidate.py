@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np,pandas as pd
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'backend'))
 from app.core.text_utils import normalize_arabic_text,text_windows
-from validation import summarize
+from ml.validation import summarize
 def train(dataset,output,epochs=20):
     import tensorflow as tf
     from tensorflow.keras.preprocessing.text import Tokenizer

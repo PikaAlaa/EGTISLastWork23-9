@@ -1,0 +1,31 @@
+{
+  "stage": "transformer_comparison_pending",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "notebook_sha256": "2a64312542a307218323546a21704e9efe8c68f20ccf79f2d586c74bf022941c",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "models": [
+    "UBC-NLP/MARBERTv2",
+    "CAMeL-Lab/bert-base-arabic-camelbert-da"
+  ],
+  "training_run": false,
+  "reason": "User requested no transformer fine-tuning in this CPU-only sandbox; no six prediction files were supplied.",
+  "notebook_runtime": "local runtime only; hosted Colab is rejected to enforce the no-data-transfer rule",
+  "notebook_code_cells_syntax_checked": true,
+  "merge_cli_status": "Run and refused missing marbertv2_seed42.json; no transformer results were fabricated.",
+  "merge_contract_tests": "Positive merge and duplicate-row rejection passed using temporary copies of existing local-model predictions; these fixtures were not retained as transformer evidence.",
+  "final_test_run": false
+}

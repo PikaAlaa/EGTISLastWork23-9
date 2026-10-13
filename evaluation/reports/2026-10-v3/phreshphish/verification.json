@@ -1,0 +1,87 @@
+{
+  "stage": "local_ci_commands",
+  "completed_at_utc": "2026-10-13T19:49:35.130920+00:00",
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0",
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  },
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "node": "v22.12.0",
+  "commands": {
+    "backend_tests": {
+      "command": [
+        "C:\\etisv3env\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 7.166,
+      "output_file": "check-backend_tests.txt",
+      "passed": 166
+    },
+    "initialize": {
+      "command": [
+        "C:\\etisv3env\\Scripts\\python.exe",
+        "scripts/initialize.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 1.221,
+      "output_file": "check-initialize.txt"
+    },
+    "frontend_install": {
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "ci"
+      ],
+      "cwd": "etis-frontend",
+      "exit_code": 0,
+      "elapsed_seconds": 25.251,
+      "output_file": "check-frontend_install.txt"
+    },
+    "frontend_build": {
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "build"
+      ],
+      "cwd": "etis-frontend",
+      "exit_code": 0,
+      "elapsed_seconds": 4.441,
+      "output_file": "check-frontend_build.txt"
+    },
+    "frontend_lint": {
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "etis-frontend",
+      "exit_code": 0,
+      "elapsed_seconds": 0.452,
+      "output_file": "check-frontend_lint.txt"
+    }
+  },
+  "notebook_syntax_valid": true,
+  "notebook_training_run": false,
+  "final_test_run": false,
+  "limitations": [
+    "Local Windows commands; the GitHub Linux/Python 3.12/Node 24 job itself was not run."
+  ],
+  "etis_text_data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "phreshphish_official_test_evaluated": true,
+  "etis_sealed_test_evaluated": false,
+  "final_test_run_note": "Legacy final_test_run=False refers to ETIS sealed tests; the explicitly authorized PhreshPhish official test was evaluated."
+}

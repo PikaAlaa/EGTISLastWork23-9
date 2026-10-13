@@ -1,0 +1,51 @@
+{
+  "dataset": "phreshphish/phreshphish",
+  "revision": "eabec4b7a66324b79cc8a0ad856d1731dc26fe1a",
+  "card_version": "1.0.1 (2026-02-07)",
+  "download_date": "2026-10-13",
+  "complete": false,
+  "columns": [
+    "url",
+    "label",
+    "target",
+    "date",
+    "lang"
+  ],
+  "html_column_downloaded_decoded_or_stored": false,
+  "hash_scope": "Upstream whole-file hashes declared by Hugging Face; verified local SHA-256 for selected source ranges and five-column projections only.",
+  "licence": "CC BY 4.0; card additionally requests anti-phishing research use only",
+  "files": [
+    {
+      "upstream_file": "data/test-000.parquet",
+      "upstream_bytes": 55340975,
+      "upstream_declared_sha256": "9ae7908b64cc75669e4be4cbd0fec884ac2b3f4984211eacfbf013a2ada12851",
+      "upstream_whole_file_downloaded": false,
+      "upstream_whole_file_hash_locally_verified": false,
+      "footer_sha256": "cb48a4b34704210a2ffeaacc02ab39ea96f96f00782aa93a8548bedced3eb0a2",
+      "selected_ranges": [
+        {
+          "start": 35125,
+          "end_exclusive": 72941,
+          "sha256": "2f71393d8d8c0b81df012c2aa252f90f272134aa0cebe5b54ee8db3d3acffa71"
+        }
+      ],
+      "columns": [
+        "url",
+        "label",
+        "target",
+        "date",
+        "lang"
+      ],
+      "downloaded_at_utc": "2026-10-13T19:31:05.873139+00:00",
+      "rows": 1000,
+      "projected_sha256": "897f9bd72bb2a116eba993b52ec8932b0b454c498d2e2d3a3810183f4b2767b1",
+      "projected_bytes": 39001
+    }
+  ],
+  "data_sha256": "5e8baca8d2e844295e6d0ee4fb84744f3bef3ff9ebe6ac9fc09534fd391d55bf",
+  "model_sha256": null,
+  "libraries": {
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  }
+}

@@ -1,5 +1,7 @@
 # Validation composition and candidate comparison
 
+**Historical 8 October results.** Current source-held-out selection and corrected dialectal language tags are in the [13 October report](../evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md). The validation-only selection below is superseded; original baseline numbers are retained for comparison.
+
 **Development only: these results do not establish everyday Egyptian SMS accuracy.**
 The validation set is dominated by the translated-email source. Its labels and
 language tags are not proof of representative bank notifications or dialect coverage.

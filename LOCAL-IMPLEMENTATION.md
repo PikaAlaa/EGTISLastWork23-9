@@ -1,5 +1,7 @@
 # Local implementation handover — 8 October 2026
 
+Current model evidence is in the [13 October review report](evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md). The older evaluation and selection claims below are historical. See [data licences](docs/data-licences.md) before publishing the preserved data.
+
 The required engineering work has been implemented in this separate local copy.
 **The full completion plan is not yet satisfied:** genuine-data evaluation, acceptance
 approval and remaining detection weaknesses still need work. The original local review
@@ -9,6 +11,21 @@ The source checkout's Mido-77 origin remains protected from pushes.
 
 Open the running app: <http://127.0.0.1:5173/scan>.
 Start/stop instructions and a fresh-install command are in [SETUP.md](SETUP.md).
+
+## 9–10 October 2026 v3 follow-up
+
+The text-only HIGH rule now requires a separate corroborating signal, the NBE probe
+passes without an xfail, and an offline host-only lexical URL model is evaluated from
+a pinned Tranco list and Public Suffix List. The original September data, deployed
+model, tokenizer and reviewed baseline reports remain unchanged. The host-only URL
+model uses LightGBM; the local text winner is character TF-IDF + logistic regression.
+Text selection follows the frozen macro-F1/FPR/latency rule, with calibration also
+reported; the final selection waits
+for the MARBERTv2 and CAMeLBERT-DA runs. See the [v3 report](evaluation/reports/2026-10-v3/REPORT.md)
+for exact metrics, source-held-out results, reproduction commands and limitations.
+No final sealed test ran; authentic Egyptian SMS remains unavailable (count 0).
+The twelve invented everyday probes now produce 0 HIGH, 8 MEDIUM and 4 LOW.
+The sections below preserve the 8 October handover; use the v3 report for current results.
 
 The review follow-up fixes validation reporting, the incomplete final candidate
 comparison and platform-dependent dataset identity. All three candidates were

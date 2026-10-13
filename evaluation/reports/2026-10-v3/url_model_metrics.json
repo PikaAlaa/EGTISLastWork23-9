@@ -1,0 +1,520 @@
+{
+  "stage": "development_validation",
+  "final_test_run": false,
+  "data_sha256": "75cdf0d11536aaced1065d75dadb01c2ffd4aa60da4d622ef0bf7f41d7771e86",
+  "model_sha256": "ca992b82812dd93b5026bd38156345c3551e887bd20975fe210f122a5acbc69f",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "scipy": "1.18.1"
+  },
+  "psl_sha256": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612",
+  "tranco_sha256": "f06bbb86bb81ceb803b9a539514cf306bad080892373daaa35da4140fded97f5",
+  "tranco_list_id": "PY35J",
+  "tranco_date": "2026-10-08",
+  "phishing_source_counts": {
+    "openphish/train": 245,
+    "openphish/val": 21,
+    "phishtank/train": 45684,
+    "phishtank/val": 6510
+  },
+  "domain_overlap_removed": {
+    "tranco_count": 228,
+    "repo_manual_domains_overlapping_phishing": 0,
+    "repo_rows_crossing_train_validation_under_pinned_psl": 0
+  },
+  "legitimate_subsets": {
+    "host_only": {
+      "tranco_domains": 19772,
+      "repo_manual_full_urls": 14
+    },
+    "full_url": {
+      "repo_manual_full_urls": 14,
+      "tranco_domains": 0
+    }
+  },
+  "variants": {
+    "host_only": {
+      "train_rows": 61788,
+      "validation_rows": 8547,
+      "train_phishing": 45929,
+      "train_legitimate": 15859,
+      "validation_phishing": 6531,
+      "validation_legitimate": 2016,
+      "cross_class_domains_excluded": 0,
+      "validation_registered_domains": 6131,
+      "models": {
+        "char3_5_logistic": {
+          "path": "ml\\models\\url_host_only_char3_5_logistic.joblib",
+          "metrics": {
+            "n": 8547,
+            "phishing_n": 6531,
+            "legitimate_n": 2016,
+            "threshold_at_recall_95": 0.0936939880291105,
+            "phishing_recall_at_threshold": 0.9500842137498086,
+            "legitimate_fpr_at_recall_95": 0.2683531746031746,
+            "recall_at_fpr_le_1pct": 0.7611391823610473,
+            "threshold_at_fpr_le_1pct": 0.6631978805388167,
+            "recall_at_fpr_le_0_1pct": 0.18588271321390293,
+            "threshold_at_fpr_le_0_1pct": 0.9658963241421017,
+            "pr_auc": 0.9867695685258349,
+            "ece_15_bins": 0.16764282873214367,
+            "confusion_at_recall_95": {
+              "tp": 6205,
+              "fp": 541,
+              "fn": 326,
+              "tn": 1475
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 300,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.705313950700037,
+                0.8130797795329683
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.0,
+                0.5948943312355554
+              ],
+              "pr_auc_ci95": [
+                0.9830347539541031,
+                0.9900100862011398
+              ],
+              "ece_15_bins_ci95": [
+                0.14480384146945838,
+                0.19188260274305144
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.1978679834322453,
+                0.3784467663161003
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 1.1799500000506669,
+              "p95_ms": 1.7222700001411795
+            },
+            "model_sha256": "27c70ab03ffd747e2447c955695def44ae34255696cc89e29761a18496fd57a1",
+            "model_size_bytes": 2098901
+          }
+        },
+        "char3_5_calibrated_svm": {
+          "path": "ml\\models\\url_host_only_char3_5_calibrated_svm.joblib",
+          "metrics": {
+            "n": 8547,
+            "phishing_n": 6531,
+            "legitimate_n": 2016,
+            "threshold_at_recall_95": 0.3675533120406156,
+            "phishing_recall_at_threshold": 0.9500842137498086,
+            "legitimate_fpr_at_recall_95": 0.24751984126984128,
+            "recall_at_fpr_le_1pct": 0.7398560710457817,
+            "threshold_at_fpr_le_1pct": 0.8481242620837425,
+            "recall_at_fpr_le_0_1pct": 0.44679222171183586,
+            "threshold_at_fpr_le_0_1pct": 0.9693318511102621,
+            "pr_auc": 0.9883349297235318,
+            "ece_15_bins": 0.0462104124922009,
+            "confusion_at_recall_95": {
+              "tp": 6205,
+              "fp": 499,
+              "fn": 326,
+              "tn": 1517
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 300,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.6554254845593973,
+                0.7870194732641859
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.34091888229420625,
+                0.6113760389317375
+              ],
+              "pr_auc_ci95": [
+                0.9851551538598942,
+                0.9910512481701718
+              ],
+              "ece_15_bins_ci95": [
+                0.04055003973365746,
+                0.06458494805432843
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.1914284444596739,
+                0.3467408243488844
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 3.4161500000209344,
+              "p95_ms": 4.636785000138843
+            },
+            "model_sha256": "295f9adb151a5670ba8eafe82cc0960bc98a242a28170c8eab3a9fd2932a1318",
+            "model_size_bytes": 2499890
+          }
+        },
+        "lightgbm_hand_features": {
+          "path": "ml\\models\\url_host_only_lightgbm.joblib",
+          "metrics": {
+            "n": 8547,
+            "phishing_n": 6531,
+            "legitimate_n": 2016,
+            "threshold_at_recall_95": 0.05856173426828416,
+            "phishing_recall_at_threshold": 0.9608023273618129,
+            "legitimate_fpr_at_recall_95": 0.36160714285714285,
+            "recall_at_fpr_le_1pct": 0.8410656867248507,
+            "threshold_at_fpr_le_1pct": 0.550521226818799,
+            "recall_at_fpr_le_0_1pct": 0.7988056959118053,
+            "threshold_at_fpr_le_0_1pct": 0.8923385838985234,
+            "pr_auc": 0.987644241205716,
+            "ece_15_bins": 0.09994887045800267,
+            "confusion_at_recall_95": {
+              "tp": 6275,
+              "fp": 729,
+              "fn": 256,
+              "tn": 1287
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 300,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.7894807932741376,
+                0.8875417308398209
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.6451908925153991,
+                0.8503362883956659
+              ],
+              "pr_auc_ci95": [
+                0.9820161719541657,
+                0.9924623755391142
+              ],
+              "ece_15_bins_ci95": [
+                0.07121567052034546,
+                0.13848736482412843
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.17918393077172667,
+                0.5244165442129828
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 1.6136499998538056,
+              "p95_ms": 2.091039999845634
+            },
+            "model_sha256": "f4513aec7f1ed8319e98c12010f8899e2b8b47146afbf01ae851549716d9f281",
+            "model_size_bytes": 930084
+          }
+        }
+      },
+      "thresholds_at_fpr_le_1pct": {
+        "char3_5_logistic": 0.6631978805388167,
+        "char3_5_calibrated_svm": 0.8481242620837425,
+        "lightgbm_hand_features": 0.550521226818799
+      },
+      "full_url_legitimate_validation_warning": false
+    },
+    "full_url": {
+      "train_rows": 45940,
+      "validation_rows": 6534,
+      "train_phishing": 45929,
+      "train_legitimate": 11,
+      "validation_phishing": 6531,
+      "validation_legitimate": 3,
+      "cross_class_domains_excluded": 0,
+      "validation_registered_domains": 4118,
+      "models": {
+        "char3_5_logistic": {
+          "path": "ml\\models\\url_full_url_char3_5_logistic.joblib",
+          "metrics": {
+            "n": 6534,
+            "phishing_n": 6531,
+            "legitimate_n": 3,
+            "threshold_at_recall_95": 0.9953227475619763,
+            "phishing_recall_at_threshold": 0.9500842137498086,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "recall_at_fpr_le_1pct": 0.9993875363650283,
+            "threshold_at_fpr_le_1pct": 0.9134069141698965,
+            "recall_at_fpr_le_0_1pct": 0.9993875363650283,
+            "threshold_at_fpr_le_0_1pct": 0.9134069141698965,
+            "pr_auc": 0.9999997890463092,
+            "ece_15_bins": 0.0022315695362565575,
+            "confusion_at_recall_95": {
+              "tp": 6205,
+              "fp": 0,
+              "fn": 326,
+              "tn": 3
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 279,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.9987840091926755,
+                1.0
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.9987840091926755,
+                1.0
+              ],
+              "pr_auc_ci95": [
+                0.9999992301502085,
+                1.0
+              ],
+              "ece_15_bins_ci95": [
+                0.0019525717555956572,
+                0.0027383373965047405
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 0.6209499999840773,
+              "p95_ms": 1.3942300001872352
+            },
+            "model_sha256": "f43784d30421872d5fd0213d5158bc45da604b56acb523340cd7ed0f4c74482b",
+            "model_size_bytes": 2080725
+          }
+        },
+        "char3_5_calibrated_svm": {
+          "path": "ml\\models\\url_full_url_char3_5_calibrated_svm.joblib",
+          "metrics": {
+            "n": 6534,
+            "phishing_n": 6531,
+            "legitimate_n": 3,
+            "threshold_at_recall_95": 0.9996767834802143,
+            "phishing_recall_at_threshold": 0.9500842137498086,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "recall_at_fpr_le_1pct": 0.9966314500076559,
+            "threshold_at_fpr_le_1pct": 0.997831879919887,
+            "recall_at_fpr_le_0_1pct": 0.9966314500076559,
+            "threshold_at_fpr_le_0_1pct": 0.997831879919887,
+            "pr_auc": 0.9999994834695729,
+            "ece_15_bins": 0.0002826491001932663,
+            "confusion_at_recall_95": {
+              "tp": 6205,
+              "fp": 0,
+              "fn": 326,
+              "tn": 3
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 279,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.9952144256169781,
+                1.0
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.9952144256169781,
+                1.0
+              ],
+              "pr_auc_ci95": [
+                0.9999981791159498,
+                1.0
+              ],
+              "ece_15_bins_ci95": [
+                7.399682609965375e-06,
+                0.0008491863721449834
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 1.9127999999000167,
+              "p95_ms": 3.173375000073974
+            },
+            "model_sha256": "6b0063e387d89043711441d3ae7aca462b79fc2536ec0a66ca9d7c6f8570159e",
+            "model_size_bytes": 2481730
+          }
+        },
+        "lightgbm_hand_features": {
+          "path": "ml\\models\\url_full_url_lightgbm.joblib",
+          "metrics": {
+            "n": 6534,
+            "phishing_n": 6531,
+            "legitimate_n": 3,
+            "threshold_at_recall_95": 0.9999978338718175,
+            "phishing_recall_at_threshold": 0.9500842137498086,
+            "legitimate_fpr_at_recall_95": 0.0,
+            "recall_at_fpr_le_1pct": 0.9947940591027408,
+            "threshold_at_fpr_le_1pct": 0.9981378339831272,
+            "recall_at_fpr_le_0_1pct": 0.9947940591027408,
+            "threshold_at_fpr_le_0_1pct": 0.9981378339831272,
+            "pr_auc": 0.999997980080246,
+            "ece_15_bins": 0.0009447786793954692,
+            "confusion_at_recall_95": {
+              "tp": 6205,
+              "fp": 0,
+              "fn": 326,
+              "tn": 3
+            },
+            "bootstrap_domain_95": {
+              "method": "registered-domain bootstrap, percentile",
+              "replicates_requested": 300,
+              "replicates_used": 279,
+              "recall_at_fpr_le_1pct_ci95": [
+                0.9928360284068053,
+                0.9978238705955677
+              ],
+              "recall_at_fpr_le_0_1pct_ci95": [
+                0.9928360284068053,
+                0.9978238705955677
+              ],
+              "pr_auc_ci95": [
+                0.9999946274777928,
+                0.9999995764228774
+              ],
+              "ece_15_bins_ci95": [
+                0.0003672149002304734,
+                0.001760904233613511
+              ],
+              "legitimate_fpr_at_recall_95_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "cpu_latency": {
+              "cpu_only": true,
+              "batch_size": 1,
+              "n": 1000,
+              "p50_ms": 1.7687500003376044,
+              "p95_ms": 2.187025000307585
+            },
+            "model_sha256": "b75908b1ee824b0b9a156b54e92fb8225f724af8fea72d22101fd1e463aa8396",
+            "model_size_bytes": 861412
+          }
+        }
+      },
+      "thresholds_at_fpr_le_1pct": {
+        "char3_5_logistic": 0.9134069141698965,
+        "char3_5_calibrated_svm": 0.997831879919887,
+        "lightgbm_hand_features": 0.9981378339831272
+      },
+      "full_url_legitimate_validation_warning": true
+    }
+  },
+  "limitations": [
+    "No authentic Egyptian SMS test set; no URLs sent or resolved.",
+    "Original 9496-row baseline has no row-level cohort or predictions in the repository; same-cohort comparison is unavailable."
+  ],
+  "deployment": {
+    "variant": "host_only",
+    "model": "lightgbm_hand_features",
+    "selection_reason": "Highest host-only validation recall at FPR <= 0.1%, with CPU p95 below 300 ms",
+    "threshold": 0.8923385838985234,
+    "threshold_source": "validation recall-maximizing at FPR <= 0.1%",
+    "artifact_sha256": "ca992b82812dd93b5026bd38156345c3551e887bd20975fe210f122a5acbc69f",
+    "psl_sha256": "ba7d836c0ea57a8bcf9f1fcb868066a7554bed029b441ecc6204ad8494a32612",
+    "tranco_allowlist_used": false,
+    "model_only_corroboration_exclusions": [
+      "Hosts in the existing verified official-brand registry, uniformly for all brands",
+      "Hosts in the existing shared-hosting registry (host-only features cannot distinguish hosted paths)"
+    ]
+  },
+  "time_split": {
+    "stage": "development_validation_time_split",
+    "final_test_run": false,
+    "method": "Chronological registered-domain split using max(submission_time, verification_time when present); domain event date is the latest record timestamp, earlier 80% of domains train and latest 20% validate.",
+    "cutoff_utc": "2026-06-08T15:12:55+00:00",
+    "data_sha256": "bebe2741869862a5bfddc94ad979496a43bbc0f068178711e17d02d4db84bc22",
+    "source_data_sha256": "3f6d0f48af71f93a9ce1b60ab9cfca4311787ca1c311dd16f0a4e9e5d80b77d5",
+    "model_sha256": null,
+    "libraries": {
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "scikit-learn": "1.9.0",
+      "joblib": "1.6.0",
+      "tldextract": "5.4.0",
+      "lightgbm": "4.7.0",
+      "scipy": "1.18.1"
+    },
+    "train_rows": 25312,
+    "validation_rows": 27174,
+    "registered_domains": 22089,
+    "urls_exposed": false,
+    "model_metrics": {
+      "n": 29187,
+      "phishing_n": 27174,
+      "legitimate_n": 2013,
+      "threshold_at_recall_95": 0.0634685706295315,
+      "phishing_recall_at_threshold": 0.9795760653565908,
+      "legitimate_fpr_at_recall_95": 0.5235966219572777,
+      "recall_at_fpr_le_1pct": 0.2280856701258556,
+      "threshold_at_fpr_le_1pct": 0.7594845627696777,
+      "recall_at_fpr_le_0_1pct": 0.17137705159343491,
+      "threshold_at_fpr_le_0_1pct": 0.9185492931275447,
+      "pr_auc": 0.9787589373927971,
+      "ece_15_bins": 0.5717540145792214,
+      "confusion_at_recall_95": {
+        "tp": 26619,
+        "fp": 1054,
+        "fn": 555,
+        "tn": 959
+      },
+      "bootstrap_domain_95": {
+        "method": "registered-domain bootstrap, percentile",
+        "replicates_requested": 300,
+        "replicates_used": 300,
+        "recall_at_fpr_le_1pct_ci95": [
+          0.13193543300693913,
+          0.4444935193928211
+        ],
+        "recall_at_fpr_le_0_1pct_ci95": [
+          0.0009755837203288975,
+          0.3241170391361498
+        ],
+        "pr_auc_ci95": [
+          0.9673491750361124,
+          0.9893308480578412
+        ],
+        "ece_15_bins_ci95": [
+          0.3383079517911506,
+          0.7044182586457718
+        ],
+        "legitimate_fpr_at_recall_95_ci95": [
+          0.23992653971298605,
+          0.6588312096195256
+        ]
+      },
+      "cpu_latency": {
+        "cpu_only": true,
+        "batch_size": 1,
+        "n": 1000,
+        "p50_ms": 0.41264999981649453,
+        "p95_ms": 0.604254999848308
+      },
+      "model_sha256": "cafeb228fc4067d0c2af39d38903fdf3846facd14cf06e8e8df0b4b01bf83727",
+      "model_size_bytes": 2099253
+    }
+  },
+  "old_vs_new_same_9496_cohort": {
+    "status": "NOT_RUN",
+    "reason": "Reviewed baseline stores only aggregate confusion counts; no original row IDs/content hashes/scores are present."
+  },
+  "superseded_by": "review-2026-10-13/REPORT.md",
+  "historical_status": "Historical 9–10 October run; see revised report for current evidence."
+}

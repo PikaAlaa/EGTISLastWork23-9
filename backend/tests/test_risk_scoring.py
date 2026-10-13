@@ -9,11 +9,12 @@ def test_added_clean_url_never_dilutes_strong_text(db,monkeypatch):
     monkeypatch.setattr(risk_scoring,'score_text',model(.95))
     a=calculate_final_risk_score(text='test message',db=db)
     b=calculate_final_risk_score(text='test message',url='https://example.com/',db=db)
-    assert a['verdict']==b['verdict']=='HIGH'
+    assert a['verdict']==b['verdict']=='MEDIUM'
     assert b['final_score']>=a['final_score']
 def test_official_domain_does_not_override_text(db,monkeypatch):
     monkeypatch.setattr(risk_scoring,'score_text',model(.99))
-    assert calculate_final_risk_score(text='test',url='https://cibeg.com/',db=db)['verdict']=='HIGH'
+    # An official domain does not corroborate an ungrounded text-model alert.
+    assert calculate_final_risk_score(text='test',url='https://cibeg.com/',db=db)['verdict']=='MEDIUM'
 def test_clean_text_can_reach_low(db,monkeypatch):
     monkeypatch.setattr(risk_scoring,'score_text',model(.01))
     assert calculate_final_risk_score(text='team meeting tomorrow',db=db)['verdict']=='LOW'

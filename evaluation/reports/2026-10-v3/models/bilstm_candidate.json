@@ -1,0 +1,449 @@
+{
+  "model": "bilstm_candidate",
+  "dataset_sha256": "fe185c3df6f2e2a311884bccaeb6f6e7c713c91db21a548148ee92a6457e0136",
+  "dataset_fingerprint_method": "etis-csv-content-v1",
+  "dataset_file_sha256": "e6ed017655a9561eba5e2f3d6c2a22168d7982ecf27828e9513bffe707576bd2",
+  "validation_n": 282,
+  "n": 282,
+  "phishing_n": 93,
+  "legitimate_n": 189,
+  "precision": 0.9578947368421052,
+  "recall": 0.978494623655914,
+  "f1": 0.9680851063829787,
+  "auc": 0.9857768674972976,
+  "rates": {
+    "precision": {
+      "value": 0.9578947368421052,
+      "n": 95,
+      "ci95": [
+        0.8966912227790326,
+        0.9835062271374501
+      ]
+    },
+    "recall": {
+      "value": 0.978494623655914,
+      "n": 93,
+      "ci95": [
+        0.9249453736530886,
+        0.9940825001915952
+      ]
+    },
+    "false_positive_rate": {
+      "value": 0.021164021164021163,
+      "n": 189,
+      "ci95": [
+        0.008260317100487993,
+        0.05314483349891931
+      ]
+    },
+    "confusion": {
+      "tp": 91,
+      "fp": 4,
+      "fn": 2,
+      "tn": 185
+    }
+  },
+  "low_threshold": 0.2,
+  "high_threshold": 0.36,
+  "final_test_run": false,
+  "interpretation": "Pooled validation selects candidates; source mix is not representative of everyday Egyptian SMS. Sparse or single-class groups cannot establish deployment accuracy.",
+  "by_source": {
+    "kaggle_arabic_phishing_fully_dataset": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 0.8888888888888888,
+          "n": 36,
+          "ci95": [
+            0.7468519140963513,
+            0.9559335969968435
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.027210884353741496,
+          "n": 147,
+          "ci95": [
+            0.010631557432044515,
+            0.06787112288723109
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "tn": 143
+        }
+      }
+    },
+    "kaggle_dialectal_arabic_sms": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    },
+    "salloum_gaber_bilingual_corpus": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 0.9047619047619048,
+      "f1": 0.95,
+      "auc": 0.9911816578483245,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 19,
+          "ci95": [
+            0.8318207759473837,
+            1
+          ]
+        },
+        "recall": {
+          "value": 0.9047619047619048,
+          "n": 21,
+          "ci95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 19,
+          "fp": 0,
+          "fn": 2,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "by_language": {
+    "ar": {
+      "n": 227,
+      "phishing_n": 53,
+      "legitimate_n": 174,
+      "precision": 0.9272727272727272,
+      "recall": 0.9622641509433962,
+      "f1": 0.9444444444444444,
+      "auc": 0.9758186944263718,
+      "rates": {
+        "precision": {
+          "value": 0.9272727272727272,
+          "n": 55,
+          "ci95": [
+            0.8274005992784393,
+            0.9713559397669594
+          ]
+        },
+        "recall": {
+          "value": 0.9622641509433962,
+          "n": 53,
+          "ci95": [
+            0.8724571280258164,
+            0.9895897127241731
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.022988505747126436,
+          "n": 174,
+          "ci95": [
+            0.008975250976013212,
+            0.05760910398383388
+          ]
+        },
+        "confusion": {
+          "tp": 51,
+          "fp": 4,
+          "fn": 2,
+          "tn": 170
+        }
+      }
+    },
+    "mixed": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    }
+  },
+  "by_content_type": {
+    "text": {
+      "n": 282,
+      "phishing_n": 93,
+      "legitimate_n": 189,
+      "precision": 0.9578947368421052,
+      "recall": 0.978494623655914,
+      "f1": 0.9680851063829787,
+      "auc": 0.9857768674972976,
+      "rates": {
+        "precision": {
+          "value": 0.9578947368421052,
+          "n": 95,
+          "ci95": [
+            0.8966912227790326,
+            0.9835062271374501
+          ]
+        },
+        "recall": {
+          "value": 0.978494623655914,
+          "n": 93,
+          "ci95": [
+            0.9249453736530886,
+            0.9940825001915952
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.021164021164021163,
+          "n": 189,
+          "ci95": [
+            0.008260317100487993,
+            0.05314483349891931
+          ]
+        },
+        "confusion": {
+          "tp": 91,
+          "fp": 4,
+          "fn": 2,
+          "tn": 185
+        }
+      }
+    }
+  },
+  "by_source_content_type": {
+    "kaggle_arabic_phishing_fully_dataset / text": {
+      "n": 179,
+      "phishing_n": 32,
+      "legitimate_n": 147,
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 0.8888888888888888,
+          "n": 36,
+          "ci95": [
+            0.7468519140963513,
+            0.9559335969968435
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 32,
+          "ci95": [
+            0.8928208017449293,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.027210884353741496,
+          "n": 147,
+          "ci95": [
+            0.010631557432044515,
+            0.06787112288723109
+          ]
+        },
+        "confusion": {
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "tn": 143
+        }
+      }
+    },
+    "kaggle_dialectal_arabic_sms / text": {
+      "n": 55,
+      "phishing_n": 40,
+      "legitimate_n": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "auc": 1.0,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "recall": {
+          "value": 1.0,
+          "n": 40,
+          "ci95": [
+            0.9123783988027135,
+            1
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 15,
+          "ci95": [
+            0,
+            0.20388330103584862
+          ]
+        },
+        "confusion": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 15
+        }
+      }
+    },
+    "salloum_gaber_bilingual_corpus / text": {
+      "n": 48,
+      "phishing_n": 21,
+      "legitimate_n": 27,
+      "precision": 1.0,
+      "recall": 0.9047619047619048,
+      "f1": 0.95,
+      "auc": 0.9911816578483245,
+      "rates": {
+        "precision": {
+          "value": 1.0,
+          "n": 19,
+          "ci95": [
+            0.8318207759473837,
+            1
+          ]
+        },
+        "recall": {
+          "value": 0.9047619047619048,
+          "n": 21,
+          "ci95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        },
+        "false_positive_rate": {
+          "value": 0.0,
+          "n": 27,
+          "ci95": [
+            0,
+            0.12455502974186705
+          ]
+        },
+        "confusion": {
+          "tp": 19,
+          "fp": 0,
+          "fn": 2,
+          "tn": 27
+        }
+      }
+    }
+  },
+  "parameters": {
+    "vocabulary": 5000,
+    "embedding": 32,
+    "lstm_units": 16,
+    "seed": 42,
+    "epochs_max": 20,
+    "window_words": 150,
+    "stride": 75
+  },
+  "artifact_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+  "tokenizer_sha256": "101c4c89a6d719e3bfc261eca6849fa694044c94aed188ebf2a66ad29bd14afd",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+  "comparisons": [
+    {
+      "setting": "etis",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 27.38541666666667,
+      "fpr_difference_points": 44.69208853824238
+    },
+    {
+      "setting": "etis",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 44.841145833333336,
+      "fpr_difference_points": 70.73745342976112
+    },
+    {
+      "setting": "etis",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 25.012556504269213,
+      "fpr_difference_points": 0.5829903978052127
+    },
+    {
+      "setting": "etis",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": 75.52318767788381,
+      "fpr_difference_points": 0.034293552812071325
+    },
+    {
+      "setting": "etis",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 27.489583333333336,
+      "fpr_difference_points": 44.85645408722332
+    },
+    {
+      "setting": "etis",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 43.248697916666664,
+      "fpr_difference_points": 67.38549200087661
+    },
+    {
+      "setting": "etis",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 22.584965678888334,
+      "fpr_difference_points": 0.4458161865569273
+    },
+    {
+      "setting": "etis",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": 74.20056922819353,
+      "fpr_difference_points": 0.0
+    },
+    {
+      "setting": "etis",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 14.29166666666667,
+      "fpr_difference_points": 16.285338593030897
+    },
+    {
+      "setting": "etis",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 15.87760416666667,
+      "fpr_difference_points": 16.445321060705677
+    },
+    {
+      "setting": "etis",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 8.387744851833256,
+      "fpr_difference_points": 0.10288065843621387
+    },
+    {
+      "setting": "etis",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": 14.029800770132262,
+      "fpr_difference_points": -0.06858710562414266
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 26.108072916666657,
+      "fpr_difference_points": -0.009861932938855927
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 19.266927083333336,
+      "fpr_difference_points": -0.0613631382862152
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 3.4990791896869267,
+      "fpr_difference_points": 11.282578875171469
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": -29.96819018918466,
+      "fpr_difference_points": 2.5377229080932784
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 25.71354166666667,
+      "fpr_difference_points": 0.4032434801665572
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 22.011718750000004,
+      "fpr_difference_points": -0.013149243918474694
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 2.996819018918473,
+      "fpr_difference_points": 10.390946502057613
+    },
+    {
+      "setting": "phreshphish",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": -22.802611752888,
+      "fpr_difference_points": 2.469135802469136
+    },
+    {
+      "setting": "phreshphish",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 33.78515625,
+      "fpr_difference_points": -0.01205347359193509
+    },
+    {
+      "setting": "phreshphish",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 40.791666666666664,
+      "fpr_difference_points": 0.03506465044926584
+    },
+    {
+      "setting": "phreshphish",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 2.946593001841624,
+      "fpr_difference_points": 3.6351165980795614
+    },
+    {
+      "setting": "phreshphish",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": 40.833751883475635,
+      "fpr_difference_points": 0.51440329218107
+    },
+    {
+      "setting": "combined",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 25.48828125,
+      "fpr_difference_points": 0.30024106947183876
+    },
+    {
+      "setting": "combined",
+      "model": "char_logistic",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 19.93880208333333,
+      "fpr_difference_points": -0.08547008547008547
+    },
+    {
+      "setting": "combined",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 1.573748535074504,
+      "fpr_difference_points": 11.59122085048011
+    },
+    {
+      "setting": "combined",
+      "model": "char_logistic",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": -31.6926167754897,
+      "fpr_difference_points": 1.7489711934156382
+    },
+    {
+      "setting": "combined",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 25.34895833333334,
+      "fpr_difference_points": 0.6673241288625904
+    },
+    {
+      "setting": "combined",
+      "model": "char_calibrated_svm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 22.04166666666667,
+      "fpr_difference_points": -0.04383081306158229
+    },
+    {
+      "setting": "combined",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 2.7456889335342405,
+      "fpr_difference_points": 11.213991769547325
+    },
+    {
+      "setting": "combined",
+      "model": "char_calibrated_svm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": -24.67771639042357,
+      "fpr_difference_points": 1.9547325102880657
+    },
+    {
+      "setting": "combined",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "1pct",
+      "recall_difference_points": 33.141927083333336,
+      "fpr_difference_points": -0.016436554898093415
+    },
+    {
+      "setting": "combined",
+      "model": "lightgbm",
+      "cohort": "phreshphish_test",
+      "cap": "0_1pct",
+      "recall_difference_points": 36.89453125,
+      "fpr_difference_points": 0.01862809555117247
+    },
+    {
+      "setting": "combined",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "1pct",
+      "recall_difference_points": 3.8339193035325625,
+      "fpr_difference_points": 3.052126200274348
+    },
+    {
+      "setting": "combined",
+      "model": "lightgbm",
+      "cohort": "etis_grouped_validation",
+      "cap": "0_1pct",
+      "recall_difference_points": 26.63653105642056,
+      "fpr_difference_points": -0.10288065843621405
+    }
+  ],
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0",
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  },
+  "etis_sealed_test_evaluated": false
+}

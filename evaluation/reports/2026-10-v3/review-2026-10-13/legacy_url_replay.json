@@ -1,0 +1,174 @@
+{
+  "stage": "development_reconstructed_baseline",
+  "final_test_run": false,
+  "full_url_legacy": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.9868073878627969,
+        "n": 1137,
+        "ci95": [
+          0.9783474073972518,
+          0.9919889977543663
+        ]
+      },
+      "recall": {
+        "value": 0.17179604960955444,
+        "n": 6531,
+        "ci95": [
+          0.16284148194701722,
+          0.18113648186212303
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.00505902192242833,
+        "n": 2965,
+        "ci95": [
+          0.0030682765994642894,
+          0.008330600467597718
+        ]
+      },
+      "confusion": {
+        "tp": 1122,
+        "fp": 15,
+        "fn": 5409,
+        "tn": 2950
+      }
+    },
+    "verdicts": {
+      "LOW": 8359,
+      "MEDIUM": 1136,
+      "HIGH": 1
+    },
+    "n": 9496
+  },
+  "pathless_preserving_scheme_legacy": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.9825581395348837,
+        "n": 860,
+        "ci95": [
+          0.971422503254541,
+          0.9894019530445418
+        ]
+      },
+      "recall": {
+        "value": 0.12938294288776603,
+        "n": 6531,
+        "ci95": [
+          0.12146054771827174,
+          0.13774106711728873
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.00505902192242833,
+        "n": 2965,
+        "ci95": [
+          0.0030682765994642894,
+          0.008330600467597718
+        ]
+      },
+      "confusion": {
+        "tp": 845,
+        "fp": 15,
+        "fn": 5686,
+        "tn": 2950
+      }
+    },
+    "verdicts": {
+      "LOW": 8636,
+      "MEDIUM": 860
+    },
+    "n": 9496
+  },
+  "host_only_input_legacy": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.8888888888888888,
+        "n": 135,
+        "ci95": [
+          0.8247586355576375,
+          0.9314996239842874
+        ]
+      },
+      "recall": {
+        "value": 0.018373909049150206,
+        "n": 6531,
+        "ci95": [
+          0.015388594119460294,
+          0.021925464738319377
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.00505902192242833,
+        "n": 2965,
+        "ci95": [
+          0.0030682765994642894,
+          0.008330600467597718
+        ]
+      },
+      "confusion": {
+        "tp": 120,
+        "fp": 15,
+        "fn": 6411,
+        "tn": 2950
+      }
+    },
+    "verdicts": {
+      "LOW": 9361,
+      "MEDIUM": 135
+    },
+    "n": 9496
+  },
+  "original_report": {
+    "medium_or_high": {
+      "precision": {
+        "value": 0.9868073878627969,
+        "n": 1137,
+        "ci95": [
+          0.9783474073972518,
+          0.9919889977543663
+        ]
+      },
+      "recall": {
+        "value": 0.17179604960955444,
+        "n": 6531,
+        "ci95": [
+          0.16284148194701722,
+          0.18113648186212303
+        ]
+      },
+      "false_positive_rate": {
+        "value": 0.00505902192242833,
+        "n": 2965,
+        "ci95": [
+          0.0030682765994642894,
+          0.008330600467597718
+        ]
+      },
+      "confusion": {
+        "tp": 1122,
+        "fp": 15,
+        "fn": 5409,
+        "tn": 2950
+      }
+    },
+    "verdicts": {
+      "LOW": 8359,
+      "MEDIUM": 1136,
+      "HIGH": 1
+    },
+    "n": 9496
+  },
+  "matches_original_aggregate_confusion": true,
+  "identity_limitation": "Original baseline lacks row-level IDs. Matching aggregate counts, if observed, does not prove identical membership.",
+  "transform": "https scheme, original authority, / root; no path/query/fragment; original frozen blacklist and rules.",
+  "data_sha256": "779976dd2e109c66745b8b03dd37080cab30ec8e6b1995a8845615b66a53f3c4",
+  "model_sha256": null,
+  "baseline_risk_scoring_sha256": "6d7557b39654ef9d3fbb82441c986b5d94b9989f515e73683fc6422d06a23894",
+  "libraries": {
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "SQLAlchemy": "2.1.4",
+    "tldextract": "5.4.0"
+  }
+}

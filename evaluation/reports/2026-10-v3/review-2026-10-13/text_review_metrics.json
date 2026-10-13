@@ -1,0 +1,1498 @@
+{
+  "rule_sha256": "0a4e57521b64567aa2ab4a26de999a0b41c47d891db4ef74b2e7dfac97cde0bb",
+  "models": {
+    "char_tfidf_logistic": {
+      "model_sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e",
+      "validation": {
+        "provenance": "translated UCI ham/fraud letters and translated parallel emails; dialectal validation excluded",
+        "metrics": {
+          "n": 227,
+          "phishing_n": 53,
+          "legitimate_n": 174,
+          "threshold_at_recall_95": 0.5867472238150986,
+          "macro_f1_at_recall_95": 0.9814162914449447,
+          "legitimate_fpr_at_recall_95": 0.005747126436781609,
+          "phishing_recall_at_recall_95": 0.9622641509433962,
+          "recall_at_fpr_le_1pct": 0.9811320754716981,
+          "threshold_at_fpr_le_1pct": 0.42865921908077337,
+          "ece_15_bins": 0.06139500281429993,
+          "confusion_at_recall_95": {
+            "tp": 51,
+            "fp": 1,
+            "fn": 2,
+            "tn": 173
+          }
+        }
+      },
+      "corrected_validation_by_source": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.5867472238150986,
+            "macro_f1": 0.9809736394557823,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.006802721088435374,
+            "confusion": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 1,
+              "tn": 146
+            }
+          }
+        },
+        "kaggle_dialectal_arabic_sms": {
+          "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+          "selection_eligible": false,
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_from_id_validation": 0.5867472238150986,
+            "macro_f1": 1.0,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 40,
+              "fp": 0,
+              "fn": 0,
+              "tn": 15
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.5867472238150986,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "corrected_validation_by_language": {
+        "ar": {
+          "n": 270,
+          "phishing_n": 84,
+          "legitimate_n": 186,
+          "threshold_from_id_validation": 0.5867472238150986,
+          "macro_f1": 0.9869965163506766,
+          "phishing_recall": 0.9761904761904762,
+          "legitimate_fpr": 0.005376344086021506,
+          "confusion": {
+            "tp": 82,
+            "fp": 1,
+            "fn": 2,
+            "tn": 185
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        },
+        "mixed": {
+          "n": 12,
+          "phishing_n": 9,
+          "legitimate_n": 3,
+          "threshold_from_id_validation": 0.5867472238150986,
+          "macro_f1": 1.0,
+          "phishing_recall": 1.0,
+          "legitimate_fpr": 0.0,
+          "confusion": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "tn": 3
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        }
+      },
+      "everyday": {
+        "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+        "rows": [
+          {
+            "probe_index": 1,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.7017227213061495
+          },
+          {
+            "probe_index": 2,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.41846807142122144
+          },
+          {
+            "probe_index": 3,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4806230136393247
+          },
+          {
+            "probe_index": 4,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.18511987509289696
+          },
+          {
+            "probe_index": 5,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.11238319609169337
+          },
+          {
+            "probe_index": 6,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.42517203960058186
+          },
+          {
+            "probe_index": 7,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.6946575301066467
+          },
+          {
+            "probe_index": 8,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.46834764952194535
+          },
+          {
+            "probe_index": 9,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.07843096044273723
+          },
+          {
+            "probe_index": 10,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.08431990818450295
+          },
+          {
+            "probe_index": 11,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4132544221537447
+          },
+          {
+            "probe_index": 12,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.2523261606336267
+          }
+        ],
+        "n": 12,
+        "high_n": 0,
+        "medium_or_high_n": 8,
+        "incomplete_n": 0,
+        "medium_or_high_rate": 0.6666666666666666,
+        "cpu_p95_ms": 4.5943649805849365
+      },
+      "loso": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated/parallel emails; not Egyptian SMS"
+          ],
+          "training_rows": 501,
+          "threshold_validation_rows": 48,
+          "model_sha256": "22b3fee74e97ae54ace9bf9719ac16e51c3d2a685b311cd568ff632d5545ae56",
+          "in_source_validation": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.8410058168940227,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          },
+          "held_source": {
+            "n": 1025,
+            "phishing_n": 203,
+            "legitimate_n": 822,
+            "threshold_from_id_validation": 0.8410058168940227,
+            "macro_f1": 0.8713436152741388,
+            "phishing_recall": 0.9556650246305419,
+            "legitimate_fpr": 0.10462287104622871,
+            "confusion": {
+              "tp": 194,
+              "fp": 86,
+              "fn": 9,
+              "tn": 736
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated fraud letters and translated UCI ham; not Egyptian SMS"
+          ],
+          "training_rows": 1134,
+          "threshold_validation_rows": 179,
+          "model_sha256": "1058aea21f0cd240b88305564d08f3b0c75b773df2932fbe8eaa4efef770a80f",
+          "in_source_validation": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.6418587865998958,
+            "macro_f1": 0.9903685768092547,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "held_source": {
+            "n": 261,
+            "phishing_n": 131,
+            "legitimate_n": 130,
+            "threshold_from_id_validation": 0.6418587865998958,
+            "macro_f1": 0.8313557330827068,
+            "phishing_recall": 0.8473282442748091,
+            "legitimate_fpr": 0.18461538461538463,
+            "confusion": {
+              "tp": 111,
+              "fp": 24,
+              "fn": 20,
+              "tn": 106
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.4211999985272996,
+        "p95_ms": 1.515449990256456,
+        "n": 282
+      },
+      "primary_loss": 0.3032630533482659,
+      "primary_loss_components": {
+        "source_mean_fnr": 0.09850336554732447,
+        "source_mean_fpr": 0.14461912783080666,
+        "everyday_alert_rate": 0.6666666666666666
+      }
+    },
+    "word_char_tfidf_logistic": {
+      "model_sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8",
+      "validation": {
+        "provenance": "translated UCI ham/fraud letters and translated parallel emails; dialectal validation excluded",
+        "metrics": {
+          "n": 227,
+          "phishing_n": 53,
+          "legitimate_n": 174,
+          "threshold_at_recall_95": 0.4965166640406528,
+          "macro_f1_at_recall_95": 0.9814162914449447,
+          "legitimate_fpr_at_recall_95": 0.005747126436781609,
+          "phishing_recall_at_recall_95": 0.9622641509433962,
+          "recall_at_fpr_le_1pct": 0.9811320754716981,
+          "threshold_at_fpr_le_1pct": 0.4338885710771693,
+          "ece_15_bins": 0.07406396664127454,
+          "confusion_at_recall_95": {
+            "tp": 51,
+            "fp": 1,
+            "fn": 2,
+            "tn": 173
+          }
+        }
+      },
+      "corrected_validation_by_source": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.4965166640406528,
+            "macro_f1": 0.9906012076660541,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.006802721088435374,
+            "confusion": {
+              "tp": 32,
+              "fp": 1,
+              "fn": 0,
+              "tn": 146
+            }
+          }
+        },
+        "kaggle_dialectal_arabic_sms": {
+          "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+          "selection_eligible": false,
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_from_id_validation": 0.4965166640406528,
+            "macro_f1": 1.0,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 40,
+              "fp": 0,
+              "fn": 0,
+              "tn": 15
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.4965166640406528,
+            "macro_f1": 0.9571428571428571,
+            "phishing_recall": 0.9047619047619048,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "corrected_validation_by_language": {
+        "ar": {
+          "n": 270,
+          "phishing_n": 84,
+          "legitimate_n": 186,
+          "threshold_from_id_validation": 0.4965166640406528,
+          "macro_f1": 0.9869965163506766,
+          "phishing_recall": 0.9761904761904762,
+          "legitimate_fpr": 0.005376344086021506,
+          "confusion": {
+            "tp": 82,
+            "fp": 1,
+            "fn": 2,
+            "tn": 185
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        },
+        "mixed": {
+          "n": 12,
+          "phishing_n": 9,
+          "legitimate_n": 3,
+          "threshold_from_id_validation": 0.4965166640406528,
+          "macro_f1": 1.0,
+          "phishing_recall": 1.0,
+          "legitimate_fpr": 0.0,
+          "confusion": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "tn": 3
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        }
+      },
+      "everyday": {
+        "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+        "rows": [
+          {
+            "probe_index": 1,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.5905223063721439
+          },
+          {
+            "probe_index": 2,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.3261539521747359
+          },
+          {
+            "probe_index": 3,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.41692987192498016
+          },
+          {
+            "probe_index": 4,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.1733412954068205
+          },
+          {
+            "probe_index": 5,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.1504293916068647
+          },
+          {
+            "probe_index": 6,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4330338431045701
+          },
+          {
+            "probe_index": 7,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.6168128138514207
+          },
+          {
+            "probe_index": 8,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4322207034102174
+          },
+          {
+            "probe_index": 9,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.09325131419567427
+          },
+          {
+            "probe_index": 10,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.08517152454042766
+          },
+          {
+            "probe_index": 11,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.5861693836603311
+          },
+          {
+            "probe_index": 12,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.2887105295137776
+          }
+        ],
+        "n": 12,
+        "high_n": 0,
+        "medium_or_high_n": 8,
+        "incomplete_n": 0,
+        "medium_or_high_rate": 0.6666666666666666,
+        "cpu_p95_ms": 1.63011499971617
+      },
+      "loso": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated/parallel emails; not Egyptian SMS"
+          ],
+          "training_rows": 501,
+          "threshold_validation_rows": 48,
+          "model_sha256": "909aa24d82bfbd14dd2a931a8c7d54662846ee947da085911013b36d39b2ae94",
+          "in_source_validation": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.8172920876112014,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          },
+          "held_source": {
+            "n": 1025,
+            "phishing_n": 203,
+            "legitimate_n": 822,
+            "threshold_from_id_validation": 0.8172920876112014,
+            "macro_f1": 0.8533919894233483,
+            "phishing_recall": 0.9605911330049262,
+            "legitimate_fpr": 0.12530413625304138,
+            "confusion": {
+              "tp": 195,
+              "fp": 103,
+              "fn": 8,
+              "tn": 719
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated fraud letters and translated UCI ham; not Egyptian SMS"
+          ],
+          "training_rows": 1134,
+          "threshold_validation_rows": 179,
+          "model_sha256": "9a2b41e1d11f739c5fe3aafa74e20b4b384c06f99ec4adfedd242169bfff10ec",
+          "in_source_validation": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.5983456790269128,
+            "macro_f1": 0.9903685768092547,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "held_source": {
+            "n": 261,
+            "phishing_n": 131,
+            "legitimate_n": 130,
+            "threshold_from_id_validation": 0.5983456790269128,
+            "macro_f1": 0.9115449790024313,
+            "phishing_recall": 0.8473282442748091,
+            "legitimate_fpr": 0.023076923076923078,
+            "confusion": {
+              "tp": 111,
+              "fp": 3,
+              "fn": 20,
+              "tn": 127
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.9168499964289367,
+        "p95_ms": 2.2570249886484817,
+        "n": 282
+      },
+      "primary_loss": 0.27896583589726043,
+      "primary_loss_components": {
+        "source_mean_fnr": 0.09604031136013236,
+        "source_mean_fpr": 0.07419052966498223,
+        "everyday_alert_rate": 0.6666666666666666
+      }
+    },
+    "char_tfidf_calibrated_svm": {
+      "model_sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de",
+      "validation": {
+        "provenance": "translated UCI ham/fraud letters and translated parallel emails; dialectal validation excluded",
+        "metrics": {
+          "n": 227,
+          "phishing_n": 53,
+          "legitimate_n": 174,
+          "threshold_at_recall_95": 0.6142331627256173,
+          "macro_f1_at_recall_95": 0.9814162914449447,
+          "legitimate_fpr_at_recall_95": 0.005747126436781609,
+          "phishing_recall_at_recall_95": 0.9622641509433962,
+          "recall_at_fpr_le_1pct": 0.9811320754716981,
+          "threshold_at_fpr_le_1pct": 0.38824500594948463,
+          "ece_15_bins": 0.04722635425658418,
+          "confusion_at_recall_95": {
+            "tp": 51,
+            "fp": 1,
+            "fn": 2,
+            "tn": 173
+          }
+        }
+      },
+      "corrected_validation_by_source": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.6142331627256173,
+            "macro_f1": 0.9809736394557823,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.006802721088435374,
+            "confusion": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 1,
+              "tn": 146
+            }
+          }
+        },
+        "kaggle_dialectal_arabic_sms": {
+          "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+          "selection_eligible": false,
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_from_id_validation": 0.6142331627256173,
+            "macro_f1": 1.0,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 40,
+              "fp": 0,
+              "fn": 0,
+              "tn": 15
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.6142331627256173,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "corrected_validation_by_language": {
+        "ar": {
+          "n": 270,
+          "phishing_n": 84,
+          "legitimate_n": 186,
+          "threshold_from_id_validation": 0.6142331627256173,
+          "macro_f1": 0.9869965163506766,
+          "phishing_recall": 0.9761904761904762,
+          "legitimate_fpr": 0.005376344086021506,
+          "confusion": {
+            "tp": 82,
+            "fp": 1,
+            "fn": 2,
+            "tn": 185
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        },
+        "mixed": {
+          "n": 12,
+          "phishing_n": 9,
+          "legitimate_n": 3,
+          "threshold_from_id_validation": 0.6142331627256173,
+          "macro_f1": 1.0,
+          "phishing_recall": 1.0,
+          "legitimate_fpr": 0.0,
+          "confusion": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "tn": 3
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        }
+      },
+      "everyday": {
+        "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+        "rows": [
+          {
+            "probe_index": 1,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.8837742477416307
+          },
+          {
+            "probe_index": 2,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4234998125487282
+          },
+          {
+            "probe_index": 3,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.48107789449363253
+          },
+          {
+            "probe_index": 4,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.1712914502529974
+          },
+          {
+            "probe_index": 5,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.10967001974613576
+          },
+          {
+            "probe_index": 6,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.40678831622840006
+          },
+          {
+            "probe_index": 7,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.8055411462053116
+          },
+          {
+            "probe_index": 8,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.5814759624023749
+          },
+          {
+            "probe_index": 9,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.09439506094035777
+          },
+          {
+            "probe_index": 10,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.0676139502734962
+          },
+          {
+            "probe_index": 11,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.4534915414019561
+          },
+          {
+            "probe_index": 12,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.32261969646665173
+          }
+        ],
+        "n": 12,
+        "high_n": 0,
+        "medium_or_high_n": 8,
+        "incomplete_n": 0,
+        "medium_or_high_rate": 0.6666666666666666,
+        "cpu_p95_ms": 2.2133950289571658
+      },
+      "loso": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated/parallel emails; not Egyptian SMS"
+          ],
+          "training_rows": 501,
+          "threshold_validation_rows": 48,
+          "model_sha256": "61c2653b620d0d7c6c79d7a9939a90bdffa807b561f8374b8bf79128ee7074b4",
+          "in_source_validation": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.9108102819190961,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          },
+          "held_source": {
+            "n": 1025,
+            "phishing_n": 203,
+            "legitimate_n": 822,
+            "threshold_from_id_validation": 0.9108102819190961,
+            "macro_f1": 0.8987617705526474,
+            "phishing_recall": 0.9310344827586207,
+            "legitimate_fpr": 0.06934306569343066,
+            "confusion": {
+              "tp": 189,
+              "fp": 57,
+              "fn": 14,
+              "tn": 765
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated fraud letters and translated UCI ham; not Egyptian SMS"
+          ],
+          "training_rows": 1134,
+          "threshold_validation_rows": 179,
+          "model_sha256": "e0b1d4ec1904e2f56f13e0b04f3ebe526514fe3b04a1866bc47a2c6b19c1a436",
+          "in_source_validation": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.7854103261943668,
+            "macro_f1": 0.9903685768092547,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "held_source": {
+            "n": 261,
+            "phishing_n": 131,
+            "legitimate_n": 130,
+            "threshold_from_id_validation": 0.7854103261943668,
+            "macro_f1": 0.624201827970452,
+            "phishing_recall": 0.8931297709923665,
+            "legitimate_fpr": 0.6,
+            "confusion": {
+              "tp": 117,
+              "fp": 78,
+              "fn": 14,
+              "tn": 52
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 1.3942000005044974,
+        "p95_ms": 2.5943250053387588,
+        "n": 282
+      },
+      "primary_loss": 0.3630853575459628,
+      "primary_loss_components": {
+        "source_mean_fnr": 0.08791787312450644,
+        "source_mean_fpr": 0.3346715328467153,
+        "everyday_alert_rate": 0.6666666666666666
+      }
+    },
+    "tfidf_lightgbm": {
+      "model_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+      "validation": {
+        "provenance": "translated UCI ham/fraud letters and translated parallel emails; dialectal validation excluded",
+        "metrics": {
+          "n": 227,
+          "phishing_n": 53,
+          "legitimate_n": 174,
+          "threshold_at_recall_95": 0.10124534067817578,
+          "macro_f1_at_recall_95": 0.9520084566596194,
+          "legitimate_fpr_at_recall_95": 0.034482758620689655,
+          "phishing_recall_at_recall_95": 0.9622641509433962,
+          "recall_at_fpr_le_1pct": 0.8867924528301887,
+          "threshold_at_fpr_le_1pct": 0.8538038123724939,
+          "ece_15_bins": 0.023682113141463575,
+          "confusion_at_recall_95": {
+            "tp": 51,
+            "fp": 6,
+            "fn": 2,
+            "tn": 168
+          }
+        }
+      },
+      "corrected_validation_by_source": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.10124534067817578,
+            "macro_f1": 0.9467261904761904,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.04081632653061224,
+            "confusion": {
+              "tp": 32,
+              "fp": 6,
+              "fn": 0,
+              "tn": 141
+            }
+          }
+        },
+        "kaggle_dialectal_arabic_sms": {
+          "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+          "selection_eligible": false,
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_from_id_validation": 0.10124534067817578,
+            "macro_f1": 0.6470786896318811,
+            "phishing_recall": 0.55,
+            "legitimate_fpr": 0.06666666666666667,
+            "confusion": {
+              "tp": 22,
+              "fp": 1,
+              "fn": 18,
+              "tn": 14
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.10124534067817578,
+            "macro_f1": 0.9571428571428571,
+            "phishing_recall": 0.9047619047619048,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "corrected_validation_by_language": {
+        "ar": {
+          "n": 270,
+          "phishing_n": 84,
+          "legitimate_n": 186,
+          "threshold_from_id_validation": 0.10124534067817578,
+          "macro_f1": 0.9015839353171184,
+          "phishing_recall": 0.8095238095238095,
+          "legitimate_fpr": 0.03225806451612903,
+          "confusion": {
+            "tp": 68,
+            "fp": 6,
+            "fn": 16,
+            "tn": 180
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        },
+        "mixed": {
+          "n": 12,
+          "phishing_n": 9,
+          "legitimate_n": 3,
+          "threshold_from_id_validation": 0.10124534067817578,
+          "macro_f1": 0.5555555555555556,
+          "phishing_recall": 0.5555555555555556,
+          "legitimate_fpr": 0.3333333333333333,
+          "confusion": {
+            "tp": 5,
+            "fp": 1,
+            "fn": 4,
+            "tn": 2
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        }
+      },
+      "everyday": {
+        "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+        "rows": [
+          {
+            "probe_index": 1,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.028810225352160105
+          },
+          {
+            "probe_index": 2,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.0007018649229734571
+          },
+          {
+            "probe_index": 3,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.14423119689071512
+          },
+          {
+            "probe_index": 4,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.026239060411685305
+          },
+          {
+            "probe_index": 5,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.012719722577703317
+          },
+          {
+            "probe_index": 6,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.026119273439611942
+          },
+          {
+            "probe_index": 7,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.9944563509159364
+          },
+          {
+            "probe_index": 8,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.029485479370511603
+          },
+          {
+            "probe_index": 9,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.09021420441443403
+          },
+          {
+            "probe_index": 10,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.0001613999291851455
+          },
+          {
+            "probe_index": 11,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.07265772902347775
+          },
+          {
+            "probe_index": 12,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.0055817671050066575
+          }
+        ],
+        "n": 12,
+        "high_n": 0,
+        "medium_or_high_n": 2,
+        "incomplete_n": 0,
+        "medium_or_high_rate": 0.16666666666666666,
+        "cpu_p95_ms": 3.391399985412132
+      },
+      "loso": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated/parallel emails; not Egyptian SMS"
+          ],
+          "training_rows": 501,
+          "threshold_validation_rows": 48,
+          "model_sha256": "9a00f70095342734fd2cef66ef0f10779194c08b866253f4ebb94ea82ff83493",
+          "in_source_validation": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.9677601220479468,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          },
+          "held_source": {
+            "n": 1025,
+            "phishing_n": 203,
+            "legitimate_n": 822,
+            "threshold_from_id_validation": 0.9677601220479468,
+            "macro_f1": 0.7724260064294826,
+            "phishing_recall": 0.7832512315270936,
+            "legitimate_fpr": 0.15206812652068127,
+            "confusion": {
+              "tp": 159,
+              "fp": 125,
+              "fn": 44,
+              "tn": 697
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated fraud letters and translated UCI ham; not Egyptian SMS"
+          ],
+          "training_rows": 1134,
+          "threshold_validation_rows": 179,
+          "model_sha256": "d4a381cf85a63f6e8e350c807f0128c0af888f1f1d6b176471e1ef1b6cf95039",
+          "in_source_validation": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.185947767648452,
+            "macro_f1": 0.9809736394557823,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.006802721088435374,
+            "confusion": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 1,
+              "tn": 146
+            }
+          },
+          "held_source": {
+            "n": 261,
+            "phishing_n": 131,
+            "legitimate_n": 130,
+            "threshold_from_id_validation": 0.185947767648452,
+            "macro_f1": 0.8811632518175809,
+            "phishing_recall": 0.8549618320610687,
+            "legitimate_fpr": 0.09230769230769231,
+            "confusion": {
+              "tp": 112,
+              "fp": 12,
+              "fn": 19,
+              "tn": 118
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 0.6394000010914169,
+        "p95_ms": 0.8372300027986056,
+        "n": 282
+      },
+      "primary_loss": 0.1565826814289241,
+      "primary_loss_components": {
+        "source_mean_fnr": 0.18089346820591884,
+        "source_mean_fpr": 0.1221879094141868,
+        "everyday_alert_rate": 0.16666666666666666
+      }
+    },
+    "bilstm": {
+      "model_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+      "validation": {
+        "provenance": "translated UCI ham/fraud letters and translated parallel emails; dialectal validation excluded",
+        "metrics": {
+          "n": 227,
+          "phishing_n": 53,
+          "legitimate_n": 174,
+          "threshold_at_recall_95": 0.37243160605430603,
+          "macro_f1_at_recall_95": 0.9635517019910083,
+          "legitimate_fpr_at_recall_95": 0.022988505747126436,
+          "phishing_recall_at_recall_95": 0.9622641509433962,
+          "recall_at_fpr_le_1pct": 0.9433962264150944,
+          "threshold_at_fpr_le_1pct": 0.736862599849701,
+          "ece_15_bins": 0.032296145634340044,
+          "confusion_at_recall_95": {
+            "tp": 51,
+            "fp": 4,
+            "fn": 2,
+            "tn": 170
+          }
+        }
+      },
+      "corrected_validation_by_source": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.37243160605430603,
+            "macro_f1": 0.9636916835699797,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.027210884353741496,
+            "confusion": {
+              "tp": 32,
+              "fp": 4,
+              "fn": 0,
+              "tn": 143
+            }
+          }
+        },
+        "kaggle_dialectal_arabic_sms": {
+          "provenance": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+          "selection_eligible": false,
+          "metrics": {
+            "n": 55,
+            "phishing_n": 40,
+            "legitimate_n": 15,
+            "threshold_from_id_validation": 0.37243160605430603,
+            "macro_f1": 1.0,
+            "phishing_recall": 1.0,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 40,
+              "fp": 0,
+              "fn": 0,
+              "tn": 15
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "selection_eligible": true,
+          "metrics": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.37243160605430603,
+            "macro_f1": 0.9571428571428571,
+            "phishing_recall": 0.9047619047619048,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 2,
+              "tn": 27
+            }
+          }
+        }
+      },
+      "corrected_validation_by_language": {
+        "ar": {
+          "n": 270,
+          "phishing_n": 84,
+          "legitimate_n": 186,
+          "threshold_from_id_validation": 0.37243160605430603,
+          "macro_f1": 0.9742448330683625,
+          "phishing_recall": 0.9761904761904762,
+          "legitimate_fpr": 0.021505376344086023,
+          "confusion": {
+            "tp": 82,
+            "fp": 4,
+            "fn": 2,
+            "tn": 182
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        },
+        "mixed": {
+          "n": 12,
+          "phishing_n": 9,
+          "legitimate_n": 3,
+          "threshold_from_id_validation": 0.37243160605430603,
+          "macro_f1": 1.0,
+          "phishing_recall": 1.0,
+          "legitimate_fpr": 0.0,
+          "confusion": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "tn": 3
+          },
+          "provenance": "Translated email/UCI ham sources plus mixed-regional apparently templated dialectal source; descriptive only. See corrected_validation_by_source."
+        }
+      },
+      "everyday": {
+        "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+        "rows": [
+          {
+            "probe_index": 1,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.5872658491134644
+          },
+          {
+            "probe_index": 2,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.041242603212594986
+          },
+          {
+            "probe_index": 3,
+            "verdict": "MEDIUM",
+            "reason": "text_medium",
+            "probability": 0.2129722684621811
+          },
+          {
+            "probe_index": 4,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.01765214279294014
+          },
+          {
+            "probe_index": 5,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.15305842459201813
+          },
+          {
+            "probe_index": 6,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.13928203284740448
+          },
+          {
+            "probe_index": 7,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.8042239546775818
+          },
+          {
+            "probe_index": 8,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.48065537214279175
+          },
+          {
+            "probe_index": 9,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.02921241894364357
+          },
+          {
+            "probe_index": 10,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.019218947738409042
+          },
+          {
+            "probe_index": 11,
+            "verdict": "MEDIUM",
+            "reason": "text_model_high_uncorroborated",
+            "probability": 0.7398435473442078
+          },
+          {
+            "probe_index": 12,
+            "verdict": "LOW",
+            "reason": "no_warning_signs",
+            "probability": 0.1486995965242386
+          }
+        ],
+        "n": 12,
+        "high_n": 0,
+        "medium_or_high_n": 5,
+        "incomplete_n": 0,
+        "medium_or_high_rate": 0.4166666666666667,
+        "cpu_p95_ms": 1368.655984988436
+      },
+      "loso": {
+        "kaggle_arabic_phishing_fully_dataset": {
+          "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated/parallel emails; not Egyptian SMS"
+          ],
+          "training_rows": 501,
+          "threshold_validation_rows": 48,
+          "model_sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+          "in_source_validation": {
+            "n": 48,
+            "phishing_n": 21,
+            "legitimate_n": 27,
+            "threshold_from_id_validation": 0.9665662050247192,
+            "macro_f1": 0.9787139689578714,
+            "phishing_recall": 0.9523809523809523,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 1,
+              "tn": 27
+            }
+          },
+          "held_source": {
+            "n": 1025,
+            "phishing_n": 203,
+            "legitimate_n": 822,
+            "threshold_from_id_validation": 0.9665662050247192,
+            "macro_f1": 0.7046764184397163,
+            "phishing_recall": 0.9359605911330049,
+            "legitimate_fpr": 0.3004866180048662,
+            "confusion": {
+              "tp": 190,
+              "fp": 247,
+              "fn": 13,
+              "tn": 575
+            }
+          }
+        },
+        "salloum_gaber_bilingual_corpus": {
+          "provenance": "translated/parallel emails; not Egyptian SMS",
+          "threshold_selection_provenance": [
+            "translated fraud letters and translated UCI ham; not Egyptian SMS"
+          ],
+          "training_rows": 1134,
+          "threshold_validation_rows": 179,
+          "model_sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+          "in_source_validation": {
+            "n": 179,
+            "phishing_n": 32,
+            "legitimate_n": 147,
+            "threshold_from_id_validation": 0.9828669428825378,
+            "macro_f1": 0.9903685768092547,
+            "phishing_recall": 0.96875,
+            "legitimate_fpr": 0.0,
+            "confusion": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 1,
+              "tn": 147
+            }
+          },
+          "held_source": {
+            "n": 261,
+            "phishing_n": 131,
+            "legitimate_n": 130,
+            "threshold_from_id_validation": 0.9828669428825378,
+            "macro_f1": 0.8843085106382979,
+            "phishing_recall": 0.8015267175572519,
+            "legitimate_fpr": 0.03076923076923077,
+            "confusion": {
+              "tp": 105,
+              "fp": 4,
+              "fn": 26,
+              "tn": 126
+            }
+          }
+        }
+      },
+      "latency": {
+        "batch_size": 1,
+        "cpu_only": true,
+        "p50_ms": 48.20425000070827,
+        "p95_ms": 59.95203499842319,
+        "n": 282
+      },
+      "primary_loss": 0.2378503122361956,
+      "primary_loss_components": {
+        "source_mean_fnr": 0.1312563456548716,
+        "source_mean_fpr": 0.1656279243870485,
+        "everyday_alert_rate": 0.4166666666666667
+      }
+    }
+  },
+  "provenance": {
+    "kaggle_arabic_phishing_fully_dataset": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+    "salloum_gaber_bilingual_corpus": "translated/parallel emails; not Egyptian SMS",
+    "kaggle_dialectal_arabic_sms": "mixed-regional, including non-Egyptian markers; apparently templated; origin/licence unverified; training only",
+    "everyday_probes": "12 existing invented development fixtures; not authentic Egyptian SMS"
+  },
+  "status": "COMPLETE",
+  "provisional_winner": "tfidf_lightgbm",
+  "final_choice": false,
+  "deployed_text_model_changed": false,
+  "limitations": [
+    "Source-held-out evidence remains translated/non-Egyptian; not an Egyptian SMS benchmark.",
+    "Everyday fixtures are exposed and invented; using them for selection precludes calling them an independent test.",
+    "Historical mixed language metrics are superseded by this report; no frozen row or label changed."
+  ],
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "model_sha256": null,
+  "libraries": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0"
+  },
+  "final_test_run": false,
+  "probe_url_model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232"
+}
