@@ -1,0 +1,155 @@
+# Files removed from current Git tracking
+
+Data files retain their original local bytes. Candidate binaries were moved to the local release folder. Hashes and reasons are in data_hygiene.json and release_manifest.json; historical copies remain in Git.
+
+## Local data/export copies retained
+
+- `data/raw/arabic_sources/github_arabic_spam/non spam/1.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/11.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/12.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/13.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/14.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/21.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/22.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/24.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/25.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/26.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/31.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/32.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/33.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/34.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/35.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/36.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/37.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/38.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/39.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/40.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/41.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/43.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/44.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/45.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/46.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/47.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/48.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/49.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/50.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/58.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/59.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/60.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/65.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/66.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/67.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/68.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/69.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/70.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/73.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/74.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/75.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/76.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/77.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/78.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/79.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/8.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/80.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/81.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/85.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/86.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/87.txt`
+- `data/raw/arabic_sources/github_arabic_spam/non spam/9.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/12.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/13.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/14.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/15.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/16.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/18.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/19.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/2.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/20.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/21.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/22.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/25.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/28.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/29.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/3.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/30.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/31.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/32.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/35.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/36.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/37.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/38.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/41.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/6.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/7.txt`
+- `data/raw/arabic_sources/github_arabic_spam/spam/9.txt`
+- `data/raw/arabic_sources/kaggle_dialectal/dialectal_arabic_phishing_dataset.csv`
+- `data/raw/arabic_sources/kaggle_fully_dataset/Arabic Phishing and Legitimate emails - Fully Dataset.xlsx`
+- `data/raw/arabic_sources/salloum_gaber_corpus/legit-bilingual.csv`
+- `data/raw/arabic_sources/salloum_gaber_corpus/phishing-bilingual.csv`
+- `data/raw/openphish_raw.txt`
+- `data/raw/phishtank_raw.csv`
+- `data/raw/research/PhiUSIIL_Phishing_URL_Dataset.csv`
+- `data/raw/tranco_clean.csv`
+- `data/raw/tranco_final_approved.csv`
+- `data/raw/tranco_flagged_for_review.csv`
+- `data/raw/tranco_raw.csv`
+- `data/processed/dataset.csv`
+- `evaluation/reports/2026-10-v3/text_trainval.csv`
+- `evaluation/reports/2026-10-v3/tranco-PY35J-top-20000.csv`
+
+## Historical research binaries moved locally
+
+- `evaluation/reports/2026-10-v3/models/bilstm_candidate.keras` -> `release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.keras`
+- `evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl` -> `release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl`
+- `evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib`
+- `evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib`
+- `evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib`
+- `evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib`
+- `evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib`
+- `evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib` -> `release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib`
+- `ml/models/url_full_url_char3_5_calibrated_svm.joblib` -> `release-artifacts/ml/models/url_full_url_char3_5_calibrated_svm.joblib`
+- `ml/models/url_full_url_char3_5_logistic.joblib` -> `release-artifacts/ml/models/url_full_url_char3_5_logistic.joblib`
+- `ml/models/url_full_url_lightgbm.joblib` -> `release-artifacts/ml/models/url_full_url_lightgbm.joblib`
+- `ml/models/url_host_only_char3_5_calibrated_svm.joblib` -> `release-artifacts/ml/models/url_host_only_char3_5_calibrated_svm.joblib`
+- `ml/models/url_host_only_char3_5_logistic.joblib` -> `release-artifacts/ml/models/url_host_only_char3_5_logistic.joblib`
+- `ml/models/url_host_only_lightgbm.joblib` -> `release-artifacts/ml/models/url_host_only_lightgbm.joblib`
+- `ml/models/url_host_time_v3.joblib` -> `release-artifacts/ml/models/url_host_time_v3.joblib`

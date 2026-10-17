@@ -7,4 +7,6 @@ evaluation/review-evidence/** -text whitespace=cr-at-eol
 *.keras binary
 *.pkl binary
 # The pre-result v4 selection rule is referenced by its exact byte hash.
-evaluation/reports/2026-10-v4/url_selection_rule.md -text
+evaluation/reports/2026-10-v4/url_selection_rule.md -text whitespace=cr-at-eol
+# This existing audit is maintained with its original Windows line endings.
+docs/data-licences.md whitespace=cr-at-eol

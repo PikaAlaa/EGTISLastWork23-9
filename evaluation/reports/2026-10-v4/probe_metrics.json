@@ -1,0 +1,159 @@
+{
+  "kind": "Derived from saved per-probe probabilities and scanner verdicts, all benign exposed fixtures",
+  "models": {
+    "current_artifact": {
+      "deployed": {
+        "n": 17,
+        "phishing_n": 0,
+        "benign_n": 17,
+        "abstentions": 0,
+        "threshold": 0.979680498647069,
+        "tp": 0,
+        "fp": 10,
+        "fn": 0,
+        "tn": 7,
+        "recall": null,
+        "false_positive_rate": 0.5882352941176471,
+        "recall_wilson_95": [
+          null,
+          null
+        ],
+        "fpr_wilson_95": [
+          0.3600544264299978,
+          0.7838894320978518
+        ],
+        "precision_at_phishing_base_rate_1pct": null,
+        "precision_at_phishing_base_rate_0_1pct": null,
+        "precision_conservative_bound_1pct": null,
+        "precision_conservative_bound_0_1pct": null,
+        "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+      }
+    },
+    "combined/host_only/lightgbm": {
+      "1pct": {
+        "n": 17,
+        "phishing_n": 0,
+        "benign_n": 17,
+        "abstentions": 0,
+        "threshold": 0.8062729604821155,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 17,
+        "recall": null,
+        "false_positive_rate": 0.0,
+        "recall_wilson_95": [
+          null,
+          null
+        ],
+        "fpr_wilson_95": [
+          0.0,
+          0.1843181350088518
+        ],
+        "precision_at_phishing_base_rate_1pct": null,
+        "precision_at_phishing_base_rate_0_1pct": null,
+        "precision_conservative_bound_1pct": null,
+        "precision_conservative_bound_0_1pct": null,
+        "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+      },
+      "0_1pct": {
+        "n": 17,
+        "phishing_n": 0,
+        "benign_n": 17,
+        "abstentions": 0,
+        "threshold": 0.9595301737990387,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 17,
+        "recall": null,
+        "false_positive_rate": 0.0,
+        "recall_wilson_95": [
+          null,
+          null
+        ],
+        "fpr_wilson_95": [
+          0.0,
+          0.1843181350088518
+        ],
+        "precision_at_phishing_base_rate_1pct": null,
+        "precision_at_phishing_base_rate_0_1pct": null,
+        "precision_conservative_bound_1pct": null,
+        "precision_conservative_bound_0_1pct": null,
+        "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+      }
+    },
+    "combined/host_only/char_calibrated_svm": {
+      "1pct": {
+        "n": 17,
+        "phishing_n": 0,
+        "benign_n": 17,
+        "abstentions": 0,
+        "threshold": 0.880683232133141,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 17,
+        "recall": null,
+        "false_positive_rate": 0.0,
+        "recall_wilson_95": [
+          null,
+          null
+        ],
+        "fpr_wilson_95": [
+          0.0,
+          0.1843181350088518
+        ],
+        "precision_at_phishing_base_rate_1pct": null,
+        "precision_at_phishing_base_rate_0_1pct": null,
+        "precision_conservative_bound_1pct": null,
+        "precision_conservative_bound_0_1pct": null,
+        "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+      },
+      "0_1pct": {
+        "n": 17,
+        "phishing_n": 0,
+        "benign_n": 17,
+        "abstentions": 0,
+        "threshold": 0.9810657259755076,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 17,
+        "recall": null,
+        "false_positive_rate": 0.0,
+        "recall_wilson_95": [
+          null,
+          null
+        ],
+        "fpr_wilson_95": [
+          0.0,
+          0.1843181350088518
+        ],
+        "precision_at_phishing_base_rate_1pct": null,
+        "precision_at_phishing_base_rate_0_1pct": null,
+        "precision_conservative_bound_1pct": null,
+        "precision_conservative_bound_0_1pct": null,
+        "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+      }
+    }
+  },
+  "scanner": {
+    "before": {
+      "fp": 7,
+      "benign_n": 17,
+      "false_positive_rate": 0.4117647058823529,
+      "recall": null,
+      "ppv_at_1pct": null,
+      "ppv_at_0_1pct": null
+    },
+    "after": {
+      "fp": 2,
+      "benign_n": 17,
+      "false_positive_rate": 0.11764705882352941,
+      "recall": null,
+      "ppv_at_1pct": null,
+      "ppv_at_0_1pct": null
+    }
+  }
+}

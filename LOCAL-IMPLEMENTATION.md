@@ -1,5 +1,24 @@
 # Local implementation handover — 8 October 2026
 
+## 17 October follow-up
+
+Current changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
+The host URL artifact is now the combined-data calibrated character SVM selected by
+the pre-result subdomain rule; the September text model/tokenizer and frozen splits
+remain unchanged. The optional `sender_type` input adds supporting evidence only and
+is not retained as an input field. Sourced payment, delivery and government registry
+entries are documented in [brand sources](docs/brand-sources.md).
+
+Raw snapshots and derived exports were removed from the current Git tree with their
+local bytes retained. Use the [licence/recovery instructions](docs/data-licences.md)
+for authorized research copies. Candidate binaries are local in `release-artifacts/`
+with `MANIFEST.json`; a report copy of the hashes is committed. Historical copies
+remain on GitHub unless public access is restricted or a separately authorized
+history rewrite purges them. No rewrite or push was performed.
+
+No sealed final test ran; genuine Egyptian SMS test count remains zero. The older
+sections below are historical and their model/verification claims are superseded.
+
 Current model evidence is in the [13 October review report](evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md). The older evaluation and selection claims below are historical. See [data licences](docs/data-licences.md) before publishing the preserved data.
 
 The required engineering work has been implemented in this separate local copy.

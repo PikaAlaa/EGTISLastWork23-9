@@ -75,3 +75,7 @@ evaluation/reports/2026-10-v3/**/*.pkl
 ml/models/*.joblib
 !ml/models/deployed_char.joblib
 !ml/models/url_host_v3.joblib
+
+# Generated after the final commit so the handover can record its exact HEAD.
+evaluation/reports/2026-10-v4/handoff.json
+evaluation/reports/2026-10-v4/HANDOFF.md

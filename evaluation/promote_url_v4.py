@@ -3,6 +3,7 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+import joblib
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'evaluation/reports/2026-10-v4'
@@ -22,6 +23,11 @@ def main():
     assert selected['passes_subdomain_gate']
     source = ROOT / selected['artifact_path']
     assert sha(source) == selected['model_sha256']
+    artifact = joblib.load(source)
+    if (artifact.get('research_feature_version'), artifact.get('representation'), artifact.get('model')) != (
+            'phresh-1', 'host_only', 'char_calibrated_svm'):
+        raise ValueError('Winner needs runtime feature-schema integration before promotion')
+    assert artifact['thresholds']['medium'] == selected['thresholds'][selected['deployment_point']]
     target = ROOT / 'ml/models/url_host_v3.joblib'
     prior = ROOT / 'release-artifacts/prior-deployment/url_host_v3.joblib'
     prior.parent.mkdir(parents=True, exist_ok=True)

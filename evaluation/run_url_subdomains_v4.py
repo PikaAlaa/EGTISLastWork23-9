@@ -192,6 +192,8 @@ def main():
         entry['probe'] = [{'host': row['host'], 'probability': mapping[row['host']],
                            'above_threshold': mapping[row['host']] >= threshold, 'threshold': threshold,
                            'full_scanner_verdict': row['verdict'], 'signals': row['signals']} for row in probe_result['rows']]
+        entry['probe_metrics'] = {cap: at_threshold(np.zeros(len(HOSTS), dtype=int), probe_scores, value)
+                                  for cap, value in thresholds.items()}
         entry['deployment_point'] = 'deployed' if deployed else '0_1pct'
         point = entry['deployment_point']
         entry['passes_subdomain_gate'] = entry['cohorts']['phreshphish_test_benign_subdomains'][point]['false_positive_rate'] <= .01

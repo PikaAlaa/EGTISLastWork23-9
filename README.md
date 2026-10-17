@@ -1,5 +1,15 @@
 # ETIS — reviewed October implementation
 
+**17 October update:** the [v4 report](evaluation/reports/2026-10-v4/REPORT.md)
+records the legitimate-subdomain probe, frozen-protocol retraining and deployment
+of a calibrated character SVM for host-only URL scoring. The text model is unchanged.
+The scan form/API now accept optional sender-display context, with Arabic/English
+advice, and the [brand registry sources](docs/brand-sources.md) document the additions.
+Restricted research data is untracked but retained locally; candidate weights and
+their upload manifest are under ignored `release-artifacts/`. Historical data remains
+in Git history; this work does not purge public copies. See [data licences](docs/data-licences.md).
+These development results do not establish real Egyptian SMS accuracy.
+
 **13 October update:** the [PhreshPhish comparison](evaluation/reports/2026-10-v3/phreshphish/REPORT.md) adds 18 measured URL models across three source settings, including genuine benign full URLs. ETIS-only thresholds transfer poorly to PhreshPhish; no research model was automatically promoted. Follow [reproduction instructions](docs/phreshphish.md) to download the five permitted columns with checksum verification; dataset copies are excluded from this repository/package. The [A–C review](evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md) documents the current host-only application model and source/probe-based text selection. The [raw-data licence inventory](docs/data-licences.md) identifies unresolved redistribution rights, and `LICENSE` awaits the six-member AAST team's choice.
 
 An experimental Arabic-first phishing scanner with a bilingual interface.
@@ -10,8 +20,8 @@ implemented in this copy. The 2026-10 v3 development report updates text corrobo
 and compares lexical URL and text models; it still does not establish real-world
 Egyptian SMS accuracy.
 
-V3 packages a host-only LightGBM URL model and requires corroboration for text-model
-HIGH alerts. All twelve existing everyday probes avoid HIGH, while eight remain
+V4 uses the host-only calibrated SVM. Text-model HIGH alerts require corroboration.
+All twelve existing everyday probes avoid HIGH, while eight remain
 MEDIUM under the deployed text model. The revised local comparison provisionally
 favors TF-IDF LightGBM; deployment still uses the preserved character model.
 Final selection requires transformer source-held-out and everyday-probe results.
