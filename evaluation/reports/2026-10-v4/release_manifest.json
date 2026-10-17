@@ -1,0 +1,343 @@
+{
+  "purpose": "Local candidates for optional GitHub Release; no upload performed",
+  "files": [
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/bilstm_candidate.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.keras",
+      "sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl",
+      "sha256": "101c4c89a6d719e3bfc261eca6849fa694044c94aed188ebf2a66ad29bd14afd",
+      "bytes": 682112
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib",
+      "sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de",
+      "bytes": 5528689
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib",
+      "sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e",
+      "bytes": 3549042
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "495e684305a113dcbb6b2b04892cd100fd79f68be376b22c40bfe0e00c6e4dd7",
+      "bytes": 2322660
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib",
+      "sha256": "d0142be6a1beadf8c13a5e30a5ed38aa09d1d9dd6c2b5bfb86ef1983f745c4b4",
+      "bytes": 3528212
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "3be4ff982c6d81cffedef2965c095d20a5a0b4d217b52bc6e49608e8bf3e28fa",
+      "bytes": 1850324
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib",
+      "sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+      "bytes": 1217596
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib",
+      "sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8",
+      "bytes": 2786994
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib",
+      "sha256": "3e1bed0d5a4699cfd7d076a0de1467f91459b09ecc7facab6d29de6c12b91690",
+      "bytes": 1964274
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib",
+      "sha256": "b4ed4cd0e55205bf8d176cb2dbb4746b974e111636ff7b4805ec276e35cd2d43",
+      "bytes": 651720
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
+      "sha256": "44b6f1334cc82c56d1852d0ee5ba15529244a518eee6419c3ba46dbd196aded1",
+      "bytes": 373683
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib",
+      "sha256": "9dbc777ec29f2e41ad7d7b5c276eecd6c4ecb6999a72963da8f8041b2d7d359f",
+      "bytes": 1945025
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib",
+      "sha256": "8cee97f1e5f560345a59607e4cc055c34800bc83a186bdc55869cae91aacb403",
+      "bytes": 638070
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib",
+      "sha256": "ec9ed606c9d13ee11ece9f2fd3ec039783c92e5e33b7f6c145615cd209a4fb6e",
+      "bytes": 365782
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib",
+      "sha256": "fde0c9cdd195b6fd43344d0c27c418f7caaf5efd2d3be438e1776a7a66866c3e",
+      "bytes": 1079087
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib",
+      "sha256": "1c7d8bc6fe48003ae22256dd9760714752cbb385614926826aacbd5b17834d9a",
+      "bytes": 593641
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib",
+      "sha256": "6b533960707864da96895624aee77d79283902a7fc6d638fef714faddf030050",
+      "bytes": 352215
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib",
+      "sha256": "96825e0f5cf0400af0c32881f60a3eba2cfbef93c029d4a933ca49d350bc526f",
+      "bytes": 1133647
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib",
+      "sha256": "3d8dcb7894e9f918036ae8b853823791c6bb3b5bca7afcb9a906f286a37916ff",
+      "bytes": 589901
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib",
+      "sha256": "7756b3ab173a875ae4d5d6e1e8b87bdd3e767cb41e6fa834e9215f6db6d18ffb",
+      "bytes": 352434
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib",
+      "sha256": "8e5e3518676afd2d90a331457b964845ccc613ec7988c0b90893b6c5b19698f3",
+      "bytes": 1900566
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib",
+      "sha256": "96b3ef8c955c93bc5ef7eb6e17f702042ecebc88f1e2780962ede7922fcbf86f",
+      "bytes": 650192
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+      "sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+      "bytes": 372590
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib",
+      "sha256": "5536a8223457c51ec4e9074dbab013991d2ff9fbbc7714822b2044423b4a78ff",
+      "bytes": 1878264
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib",
+      "sha256": "1de5865429eee5f1462d5d55c59afd7e593bf8a049e83e58b6809869a51e2831",
+      "bytes": 635162
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib",
+      "sha256": "de7a5e566b2eaec296a098c2e85c5e3ef05d40b4ee1f403b0b59d5fc918f8441",
+      "bytes": 363980
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras",
+      "sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl",
+      "sha256": "98e31be1e7a1181114d35bd1dd7c71b2498e19c0dc009293a385c5958df454c7",
+      "bytes": 367684
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras",
+      "sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl",
+      "sha256": "6cc9c21367fd8d63ac0a7ddcc37505504f9f7a0a45ff3892a0a08b8f0bb9192d",
+      "bytes": 415025
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "61c2653b620d0d7c6c79d7a9939a90bdffa807b561f8374b8bf79128ee7074b4",
+      "bytes": 3675147
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "e0b1d4ec1904e2f56f13e0b04f3ebe526514fe3b04a1866bc47a2c6b19c1a436",
+      "bytes": 2876073
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "22b3fee74e97ae54ace9bf9719ac16e51c3d2a685b311cd568ff632d5545ae56",
+      "bytes": 2322660
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "1058aea21f0cd240b88305564d08f3b0c75b773df2932fbe8eaa4efef770a80f",
+      "bytes": 1850324
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "9a00f70095342734fd2cef66ef0f10779194c08b866253f4ebb94ea82ff83493",
+      "bytes": 789374
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "d4a381cf85a63f6e8e350c807f0128c0af888f1f1d6b176471e1ef1b6cf95039",
+      "bytes": 1155854
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "909aa24d82bfbd14dd2a931a8c7d54662846ee947da085911013b36d39b2ae94",
+      "bytes": 2743812
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "9a2b41e1d11f739c5fe3aafa74e20b4b384c06f99ec4adfedd242169bfff10ec",
+      "bytes": 2897828
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib",
+      "sha256": "1b078c1221e05b7c5382dddc854da5ba06977bd1f9e8852497e5c59f8e16bf64",
+      "bytes": 2495250
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib",
+      "sha256": "58b3b1af292ae2c55d40b67bf7f01b2216194673f989f086ef6de2566b39cbb9",
+      "bytes": 2094245
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib",
+      "sha256": "e23644fa095f08257798db3d6a96077bdd5155c8f58d22b05b464fb0e3876fa7",
+      "bytes": 925748
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib",
+      "sha256": "85f538c918b3eb3116d3625ba2728266eee98dda5bd22320d642f2654dc65236",
+      "bytes": 2499570
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib",
+      "sha256": "0eb99b620214b0a78b0b6fe48a85f5fd4ff0120975c7fbf6e3a1cef1c5759505",
+      "bytes": 2098581
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib",
+      "sha256": "babbf1d279b663d0343c654a6e8a285d17aa9675d94ad08dc9aa58d23903908d",
+      "bytes": 925364
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib",
+      "sha256": "f7c7912cf9ec051c01fcc0bea963824906a8c27927d6055b0b42c520a0289a7e",
+      "bytes": 2098565
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib",
+      "sha256": "56793fea05e5c8a5036fb06c9437d4a4843ca1bd473a3aa30809079e536e1daf",
+      "bytes": 897918
+    },
+    {
+      "original_path": "ml/models/url_full_url_char3_5_calibrated_svm.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_char3_5_calibrated_svm.joblib",
+      "sha256": "6b0063e387d89043711441d3ae7aca462b79fc2536ec0a66ca9d7c6f8570159e",
+      "bytes": 2481730
+    },
+    {
+      "original_path": "ml/models/url_full_url_char3_5_logistic.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_char3_5_logistic.joblib",
+      "sha256": "f43784d30421872d5fd0213d5158bc45da604b56acb523340cd7ed0f4c74482b",
+      "bytes": 2080725
+    },
+    {
+      "original_path": "ml/models/url_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_lightgbm.joblib",
+      "sha256": "b75908b1ee824b0b9a156b54e92fb8225f724af8fea72d22101fd1e463aa8396",
+      "bytes": 861412
+    },
+    {
+      "original_path": "ml/models/url_host_only_char3_5_calibrated_svm.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_char3_5_calibrated_svm.joblib",
+      "sha256": "295f9adb151a5670ba8eafe82cc0960bc98a242a28170c8eab3a9fd2932a1318",
+      "bytes": 2499890
+    },
+    {
+      "original_path": "ml/models/url_host_only_char3_5_logistic.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_char3_5_logistic.joblib",
+      "sha256": "27c70ab03ffd747e2447c955695def44ae34255696cc89e29761a18496fd57a1",
+      "bytes": 2098901
+    },
+    {
+      "original_path": "ml/models/url_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_lightgbm.joblib",
+      "sha256": "f4513aec7f1ed8319e98c12010f8899e2b8b47146afbf01ae851549716d9f281",
+      "bytes": 930084
+    },
+    {
+      "original_path": "ml/models/url_host_time_v3.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_time_v3.joblib",
+      "sha256": "cafeb228fc4067d0c2af39d38903fdf3846facd14cf06e8e8df0b4b01bf83727",
+      "bytes": 2099253
+    },
+    {
+      "original_path": "v4/char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/v4/char_calibrated_svm.joblib",
+      "sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
+      "bytes": 1945695
+    },
+    {
+      "original_path": "v4/lightgbm.joblib",
+      "local_path": "release-artifacts/v4/lightgbm.joblib",
+      "sha256": "4b9ea8c38d558f62682ef08aca988b691548b9a48821cf857c2ea11562d1ff08",
+      "bytes": 366516
+    }
+  ],
+  "file_count": 56,
+  "total_bytes": 91933040
+}

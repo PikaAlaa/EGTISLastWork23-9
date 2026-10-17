@@ -1,0 +1,991 @@
+{
+  "untracked_data": [
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/1.txt",
+      "sha256": "45e128895fba6e5388ebbd6acf535c7de4b652864c3435671cd421899ede2f31",
+      "bytes": 514,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/11.txt",
+      "sha256": "0002bdb0aebd472a9b498e96c62b7a14d2582b90647256eeb6e5f3351ff05bc7",
+      "bytes": 458,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/12.txt",
+      "sha256": "4d2426f6d8e7d37422ff0a0777e78e8ac114ddc7bb6372d8063413183e388372",
+      "bytes": 306,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/13.txt",
+      "sha256": "74d9546b650837830a74cea635211e408126bad21558cc338da3b632ff0314da",
+      "bytes": 511,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/14.txt",
+      "sha256": "068857801ae819e3b9f25faec9624f999b032bb0dbbdc546f3bcc21b079d8c29",
+      "bytes": 536,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/21.txt",
+      "sha256": "5c4f34a7dfdf09ad00442f03a82f80568aaf43ea2aa2faf0e8a1db0ee44a5bdd",
+      "bytes": 1102,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/22.txt",
+      "sha256": "0e0e01384075fd8129c2b85126d428e4391b881add2aef282b8edf011add7d8b",
+      "bytes": 137,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/24.txt",
+      "sha256": "b7b91f1362b9256e9881d3ee7136b9f331d09a421cc48712d1956a4a5d760d1f",
+      "bytes": 297,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/25.txt",
+      "sha256": "8e3c499cc7b074aa40ef3a42f2ab522a921484aa32ad4cde16f9352f7fc59b28",
+      "bytes": 127,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/26.txt",
+      "sha256": "ae9867ca7f45190639591b638b2a772c6e87e7c87c433b2d22ee12e3010a930f",
+      "bytes": 210,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/31.txt",
+      "sha256": "49d9d01be5a72c34a844673b28b9d06ba892c6cb69e264330cc9bf354e20d2de",
+      "bytes": 306,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/32.txt",
+      "sha256": "f539693cab45988b1578006320c4993ddefbf31b900b41497d404b9272dd1acb",
+      "bytes": 462,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/33.txt",
+      "sha256": "d62594e87c04d208c3b8e8141148964a757dbca71152bb2c203aaa1a66199601",
+      "bytes": 254,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/34.txt",
+      "sha256": "4936978ef916901d154bca1e443327581bf5234fe78d88b3b423023343a02bef",
+      "bytes": 589,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/35.txt",
+      "sha256": "8587a519f6da86c1b22486bb1de63f3f80e050ae132275a1c0b2fa2bd3da8a4b",
+      "bytes": 615,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/36.txt",
+      "sha256": "8cef6c2f707ed4a7b1cb32403e4ebc34a66b2693a2dc71b2e49d4bf9b7bfe0ac",
+      "bytes": 340,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/37.txt",
+      "sha256": "aa483047920a74977df9b3798731fcadc595e33853887db5dfb890125e60fe14",
+      "bytes": 225,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/38.txt",
+      "sha256": "35cc607f9da59e2f26c242b5b9311a4a9005667d981aa08105a3097429f8188f",
+      "bytes": 139,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/39.txt",
+      "sha256": "a27a5747cbde9e1c591d764d29eeaad512c1afbf8fc25f3445c6a584f178d35f",
+      "bytes": 149,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/40.txt",
+      "sha256": "975cd4ad76657086aacf7a0b9f6ea1cfc5635cb806ed6fdc66a8b81c1d4108c3",
+      "bytes": 123,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/41.txt",
+      "sha256": "68f1e25fcb2ecadcf600068d4570c03798a60f61d6efebf603795844f3693b3a",
+      "bytes": 221,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/43.txt",
+      "sha256": "ce7cb7d6c8edd4cefbe9e89a252f9eca200f486ad82dd9ca1edeeea07aa7ba23",
+      "bytes": 321,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/44.txt",
+      "sha256": "cfc4e9d6a10b450afe3f57ced398c5ba7b193d608cda14959b21bdb1c7632c72",
+      "bytes": 312,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/45.txt",
+      "sha256": "27ef684bdd5ba8daa29b141bf5df63b9ec0596204c8ad3f955a6174f04a2736e",
+      "bytes": 206,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/46.txt",
+      "sha256": "d8111213e006ebd1c598a3ba47225f25187e8ac72904a7657aea8531349478d3",
+      "bytes": 722,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/47.txt",
+      "sha256": "e3b5e41eec16bbb2783801d223a3fb909382015f7340fe5ee670a9171e5b01a3",
+      "bytes": 201,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/48.txt",
+      "sha256": "82f84278679d93a2fb6845c687b39878e2774f65800d99077e8ab7c3191fcc4a",
+      "bytes": 10,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/49.txt",
+      "sha256": "f6469eec6d24059800840d8769e47e05138a64d0554b454571f0201278cd0b67",
+      "bytes": 10,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/50.txt",
+      "sha256": "10120c71cac6d87f1b2362dc5b7432d5dd0b726ba651230cac5a0d1e43783f5e",
+      "bytes": 16,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/58.txt",
+      "sha256": "51b9908f35af28173766d63b90a02339dcd45bd090d577c890500234d480b5ef",
+      "bytes": 327,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/59.txt",
+      "sha256": "9dab572c28ba81db2bf644eb4d98f665607d4939004e523619961a48f9c23f31",
+      "bytes": 192,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/60.txt",
+      "sha256": "54a87ac6be7fd09d78a50f8ddb76eb381754e3643e2fb7d7575f577b6db25d4d",
+      "bytes": 203,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/65.txt",
+      "sha256": "6c4150b2a1facb9dcb711d4d635bfca31a5e8a52f81078403dae749351d75547",
+      "bytes": 675,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/66.txt",
+      "sha256": "6807eeba105ac09e4a1c4cd6b5be04c26ef0b40cb08c0f681911da93343fc3b8",
+      "bytes": 256,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/67.txt",
+      "sha256": "26d48bdb48f626ea3538d4ca108af70e8d27bb9cf8a1cdec759665cf19b7dadb",
+      "bytes": 631,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/68.txt",
+      "sha256": "297518006aa4384cf76dd06e28d11d11507e67725aa7b6269f0c5152ac3cce9f",
+      "bytes": 852,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/69.txt",
+      "sha256": "bb8e7aa8f44ce2057ed8b5dbb0cb6e6e4852d7e832bb3b88429fa19411bfdb0a",
+      "bytes": 390,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/70.txt",
+      "sha256": "4935fa89b3f96a53452a774b17554d9a979038834b2600b435ed294c724ea692",
+      "bytes": 293,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/73.txt",
+      "sha256": "63188cfc0580614766d9d40ee19ecd2bc579ccca0bd71adffedc8863c77f1bf4",
+      "bytes": 373,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/74.txt",
+      "sha256": "7508dd525e1998347b47367bd15253a264b43a9714df9c90ca14b1f251a96e3e",
+      "bytes": 53,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/75.txt",
+      "sha256": "445d6285e690c38bf4d88b4e15bdf1dbdc9e9e39992acb21ee7be828e41f845e",
+      "bytes": 388,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/76.txt",
+      "sha256": "9d8537f881615a0409fd39eda64f732b33fa5db5530186d3a2c4da99f872cca3",
+      "bytes": 613,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/77.txt",
+      "sha256": "82613df475a4c87edb56b8ec54e4709aba76579cea7c88d51d234047c5def761",
+      "bytes": 677,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/78.txt",
+      "sha256": "7ee6c9887549d164e470ed0808b81d4bc88dac82ed09d32b487edb3e8d9a7db9",
+      "bytes": 744,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/79.txt",
+      "sha256": "96c165b96d6e9b66f93d13f338be30d2d28c5ff34fc6cfb456dbba94255c2894",
+      "bytes": 250,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/8.txt",
+      "sha256": "48199d0a5385f58095a652d735d0fceeea45a79c9c33864c3a7514422220d3e1",
+      "bytes": 541,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/80.txt",
+      "sha256": "c9e8b86bffd5be621806483e708ef91e2371275a9bb2519f1fc4ef87c8353fc7",
+      "bytes": 155,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/81.txt",
+      "sha256": "07def7084b1f59561c4486a8bc4d223dd86db701a8f33946c036a580af7d4838",
+      "bytes": 180,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/85.txt",
+      "sha256": "7ac4290f374fab83555e711762b1983bf0c0338630a65eaa45a8eb248ee19141",
+      "bytes": 289,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/86.txt",
+      "sha256": "d539f668e29be1a766d39bb52a9aa683fa9cfaf55af84ba7c2f6529fbe829e12",
+      "bytes": 70,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/87.txt",
+      "sha256": "b8c9272d94dd776ffa2f7576534d38e69770807bd086919212388182f34b1e03",
+      "bytes": 114,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/non spam/9.txt",
+      "sha256": "8b6eba6e50c187661e223ebeb8a15c89bbd442239822ff706ef3495678f0d856",
+      "bytes": 485,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/12.txt",
+      "sha256": "1cd1673d1345fbc479741c30c26a7f9f6ef54348ecbad4674431322cde607910",
+      "bytes": 125,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/13.txt",
+      "sha256": "e995d51d293cd0bae494c2a9024c40506ae083995c0a6e4fdd6ff4953a6ddf91",
+      "bytes": 214,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/14.txt",
+      "sha256": "ee7a471bdf717d7023d09a0942aab29c5b20d843eee5e0636b3680b0eb3964c1",
+      "bytes": 237,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/15.txt",
+      "sha256": "9304d299fdb0fcecb24a180a7112c7a4e8ad5f3a9de33a91b5b8031fcca2e382",
+      "bytes": 194,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/16.txt",
+      "sha256": "e0c29aba2890efd44fa9d7c337d3071a6014d67c93fdc029af0ef1fb274fd6b2",
+      "bytes": 66,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/18.txt",
+      "sha256": "de07d1ab2ab65aeb4ee337f6dfa283d855846e80447efd239348287f59881ce8",
+      "bytes": 65,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/19.txt",
+      "sha256": "0949ffc13501cb549499e2e09ecccda90cbd414b3f54945cc21bb30660b881a7",
+      "bytes": 216,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/2.txt",
+      "sha256": "02a71cdc854aa786c7d68979760b186d7088baa6a8b311b42604da3cbc621ba0",
+      "bytes": 221,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/20.txt",
+      "sha256": "2e06392a968d473b4a70c66eb8ad1ae6d45e6c4c6d06272af05d3248e775a80b",
+      "bytes": 135,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/21.txt",
+      "sha256": "cec98feeeba42bb04cc0661dac9fe3139c5f94efe1a11fb6bd661a24dc50134d",
+      "bytes": 236,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/22.txt",
+      "sha256": "b243db00184e4e996833094fa501f36e38b86982828ebcfaf5ee357f80466077",
+      "bytes": 210,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/25.txt",
+      "sha256": "0866e735c168d67aec84ad21733916abed397c993d0c52e9488dca897318a6d1",
+      "bytes": 81,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/28.txt",
+      "sha256": "8a3e6bdb95c1f1650698550f58a363df738f321ee9788653acc284f9e1c2ffb4",
+      "bytes": 203,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/29.txt",
+      "sha256": "6812fd0f8f821f70e84cfdaa84f75ce62f8f5dcb7adaa15bdbd9d2a8e0d9bb92",
+      "bytes": 350,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/3.txt",
+      "sha256": "6c90c1edcc47745a13f134f33ee778a9a4c6d30afe7a71179a1c5f73c83f9e49",
+      "bytes": 99,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/30.txt",
+      "sha256": "9349b43aebf51856fee4cf409545e814b1ad5951b646fb9a249465932baa7147",
+      "bytes": 113,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/31.txt",
+      "sha256": "872cbd38abdcad79b60598201d3f23512d3f5a2ed3202fa0c7d20c20964c9b60",
+      "bytes": 326,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/32.txt",
+      "sha256": "64a472430e7a90dfa8f4bae6e693424b4c2010a4b6ca8a4c522099041a0b6fcb",
+      "bytes": 88,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/35.txt",
+      "sha256": "0a4f994d5c6e09fbce0228dc21951ca9bf19ad24f0f52bba0ca886e4e1da4d8f",
+      "bytes": 347,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/36.txt",
+      "sha256": "8e8a7cef29052368a19f3992dcce6e0106db65f569f3d7802730ff3dd3606ca6",
+      "bytes": 95,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/37.txt",
+      "sha256": "27d74bc683dcf7b4e9114919b01ea1e77c7a2040b75da30a946057fa6e3f4bd5",
+      "bytes": 576,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/38.txt",
+      "sha256": "73ed4a068b2da47be8e6e4efecd63fcd667ce8d1e3272281d8b7c4cad27f48a6",
+      "bytes": 229,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/41.txt",
+      "sha256": "c2f5e19e7fff1b45e2cec28f24066fb7aeacd91398efb0edc8e3d08e7b0ba077",
+      "bytes": 381,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/6.txt",
+      "sha256": "24c4c25eccfaab063f46f1d69bacf432a77df3b3a64c2b1a40da53b804d5a2d3",
+      "bytes": 273,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/7.txt",
+      "sha256": "b763800807e60f7a665152b7e9c8f9c5971c51cb3bbd4613c8095f3217673322",
+      "bytes": 66,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/github_arabic_spam/spam/9.txt",
+      "sha256": "a0d183aaf7e59febf27bf8633a3e80b74fb80aad269c4d15bf68eebef54577c1",
+      "bytes": 252,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/kaggle_dialectal/dialectal_arabic_phishing_dataset.csv",
+      "sha256": "8265848fe886de0e3652d695facbdfe3577e81a0928de03d4c856696723f4e18",
+      "bytes": 36938,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/kaggle_fully_dataset/Arabic Phishing and Legitimate emails - Fully Dataset.xlsx",
+      "sha256": "dfbed8050db8cd3f233027c024e6a9fd463a90f7c783098ccfe25f8b1f04583b",
+      "bytes": 225844,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/salloum_gaber_corpus/legit-bilingual.csv",
+      "sha256": "bf74da98754051955eaeef596a4db8da8e785ab71fe5ca270345d7411d19db29",
+      "bytes": 418182,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/arabic_sources/salloum_gaber_corpus/phishing-bilingual.csv",
+      "sha256": "afdba351090854948024b7e0c847ca2a9ac1912aa66fdcf0a368460d53171bba",
+      "bytes": 193320,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/openphish_raw.txt",
+      "sha256": "fc597a48df2fa82fa1875c535d44129fc4e41b26c7ff63c631c97c1eb521df1e",
+      "bytes": 16301,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/phishtank_raw.csv",
+      "sha256": "462a95af9518365ef44f331816ea7095da8e14efa8f0bcf6e0a9fd47d735870a",
+      "bytes": 12538194,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/research/PhiUSIIL_Phishing_URL_Dataset.csv",
+      "sha256": "a236549cd369cd80bd478ff8e1779cbf44c58d5c3f79f7a51a1adbed7d06d1c6",
+      "bytes": 56854345,
+      "local_file_retained": true,
+      "reason": "PhiUSIIL size/no benign nonroot URLs"
+    },
+    {
+      "path": "data/raw/tranco_clean.csv",
+      "sha256": "0cee611c36040ffbf910135e34935f18965c1d539c5ab2eef3db67492f528e7a",
+      "bytes": 368989,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/tranco_final_approved.csv",
+      "sha256": "bd231a8e583dfd379b89a2b30396cdd1866ac1dc71684441f80a1069e1d78d9e",
+      "bytes": 378795,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/tranco_flagged_for_review.csv",
+      "sha256": "5063f7158dbbfda0d89b48e4f744a4e0d4530012e1dba41b35ebd451accd20e1",
+      "bytes": 25068,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/raw/tranco_raw.csv",
+      "sha256": "3e0b7fc561faceb8b223508e221f19b916f1e206b964cadfdfb3e8074c04d625",
+      "bytes": 387825,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "data/processed/dataset.csv",
+      "sha256": "510d54ae730ce55e3811ca2aa755ff938a1059a41088d4aadff618031b3b0d76",
+      "bytes": 10227861,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "evaluation/reports/2026-10-v3/text_trainval.csv",
+      "sha256": "6ce5ab868eb934a23886f93c147aa07286711905ba80f5b319a522390260e225",
+      "bytes": 872124,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    },
+    {
+      "path": "evaluation/reports/2026-10-v3/tranco-PY35J-top-20000.csv",
+      "sha256": "f06bbb86bb81ceb803b9a539514cf306bad080892373daaa35da4140fded97f5",
+      "bytes": 387923,
+      "local_file_retained": true,
+      "reason": "Redistribution not cleared; see docs/data-licences.md"
+    }
+  ],
+  "untracked_data_count": 92,
+  "candidate_binaries": [
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/bilstm_candidate.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.keras",
+      "sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/bilstm_candidate.tokenizer.pkl",
+      "sha256": "101c4c89a6d719e3bfc261eca6849fa694044c94aed188ebf2a66ad29bd14afd",
+      "bytes": 682112
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_calibrated_svm.joblib",
+      "sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de",
+      "bytes": 5528689
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/char_tfidf_logistic.joblib",
+      "sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e",
+      "bytes": 3549042
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "495e684305a113dcbb6b2b04892cd100fd79f68be376b22c40bfe0e00c6e4dd7",
+      "bytes": 2322660
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/kaggle_dialectal_arabic_sms.joblib",
+      "sha256": "d0142be6a1beadf8c13a5e30a5ed38aa09d1d9dd6c2b5bfb86ef1983f745c4b4",
+      "bytes": 3528212
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/loso/salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "3be4ff982c6d81cffedef2965c095d20a5a0b4d217b52bc6e49608e8bf3e28fa",
+      "bytes": 1850324
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/tfidf_lightgbm.joblib",
+      "sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+      "bytes": 1217596
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/models/word_char_tfidf_logistic.joblib",
+      "sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8",
+      "bytes": 2786994
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib",
+      "sha256": "3e1bed0d5a4699cfd7d076a0de1467f91459b09ecc7facab6d29de6c12b91690",
+      "bytes": 1964274
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_logistic.joblib",
+      "sha256": "b4ed4cd0e55205bf8d176cb2dbb4746b974e111636ff7b4805ec276e35cd2d43",
+      "bytes": 651720
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
+      "sha256": "44b6f1334cc82c56d1852d0ee5ba15529244a518eee6419c3ba46dbd196aded1",
+      "bytes": 373683
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_calibrated_svm.joblib",
+      "sha256": "9dbc777ec29f2e41ad7d7b5c276eecd6c4ecb6999a72963da8f8041b2d7d359f",
+      "bytes": 1945025
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_char_logistic.joblib",
+      "sha256": "8cee97f1e5f560345a59607e4cc055c34800bc83a186bdc55869cae91aacb403",
+      "bytes": 638070
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_host_only_lightgbm.joblib",
+      "sha256": "ec9ed606c9d13ee11ece9f2fd3ec039783c92e5e33b7f6c145615cd209a4fb6e",
+      "bytes": 365782
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_calibrated_svm.joblib",
+      "sha256": "fde0c9cdd195b6fd43344d0c27c418f7caaf5efd2d3be438e1776a7a66866c3e",
+      "bytes": 1079087
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_char_logistic.joblib",
+      "sha256": "1c7d8bc6fe48003ae22256dd9760714752cbb385614926826aacbd5b17834d9a",
+      "bytes": 593641
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_full_url_lightgbm.joblib",
+      "sha256": "6b533960707864da96895624aee77d79283902a7fc6d638fef714faddf030050",
+      "bytes": 352215
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_calibrated_svm.joblib",
+      "sha256": "96825e0f5cf0400af0c32881f60a3eba2cfbef93c029d4a933ca49d350bc526f",
+      "bytes": 1133647
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_char_logistic.joblib",
+      "sha256": "3d8dcb7894e9f918036ae8b853823791c6bb3b5bca7afcb9a906f286a37916ff",
+      "bytes": 589901
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/etis_host_only_lightgbm.joblib",
+      "sha256": "7756b3ab173a875ae4d5d6e1e8b87bdd3e767cb41e6fa834e9215f6db6d18ffb",
+      "bytes": 352434
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_calibrated_svm.joblib",
+      "sha256": "8e5e3518676afd2d90a331457b964845ccc613ec7988c0b90893b6c5b19698f3",
+      "bytes": 1900566
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_char_logistic.joblib",
+      "sha256": "96b3ef8c955c93bc5ef7eb6e17f702042ecebc88f1e2780962ede7922fcbf86f",
+      "bytes": 650192
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+      "sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+      "bytes": 372590
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_calibrated_svm.joblib",
+      "sha256": "5536a8223457c51ec4e9074dbab013991d2ff9fbbc7714822b2044423b4a78ff",
+      "bytes": 1878264
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_char_logistic.joblib",
+      "sha256": "1de5865429eee5f1462d5d55c59afd7e593bf8a049e83e58b6809869a51e2831",
+      "bytes": 635162
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_host_only_lightgbm.joblib",
+      "sha256": "de7a5e566b2eaec296a098c2e85c5e3ef05d40b4ee1f403b0b59d5fc918f8441",
+      "bytes": 363980
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.keras",
+      "sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_kaggle_arabic_phishing_fully_dataset.tokenizer.pkl",
+      "sha256": "98e31be1e7a1181114d35bd1dd7c71b2498e19c0dc009293a385c5958df454c7",
+      "bytes": 367684
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.keras",
+      "sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+      "bytes": 2044650
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/bilstm_salloum_gaber_bilingual_corpus.tokenizer.pkl",
+      "sha256": "6cc9c21367fd8d63ac0a7ddcc37505504f9f7a0a45ff3892a0a08b8f0bb9192d",
+      "bytes": 415025
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "61c2653b620d0d7c6c79d7a9939a90bdffa807b561f8374b8bf79128ee7074b4",
+      "bytes": 3675147
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_calibrated_svm_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "e0b1d4ec1904e2f56f13e0b04f3ebe526514fe3b04a1866bc47a2c6b19c1a436",
+      "bytes": 2876073
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "22b3fee74e97ae54ace9bf9719ac16e51c3d2a685b311cd568ff632d5545ae56",
+      "bytes": 2322660
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "1058aea21f0cd240b88305564d08f3b0c75b773df2932fbe8eaa4efef770a80f",
+      "bytes": 1850324
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "9a00f70095342734fd2cef66ef0f10779194c08b866253f4ebb94ea82ff83493",
+      "bytes": 789374
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/tfidf_lightgbm_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "d4a381cf85a63f6e8e350c807f0128c0af888f1f1d6b176471e1ef1b6cf95039",
+      "bytes": 1155854
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_kaggle_arabic_phishing_fully_dataset.joblib",
+      "sha256": "909aa24d82bfbd14dd2a931a8c7d54662846ee947da085911013b36d39b2ae94",
+      "bytes": 2743812
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/text_loso/word_char_tfidf_logistic_salloum_gaber_bilingual_corpus.joblib",
+      "sha256": "9a2b41e1d11f739c5fe3aafa74e20b4b384c06f99ec4adfedd242169bfff10ec",
+      "bytes": 2897828
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_calibrated_svm.joblib",
+      "sha256": "1b078c1221e05b7c5382dddc854da5ba06977bd1f9e8852497e5c59f8e16bf64",
+      "bytes": 2495250
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_char_logistic.joblib",
+      "sha256": "58b3b1af292ae2c55d40b67bf7f01b2216194673f989f086ef6de2566b39cbb9",
+      "bytes": 2094245
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/full_url_lightgbm.joblib",
+      "sha256": "e23644fa095f08257798db3d6a96077bdd5155c8f58d22b05b464fb0e3876fa7",
+      "bytes": 925748
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_calibrated_svm.joblib",
+      "sha256": "85f538c918b3eb3116d3625ba2728266eee98dda5bd22320d642f2654dc65236",
+      "bytes": 2499570
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_char_logistic.joblib",
+      "sha256": "0eb99b620214b0a78b0b6fe48a85f5fd4ff0120975c7fbf6e3a1cef1c5759505",
+      "bytes": 2098581
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_lightgbm.joblib",
+      "sha256": "babbf1d279b663d0343c654a6e8a285d17aa9675d94ad08dc9aa58d23903908d",
+      "bytes": 925364
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/host_only_time_char_logistic.joblib",
+      "sha256": "f7c7912cf9ec051c01fcc0bea963824906a8c27927d6055b0b42c520a0289a7e",
+      "bytes": 2098565
+    },
+    {
+      "original_path": "evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib",
+      "local_path": "release-artifacts/evaluation/reports/2026-10-v3/review-2026-10-13/models/url/shortcut_only_lightgbm.joblib",
+      "sha256": "56793fea05e5c8a5036fb06c9437d4a4843ca1bd473a3aa30809079e536e1daf",
+      "bytes": 897918
+    },
+    {
+      "original_path": "ml/models/url_full_url_char3_5_calibrated_svm.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_char3_5_calibrated_svm.joblib",
+      "sha256": "6b0063e387d89043711441d3ae7aca462b79fc2536ec0a66ca9d7c6f8570159e",
+      "bytes": 2481730
+    },
+    {
+      "original_path": "ml/models/url_full_url_char3_5_logistic.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_char3_5_logistic.joblib",
+      "sha256": "f43784d30421872d5fd0213d5158bc45da604b56acb523340cd7ed0f4c74482b",
+      "bytes": 2080725
+    },
+    {
+      "original_path": "ml/models/url_full_url_lightgbm.joblib",
+      "local_path": "release-artifacts/ml/models/url_full_url_lightgbm.joblib",
+      "sha256": "b75908b1ee824b0b9a156b54e92fb8225f724af8fea72d22101fd1e463aa8396",
+      "bytes": 861412
+    },
+    {
+      "original_path": "ml/models/url_host_only_char3_5_calibrated_svm.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_char3_5_calibrated_svm.joblib",
+      "sha256": "295f9adb151a5670ba8eafe82cc0960bc98a242a28170c8eab3a9fd2932a1318",
+      "bytes": 2499890
+    },
+    {
+      "original_path": "ml/models/url_host_only_char3_5_logistic.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_char3_5_logistic.joblib",
+      "sha256": "27c70ab03ffd747e2447c955695def44ae34255696cc89e29761a18496fd57a1",
+      "bytes": 2098901
+    },
+    {
+      "original_path": "ml/models/url_host_only_lightgbm.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_only_lightgbm.joblib",
+      "sha256": "f4513aec7f1ed8319e98c12010f8899e2b8b47146afbf01ae851549716d9f281",
+      "bytes": 930084
+    },
+    {
+      "original_path": "ml/models/url_host_time_v3.joblib",
+      "local_path": "release-artifacts/ml/models/url_host_time_v3.joblib",
+      "sha256": "cafeb228fc4067d0c2af39d38903fdf3846facd14cf06e8e8df0b4b01bf83727",
+      "bytes": 2099253
+    },
+    {
+      "original_path": "v4/char_calibrated_svm.joblib",
+      "local_path": "release-artifacts/v4/char_calibrated_svm.joblib",
+      "sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
+      "bytes": 1945695
+    },
+    {
+      "original_path": "v4/lightgbm.joblib",
+      "local_path": "release-artifacts/v4/lightgbm.joblib",
+      "sha256": "4b9ea8c38d558f62682ef08aca988b691548b9a48821cf857c2ea11562d1ff08",
+      "bytes": 366516
+    }
+  ],
+  "candidate_count": 56,
+  "history_rewritten": false,
+  "pushed": false,
+  "history_warning": "Files remain in Git history and on GitHub. Making the repository private limits public access; purging historical copies requires a separate authorized history rewrite. No rewrite was performed."
+}

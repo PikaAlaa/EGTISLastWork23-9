@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "etis-frontend",
+    "run",
+    "lint"
+  ],
+  "exit_code": 0,
+  "seconds": 0.3797256000107154,
+  "date": "2026-10-17T19:07:44.458211+00:00",
+  "stdout": "\n> etis-frontend@0.0.0 lint\n> oxlint\n\n",
+  "stderr": ""
+}
