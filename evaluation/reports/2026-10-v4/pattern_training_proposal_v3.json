@@ -1,0 +1,153 @@
+{
+  "created_at": "2026-10-17T20:46:08.062918+00:00",
+  "acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+  "training_only": true,
+  "test_or_validation_used_for_choice": false,
+  "rows": 274393,
+  "benign_flag_counts": {
+    "ip_address_host": 0,
+    "userinfo_in_url": 0,
+    "non_standard_port": 0,
+    "punycode_domain": 37,
+    "no_https": 1274,
+    "suspicious_path_keyword": 4146,
+    "long_url": 696,
+    "many_subdomains": 844
+  },
+  "current_pattern_metrics": {
+    "n": 274393,
+    "phishing_n": 169007,
+    "benign_n": 105386,
+    "abstentions": 6,
+    "threshold": 0.5,
+    "tp": 36044,
+    "fp": 6872,
+    "fn": 132963,
+    "tn": 98514,
+    "recall": 0.2132692728703545,
+    "false_positive_rate": 0.06520790237792497,
+    "recall_wilson_95": [
+      0.2113229330595204,
+      0.21522864692528068
+    ],
+    "fpr_wilson_95": [
+      0.06373308267089296,
+      0.06671441842144364
+    ],
+    "precision_at_phishing_base_rate_1pct": 0.031979909795174226,
+    "precision_at_phishing_base_rate_0_1pct": 0.0032631952868343835,
+    "precision_conservative_bound_1pct": 0.031003722390231397,
+    "precision_conservative_bound_0_1pct": 0.0031607240300034352,
+    "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+  },
+  "proposals": {
+    "structural_or_weak_pair": {
+      "n": 274393,
+      "phishing_n": 169007,
+      "benign_n": 105386,
+      "abstentions": 6,
+      "threshold": 0.5,
+      "tp": 5122,
+      "fp": 937,
+      "fn": 163885,
+      "tn": 104449,
+      "recall": 0.030306437011484732,
+      "false_positive_rate": 0.008891124058224053,
+      "recall_wilson_95": [
+        0.029499754264317078,
+        0.031134471152030364
+      ],
+      "fpr_wilson_95": [
+        0.00834199729175759,
+        0.009476052653354331
+      ],
+      "precision_at_phishing_base_rate_1pct": 0.033284474911138395,
+      "precision_at_phishing_base_rate_0_1pct": 0.003400426718954439,
+      "precision_conservative_bound_1pct": 0.030486638238426456,
+      "precision_conservative_bound_0_1pct": 0.003106520331304233,
+      "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+    },
+    "structural_only": {
+      "n": 274393,
+      "phishing_n": 169007,
+      "benign_n": 105386,
+      "abstentions": 6,
+      "threshold": 0.5,
+      "tp": 2976,
+      "fp": 881,
+      "fn": 166031,
+      "tn": 104505,
+      "recall": 0.01760873809960534,
+      "false_positive_rate": 0.008359744178543639,
+      "recall_wilson_95": [
+        0.0169925637711239,
+        0.01824684103517563
+      ],
+      "fpr_wilson_95": [
+        0.00782767680634181,
+        0.008927652116993432
+      ],
+      "precision_at_phishing_base_rate_1pct": 0.020833235159231425,
+      "precision_at_phishing_base_rate_0_1pct": 0.002104044983277182,
+      "precision_conservative_bound_1pct": 0.018863227739173025,
+      "precision_conservative_bound_0_1pct": 0.0019016452419706666,
+      "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+    },
+    "four_structural_only": {
+      "n": 274393,
+      "phishing_n": 169007,
+      "benign_n": 105386,
+      "abstentions": 6,
+      "threshold": 0.5,
+      "tp": 913,
+      "fp": 37,
+      "fn": 168094,
+      "tn": 105349,
+      "recall": 0.005402143106498548,
+      "false_positive_rate": 0.0003510902776459871,
+      "recall_wilson_95": [
+        0.005063743972622198,
+        0.005763025736506391
+      ],
+      "fpr_wilson_95": [
+        0.00025474057667343735,
+        0.0004838643755990202
+      ],
+      "precision_at_phishing_base_rate_1pct": 0.1345152456536517,
+      "precision_at_phishing_base_rate_0_1pct": 0.015168537443536599,
+      "precision_conservative_bound_1pct": 0.09560309729709286,
+      "precision_conservative_bound_0_1pct": 0.010367086763237292,
+      "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+    },
+    "userinfo_or_punycode": {
+      "n": 274393,
+      "phishing_n": 169007,
+      "benign_n": 105386,
+      "abstentions": 6,
+      "threshold": 0.5,
+      "tp": 277,
+      "fp": 37,
+      "fn": 168730,
+      "tn": 105349,
+      "recall": 0.0016389853674699864,
+      "false_positive_rate": 0.0003510902776459871,
+      "recall_wilson_95": [
+        0.0014571291611195113,
+        0.0018434961360843463
+      ],
+      "fpr_wilson_95": [
+        0.00025474057667343735,
+        0.0004838643755990202
+      ],
+      "precision_at_phishing_base_rate_1pct": 0.045030877308652156,
+      "precision_at_phishing_base_rate_0_1pct": 0.004651211381071507,
+      "precision_conservative_bound_1pct": 0.029520622934928246,
+      "precision_conservative_bound_0_1pct": 0.003005396115622983,
+      "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+    }
+  },
+  "chosen_proposal": "four_structural_only",
+  "row_membership_sha256": "8bb68317cdd29c82e7f92616065f61de71a0d511b5d0f3d7f7148daf57d55d3f",
+  "destination_requests": 0,
+  "example_hosts_printed": 0
+}

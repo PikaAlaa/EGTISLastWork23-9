@@ -22,6 +22,11 @@ def test_packaged_model_and_frozen_rule_match_deployment_metadata():
         frozen=json.loads((root/'evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json').read_text())
         record=next(row for row in frozen['models'] if row['sha256']==metadata['source_artifact_sha256'])
         assert any(point['threshold']==metadata['threshold'] for point in record['thresholds'])
+        if metadata.get('pattern_policy'):
+            from app.engines.rule_based import url_pattern_analyzer
+            assert url_pattern_analyzer.PATTERN_ALERT_POLICY == metadata['pattern_policy']
+            assert hashlib.sha256((root/'evaluation/reports/2026-10-v4/url_pattern_acceptance_rule_v3.md').read_bytes()).hexdigest()==metadata['pattern_acceptance_rule_sha256']
+            assert hashlib.sha256((root/'evaluation/reports/2026-10-v4/pattern_training_proposal_v3.json').read_bytes()).hexdigest()==metadata['pattern_training_proposal_sha256']
 
 
 @pytest.mark.parametrize('host', HOSTS)

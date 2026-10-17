@@ -1,0 +1,263 @@
+{
+  "destination_requests": 0,
+  "initial_registry_commit": "dcfeb02",
+  "initial_registry": [
+    [
+      "Commercial International Bank (CIB)",
+      "cibeg.com"
+    ],
+    [
+      "National Bank of Egypt (NBE)",
+      "nbe.com.eg"
+    ],
+    [
+      "Banque Misr",
+      "banquemisr.com"
+    ],
+    [
+      "QNB Al Ahli",
+      "qnbalahli.com"
+    ],
+    [
+      "QNB Al Ahli",
+      "qnb.com.eg"
+    ],
+    [
+      "Arab African International Bank",
+      "aaib.com"
+    ],
+    [
+      "Vodafone Egypt",
+      "vodafone.com.eg"
+    ],
+    [
+      "Vodafone Group",
+      "vodafone.com"
+    ],
+    [
+      "Orange Egypt",
+      "orange.eg"
+    ],
+    [
+      "Etisalat Misr (e&)",
+      "etisalat.eg"
+    ],
+    [
+      "Etisalat Misr (e&)",
+      "eand.com.eg"
+    ],
+    [
+      "Telecom Egypt (WE)",
+      "te.eg"
+    ],
+    [
+      "Instapay",
+      "instapay.eg"
+    ],
+    [
+      "Fawry",
+      "fawry.com"
+    ],
+    [
+      "Jumia Egypt",
+      "jumia.com.eg"
+    ],
+    [
+      "Noon Egypt",
+      "noon.com"
+    ],
+    [
+      "Amazon Egypt",
+      "amazon.eg"
+    ],
+    [
+      "Talabat Egypt",
+      "talabat.com"
+    ],
+    [
+      "Breadfast",
+      "breadfast.com"
+    ],
+    [
+      "EgyptAir",
+      "egyptair.com"
+    ],
+    [
+      "Egypt e-Government portal",
+      "digital.gov.eg"
+    ],
+    [
+      "Paymob",
+      "paymob.com"
+    ],
+    [
+      "Paymob",
+      "paymob.eg"
+    ],
+    [
+      "Vodafone Cash",
+      "web.vodafone.com.eg"
+    ],
+    [
+      "ValU",
+      "valu.com.eg"
+    ],
+    [
+      "ValU",
+      "valugroup.com"
+    ],
+    [
+      "Bosta",
+      "bosta.co"
+    ],
+    [
+      "Aramex Egypt",
+      "aramex.com"
+    ],
+    [
+      "Egypt Post",
+      "egyptpost.org"
+    ],
+    [
+      "Egyptian Tax Authority",
+      "eta.gov.eg"
+    ]
+  ],
+  "pairs": [
+    {
+      "row_id": "etis:TR-000025",
+      "benign_domain": "amazon.com",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-000297",
+      "benign_domain": "media-amazon.com",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    },
+    {
+      "row_id": "etis:TR-000384",
+      "benign_domain": "amazon.de",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-000518",
+      "benign_domain": "amazon.co.jp",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-000991",
+      "benign_domain": "amazon.com.mx",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-001248",
+      "benign_domain": "amazon.co.za",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.aboutamazon.com/news/retail/amazon-south-africa",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-003693",
+      "benign_domain": "amazon.se",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html",
+      "current_registry_brand": "Amazon (global stores)"
+    },
+    {
+      "row_id": "etis:TR-005649",
+      "benign_domain": "orange.pl",
+      "matched_brand": "Orange Egypt",
+      "matched_registry_domain": "orange.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "fixed_missing_official_domain",
+      "official_source": "https://www.orange.com/en/our-websites",
+      "current_registry_brand": "Orange Polska"
+    },
+    {
+      "row_id": "etis:TR-010426",
+      "benign_domain": "vorwerk-digital.com",
+      "matched_brand": "Egypt e-Government portal",
+      "matched_registry_domain": "digital.gov.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    },
+    {
+      "row_id": "etis:TR-011347",
+      "benign_domain": "faire.com",
+      "matched_brand": "Fawry",
+      "matched_registry_domain": "fawry.com",
+      "technique": "levenshtein",
+      "score": 60.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    },
+    {
+      "row_id": "etis:TR-013300",
+      "benign_domain": "amazon.eu",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    },
+    {
+      "row_id": "etis:TR-015295",
+      "benign_domain": "bm-ads.io",
+      "matched_brand": "Banque Misr",
+      "matched_registry_domain": "banquemisr.com",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    },
+    {
+      "row_id": "etis:TR-015820",
+      "benign_domain": "siege-amazon.com",
+      "matched_brand": "Amazon Egypt",
+      "matched_registry_domain": "amazon.eg",
+      "technique": "brand_alias",
+      "score": 40.0,
+      "status": "known_limitation_no_official_domain_provenance_for_matched_brand"
+    }
+  ],
+  "count": 13,
+  "fixed_count": 7,
+  "remaining_count": 6,
+  "review_date": "2026-10-17"
+}

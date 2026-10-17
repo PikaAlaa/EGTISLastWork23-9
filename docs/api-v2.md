@@ -58,6 +58,15 @@ otherwise LOW. All applicable checks run before deciding. Official domains bypas
 brand resemblance; they never override text or exact-blacklist evidence. No arithmetic
 fusion, confidence percentage or unvalidated two-signal escalation is used.
 
+The v3 URL deployment uses ordinary model support at a frozen calibration
+threshold: an unsuppressed model alert may create MEDIUM. Text-only HIGH still
+requires corroboration. `checked_links[].patterns` contains flags eligible to
+support a warning; `pattern_observations` retains all detected pattern flags,
+including diagnostic observations that cannot create a warning alone. The
+separately evaluated pattern policy and acceptance results are recorded in the
+v4 report and deployment metadata. Official/shared-host model suppression and
+decisive/incomplete precedence remain.
+
 Brand findings can include `official_contact`: a manually verified organization-owned
 contact page, Egyptian retail hotline and verification date. Details are from the
 registry, never from submitted content. Four banks currently have sourced hotlines;

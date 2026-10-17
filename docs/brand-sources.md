@@ -30,3 +30,31 @@ its careers subdomain; the subdomain was not visited. Verification date:
 No separate Vodafone Cash root domain was inferred. No new domain was added for
 an unreachable root without the cited official-host evidence. Other pre-existing
 registry domains retain their historical provenance; this table does not reverify them.
+
+## V3 brand-pair review — 2026-10-17
+
+The 13 ETIS-validation brand/domain pairs were inspected as strings; no cohort
+URL or listed root host was opened. Official provenance was read on separate
+Amazon corporate/developer and Orange Group pages. Additions cover official
+domains and their ordinary subdomains through the existing registry policy;
+no edit-distance, alias, or impersonation rule was weakened.
+
+| Registry brand | Added official domains | Official source and evidence |
+|---|---|---|
+| Amazon (global stores) | `amazon.com`, `amazon.de`, `amazon.co.jp`, `amazon.com.mx`, `amazon.se` | [Amazon developer distribution documentation](https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html) identifies Amazon marketplaces and lists these retail domains in its supported-device/marketplace tables. These are global stores, separate from Amazon Egypt. |
+| Amazon (global stores) | `amazon.co.za` | [Amazon's South Africa launch announcement](https://www.aboutamazon.com/news/retail/amazon-south-africa) explicitly identifies the new Amazon.co.za store. |
+| Orange Polska | `orange.pl` | [Orange Group's website directory](https://www.orange.com/en/our-websites) links its Poland entry to www.orange.pl. |
+
+All seven were verified on 2026-10-17; code and idempotent database seeding use
+the same domains and date. No unsupported domain is added.
+
+Remaining pairs (known limitations, not claims that these sites are malicious):
+
+| Benign domain | Incorrect matched brand | Disposition |
+|---|---|---|
+| `media-amazon.com` | Amazon Egypt | Retained: an official ownership/domain statement was not established from the corporate/developer sources checked; a user forum reference is insufficient. |
+| `amazon.eu` | Amazon Egypt | Retained: primary-source domain provenance was not established; the company name Amazon EU alone is insufficient. |
+| `siege-amazon.com` | Amazon Egypt | Retained: no official-domain provenance established. |
+| `vorwerk-digital.com` | Egypt e-Government portal | Retained: incidental `digital` token; no basis to treat it as the Egyptian government's official domain. |
+| `faire.com` | Fawry | Retained: edit-distance resemblance; no basis to treat it as an official Fawry domain. |
+| `bm-ads.io` | Banque Misr | Retained: incidental `bm` alias; no basis to treat it as an official Banque Misr domain. |

@@ -1,23 +1,27 @@
-# Prevent URL-model-only false alarms under rule v2
+# Gate URL-model contribution and reduce pattern false alarms
 
-The v1 subdomain gate selected a model that raised ETIS-validation benign false positives
-from 2/2,916 to 78/2,916. Freeze rule v2 after disclosing those observed results, calibrate
-all existing URL models without test/validation threshold tuning, and compare integrated
-scanner outcomes under ordinary and corroboration-only support.
+V2's total-scanner gate obscured an ordinary model policy that adds few false alarms.
+Freeze v3 after disclosing v2 results, reuse all 202 calibration-frozen candidates,
+and deploy the highest integrated PhreshPhish-recall passer: existing full-URL
+LightGBM at 0.9903286846155258, with ordinary support. Its own alerts pass all three
+FPR limits; extra scanner FP are 48/91,260 on PhreshPhish and 2/2,916 on ETIS.
 
-Deploy `corroboration_only` at `0.85206987301336179`. There are
-0 ordinary policies satisfying all three integrated
-FPR limits; the report quantifies fallback recall cost and residual non-model false positives.
-Save the 78 benign-domain model flags and probabilities without visiting them. Source Vodafone
-Group's `vodafone.com` from its official company page, fixing the careers/root registry alarms.
+Choose one pattern proposal only on PhreshPhish training/calibration after freezing
+acceptance. Keep keyword, HTTP, length and subdomain-count observations diagnostic;
+IP, userinfo, nonstandard port and punycode may alert. Test pattern FPR is
+17/91,260 (0.018628%), and the 23/7/15 replays have no loss. The same model's integrated
+recall falls 11.710 points on PhreshPhish and 9.861 on ETIS from this change.
 
-Validation: 237 pytest tests, database initialization,
-frontend build and lint; replay 23/23 detection,
-7/7 robustness,
-15/15 follow-up; all
-17 legitimate host probes produce 0 MEDIUM/HIGH warnings.
+List all 13 ETIS brand/domain pairs offline. Add only seven cited missing official
+Amazon/Orange domains; retain six unsupported resemblance cases as limitations.
+Final scanner recall is 59.479% PhreshPhish / 17.294% ETIS, with total false positives
+254/91,260 and 10/2,916. Report matched original-v3, v1 and corroboration-only results,
+separating non-model and model-added false positives on both cohorts.
 
-Earlier data hygiene, sender context, dependency and registry changes remain. No sealed final
-test or genuine Egyptian SMS accuracy is claimed; the selection cohorts are exposed development
-evidence. Historical restricted data remains in Git history. No push, merge, upload or history rewrite.
-Detailed model and scanner tables, sources, checks and remaining work: `evaluation/reports/2026-10-v4/REPORT.md`.
+Validation: 251 pytest tests; initialize, frontend build and lint pass; replays
+23/23, 7/7, 15/15; all 17 host probes avoid MEDIUM/HIGH; full-scanner cohort checks
+have zero mismatches. Logs and detailed evidence: [REPORT.md](REPORT.md).
+
+The text model, frozen thresholds and historical data safeguards remain. These
+repeatedly exposed cohorts do not establish independent or Egyptian SMS accuracy.
+No sealed test, push, merge, data upload or history rewrite.

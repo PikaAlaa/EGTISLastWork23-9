@@ -3,8 +3,12 @@
   "sources": [
     {
       "brand": "Vodafone Group",
-      "domains": ["vodafone.com"],
-      "official_sources": ["https://www.vodafone.com/our-company/vodafone-at-a-glance"],
+      "domains": [
+        "vodafone.com"
+      ],
+      "official_sources": [
+        "https://www.vodafone.com/our-company/vodafone-at-a-glance"
+      ],
       "access_date": "2026-10-17",
       "status": "Added in URL selection v2 follow-up; official Group page links to careers.vodafone.com; careers host not visited"
     },
@@ -122,12 +126,40 @@
       ],
       "access_date": "2026-10-17",
       "status": "Added"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domains": [
+        "amazon.com",
+        "amazon.de",
+        "amazon.co.jp",
+        "amazon.com.mx",
+        "amazon.co.za",
+        "amazon.se"
+      ],
+      "official_sources": [
+        "https://www.aboutamazon.com/news/retail/amazon-south-africa",
+        "https://www.developer.amazon.com/docs/app-submission/distribute-your-app-internationally.html"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added in contribution-gated v3 follow-up; no cohort URL visited"
+    },
+    {
+      "brand": "Orange Polska",
+      "domains": [
+        "orange.pl"
+      ],
+      "official_sources": [
+        "https://www.orange.com/en/our-websites"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added in contribution-gated v3 follow-up; no cohort URL visited"
     }
   ],
   "requested_brands_documented": 10,
-  "followup_brands_documented": 1,
-  "registry_domains": 30,
-  "october_verified_domains": 13,
+  "followup_brands_documented": 3,
+  "registry_domains": 37,
+  "october_verified_domains": 20,
   "new_domains": [
     {
       "brand": "Vodafone Group",
@@ -168,6 +200,34 @@
     {
       "brand": "Egyptian Tax Authority",
       "domain": "eta.gov.eg"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.com"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.de"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.co.jp"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.com.mx"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.co.za"
+    },
+    {
+      "brand": "Amazon (global stores)",
+      "domain": "amazon.se"
+    },
+    {
+      "brand": "Orange Polska",
+      "domain": "orange.pl"
     }
   ],
   "source_needed": []

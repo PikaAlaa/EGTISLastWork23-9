@@ -21,6 +21,13 @@ EGYPTIAN_BRAND_DOMAINS: list[tuple[str, str]] = [
     ("Arab African International Bank", "aaib.com"),
     ("Vodafone Egypt", "vodafone.com.eg"),
     ("Vodafone Group", "vodafone.com"),
+    ("Amazon (global stores)", "amazon.com"),
+    ("Amazon (global stores)", "amazon.de"),
+    ("Amazon (global stores)", "amazon.co.jp"),
+    ("Amazon (global stores)", "amazon.com.mx"),
+    ("Amazon (global stores)", "amazon.co.za"),
+    ("Amazon (global stores)", "amazon.se"),
+    ("Orange Polska", "orange.pl"),
     ("Orange Egypt", "orange.eg"),
     ("Etisalat Misr (e&)", "etisalat.eg"),
     ("Etisalat Misr (e&)", "eand.com.eg"),
@@ -52,6 +59,7 @@ EGYPTIAN_BRAND_DOMAIN_SET = {domain for _, domain in EGYPTIAN_BRAND_DOMAINS}
 # ownership is inserted into the database. InstaPay, Fawry and Digital Egypt
 # were already present and are rechecked rather than duplicated.
 OCTOBER_VERIFIED_DOMAINS = {
+    'amazon.com', 'amazon.de', 'amazon.co.jp', 'amazon.com.mx', 'amazon.co.za', 'amazon.se', 'orange.pl',
     'vodafone.com',
     'paymob.com', 'paymob.eg', 'instapay.eg', 'web.vodafone.com.eg',
     'valu.com.eg', 'valugroup.com', 'fawry.com', 'bosta.co', 'aramex.com',
@@ -59,6 +67,7 @@ OCTOBER_VERIFIED_DOMAINS = {
 }
 
 BRAND_CATEGORIES = {
+    'Amazon (global stores)': 'retail', 'Orange Polska': 'telecom',
     'Vodafone Group': 'telecom',
     'Commercial International Bank (CIB)': 'bank',
     'National Bank of Egypt (NBE)': 'bank', 'Banque Misr': 'bank',

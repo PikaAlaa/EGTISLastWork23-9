@@ -19,7 +19,7 @@ from app.engines.url_model import score_url
 from app.core.sender_claims import has_financial_or_telecom_brand_claim
 
 POLICY_VERSION = 'decision-v2'
-URL_MODEL_POLICY = 'corroboration_only'
+URL_MODEL_POLICY = 'ordinary'
 
 def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
     start = time.perf_counter()
@@ -64,6 +64,7 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
         brand = calculate_domain_typosquatting_score(value, registry=registry)
         brand['official_contact']=official_contact(brand.get('matched_brand'))
         pattern = calculate_url_pattern_score(value)
+        pattern_alerts = pattern.get('alert_flags', pattern['flags'])
         reputation = {'score': 0, 'match_type': None, 'matched_entry': None}
         available = health['available']
         if not available:
@@ -83,7 +84,7 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
             decisive.append(brand['technique'])
         elif brand['score']:
             supporting.append('brand_resemblance')
-        if pattern['flags']:
+        if pattern_alerts:
             supporting.append('url_patterns')
         model_result = None
         try:
@@ -107,14 +108,14 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
         model_above = model_above_raw and not official_host and not shared_host
         if URL_MODEL_POLICY == 'corroboration_only':
             model_above = model_above and bool(
-                brand['score'] or pattern['flags']
+                brand['score'] or pattern_alerts
                 or reputation['match_type'] == 'domain' or secret_request)
         url_model_high = url_model_high or model_above_raw
         if model_above:
             supporting.append('url_model')
-        strengths.extend([brand['score'], pattern['score'], reputation['score']])
+        strengths.extend([brand['score'], pattern.get('alert_score', pattern['score']), reputation['score']])
         links.append({'url': canonical, 'host': parsed.host, 'bare': parsed.bare,
-                      'brand': brand, 'patterns': pattern['flags'], 'blacklist': reputation,
+                      'brand': brand, 'patterns': pattern_alerts, 'pattern_observations': pattern['flags'], 'blacklist': reputation,
                       'url_model_probability': model_probability,
                       'url_model_threshold': model_threshold,
                       'url_model_above_threshold': model_above,

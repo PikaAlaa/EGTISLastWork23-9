@@ -10,5 +10,8 @@ evaluation/review-evidence/** -text whitespace=cr-at-eol
 evaluation/reports/2026-10-v4/url_selection_rule.md -text whitespace=cr-at-eol
 evaluation/reports/2026-10-v4/url_selection_rule_v2.md -text
 evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json -text
+evaluation/reports/2026-10-v4/url_selection_rule_v3.md -text
+evaluation/reports/2026-10-v4/url_pattern_acceptance_rule_v3.md -text
+evaluation/reports/2026-10-v4/pattern_training_proposal_v3.json -text
 # This existing audit is maintained with its original Windows line endings.
 docs/data-licences.md whitespace=cr-at-eol

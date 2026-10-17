@@ -8,6 +8,10 @@ from app.models import BrandDomain, EgyptianBrand
 from app.services.registry import populate_registry
 
 CASES = [
+    ('amazon.com', 'amazon.com.login.example'), ('amazon.de', 'amazon.de.login.example'),
+    ('amazon.co.jp', 'amazon.co.jp.login.example'), ('amazon.com.mx', 'amazon.com.mx.login.example'),
+    ('amazon.co.za', 'amazon.co.za.login.example'), ('amazon.se', 'amazon.se.login.example'),
+    ('orange.pl', 'orange.pl.login.example'),
     ('vodafone.com', 'vodafone.com.verify.example'),
     ('paymob.com', 'paymob-verify.example'), ('paymob.eg', 'paymob.login.example'),
     ('instapay.eg', 'instapay-update.example'),
