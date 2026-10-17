@@ -326,6 +326,12 @@
       "bytes": 2099253
     },
     {
+      "original_path": "prior-deployment/url_host_v3.joblib",
+      "local_path": "release-artifacts/prior-deployment/url_host_v3.joblib",
+      "sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+      "bytes": 925695
+    },
+    {
       "original_path": "v4/char_calibrated_svm.joblib",
       "local_path": "release-artifacts/v4/char_calibrated_svm.joblib",
       "sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
@@ -338,6 +344,6 @@
       "bytes": 366516
     }
   ],
-  "file_count": 56,
-  "total_bytes": 91933040
+  "file_count": 57,
+  "total_bytes": 92858735
 }

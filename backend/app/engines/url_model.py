@@ -41,7 +41,15 @@ def score_url(value: str) -> dict | None:
     if 'classifier' in artifact:
         if extractor is None:
             return None
-        features = artifact['vectorizer'].transform([url_features(parsed.host, extractor)])
+        if artifact.get('research_feature_version') == 'phresh-1':
+            # The promoted calibrated SVM consumes canonical host characters,
+            # not the earlier LightGBM feature dictionary. Fail closed on an
+            # incompatible research artifact instead of silently mis-scoring it.
+            if artifact.get('representation') != 'host_only' or artifact.get('model') != 'char_calibrated_svm':
+                raise ValueError('Unsupported deployed URL feature schema')
+            features = artifact['vectorizer'].transform([parsed.host])
+        else:
+            features = artifact['vectorizer'].transform([url_features(parsed.host, extractor)])
         probability = float(artifact['classifier'].predict_proba(features)[0, 1])
     else:
         probability = float(artifact["pipeline"].predict_proba([parsed.host])[0, 1])

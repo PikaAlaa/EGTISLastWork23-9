@@ -1,0 +1,11 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "evaluation/run_url_subdomains_v4.py"
+  ],
+  "exit_code": 0,
+  "seconds": 130.7122756000026,
+  "date": "2026-10-17T19:06:48.745185+00:00",
+  "stdout": "DATA AUDIT {\"official_train\": {\"rows\": 498255, \"phishing_n\": 221526, \"benign_n\": 276729, \"unparseable_hosts\": 261, \"registered_domains\": 211496, \"arabic_n\": 164, \"egyptian_registry_target_n\": 0, \"url_over_runtime_2048_chars_n\": 7}, \"official_test\": {\"rows\": 168060, \"phishing_n\": 76800, \"benign_n\": 91260, \"unparseable_hosts\": 122, \"registered_domains\": 78624, \"arabic_n\": 46, \"egyptian_registry_target_n\": 1, \"url_over_runtime_2048_chars_n\": 11}, \"test_arabic\": {\"rows\": 46, \"phishing_n\": 32, \"benign_n\": 14, \"unparseable_hosts\": 0, \"registered_domains\": 40, \"arabic_n\": 46, \"egyptian_registry_target_n\": 0, \"url_over_runtime_2048_chars_n\": 0}, \"test_egyptian_registry_targets\": {\"rows\": 1, \"phishing_n\": 1, \"benign_n\": 0, \"unparseable_hosts\": 0, \"registered_domains\": 1, \"arabic_n\": 0, \"egyptian_registry_target_n\": 1, \"url_over_runtime_2048_chars_n\": 0}, \"genuine_benign_nonroot_path_or_query_counts\": {\"official_train\": 257396, \"official_test\": 83180}}\nFITTING combined/host_only/lightgbm\nFITTING combined/host_only/char_calibrated_svm\nSCORING current_artifact phreshphish_test\nSCORING current_artifact etis_grouped_validation\nSCORING current_artifact phreshphish_test_benign_subdomains\nSCORING combined/host_only/lightgbm phreshphish_test\nSCORING combined/host_only/lightgbm etis_grouped_validation\nSCORING combined/host_only/lightgbm phreshphish_test_benign_subdomains\nSCORING combined/host_only/char_calibrated_svm phreshphish_test\nSCORING combined/host_only/char_calibrated_svm etis_grouped_validation\nSCORING combined/host_only/char_calibrated_svm phreshphish_test_benign_subdomains\n{\"winner\": \"combined/host_only/char_calibrated_svm\", \"promote_new_model\": true, \"fallback_required\": false, \"tie_order\": [\"current_artifact\", \"combined/host_only/lightgbm\", \"combined/host_only/char_calibrated_svm\"]}\n",
+  "stderr": ""
+}

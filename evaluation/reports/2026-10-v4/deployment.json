@@ -1,0 +1,14 @@
+{
+  "selected": "combined/host_only/char_calibrated_svm",
+  "artifact_sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
+  "prior_artifact_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+  "threshold": 0.9810657259755076,
+  "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "selection_rule_sha256": "f046c72d7b654e823a1b7955c7ee65c3a9d7882075d26693c2de931c2652cbe8",
+  "report": "evaluation/reports/2026-10-v4/url_comparison.json",
+  "operating_point": "0_1pct",
+  "sealed_test_run": false,
+  "policy": "Existing URL supporting policy and official/shared-host suppression; fallback not required.",
+  "limitations": "Exposed external-test model selection; not independent final or Egyptian-traffic validation."
+}

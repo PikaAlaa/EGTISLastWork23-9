@@ -62,6 +62,10 @@ def main():
         relative = 'v4/' + path.name
         records[relative] = {'original_path': relative, 'local_path': str(path.relative_to(ROOT)).replace('\\', '/'),
                              'sha256': sha(path), 'bytes': path.stat().st_size}
+    for path in (RELEASE / 'prior-deployment').glob('*.joblib'):
+        relative = 'prior-deployment/' + path.name
+        records[relative] = {'original_path': relative, 'local_path': str(path.relative_to(ROOT)).replace('\\', '/'),
+                             'sha256': sha(path), 'bytes': path.stat().st_size}
     manifest = {'purpose': 'Local candidates for optional GitHub Release; no upload performed',
                 'files': sorted(records.values(), key=lambda r: r['original_path'])}
     manifest['file_count'] = len(manifest['files'])

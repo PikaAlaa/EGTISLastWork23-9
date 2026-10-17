@@ -1,0 +1,12 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-c",
+    "from pathlib import Path; import evaluation.run_followup as r; original=Path.write_text; target=Path('evaluation/reports/2026-10-v4/followup_after_model.json').resolve(); Path.write_text=lambda self,data,*a,**kw:original(target if self.name=='followup-replay.json' else self,data,*a,**kw); result=r.run(); print(result['summary'])"
+  ],
+  "exit_code": 0,
+  "seconds": 2.8382825999869965,
+  "date": "2026-10-17T19:09:03.389467+00:00",
+  "stdout": "{'detection_passed': 23, 'detection_total': 23, 'robustness_passed': 7, 'robustness_total': 7, 'followup_passed': 15, 'followup_total': 15, 'supplied_probe_results_matched': 14, 'known_limitations': []}\n",
+  "stderr": ""
+}

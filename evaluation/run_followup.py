@@ -3,6 +3,7 @@
 No HTTP requests, live-feed changes, training, final-test access or external services.
 The author's Linux HTTP scripts and captured results remain unchanged as provenance.
 """
+import argparse
 import importlib.util
 import importlib.metadata
 import json
@@ -24,7 +25,7 @@ from app.engines import risk_scoring
 from app.models import BlacklistEntry
 from app.services.registry import populate_registry
 
-def run():
+def run(output=None):
     source=ROOT/'evaluation/review-evidence'
     spec=importlib.util.spec_from_file_location('followup_review_cases',source/'cases.py')
     cases=importlib.util.module_from_spec(spec);spec.loader.exec_module(cases)
@@ -82,13 +83,16 @@ def run():
     report['model_sha256']=hashlib.sha256((ROOT/'ml/models/deployed_char.joblib').read_bytes()).hexdigest()
     report['url_model_sha256']=hashlib.sha256((ROOT/'ml/models/url_host_v3.joblib').read_bytes()).hexdigest()
     report['libraries']={name:importlib.metadata.version(name) for name in ['numpy','pandas','scikit-learn','joblib','tldextract','SQLAlchemy']}
-    output=ROOT/'evaluation/reports/2026-10-v3/review-2026-10-13/followup-replay.json'
+    output=Path(output) if output is not None else ROOT/'evaluation/reports/2026-10-v3/review-2026-10-13/followup-replay.json'
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return report
 
 if __name__=='__main__':
-    report=run();print(json.dumps(report['summary'],indent=2))
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,help='Save a new replay without rewriting historical reports')
+    args=parser.parse_args()
+    report=run(args.output);print(json.dumps(report['summary'],indent=2))
     unexpected=any(not row['pass'] and not row['known_limitation'] for row in report['followup_probes'])
     failures=any(not row['pass'] for row in report['detection_cases']+report['robustness'])
     raise SystemExit(1 if unexpected or failures else 0)
