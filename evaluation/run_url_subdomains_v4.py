@@ -107,6 +107,9 @@ def main():
     # Its protocol input remains the original frozen file, unchanged.
     previous.LOCAL = LOCAL
     previous.write = write
+    protocol = json.loads(PROTOCOL.read_text())
+    from evaluation.phreshphish_utils import target_key
+    previous.brand_match = lambda target: protocol['strict_target_aliases'].get(target_key(target))
     cache = previous.prepare()
     fit, cal = cache['pools']['combined']
     extractor = previous.ext()

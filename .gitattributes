@@ -6,3 +6,5 @@ evaluation/review-evidence/** -text whitespace=cr-at-eol
 *.joblib binary
 *.keras binary
 *.pkl binary
+# The pre-result v4 selection rule is referenced by its exact byte hash.
+evaluation/reports/2026-10-v4/url_selection_rule.md -text
