@@ -1,0 +1,162 @@
+{
+  "access_date": "2026-10-17",
+  "sources": [
+    {
+      "brand": "Paymob",
+      "domains": [
+        "paymob.com",
+        "paymob.eg"
+      ],
+      "official_sources": [
+        "https://www.paymob.com/en/about-us",
+        "https://paymob.eg/en/about-us"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added"
+    },
+    {
+      "brand": "InstaPay",
+      "domains": [
+        "instapay.eg"
+      ],
+      "official_sources": [
+        "https://www.instapay.eg/?lang=en"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Existing `Instapay` entry rechecked"
+    },
+    {
+      "brand": "Vodafone Cash",
+      "domains": [
+        "web.vodafone.com.eg",
+        "vodafone.com.eg"
+      ],
+      "official_sources": [
+        "https://web.vodafone.com.eg/en/vodafone-cash"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added service entry; existing parent retained"
+    },
+    {
+      "brand": "ValU",
+      "domains": [
+        "valu.com.eg",
+        "valugroup.com"
+      ],
+      "official_sources": [
+        "https://valu.com.eg/early_settlement",
+        "https://valugroup.com/about-us"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added"
+    },
+    {
+      "brand": "Fawry",
+      "domains": [
+        "fawry.com"
+      ],
+      "official_sources": [
+        "https://www.fawry.com/about/"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Already exists; rechecked"
+    },
+    {
+      "brand": "Bosta",
+      "domains": [
+        "bosta.co"
+      ],
+      "official_sources": [
+        "https://bosta.co/en-eg/home"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added"
+    },
+    {
+      "brand": "Aramex Egypt",
+      "domains": [
+        "aramex.com"
+      ],
+      "official_sources": [
+        "https://www.aramex.com/eg/en"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added"
+    },
+    {
+      "brand": "Egypt Post",
+      "domains": [
+        "egyptpost.org"
+      ],
+      "official_sources": [
+        "https://bareedmall.egyptpost.org/bareedmallstorefront/bareedmall/ar/v/Enpo"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added; root page timed out, official subdomain supplied evidence"
+    },
+    {
+      "brand": "Digital Egypt portal",
+      "domains": [
+        "digital.gov.eg"
+      ],
+      "official_sources": [
+        "https://payments.digital.gov.eg/digegy/CardPaymentRequestIntiation/index"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Existing `Egypt e-Government portal` entry rechecked; root page unavailable to browser"
+    },
+    {
+      "brand": "Egyptian Tax Authority",
+      "domains": [
+        "eta.gov.eg"
+      ],
+      "official_sources": [
+        "https://eta.gov.eg/ar/home"
+      ],
+      "access_date": "2026-10-17",
+      "status": "Added"
+    }
+  ],
+  "requested_brands_documented": 10,
+  "registry_domains": 29,
+  "october_verified_domains": 12,
+  "new_domains": [
+    {
+      "brand": "Paymob",
+      "domain": "paymob.com"
+    },
+    {
+      "brand": "Paymob",
+      "domain": "paymob.eg"
+    },
+    {
+      "brand": "Vodafone Cash",
+      "domain": "web.vodafone.com.eg"
+    },
+    {
+      "brand": "ValU",
+      "domain": "valu.com.eg"
+    },
+    {
+      "brand": "ValU",
+      "domain": "valugroup.com"
+    },
+    {
+      "brand": "Bosta",
+      "domain": "bosta.co"
+    },
+    {
+      "brand": "Aramex Egypt",
+      "domain": "aramex.com"
+    },
+    {
+      "brand": "Egypt Post",
+      "domain": "egyptpost.org"
+    },
+    {
+      "brand": "Egyptian Tax Authority",
+      "domain": "eta.gov.eg"
+    }
+  ],
+  "source_needed": []
+}
