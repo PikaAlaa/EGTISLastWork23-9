@@ -48,7 +48,15 @@
     "totalTime": "Analysis completed in {{ms}} ms",
     "experimental": "Experimental scanner: routine bank messages can trigger false alarms. Verify warnings through official channels.",
     "officialNumber": "Official number in Egypt",
-    "officialSource": "Official contact page"
+    "officialSource": "Official contact page",
+    "senderLabel": "Sender shown as (optional)",
+    "senderHelp": "Choose what the SMS sender display shows. Do not enter a phone number.",
+    "senderTypes": {
+      "company_name": "Company name",
+      "short_code": "Short code",
+      "mobile_number": "Mobile number",
+      "unknown": "Unknown / not sure"
+    }
   },
   "threats": {
     "domain": "Domain",
@@ -106,7 +114,8 @@
     "INCOMPLETE": [
       "Some required checks were unavailable. Treat the message with caution.",
       "Verify through the official app or a trusted number, or try again later."
-    ]
+    ],
+    "senderType": "Banks normally send messages under their company name, but sender names can be faked. Verify through the official app or a number you already trust."
   },
   "reason": {
     "no_warning_signs": "Completed checks found no known warning signs.",
@@ -128,7 +137,8 @@
     "links_truncated": "There were more links than could be checked.",
     "invalid_embedded_url": "A link inside the message could not be validated.",
     "supporting_evidence": "The content needs independent verification.",
-    "blacklist_missing_source": "A required threat feed has not been loaded."
+    "blacklist_missing_source": "A required threat feed has not been loaded.",
+    "brand_claim_from_mobile_number": "The message claims to be from a financial or telecom brand but the sender is shown as a mobile number."
   },
   "pattern": {
     "ip_address_host": "IP address destination",

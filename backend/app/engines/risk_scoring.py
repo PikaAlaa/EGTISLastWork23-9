@@ -16,10 +16,11 @@ from app.models.brand import EgyptianBrand, BrandDomain
 from app.core.brand_contacts import official_contact
 from app.core.detection_signals import has_secret_request, has_url_side_evidence, has_phone_or_short_link_with_urgent_action
 from app.engines.url_model import score_url
+from app.core.sender_claims import has_financial_or_telecom_brand_claim
 
 POLICY_VERSION = 'decision-v2'
 
-def calculate_final_risk_score(text=None, url=None, db=None):
+def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
     start = time.perf_counter()
     text = text.strip() if isinstance(text, str) else ''
     url = url.strip() if isinstance(url, str) else ''
@@ -51,6 +52,9 @@ def calculate_final_risk_score(text=None, url=None, db=None):
         except Exception:
             db.rollback()
     decisive, supporting, strengths = [], [], []
+    if sender_type == 'mobile_number' and has_financial_or_telecom_brand_claim(text):
+        # Supporting only: never corroborates text HIGH or authenticates a sender.
+        supporting.append('brand_claim_from_mobile_number')
     links = []
     url_model_high = False
     for (canonical, _userinfo), value in list(unique.items())[:MAX_LINKS]:

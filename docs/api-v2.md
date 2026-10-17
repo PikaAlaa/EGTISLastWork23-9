@@ -4,7 +4,7 @@
 same-origin `/api/analyze` through the Node proxy and receives no key. Send JSON:
 
 ```json
-{"url":"https://example.com/","text":"Optional suspicious message"}
+{"url":"https://example.com/","text":"Optional suspicious message","sender_type":"unknown"}
 ```
 
 At least one nonempty string is required. Text max 5,000 characters; URL max 2,048;
@@ -12,6 +12,29 @@ unknown fields, invalid hosts, schemes and ports return 400. HTTP(S), bare domai
 IDNA, userinfo and scheme-specific default ports use the shared parser. Fragments do
 not change reputation identity; path/query case and content remain evidence. An
 additional tracking-stripped lookup key never rewrites the analyzed URL.
+
+`sender_type` is optional: `company_name`, `short_code`, `mobile_number` or `unknown`.
+Omitting it or sending `null` means unknown. It describes what the user sees in the
+SMS sender display; do not submit the actual number or sender name. Invalid enum
+values/types return 400. The browser sends this field only with message text.
+
+A bank, wallet, payment/finance or telecom sender claim together with
+`sender_type=mobile_number` adds `brand_claim_from_mobile_number`. Named claims
+use the eligible brand registry and curated Arabic/English keyword lists; branded
+prefixes, sender signatures and explicit generic bank/wallet/telecom claims are
+recognized. Casual mid-sentence brand mentions alone are insufficient. This is a
+heuristic, not verified sender identity or an exhaustive claim parser.
+
+This signal alone produces MEDIUM. It does not corroborate a high text-model score
+into HIGH. Other independent decisive findings keep their normal precedence; missing
+required checks still produce INCOMPLETE. Advice explains that banks normally send
+under their company name, but sender names can be faked. A company-name/short-code
+selection never reduces existing evidence or proves legitimacy.
+
+The sender field is transient: no database column, input echo, browser storage or
+logging is added. Existing minimal scan metadata can retain the computed reason code,
+as it retains other supporting signals; the submitted sender category itself is not
+stored. The existing privacy/retention policy is otherwise unchanged.
 
 The response includes:
 

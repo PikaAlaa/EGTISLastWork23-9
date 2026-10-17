@@ -1,4 +1,5 @@
-export interface AnalyzeRequest { url?: string; text?: string }
+export type SenderType = 'company_name' | 'short_code' | 'mobile_number' | 'unknown';
+export interface AnalyzeRequest { url?: string; text?: string; sender_type?: SenderType }
 export type Verdict = 'LOW' | 'MEDIUM' | 'HIGH' | 'INCOMPLETE';
 export interface CheckedLink {
   url: string; host: string; bare: boolean; analysis_complete: boolean;
