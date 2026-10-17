@@ -3,9 +3,11 @@
 ## 17 October follow-up
 
 Current changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
-The host URL artifact is now the combined-data calibrated character SVM selected by
-the pre-result subdomain rule; the September text model/tokenizer and frozen splits
-remain unchanged. The optional `sender_type` input adds supporting evidence only and
+The v1 host-model deployment has been replaced by corroboration-only support from
+an existing full-URL calibrated SVM under the v2 follow-up rule. No ordinary scanner
+policy passed the three FPR gates; measured recall cost and remaining non-model
+false positives are explicit in the report. The September text model/tokenizer and
+frozen splits remain unchanged. The optional `sender_type` input adds supporting evidence only and
 is not retained as an input field. Sourced payment, delivery and government registry
 entries are documented in [brand sources](docs/brand-sources.md).
 

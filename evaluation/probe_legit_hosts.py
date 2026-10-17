@@ -46,6 +46,7 @@ def probe():
     finally:
         engine.dispose()
     return {'kind': 'exposed regression probes, not population or Egyptian-performance evidence',
+            'url_model_policy': risk_scoring.URL_MODEL_POLICY,
             'artifact_sha256': hashlib.sha256(ARTIFACT.read_bytes()).hexdigest(),
             'destination_requests': 0, 'sealed_test_run': False, 'rows': rows,
             'summary': {'hosts': len(rows), 'raw_above_threshold': sum(

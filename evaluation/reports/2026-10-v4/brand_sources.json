@@ -2,6 +2,13 @@
   "access_date": "2026-10-17",
   "sources": [
     {
+      "brand": "Vodafone Group",
+      "domains": ["vodafone.com"],
+      "official_sources": ["https://www.vodafone.com/our-company/vodafone-at-a-glance"],
+      "access_date": "2026-10-17",
+      "status": "Added in URL selection v2 follow-up; official Group page links to careers.vodafone.com; careers host not visited"
+    },
+    {
       "brand": "Paymob",
       "domains": [
         "paymob.com",
@@ -118,9 +125,14 @@
     }
   ],
   "requested_brands_documented": 10,
-  "registry_domains": 29,
-  "october_verified_domains": 12,
+  "followup_brands_documented": 1,
+  "registry_domains": 30,
+  "october_verified_domains": 13,
   "new_domains": [
+    {
+      "brand": "Vodafone Group",
+      "domain": "vodafone.com"
+    },
     {
       "brand": "Paymob",
       "domain": "paymob.com"

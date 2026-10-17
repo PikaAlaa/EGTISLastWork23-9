@@ -8,6 +8,7 @@ from app.models import BrandDomain, EgyptianBrand
 from app.services.registry import populate_registry
 
 CASES = [
+    ('vodafone.com', 'vodafone.com.verify.example'),
     ('paymob.com', 'paymob-verify.example'), ('paymob.eg', 'paymob.login.example'),
     ('instapay.eg', 'instapay-update.example'),
     ('web.vodafone.com.eg', 'vodafone-cash.verify.example'),

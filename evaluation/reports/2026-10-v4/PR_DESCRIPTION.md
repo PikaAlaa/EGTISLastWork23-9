@@ -1,11 +1,23 @@
-# Fix legitimate-subdomain false alarms and tighten public-tree hygiene
+# Prevent URL-model-only false alarms under rule v2
 
-The prior URL model flagged legitimate service subdomains because its benign data consisted mainly of roots. Deploy the combined-data calibrated host SVM selected under the committed subdomain rule, preserving calibration-only thresholds and frozen evaluation membership. Add the reviewer host regressions, sourced Egyptian brand entries, and optional sender-display context with Arabic/English supporting-signal advice and no new input storage.
+The v1 subdomain gate selected a model that raised ETIS-validation benign false positives
+from 2/2,916 to 78/2,916. Freeze rule v2 after disclosing those observed results, calibrate
+all existing URL models without test/validation threshold tuning, and compare integrated
+scanner outcomes under ordinary and corroboration-only support.
 
-Untrack restricted snapshots and derived exports while preserving local bytes, move historical candidate weights to ignored release artifacts with SHA-256 manifests, and patch the vulnerable transitive source-map dependency.
+Deploy `corroboration_only` at `0.85206987301336179`. There are
+0 ordinary policies satisfying all three integrated
+FPR limits; the report quantifies fallback recall cost and residual non-model false positives.
+Save the 78 benign-domain model flags and probabilities without visiting them. Source Vodafone
+Group's `vodafone.com` from its official company page, fixing the careers/root registry alarms.
 
-Validation: 227 backend tests; database initialization; frontend clean install, build, lint; npm audit 0 findings. Existing replay: 23/23 detection, 7/7 robustness, 15/15 follow-up. The tracked-tree export also passes without research data.
+Validation: 237 pytest tests, database initialization,
+frontend build and lint; replay 23/23 detection,
+7/7 robustness,
+15/15 follow-up; all
+17 legitimate host probes produce 0 MEDIUM/HIGH warnings.
 
-Selected classifier: benign-subdomain FPR 0.258%; PhreshPhish recall 38.219%. ETIS validation recall 59.200% and FPR 2.675% are worse than the old artifact. The remaining Vodafone probe warnings are brand-rule alerts. External-test selection is exposed development evidence; no sealed final test or genuine Egyptian SMS validation is claimed. Full metrics, probes, removed paths and sources are in evaluation/reports/2026-10-v4/REPORT.md.
-
-**History limitation:** removed data remains in Git history and on GitHub. Making the repository private limits public access; a separately authorized history rewrite is required to purge historical copies. No rewrite, upload or push was performed.
+Earlier data hygiene, sender context, dependency and registry changes remain. No sealed final
+test or genuine Egyptian SMS accuracy is claimed; the selection cohorts are exposed development
+evidence. Historical restricted data remains in Git history. No push, merge, upload or history rewrite.
+Detailed model and scanner tables, sources, checks and remaining work: `evaluation/reports/2026-10-v4/REPORT.md`.

@@ -1,0 +1,24 @@
+{
+  "kind": "selected boundary/regression checks, not an additional performance estimate",
+  "url_model_policy": "corroboration_only",
+  "source_model_sha256": "3e1bed0d5a4699cfd7d076a0de1467f91459b09ecc7facab6d29de6c12b91690",
+  "uses_packaged_score_url": true,
+  "production_brand_distance_unchanged": true,
+  "destination_requests": 0,
+  "cohorts": {
+    "phreshphish_test": {
+      "sampled_rows": 130,
+      "inference_and_scanner_matches": 120,
+      "invalid_input_matches": 10,
+      "maximum_probability_difference": 0.0,
+      "mismatches": 0
+    },
+    "etis_grouped_validation": {
+      "sampled_rows": 198,
+      "inference_and_scanner_matches": 198,
+      "invalid_input_matches": 0,
+      "maximum_probability_difference": 0.0,
+      "mismatches": 0
+    }
+  }
+}

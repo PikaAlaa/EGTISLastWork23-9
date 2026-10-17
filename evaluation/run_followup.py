@@ -70,7 +70,7 @@ def run(output=None):
     deployment=json.loads((ROOT/'ml/models/deployment_model.json').read_text())
     report={'kind':'exposed development inputs; in-process engine replay, not HTTP or final accuracy',
         'blacklist':'single frozen fixture in isolated in-memory SQLite; no live DB/feed changes',
-        'model':settings.model_backend,'policy':'decision-v2','artifact_sha256':deployment['artifact_sha256'],
+        'model':settings.model_backend,'policy':'decision-v2','url_model_policy':risk_scoring.URL_MODEL_POLICY,'artifact_sha256':deployment['artifact_sha256'],
         'probes_sha256':hashlib.sha256((ROOT/'evaluation/followup-probes.json').read_bytes()).hexdigest(),
         'detection_cases':api,'robustness':robust,'everyday_invented':dict(Counter(everyday)),
         'followup_probes':extra,'final_test_run':False,

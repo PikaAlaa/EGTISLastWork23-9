@@ -11,7 +11,7 @@ from app.core.exceptions import InvalidScanInputError
 MAX_URL_LENGTH = 2048
 MAX_TEXT_LENGTH = 5000
 MAX_LINKS = 10
-_suffixes = tldextract.TLDExtract(suffix_list_urls=(), include_psl_private_domains=False)
+_suffixes = tldextract.TLDExtract(cache_dir=None, suffix_list_urls=(), include_psl_private_domains=False)
 _link = re.compile(r'(?i)(?:https?://|hxxps?://|www\.)[^\s<>"\u201c\u201d]+|(?<![\w@])(?:[\w-]+(?:\[\.\]|\.)+)+(?:[a-z]{2,63})(?::\d+)?(?:/[^\s<>"\u201c\u201d]*)?')
 
 @dataclass(frozen=True)

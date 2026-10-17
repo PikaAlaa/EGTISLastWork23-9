@@ -1,161 +1,105 @@
-# ETIS v4: legitimate subdomains, repository hygiene and sender context
+# ETIS URL selection v2 follow-up
 
-All new figures below are generated from JSON saved in this directory by scripts actually run. This is exposed development evidence, not a sealed final test or Egyptian deployment validation.
+Deployed **corroboration_only** with `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib` at **0.85206987301336179** (`full_url`). The deployed text model remains unchanged.
 
-Deployed **combined/host_only/char_calibrated_svm** at **0.9810657259755076**, selected under the [pre-result rule](url_selection_rule.md). The September text model is unchanged. The fallback policy change was not required because fresh candidates passed the subdomain gate.
+The v1 selection was unacceptable on ETIS legitimate main domains: **78/2,916 false positives (2.675%)**, versus **2/2,916 (0.069%)** for old v3. The old subdomain-only gate did not protect this cohort. [Rule v2](url_selection_rule_v2.md) was written **after seeing v1 results and before new v2 computation**. These are exposed development comparisons, not independent final validation.
 
-## Engineering before and after
+## Frozen selection and outcome
 
-| Check | Before editing | After changes |
-|---|---|---|
-| Backend | 161 passed, 1 optional module skipped | 227 passed |
-| Database initialization | passed | passed |
-| Frontend clean install/build/lint | passed | passed |
-| npm high-severity findings / total after | 1 high | 0 total |
-| Data-free tracked-tree export | not run | 227 tests and initialization passed |
+Hard limits: PhreshPhish benign-subdomain FPR ≤1%, ETIS-validation FPR ≤0.5%, and overall PhreshPhish-test FPR ≤0.5%. Among passing candidates, maximize overall PhreshPhish-test recall. Ordinary deployment also has to meet these limits in the integrated scanner.
 
-Evidence: [baseline](baseline_checks.json), [final](final_checks.json), [patched clean install](npm_ci_patched.json), [clean export](clean_tree_checks.json), [audit before](npm_audit_before.json), [audit after](npm_audit_after.json). The optional PhreshPhish safety tests became active after installing the evaluation requirements. The initial premature baseline attempt is retained separately; the successful baseline preceded application edits. The first clean export exposed the selection-rule newline hash problem; the exact pre-result bytes were then pinned in Git, with normalized content unchanged, and the export rerun passed. The upstream test-client deprecation and frontend bundle-size warnings remain. No browser-interaction, hosted CI or deployment check is claimed.
+Evaluated **36 distinct existing URL artifacts × six calibration FPR caps** (1%, 0.5%, 0.1%, 0.05%, 0.01%, 0%), deduplicated to **202 model/threshold candidates**. Every candidate was also evaluated under corroboration-only. Text artifacts are excluded. Byte-identical URL copies are aliases; all historical, time, shortcut, host and full-URL URL models are included. No model was refitted.
 
-## Frozen protocol and deployment choice
+The threshold table was saved before evaluation predictions in [url_v2_frozen_thresholds.json](url_v2_frozen_thresholds.json). PhreshPhish-protocol artifacts use their original setting-specific calibration partition. Historical ETIS artifacts use external calibration excluding all ETIS training domains and the entire archived PY35J Tranco domain list; historical validation-selected thresholds are comparators only. Frozen fitting/calibration fingerprints and evaluation membership are checked. Historical models retain their original fitting exposure; this does not claim that old fitting excluded the later external test domains.
 
-The original PhreshPhish protocol is unchanged. Fresh combined fitting uses ETIS training phishing plus both PhreshPhish training classes, with ETIS benign excluded as prescribed. Evaluation registered domains are excluded from fitting/calibration; mixed-label domains and duplicate training URLs are removed. The historical deployed comparator was not refit to impose these later exclusions. The fresh fit and calibration membership hashes exactly match the frozen research run ([split reproduction](split_reproduction.json), [data audit](data_audit.json)). Only the permitted projection was acquired; no HTML data chunks or destination pages were retrieved.
+Passing model candidates: **97**; passing ordinary integrated policies: **0**; passing corroboration-only integrated policies: **0**.
 
-Before fresh predictions, the deployment rule fixed the 0.1%-calibration-FPR threshold for each fresh model. The 1%-calibration operating point below is diagnostic only and was not an alternative selected after seeing test results. The current artifact retains its historical threshold, originally selected on ETIS validation; its evaluation is a comparator, not a newly calibration-selected model. No evaluation-derived ROC threshold is used here.
+The highest-recall v2 model is `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib` at **0.99032868461552581** (58.562% model recall).
 
-A candidate must have at most 1% actual FPR on benign PhreshPhish test hosts with a non-www subdomain label. Among passing candidates at their predeclared deployment point, select highest whole-test recall. The pinned private PSL defines the subdomain; www alone does not qualify, while www alongside another label does. Evaluation rows remain fixed, and invalid hosts abstain; phishing abstentions count as misses.
+**No ordinary integrated policy satisfies rule v2. The required fallback is deployed.** The URL model never creates MEDIUM alone; it only contributes alongside brand resemblance, a pattern flag, a blacklist domain match, or a secret request. Official/shared-host suppression and decisive/incomplete precedence remain. A bare model alert also cannot corroborate a high text-model score into HIGH.
 
-### phreshphish_test
+**The fallback itself does not satisfy all three total-scanner FPR limits.** Existing non-model signals exceed the limits. This is the explicitly requested fallback, not a passing-FPR deployment claim. Their remaining false alarms require separate rule-policy work.
 
-| Model | Fixed threshold source | Recall | FP / benign | Actual FPR | PPV at 1% | PPV at 0.1% |
-|---|---|---:|---:|---:|---:|---:|
-| current_artifact | historical deployed | 61.051% | 43696/91260 | 47.881% | 1.272% | 0.127% |
-| combined/host_only/lightgbm | calibration 1% (diagnostic) | 48.758% | 645/91260 | 0.707% | 41.067% | 6.460% |
-| combined/host_only/lightgbm | calibration 0.1% | 33.014% | 78/91260 | 0.085% | 79.599% | 27.884% |
-| combined/host_only/char_calibrated_svm | calibration 1% (diagnostic) | 61.158% | 1654/91260 | 1.812% | 25.420% | 3.267% |
-| combined/host_only/char_calibrated_svm | calibration 0.1% | 38.219% | 141/91260 | 0.155% | 71.417% | 19.847% |
+ETIS validation without model support: **15/2916 (0.514%)**; benign alert reasons: `brand_resemblance`: 13, `url_patterns`: 1, `domain_embedding`: 1.
 
-### etis_grouped_validation
+PhreshPhish test without model support: **5544/91260 (6.075%)**; benign alert reasons: `brand_resemblance`: 871, `url_patterns`: 4659, `brand_label_reuse`: 11, `domain_embedding`: 3.
 
-| Model | Fixed threshold source | Recall | FP / benign | Actual FPR | PPV at 1% | PPV at 0.1% |
-|---|---|---:|---:|---:|---:|---:|
-| current_artifact | historical deployed | 73.564% | 2/2916 | 0.069% | 91.550% | 51.776% |
-| combined/host_only/lightgbm | calibration 1% (diagnostic) | 74.217% | 228/2916 | 7.819% | 8.749% | 0.941% |
-| combined/host_only/lightgbm | calibration 0.1% | 34.338% | 21/2916 | 0.720% | 32.506% | 4.555% |
-| combined/host_only/char_calibrated_svm | calibration 1% (diagnostic) | 81.517% | 353/2916 | 12.106% | 6.369% | 0.670% |
-| combined/host_only/char_calibrated_svm | calibration 0.1% | 59.200% | 78/2916 | 2.675% | 18.271% | 2.167% |
+## Model hard-limit comparison
 
-### Benign-subdomain subset
+| Model / threshold | Test recall | Test FP / benign (FPR) | ETIS FP / benign (FPR) | Subdomain FP / benign (FPR) | Model gate |
+|---|---:|---:|---:|---:|---|
+| old v3, 0.97968049864706896 | 61.051% | 43696/91260 (47.881%) | 2/2916 (0.069%) | 11344/23610 (48.047%) | fail |
+| v1 selected, 0.98106572597550756 | 38.219% | 141/91260 (0.155%) | 78/2916 (2.675%) | 61/23610 (0.258%) | fail |
+| best v2, 0.99032868461552581 | 58.562% | 48/91260 (0.053%) | 2/2916 (0.069%) | 0/23610 (0.000%) | pass |
 
-| Model | Fixed calibration point | FP / benign | Actual FPR | Deployment gate |
-|---|---|---:|---:|---|
-| current_artifact | deployed | 11344/23610 | 48.047% | fail |
-| combined/host_only/lightgbm | 1pct | 259/23610 | 1.097% | diagnostic only |
-| combined/host_only/lightgbm | 0_1pct | 13/23610 | 0.055% | pass |
-| combined/host_only/char_calibrated_svm | 1pct | 301/23610 | 1.275% | diagnostic only |
-| combined/host_only/char_calibrated_svm | 0_1pct | 61/23610 | 0.258% | pass |
+## Integrated scanner: MEDIUM or HIGH
 
-Recall and prevalence-adjusted PPV are undefined in this benign-only subset; both are null in JSON rather than fabricated from absent phishing examples. The PPV columns in the full cohorts use assumed prevalence, not measured Egyptian precision. Wilson intervals and conservative marginal bounds are in [url_comparison.json](url_comparison.json); they are not domain-cluster confidence intervals.
+Denominators: ETIS validation **5,973 phishing / 2,916 benign**; PhreshPhish test **76,800 phishing / 91,260 benign**. All original rows are retained.
 
-The selected SVM gives 38.219% PhreshPhish-test recall and 61/23610 benign-subdomain false positives (0.258%). ETIS-validation recall is 59.200%, with 78/2916 false positives (2.675%); its recall change from the prior artifact is -14.365 percentage points. The gate deliberately prioritizes subdomain behaviour; it does not imply improvement on every source. The SVM has the highest recall among gate-passing models at the predeclared deployment point. The former artifact fails the gate. No threshold was adjusted to make the probe list pass. The existing supporting-signal policy and official/shared-host suppression remain.
+| Policy | ETIS recall | ETIS FP / benign (FPR) | PhreshPhish-test recall | PhreshPhish-test FP / benign (FPR) |
+|---|---:|---:|---:|---:|
+| old v3 deployed | 75.707% | 17/2916 (0.583%) | 74.164% | 45493/91260 (49.850%) |
+| v1 selected | 64.792% | 93/2916 (3.189%) | 57.699% | 5679/91260 (6.223%) |
+| best v2 model, ordinary policy | 27.156% | 17/2916 (0.583%) | 71.189% | 5586/91260 (6.121%) |
+| corroboration-only (deployed) | 17.294% | 15/2916 (0.514%) | 24.811% | 5544/91260 (6.075%) |
 
-## Reviewer-supplied legitimate host probes
+| Policy | Integrated benign-subdomain FP / benign (FPR) |
+|---|---:|
+| old v3 deployed | 11877/23610 (50.305%) |
+| v1 selected | 2447/23610 (10.364%) |
+| best v2 model, ordinary policy | 2389/23610 (10.119%) |
+| corroboration-only (deployed) | 2389/23610 (10.119%) |
 
-| Host | Old model probability | Selected probability | Old scanner | New scanner |
-|---|---:|---:|---|---|
-| `login.microsoftonline.com` | 0.998800 | 0.577733 | MEDIUM | LOW |
-| `outlook.office365.com` | 0.999245 | 0.651527 | MEDIUM | LOW |
-| `teams.microsoft.com` | 0.996963 | 0.229896 | MEDIUM | LOW |
-| `secure.paymob.com` | 0.997124 | 0.413589 | MEDIUM | LOW |
-| `accept.paymob.com` | 0.997632 | 0.738505 | MEDIUM | LOW |
-| `careers.vodafone.com` | 0.997522 | 0.207145 | MEDIUM | MEDIUM |
-| `booking.egyptair.com` | 0.997602 | 0.348303 | LOW | LOW |
-| `vendor.talabat.com` | 0.997378 | 0.247230 | LOW | LOW |
-| `ebanking.cibeg.com` | 0.997492 | 0.391308 | LOW | LOW |
-| `bm-online.banquemisr.com` | 0.998774 | 0.437771 | LOW | LOW |
-| `microsoftonline.com` | 0.170415 | 0.751518 | LOW | LOW |
-| `paymob.com` | 0.122840 | 0.783017 | LOW | LOW |
-| `vodafone.com` | 0.057299 | 0.277659 | MEDIUM | MEDIUM |
-| `egyptair.com` | 0.074339 | 0.442616 | LOW | LOW |
-| `talabat.com` | 0.058864 | 0.395353 | LOW | LOW |
-| `cibeg.com` | 0.027739 | 0.625768 | LOW | LOW |
-| `banquemisr.com` | 0.078414 | 0.750658 | LOW | LOW |
+All policies use the same final sourced registry, original cohort rows, and isolated healthy empty blacklist. Thus the comparison isolates model/policy effects; old v3 and v1 names refer to their historical artifacts and thresholds, not a claim of reproducing all historical feed/registry state. URLs are submitted in the URL field, with no fabricated SMS or sender context. Invalid/overlength inputs abstain and count as phishing misses. Outer whitespace is stripped as in the runtime. No live blacklist recall or SMS-context recall is measured.
 
-Raw above-threshold probes: 10/17 before, 0/17 after. Scanner MEDIUM/HIGH: 7 before, 2 after. The remaining Vodafone root/careers alerts are **brand_resemblance**, not URL-model evidence; they are explicitly retained as a separate limitation. No unsupported Vodafone global-domain entry was guessed. All requested subdomains avoid alerts from the URL model alone. Probe inputs are exposed regression strings and do not estimate population FPR.
+Every row first goes through the integrated scanner with URL-model support absent. For URL-only inputs the exact MEDIUM/HIGH result is that baseline OR an unsuppressed model alert. Under corroboration-only, each authorized corroborator already creates a warning, so the model adds no new MEDIUM/HIGH detections on these URL-only cohorts. This exact factoring avoids repeating invariant brand/SQL checks for every threshold. Boundary, model-only, baseline-positive and invalid rows are rescanned through the complete scanner for **every candidate**, with equivalence asserted. Per-candidate model, ordinary, corroboration and subdomain results and check counts are in [url_v2_comparison.json](url_v2_comparison.json).
 
-The full scanner probes use an empty isolated in-memory blacklist with availability forced healthy. No feed is fetched or live database altered. All model/threshold/scanner findings are in [probe_before.json](probe_before.json), [probe_after.json](probe_after.json) and the candidate probe entries of [url_comparison.json](url_comparison.json).
+Evaluation-only acceleration uses `rapidfuzz==3.14.6` for exact unit-cost Levenshtein distance (no preprocessing or cutoff), checked against the production dynamic-programming implementation on **7506 pairs**. The production brand implementation is unchanged. [API semantics](https://rapidfuzz.github.io/RapidFuzz/Usage/distance/Levenshtein.html) and the saved equivalence counts document this speedup; no matching threshold or rule changed.
 
-Model FP/benign and actual FPR on this benign-only probe list are below. Recall and PPV are undefined; all nullable metrics and the scanner alert rates are explicit in [probe_metrics.json](probe_metrics.json).
+## Recall cost
 
-| Model | Fixed point | FP / benign | Actual probe FPR |
-|---|---|---:|---:|
-| current_artifact | deployed | 10/17 | 58.824% |
-| combined/host_only/lightgbm | 1pct | 0/17 | 0.000% |
-| combined/host_only/lightgbm | 0_1pct | 0/17 | 0.000% |
-| combined/host_only/char_calibrated_svm | 1pct | 0/17 | 0.000% |
-| combined/host_only/char_calibrated_svm | 0_1pct | 0/17 | 0.000% |
+All corroboration-only candidates have the same MEDIUM/HIGH outcomes on these URL-only rows. The underlying fallback artifact and threshold follow the frozen deterministic tie rule (integrated recall, summed cohort FPR, artifact path, threshold). This tie does not establish that its model is superior or that its threshold is optimal for SMS with secret requests.
 
-## Regression replay
+* ETIS validation: corroboration-only recall **17.294%**, a loss of **47.497 percentage points** versus v1 ordinary support, and **68.140 points** versus ordinary support from the same underlying model/threshold, **9.861 points** versus the best v2 model's ordinary policy.
+* PhreshPhish test: corroboration-only recall **24.811%**, a loss of **32.888 percentage points** versus v1 ordinary support, and **63.389 points** versus ordinary support from the same underlying model/threshold, **46.378 points** versus the best v2 model's ordinary policy.
 
-Detection: 23/23; robustness: 7/7; follow-up: 15/15. The known NBE notice remains non-HIGH. These are existing exposed development fixtures, not a final test ([replay JSON](followup_final.json)).
+This cost is the loss of model-only warnings. It does not measure the model’s possible benefit when genuine message context, secret requests or live threat intelligence are available.
 
-## Public-tree hygiene
+## Benign-domain flags and Vodafone
 
-Untracked 92 data/export files: 89 raw files and 3 derived exports. All existing local bytes are retained and verified. Moved 54 historical candidate binaries out of Git, including 47 under the v3 report tree (76568834 bytes). The local release manifest contains 57 files, including the fresh candidates and former deployed URL artifact. Only deployed models plus the explicitly preserved September model remain under ml/models in Git. The original tokenizer is also unchanged. The original September processed dataset remains byte-identical locally but is untracked as an uncleared derived export.
+[v1_etis_validation_benign_flags.json](v1_etis_validation_benign_flags.json) lists all **78 rows / 78 unique domains**, their registered domains, row IDs, probabilities and the v1 threshold. These domains were not visited or resolved.
 
-Exact removed paths are in [REMOVED-FILES.md](REMOVED-FILES.md) and [data_hygiene.json](data_hygiene.json). The SHA-256 release map is [release_manifest.json](release_manifest.json), copied from `release-artifacts/MANIFEST.json`. The ignored local files are ready for the team to review for a GitHub Release; no upload occurred and the manifest does not clear redistribution rights.
+Added `vodafone.com` as **Vodafone Group**, separate from Vodafone Egypt and Vodafone Cash. The [official Group company page](https://www.vodafone.com/our-company/vodafone-at-a-glance) links directly to `careers.vodafone.com` in its Careers navigation. See [brand-sources.md](../../../docs/brand-sources.md) for the dated provenance. The careers subdomain itself was not visited. Generic official-domain handling now covers it.
 
-**These files remain in Git history and on GitHub.** Making the repository private limits public access; removing historical copies requires a separately authorized history rewrite. This branch does neither a history rewrite nor a push. Untracking alone does not purge public history.
+Final legitimate-host probes: **0/17 MEDIUM/HIGH**, with 3 raw model flags. Probe results are exposed regressions, not population FPR estimates. See [probe_v2.json](probe_v2.json).
 
-`restore_raw_data.py --check-all` inventories every file and explains authorized local restoration. Missing historical snapshots require checksum-matching originals, not current feeds. PhiUSIIL retains its pinned official download. Inventory recognizes exact newline-only variants; import verification remains byte-exact. Recovery and inherited model-data licence limitations are in [data licences](../../../docs/data-licences.md). `source-map-js` was changed only from the vulnerable lock entry to its patched entry; the dependency manifest was unchanged. The audit, clean install, build and lint passed.
+## Verification and handover
 
-## Sourced brand registry
+* `pytest`: exit **0**, **237 passed**.
+* `initialize`: exit **0**.
+* `frontend_build`: exit **0**.
+* `frontend_lint`: exit **0**.
+* Replays: **23/23 detection**, **7/7 robustness**, **15/15 follow-up**. The NBE notice remains non-HIGH.
 
-All 10 requested brands are documented; 9 domain/host entries were added. InstaPay, Fawry and Digital Egypt already existed and were rechecked. Vodafone Cash uses the official service host while the pre-existing Vodafone parent retains ownership. Database seeding is idempotent and shares the same registry and verification dates. Official-domain and dot/hyphen-plus-action lookalike tests pass.
+Actual logs: [final_checks.json](final_checks.json), [followup_v2.json](followup_v2.json). Packaged `score_url` and the original production scanner also match the evaluated decisions on **328 selected boundary/regression rows**, including v1 benign flags and invalid inputs; [deployment verification](deployed_scanner_verification.json). The local Python 3.12.10 interpreter was repaired inside the ignored workspace after the prior venv’s base interpreter was found missing. Dependencies and research data remain local. Pytest uses a writable local cache. Existing upstream deprecation and frontend bundle-size warnings are retained in logs; no hosted CI or browser interaction is claimed. The [initial v2 check attempt](v2_initial_checks.json) exposed an inaccessible optional tldextract disk cache (four test failures). The parser now disables that cache while retaining the same offline bundled suffix snapshot and grouping rules. The complete checks and replays were rerun successfully after this fix.
 
-| Brand | Domains | Status |
-|---|---|---|
-| Paymob | `paymob.com`, `paymob.eg` | Added |
-| InstaPay | `instapay.eg` | Existing `Instapay` entry rechecked |
-| Vodafone Cash | `web.vodafone.com.eg`, `vodafone.com.eg` | Added service entry; existing parent retained |
-| ValU | `valu.com.eg`, `valugroup.com` | Added |
-| Fawry | `fawry.com` | Already exists; rechecked |
-| Bosta | `bosta.co` | Added |
-| Aramex Egypt | `aramex.com` | Added |
-| Egypt Post | `egyptpost.org` | Added; root page timed out, official subdomain supplied evidence |
-| Digital Egypt portal | `digital.gov.eg` | Existing `Egypt e-Government portal` entry rechecked; root page unavailable to browser |
-| Egyptian Tax Authority | `eta.gov.eg` | Added |
+## Preserved scope and limits
 
-Official links, access dates and evidence limits are in [brand-sources.md](../../../docs/brand-sources.md) and [brand_sources.json](brand_sources.json). Root pages unavailable to the browser use the cited official service/subdomain evidence, not an inferred domain. No source-needed domain was added.
+The earlier sender-display feature, registry entries, dependency fix, data untracking and local release-artifact retention remain. Historical hygiene, licences and the original engineering evidence are in [REPORT_v1.md](REPORT_v1.md), [data_hygiene.json](data_hygiene.json), [release_manifest.json](release_manifest.json) and [data licences](../../../docs/data-licences.md). Removed data remains in Git history and on GitHub; no history rewrite was performed. September model/tokenizer, the deployed text model, targets and frozen partitions are preserved.
 
-## Sender display context
-
-POST /analyze and the scan form accept optional company_name, short_code, mobile_number or unknown. A financial/telecom sender claim from a mobile-number display adds brand_claim_from_mobile_number, a supporting MEDIUM signal. It cannot independently produce HIGH or corroborate the text model into HIGH. Other decisive evidence and incomplete-check precedence remain. The curated claim vocabulary is a heuristic, not an exhaustive language detector; it excludes unrelated casual mentions in the unit fixtures.
-
-Arabic and English advice explains normal company-name bank senders and spoofable sender names. The submitted category is transient, with no input column, echo, browser storage or logging added. The computed reason code follows the existing minimal outcome-metadata/retention policy. The API contract and privacy detail are in [api-v2.md](../../../docs/api-v2.md). All newly authored message fixtures are labelled synthetic test-only strings, not real/Egyptian data.
-
-## Limitations and preservation
-
-Genuine Egyptian SMS test count remains **0**. No sealed ETIS final test was run. PhreshPhish test remains evaluation-only, but its use for this explicitly requested deployment selection means it is exposed selection evidence, not a fresh final performance claim. Its benign source, webpage-language tags and limited Egyptian representation do not validate Egyptian users. Domain exclusions alter the fitting distribution; repeated URLs per domain limit row-wise FPR uncertainty. Host-only models cannot distinguish malicious and benign paths on a shared host. The runtime length limit differs from research scoring; long/invalid rows and abstentions are reported in JSON. Model recall remains incomplete, and the selected ETIS FPR is materially worse than the old artifact despite better external subdomain behaviour. The remaining Vodafone rule false alarms are unresolved.
-
-Protected reports, targets, frozen splits, September models/tokenizer and retained local data bytes were verified in [integrity.json](integrity.json). No destination was opened/resolved and no messages or URL samples were sent to an external analysis service. Official-source browsing and dataset/package acquisition were limited to the authorized provenance/dependency work.
+Genuine Egyptian SMS test count remains **0**. No sealed final test ran. PhreshPhish test and ETIS validation have now informed repeated development selection and cannot substantiate independent final or Egyptian-traffic performance claims. Row-wise uncertainty does not account for repeated domains; live feed state and message context are not available in the URL cohorts. Corroboration-only can still warn on benign URLs through existing brand/pattern rules. No candidate URLs were visited, resolved or sent to external analysis services.
 
 ## Reproduction
 
-Use the Python environment and versions recorded in the check/setup JSON. Restore authorized data inputs first; raw/processed corpora and research weights are intentionally absent from fresh clones. The packaged scanner and tests do not require those removed corpora.
-
 ```text
-python -m pip install -r requirements-runtime.txt -r requirements-phreshphish.txt
-python data/scripts/restore_raw_data.py --check-all
-python data/scripts/rebuild_dataset.py --output evaluation/local-results/v3-data
-python -c "import data.scripts.download_phreshphish as d; from pathlib import Path; d.REPORT=Path('evaluation/reports/2026-10-v4'); d.main()"
-python evaluation/run_url_subdomains_v4.py
-python evaluation/promote_url_v4.py
-python evaluation/probe_legit_hosts.py --output evaluation/reports/2026-10-v4/probe_after.json
-python evaluation/run_followup.py --output evaluation/reports/2026-10-v4/followup_final.json
+python evaluation/run_url_selection_v2.py calibrate
+python evaluation/run_url_selection_v2.py evaluate
+python evaluation/promote_url_v2.py
+python evaluation/verify_url_v2_deployment.py
+python evaluation/probe_legit_hosts.py --output evaluation/reports/2026-10-v4/probe_v2.json
+python evaluation/run_followup.py --output evaluation/reports/2026-10-v4/followup_v2.json
 python evaluation/run_checks_v4.py final
-python evaluation/prepare_release_artifacts.py
-python evaluation/verify_hygiene_v4.py --clean-tree
-python evaluation/report_v4.py
+python evaluation/report_url_v2.py
 ```
 
-For a pre-change probe after promotion, load the hash-checked former artifact in `release-artifacts/prior-deployment/`; the training runner recovers it from the original Git commit when needed. Historical reports remain intact. No push is included in these commands.
+Restore authorized local data and research artifacts using the earlier pinned manifests before evaluation. The packaged scanner and backend checks do not require those corpora. Stop after committing on `fix/url-subdomains-and-hygiene`; **no push or merge**.

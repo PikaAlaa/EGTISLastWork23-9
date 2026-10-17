@@ -19,6 +19,7 @@ from app.engines.url_model import score_url
 from app.core.sender_claims import has_financial_or_telecom_brand_claim
 
 POLICY_VERSION = 'decision-v2'
+URL_MODEL_POLICY = 'corroboration_only'
 
 def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
     start = time.perf_counter()
@@ -57,6 +58,7 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
         supporting.append('brand_claim_from_mobile_number')
     links = []
     url_model_high = False
+    secret_request = has_secret_request(text)
     for (canonical, _userinfo), value in list(unique.items())[:MAX_LINKS]:
         parsed = parse_url(value)
         brand = calculate_domain_typosquatting_score(value, registry=registry)
@@ -94,15 +96,19 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
         model_threshold = model_result.get('threshold') if model_result else None
         model_above_raw = bool(model_probability is not None and model_threshold is not None
                                and model_probability >= model_threshold)
-        # Host-only features cannot distinguish a benign hosted document from a
-        # malicious path on the same provider. Retain the existing generic policy
-        # for shared hosts; exact URL matches and secret requests still apply.
+        # Retain generic provider suppression: lexical model support alone must
+        # not warn on shared-host documents. Exact URL matches and secret
+        # requests still apply.
         # Verified official domains are likewise handled by the existing registry,
         # uniformly across all brands, with no bank-name exception.
         official_host = brand.get('technique') == 'exact_match'
         shared_host = any(parsed.host == shared or parsed.host.endswith('.' + shared)
                           for shared in SHARED_HOSTING_DOMAINS)
         model_above = model_above_raw and not official_host and not shared_host
+        if URL_MODEL_POLICY == 'corroboration_only':
+            model_above = model_above and bool(
+                brand['score'] or pattern['flags']
+                or reputation['match_type'] == 'domain' or secret_request)
         url_model_high = url_model_high or model_above_raw
         if model_above:
             supporting.append('url_model')
@@ -118,7 +124,6 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
                       'analysis_complete': available})
     text_finding = None
     text_high = False
-    secret_request = has_secret_request(text)
     urgent_contact = has_phone_or_short_link_with_urgent_action(text)
     if text:
         # Existing keyword rules remain supporting evidence, not probability estimates.
@@ -138,7 +143,8 @@ def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
                 supporting.append('text_keywords')
         except Exception:
             unavailable.append('text_model_unavailable')
-    # A URL model alert alone is MEDIUM. A model alert plus brand impersonation
+    # Ordinary URL support can create MEDIUM; corroboration-only support cannot.
+    # A model alert plus brand impersonation
     # or a request for secrets is HIGH; exact blacklist and existing decisive
     # URL rules retain priority. The text model cannot independently produce HIGH.
     if url_model_high and (secret_request or any((item.get('brand') or {}).get('decisive') for item in links)):

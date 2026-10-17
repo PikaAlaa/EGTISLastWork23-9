@@ -8,5 +8,7 @@ evaluation/review-evidence/** -text whitespace=cr-at-eol
 *.pkl binary
 # The pre-result v4 selection rule is referenced by its exact byte hash.
 evaluation/reports/2026-10-v4/url_selection_rule.md -text whitespace=cr-at-eol
+evaluation/reports/2026-10-v4/url_selection_rule_v2.md -text
+evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json -text
 # This existing audit is maintained with its original Windows line endings.
 docs/data-licences.md whitespace=cr-at-eol

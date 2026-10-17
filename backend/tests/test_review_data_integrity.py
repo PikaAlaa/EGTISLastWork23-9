@@ -22,12 +22,33 @@ def test_restore_checks_input_before_creating_output(tmp_path):
 def test_restore_refuses_out_of_raw_path(tmp_path):
     with pytest.raises(ValueError,match='inside data/raw'):restore.target_path(tmp_path,'data/raw/../../outside')
 
-def test_host_model_is_invariant_to_scheme_path_and_query():
+def test_packaged_url_model_uses_its_declared_representation():
     from app.engines.url_model import ARTIFACT,score_url
     if not ARTIFACT.exists():pytest.skip('Packaged model unavailable')
     a=score_url('https://example.com/')
     b=score_url('http://example.com/account/verify?id=123456789')
-    assert a['probability']==b['probability']
+    from app.engines.url_model import _load
+    artifact = _load()
+    representation = artifact.get('deployment_schema', {}).get('representation', 'host_only')
+    if representation == 'host_only':
+        assert a['probability']==b['probability']
+    else:
+        # v2 explicitly includes existing full-URL candidates. Verify the
+        # packaged model consumes full URL characters, with no schema drift.
+        from app.core.url_utils import parse_url
+        from app.engines.url_model import _extractor
+        from app.engines.url_features import phresh_features, url_features, shortcut_features
+        value = 'http://example.com/account/verify?id=123456789'
+        if 'pipeline' in artifact:
+            expected = artifact['pipeline'].predict_proba([value])[0, 1]
+        else:
+            feature = value
+            if artifact['vectorizer'].__class__.__name__ == 'DictVectorizer':
+                feature = (shortcut_features(value) if representation == 'shortcut_only' else
+                           phresh_features(value, parse_url(value).host, _extractor(), True)
+                           if artifact['deployment_schema']['phresh_schema'] else url_features(value, _extractor()))
+            expected = artifact['classifier'].predict_proba(artifact['vectorizer'].transform([feature]))[0, 1]
+        assert b['probability'] == float(expected)
     assert a['threshold']==b['threshold']
 
 def test_frozen_text_manifest_cannot_be_rewritten(tmp_path,monkeypatch):

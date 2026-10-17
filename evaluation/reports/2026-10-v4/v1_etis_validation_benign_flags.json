@@ -1,0 +1,556 @@
+{
+  "model_sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
+  "threshold": 0.9810657259755076,
+  "benign_n": 2916,
+  "flagged_rows": 78,
+  "unique_domains": 78,
+  "destination_requests": 0,
+  "rows": [
+    {
+      "row_id": "etis:TR-000278",
+      "domain": "alidns.com",
+      "registered_domain": "alidns.com",
+      "probability": 0.9830814986081066,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-000327",
+      "domain": "drom.ru",
+      "registered_domain": "drom.ru",
+      "probability": 0.989886039436367,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-000399",
+      "domain": "ivi.ru",
+      "registered_domain": "ivi.ru",
+      "probability": 0.989068232211897,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-000503",
+      "domain": "amzn.to",
+      "registered_domain": "amzn.to",
+      "probability": 0.9847770461614662,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-000783",
+      "domain": "shopee.com.br",
+      "registered_domain": "shopee.com.br",
+      "probability": 0.995167959541902,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-000792",
+      "domain": "ddnss.de",
+      "registered_domain": "ddnss.de",
+      "probability": 0.9995638654388201,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-001061",
+      "domain": "vercel-dns-3.com",
+      "registered_domain": "vercel-dns-3.com",
+      "probability": 0.9969839850106736,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-001281",
+      "domain": "com.be",
+      "registered_domain": "com.be",
+      "probability": 0.9936735397224705,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-001384",
+      "domain": "1c.ru",
+      "registered_domain": "1c.ru",
+      "probability": 0.9921552502286777,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-001490",
+      "domain": "tinkoff.ru",
+      "registered_domain": "tinkoff.ru",
+      "probability": 0.9944173744540397,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-001545",
+      "domain": "alura.com.br",
+      "registered_domain": "alura.com.br",
+      "probability": 0.9956933536652458,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-002213",
+      "domain": "ay.delivery",
+      "registered_domain": "ay.delivery",
+      "probability": 0.9839446401147722,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-002489",
+      "domain": "dns.br",
+      "registered_domain": "dns.br",
+      "probability": 0.9871091988848169,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-003140",
+      "domain": "onegg.site",
+      "registered_domain": "onegg.site",
+      "probability": 0.988854041552199,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-003280",
+      "domain": "virtua.com.br",
+      "registered_domain": "virtua.com.br",
+      "probability": 0.9963017588233243,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-003755",
+      "domain": "servicepipe.ru",
+      "registered_domain": "servicepipe.ru",
+      "probability": 0.9946552580028833,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-004146",
+      "domain": "voskhod.ru",
+      "registered_domain": "voskhod.ru",
+      "probability": 0.9820163297334684,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-004202",
+      "domain": "vivozap.com.br",
+      "registered_domain": "vivozap.com.br",
+      "probability": 0.9965604455381507,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-004513",
+      "domain": "sicredi.com.br",
+      "registered_domain": "sicredi.com.br",
+      "probability": 0.9975918176111007,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-004524",
+      "domain": "10086.cn",
+      "registered_domain": "10086.cn",
+      "probability": 0.9992430030464661,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-004934",
+      "domain": "bancointer.com.br",
+      "registered_domain": "bancointer.com.br",
+      "probability": 0.9843565558756991,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-005086",
+      "domain": "ip.sb",
+      "registered_domain": "ip.sb",
+      "probability": 0.9854692527577971,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-005803",
+      "domain": "sportsapi.ru",
+      "registered_domain": "sportsapi.ru",
+      "probability": 0.9822463942253613,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-005998",
+      "domain": "claro.com.br",
+      "registered_domain": "claro.com.br",
+      "probability": 0.9991403569741013,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-006016",
+      "domain": "4.cn",
+      "registered_domain": "4.cn",
+      "probability": 0.9999903873319878,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-006263",
+      "domain": "ui-dns.de",
+      "registered_domain": "ui-dns.de",
+      "probability": 0.9968785023718755,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-006271",
+      "domain": "o3.ru",
+      "registered_domain": "o3.ru",
+      "probability": 0.987197436509889,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-006794",
+      "domain": "adtec.ru",
+      "registered_domain": "adtec.ru",
+      "probability": 0.9895596527984398,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007103",
+      "domain": "dafiti.com.br",
+      "registered_domain": "dafiti.com.br",
+      "probability": 0.9975993613800087,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007150",
+      "domain": "otempo.com.br",
+      "registered_domain": "otempo.com.br",
+      "probability": 0.9884565736738133,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007249",
+      "domain": "linkssp.ru",
+      "registered_domain": "linkssp.ru",
+      "probability": 0.9924879567529923,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007413",
+      "domain": "xbox-dns.ru",
+      "registered_domain": "xbox-dns.ru",
+      "probability": 0.9956326004871412,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007609",
+      "domain": "iamcook.ru",
+      "registered_domain": "iamcook.ru",
+      "probability": 0.9828923407529774,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007653",
+      "domain": "bancoestado.cl",
+      "registered_domain": "bancoestado.cl",
+      "probability": 0.983582470566089,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-007731",
+      "domain": "egais.ru",
+      "registered_domain": "egais.ru",
+      "probability": 0.9847447740626801,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-008401",
+      "domain": "diariodocomercio.com.br",
+      "registered_domain": "diariodocomercio.com.br",
+      "probability": 0.9913308329572919,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-008556",
+      "domain": "fortiddns.com",
+      "registered_domain": "fortiddns.com",
+      "probability": 0.9821927377871305,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-008749",
+      "domain": "shmu.sk",
+      "registered_domain": "shmu.sk",
+      "probability": 0.981724820088991,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009051",
+      "domain": "gdz.ru",
+      "registered_domain": "gdz.ru",
+      "probability": 0.998078727512202,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009138",
+      "domain": "resultadofacil.com.br",
+      "registered_domain": "resultadofacil.com.br",
+      "probability": 0.9866659232257058,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009209",
+      "domain": "portaldozacarias.com.br",
+      "registered_domain": "portaldozacarias.com.br",
+      "probability": 0.9901963680823156,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009532",
+      "domain": "filesdl.top",
+      "registered_domain": "filesdl.top",
+      "probability": 0.9951813165273411,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009659",
+      "domain": "riovagas.com.br",
+      "registered_domain": "riovagas.com.br",
+      "probability": 0.9943796876641795,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009794",
+      "domain": "espacioapk.com",
+      "registered_domain": "espacioapk.com",
+      "probability": 0.9849009562062773,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-009889",
+      "domain": "mk.co.kr",
+      "registered_domain": "mk.co.kr",
+      "probability": 0.9835114790940189,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-010334",
+      "domain": "ppppay.xyz",
+      "registered_domain": "ppppay.xyz",
+      "probability": 0.994904253844594,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-011131",
+      "domain": "gtimg.cn",
+      "registered_domain": "gtimg.cn",
+      "probability": 0.9941926110885951,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-011334",
+      "domain": "sm.cn",
+      "registered_domain": "sm.cn",
+      "probability": 0.997077728332143,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-011495",
+      "domain": "west.cn",
+      "registered_domain": "west.cn",
+      "probability": 0.9848292011947781,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-011512",
+      "domain": "mamba.ru",
+      "registered_domain": "mamba.ru",
+      "probability": 0.9888897783745776,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-012086",
+      "domain": "glddns.com",
+      "registered_domain": "glddns.com",
+      "probability": 0.9864388748249338,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-012178",
+      "domain": "microsoftonline.cn",
+      "registered_domain": "microsoftonline.cn",
+      "probability": 0.9840883862328753,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-012496",
+      "domain": "valuehost.ru",
+      "registered_domain": "valuehost.ru",
+      "probability": 0.9811823071537793,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-012922",
+      "domain": "asna.ru",
+      "registered_domain": "asna.ru",
+      "probability": 0.9910334681682086,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-013033",
+      "domain": "g.cn",
+      "registered_domain": "g.cn",
+      "probability": 0.9999383163069434,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-013415",
+      "domain": "hr-link.ru",
+      "registered_domain": "hr-link.ru",
+      "probability": 0.9943028010655164,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-013570",
+      "domain": "kuwo.cn",
+      "registered_domain": "kuwo.cn",
+      "probability": 0.9938459581576093,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015148",
+      "domain": "mkb.ru",
+      "registered_domain": "mkb.ru",
+      "probability": 0.9814012405408734,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015198",
+      "domain": "timbrasil.com.br",
+      "registered_domain": "timbrasil.com.br",
+      "probability": 0.99770461772386,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015343",
+      "domain": "allegroimg.com",
+      "registered_domain": "allegroimg.com",
+      "probability": 0.9896001003094983,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015509",
+      "domain": "virtuaserver.com.br",
+      "registered_domain": "virtuaserver.com.br",
+      "probability": 0.98321517183298,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015530",
+      "domain": "uanl.mx",
+      "registered_domain": "uanl.mx",
+      "probability": 0.9936282310239548,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015561",
+      "domain": "txtensatorxgyt.xyz",
+      "registered_domain": "txtensatorxgyt.xyz",
+      "probability": 0.9824824008482727,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-015616",
+      "domain": "awsdns-cn-57.cn",
+      "registered_domain": "awsdns-cn-57.cn",
+      "probability": 0.9996225791338795,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-016487",
+      "domain": "smotriege.ru",
+      "registered_domain": "smotriege.ru",
+      "probability": 0.9897851284387842,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-016520",
+      "domain": "ogol.com.br",
+      "registered_domain": "ogol.com.br",
+      "probability": 0.9984924996973061,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-016591",
+      "domain": "pkb.ru",
+      "registered_domain": "pkb.ru",
+      "probability": 0.9814012405408734,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-016651",
+      "domain": "mephi.ru",
+      "registered_domain": "mephi.ru",
+      "probability": 0.9832043963234878,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-016781",
+      "domain": "arbitr.ru",
+      "registered_domain": "arbitr.ru",
+      "probability": 0.9859527996264645,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017142",
+      "domain": "awsdns-cn-47.cn",
+      "registered_domain": "awsdns-cn-47.cn",
+      "probability": 0.9989068754566738,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017272",
+      "domain": "conac.cn",
+      "registered_domain": "conac.cn",
+      "probability": 0.9913039441890611,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017608",
+      "domain": "np-sr.ru",
+      "registered_domain": "np-sr.ru",
+      "probability": 0.9849157118959557,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017609",
+      "domain": "vl.ru",
+      "registered_domain": "vl.ru",
+      "probability": 0.9905506988507813,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017725",
+      "domain": "flavii.ru",
+      "registered_domain": "flavii.ru",
+      "probability": 0.9864131707068903,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-017804",
+      "domain": "pending-renewal-domain.com",
+      "registered_domain": "pending-renewal-domain.com",
+      "probability": 0.9872659463756475,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-018459",
+      "domain": "yangshipin.cn",
+      "registered_domain": "yangshipin.cn",
+      "probability": 0.9897133561845961,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-018468",
+      "domain": "huangye88.com",
+      "registered_domain": "huangye88.com",
+      "probability": 0.985629652066971,
+      "threshold": 0.9810657259755076
+    },
+    {
+      "row_id": "etis:TR-018497",
+      "domain": "lotus-dsp.ru",
+      "registered_domain": "lotus-dsp.ru",
+      "probability": 0.9814649007919442,
+      "threshold": 0.9810657259755076
+    }
+  ]
+}

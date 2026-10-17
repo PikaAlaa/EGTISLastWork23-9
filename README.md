@@ -1,8 +1,10 @@
 # ETIS — reviewed October implementation
 
 **17 October update:** the [v4 report](evaluation/reports/2026-10-v4/REPORT.md)
-records the legitimate-subdomain probe, frozen-protocol retraining and deployment
-of a calibrated character SVM for host-only URL scoring. The text model is unchanged.
+records the legitimate-subdomain work and its v2 deployment correction. The URL
+model now requires corroboration, using an existing full-URL calibrated SVM.
+No ordinary scanner policy passed the three FPR gates; the report quantifies
+the fallback's recall cost and remaining non-model false positives. The text model is unchanged.
 The scan form/API now accept optional sender-display context, with Arabic/English
 advice, and the [brand registry sources](docs/brand-sources.md) document the additions.
 Restricted research data is untracked but retained locally; candidate weights and
@@ -20,7 +22,7 @@ implemented in this copy. The 2026-10 v3 development report updates text corrobo
 and compares lexical URL and text models; it still does not establish real-world
 Egyptian SMS accuracy.
 
-V4 uses the host-only calibrated SVM. Text-model HIGH alerts require corroboration.
+V4 uses corroboration-only URL-model support. Text-model HIGH alerts require corroboration.
 All twelve existing everyday probes avoid HIGH, while eight remain
 MEDIUM under the deployed text model. The revised local comparison provisionally
 favors TF-IDF LightGBM; deployment still uses the preserved character model.

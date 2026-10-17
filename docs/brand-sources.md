@@ -18,6 +18,15 @@ brand resemblance only and does not certify a message, sender or payment request
 | Digital Egypt portal | `digital.gov.eg` | [Digital Egypt government payment page](https://payments.digital.gov.eg/digegy/CardPaymentRequestIntiation/index): identifies مصر الرقمية on the existing government domain. | Existing `Egypt e-Government portal` entry rechecked; root page unavailable to browser |
 | Egyptian Tax Authority | `eta.gov.eg` | [Egyptian Tax Authority](https://eta.gov.eg/ar/home): authority's official government homepage. | Added |
 
+## Vodafone Group follow-up — 2026-10-17
+
+Added `vodafone.com` under **Vodafone Group**, separately from Vodafone Egypt and
+Vodafone Cash. The [official Vodafone Group company page](https://www.vodafone.com/our-company/vodafone-at-a-glance)
+identifies the global group and links directly to `careers.vodafone.com` from its
+Careers navigation. This supplies official provenance for the group domain and
+its careers subdomain; the subdomain was not visited. Verification date:
+2026-10-17. Registry seeding uses the same dated entry as the in-code registry.
+
 No separate Vodafone Cash root domain was inferred. No new domain was added for
 an unreachable root without the cited official-host evidence. Other pre-existing
 registry domains retain their historical provenance; this table does not reverify them.

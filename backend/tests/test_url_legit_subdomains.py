@@ -15,7 +15,13 @@ def test_packaged_model_and_frozen_rule_match_deployment_metadata():
     root=Path(__file__).resolve().parents[2]
     metadata=json.loads((root/'ml/models/url_host_deployment.json').read_text())
     assert hashlib.sha256((root/'ml/models/url_host_v3.joblib').read_bytes()).hexdigest()==metadata['artifact_sha256']
-    assert hashlib.sha256((root/'evaluation/reports/2026-10-v4/url_selection_rule.md').read_bytes()).hexdigest()==metadata['selection_rule_sha256']
+    assert hashlib.sha256((root/metadata.get('selection_rule_path', 'evaluation/reports/2026-10-v4/url_selection_rule.md')).read_bytes()).hexdigest()==metadata['selection_rule_sha256']
+    if metadata.get('policy') in {'ordinary', 'corroboration_only'}:
+        assert risk_scoring.URL_MODEL_POLICY == metadata['policy']
+        assert hashlib.sha256((root/'evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json').read_bytes()).hexdigest()==metadata['frozen_thresholds_sha256']
+        frozen=json.loads((root/'evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json').read_text())
+        record=next(row for row in frozen['models'] if row['sha256']==metadata['source_artifact_sha256'])
+        assert any(point['threshold']==metadata['threshold'] for point in record['thresholds'])
 
 
 @pytest.mark.parametrize('host', HOSTS)
@@ -23,13 +29,10 @@ def test_legitimate_probe_not_alerted_by_url_model_alone(db, monkeypatch, host):
     monkeypatch.setattr(risk_scoring, 'blacklist_health', lambda _: {'available': True, 'reason': None})
     result = risk_scoring.calculate_final_risk_score(url='https://' + host + '/', db=db)
     model = score_url('https://' + host + '/')
-    assert model['probability'] < model['threshold']
+    if risk_scoring.URL_MODEL_POLICY == 'ordinary':
+        assert model['probability'] < model['threshold']
     assert 'url_model' not in result['supporting_signals']
-    assert result['verdict'] != 'HIGH'
-    if result['verdict'] == 'MEDIUM':
-        # The pre-existing Vodafone family resemblance is a separate rule; no
-        # assertion presents its remaining false alarm as fixed by retraining.
-        assert result['supporting_signals'] == ['brand_resemblance']
+    assert result['verdict'] == 'LOW'
 
 
 def test_promoted_model_keeps_official_and_shared_host_suppression(db, monkeypatch):

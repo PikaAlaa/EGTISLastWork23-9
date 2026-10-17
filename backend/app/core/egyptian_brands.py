@@ -20,6 +20,7 @@ EGYPTIAN_BRAND_DOMAINS: list[tuple[str, str]] = [
     ("QNB Al Ahli", "qnb.com.eg"),
     ("Arab African International Bank", "aaib.com"),
     ("Vodafone Egypt", "vodafone.com.eg"),
+    ("Vodafone Group", "vodafone.com"),
     ("Orange Egypt", "orange.eg"),
     ("Etisalat Misr (e&)", "etisalat.eg"),
     ("Etisalat Misr (e&)", "eand.com.eg"),
@@ -51,12 +52,14 @@ EGYPTIAN_BRAND_DOMAIN_SET = {domain for _, domain in EGYPTIAN_BRAND_DOMAINS}
 # ownership is inserted into the database. InstaPay, Fawry and Digital Egypt
 # were already present and are rechecked rather than duplicated.
 OCTOBER_VERIFIED_DOMAINS = {
+    'vodafone.com',
     'paymob.com', 'paymob.eg', 'instapay.eg', 'web.vodafone.com.eg',
     'valu.com.eg', 'valugroup.com', 'fawry.com', 'bosta.co', 'aramex.com',
     'egyptpost.org', 'digital.gov.eg', 'eta.gov.eg',
 }
 
 BRAND_CATEGORIES = {
+    'Vodafone Group': 'telecom',
     'Commercial International Bank (CIB)': 'bank',
     'National Bank of Egypt (NBE)': 'bank', 'Banque Misr': 'bank',
     'QNB Al Ahli': 'bank', 'Arab African International Bank': 'bank',

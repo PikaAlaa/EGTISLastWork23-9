@@ -24,7 +24,9 @@ def main():
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
         raise RuntimeError('npm is unavailable')
-    commands = [('pytest', [sys.executable, '-m', 'pytest', '-q'], ROOT),
+    pytest_tmp = ROOT / '.local' / ('pytest-v2-' + datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f'))
+    assert pytest_tmp.resolve().is_relative_to((ROOT / '.local').resolve())
+    commands = [('pytest', [sys.executable, '-m', 'pytest', '-q', '-o', 'cache_dir=.local/pytest-cache-v2', '--basetemp', str(pytest_tmp)], ROOT),
                 ('initialize', [sys.executable, 'scripts/initialize.py'], ROOT)]
     if args.stage == 'baseline':
         commands.append(('npm_ci', [npm, 'ci'], ROOT / 'etis-frontend'))

@@ -1,14 +1,19 @@
 {
-  "selected": "combined/host_only/char_calibrated_svm",
-  "artifact_sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
-  "prior_artifact_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
-  "threshold": 0.9810657259755076,
+  "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_char_calibrated_svm.joblib",
+  "artifact_sha256": "cff31fd9f2a7cd1324190e1dfccf5523bdcfa663ccc23af2988288cf86b3a35a",
+  "source_artifact_sha256": "3e1bed0d5a4699cfd7d076a0de1467f91459b09ecc7facab6d29de6c12b91690",
+  "threshold": 0.8520698730133618,
+  "representation": "full_url",
+  "policy": "corroboration_only",
   "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
   "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
-  "selection_rule_sha256": "f046c72d7b654e823a1b7955c7ee65c3a9d7882075d26693c2de931c2652cbe8",
-  "report": "evaluation/reports/2026-10-v4/url_comparison.json",
-  "operating_point": "0_1pct",
+  "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v2.md",
+  "selection_rule_sha256": "511bb92c3829ba061fbf58ef457ea1a9f4dad72dfa4eeb70621fff0af1b1b9b1",
+  "frozen_thresholds_sha256": "cc85a74db40f420daf2414efdbfe255891e64302933d00caf13bcab13496e7ca",
+  "report": "evaluation/reports/2026-10-v4/url_v2_comparison.json",
+  "passes_model_v2": false,
+  "passes_integrated_v2": false,
+  "fallback": true,
   "sealed_test_run": false,
-  "policy": "Existing URL supporting policy and official/shared-host suppression; fallback not required.",
-  "limitations": "Exposed external-test model selection; not independent final or Egyptian-traffic validation."
+  "limitations": "Exposed selection evidence; URL-only cohorts, healthy empty blacklist; no Egyptian SMS validation."
 }

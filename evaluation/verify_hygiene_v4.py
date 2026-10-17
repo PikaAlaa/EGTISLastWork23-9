@@ -53,7 +53,7 @@ def main():
               'retained_local_data': retained, 'local_data_count': len(retained),
               'release_artifacts': artifacts, 'release_artifact_count': len(artifacts),
               'tracked_restricted_data_or_predictions': forbidden, 'tracked_v3_candidate_binaries': candidates,
-              'rule_hash_matches': sha(OUT / 'url_selection_rule.md') == metadata['selection_rule_sha256'],
+              'rule_hash_matches': sha(ROOT / metadata.get('selection_rule_path', 'evaluation/reports/2026-10-v4/url_selection_rule.md')) == metadata['selection_rule_sha256'],
               'deployed_hash_matches': sha(ROOT / 'ml/models/url_host_v3.joblib') == metadata['artifact_sha256'],
               'history_rewritten': False, 'push_performed': False, 'sealed_test_run': False,
               'genuine_egyptian_sms_test_count': 0}

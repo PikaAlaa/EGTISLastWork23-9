@@ -1,9 +1,9 @@
 {
   "stage": "final",
-  "head": "3496b20802e51e09a17cb7e101683250b53f33bf",
+  "head": "911c14207a924e127d575d90850ea12d1a64180d",
   "branch": "fix/url-subdomains-and-hygiene",
   "python": "3.12.10",
-  "date": "2026-10-17T19:26:48.614993+00:00",
+  "date": "2026-10-17T20:35:35.933927+00:00",
   "libraries": {
     "numpy": "2.5.4",
     "pandas": "3.0.6",
@@ -19,12 +19,16 @@
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
         "-m",
         "pytest",
-        "-q"
+        "-q",
+        "-o",
+        "cache_dir=.local/pytest-cache-v2",
+        "--basetemp",
+        "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\pytest-v2-20261017203535886642"
       ],
       "exit_code": 0,
-      "seconds": 8.862647900008596,
-      "output": "........................................................................ [ 31%]\n........................................................................ [ 63%]\n........................................................................ [ 95%]\n...........                                                              [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n227 passed, 1 warning in 7.45s\n",
-      "passed": 227,
+      "seconds": 8.69715709995944,
+      "output": "........................................................................ [ 30%]\n........................................................................ [ 60%]\n........................................................................ [ 91%]\n.....................                                                    [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n237 passed, 1 warning in 7.39s\n",
+      "passed": 237,
       "skipped": 0
     },
     "initialize": {
@@ -33,7 +37,7 @@
         "scripts/initialize.py"
       ],
       "exit_code": 0,
-      "seconds": 1.334609699959401,
+      "seconds": 1.2400511999730952,
       "output": "{\"initialized\": true, \"database\": \"project-local SQLite unless DATABASE_URL explicitly configured\", \"key\": \"stored in ignored .env; never printed\"}\n"
     },
     "frontend_build": {
@@ -43,8 +47,8 @@
         "build"
       ],
       "exit_code": 0,
-      "seconds": 2.9927648999728262,
-      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 225ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+      "seconds": 3.3385921999579296,
+      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 221ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "frontend_lint": {
       "command": [
@@ -53,7 +57,7 @@
         "lint"
       ],
       "exit_code": 0,
-      "seconds": 0.35338079999201,
+      "seconds": 0.7642418000032194,
       "output": "\n> etis-frontend@0.0.0 lint\n> oxlint\n\n"
     }
   }
