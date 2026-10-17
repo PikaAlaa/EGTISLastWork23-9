@@ -1,0 +1,24 @@
+{
+  "head": "b8bf8c29806e41bd58fda9f24b34922a0a694117",
+  "required_ancestor": "b8bf8c2",
+  "ancestor_check_exit": 0,
+  "required_read_files": {
+    "CLAUDE.md": "0a0c2509b51d53689df4915b14f44310c12057cc39c3d5c0362401fd8cffaf5d",
+    "README.md": "bccda07619f77215b5a3bbc849ba1f052c38493673f3cefac22f2651c93844cd",
+    "LOCAL-IMPLEMENTATION.md": "3c22fb7ff6a7c4a9799c7dc349d7303f75d905aa01e3a41a6eb241a7a40403f0",
+    "docs/data-licences.md": "cee76d519e6db80bce170fd8c80616c8c76edf216aa3be175b4e8807c5c48f44",
+    "evaluation/reports/2026-10-v3/REPORT.md": "3c9f79f7416a41d87ae86a2ea70d07fa24b5f4695fd5698d000ba6068cc48f3c",
+    "evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md": "7dacfed1d6726abd368c50cc7cbcda8d97b00afe0d3f98df8e9b8d68e335ac50",
+    "evaluation/reports/2026-10-v3/phreshphish/REPORT.md": "d7fe1051c1875b545067b0b379bb8a2b20432b89412ee354222fcae3af444163"
+  },
+  "selection_rule_sha256": "f046c72d7b654e823a1b7955c7ee65c3a9d7882075d26693c2de931c2652cbe8",
+  "libraries": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "lightgbm": "4.7.0",
+    "pytest": "9.1.1",
+    "pyarrow": "23.0.1"
+  },
+  "genuine_egyptian_sms_test_count": 0
+}
