@@ -1,9 +1,9 @@
 {
   "stage": "final",
-  "head": "83d619bf03c7591bbd1fe3d01b5da6d43720e41d",
+  "head": "3496b20802e51e09a17cb7e101683250b53f33bf",
   "branch": "fix/url-subdomains-and-hygiene",
   "python": "3.12.10",
-  "date": "2026-10-17T19:19:11.279675+00:00",
+  "date": "2026-10-17T19:26:48.614993+00:00",
   "libraries": {
     "numpy": "2.5.4",
     "pandas": "3.0.6",
@@ -22,8 +22,8 @@
         "-q"
       ],
       "exit_code": 0,
-      "seconds": 8.61190269998042,
-      "output": "........................................................................ [ 31%]\n........................................................................ [ 63%]\n........................................................................ [ 95%]\n...........                                                              [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n227 passed, 1 warning in 7.28s\n",
+      "seconds": 8.862647900008596,
+      "output": "........................................................................ [ 31%]\n........................................................................ [ 63%]\n........................................................................ [ 95%]\n...........                                                              [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n227 passed, 1 warning in 7.45s\n",
       "passed": 227,
       "skipped": 0
     },
@@ -33,7 +33,7 @@
         "scripts/initialize.py"
       ],
       "exit_code": 0,
-      "seconds": 1.2965717000188306,
+      "seconds": 1.334609699959401,
       "output": "{\"initialized\": true, \"database\": \"project-local SQLite unless DATABASE_URL explicitly configured\", \"key\": \"stored in ignored .env; never printed\"}\n"
     },
     "frontend_build": {
@@ -43,8 +43,8 @@
         "build"
       ],
       "exit_code": 0,
-      "seconds": 2.9809988000197336,
-      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 228ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+      "seconds": 2.9927648999728262,
+      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 225ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "frontend_lint": {
       "command": [
@@ -53,7 +53,7 @@
         "lint"
       ],
       "exit_code": 0,
-      "seconds": 0.3671356000122614,
+      "seconds": 0.35338079999201,
       "output": "\n> etis-frontend@0.0.0 lint\n> oxlint\n\n"
     }
   }
