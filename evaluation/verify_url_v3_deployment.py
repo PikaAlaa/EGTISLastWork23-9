@@ -1,4 +1,5 @@
 """Full production scanner checks for the factored v3 cohort measurements."""
+import argparse
 import json
 from pathlib import Path
 import sys
@@ -18,17 +19,18 @@ from app.services.registry import populate_registry
 from evaluation import run_url_followup_v3 as v3
 
 
-def main():
+def main(output=None):
     data = v3.cache()
     selection = v3.read('url_v3_final_selection.json')
     mode = selection['accepted_pattern_policy']
     assert mode == url_pattern_analyzer.PATTERN_ALERT_POLICY
-    assert risk_scoring.URL_MODEL_POLICY == 'ordinary'
+    active_policy = risk_scoring.URL_MODEL_POLICY
+    assert active_policy in {'ordinary', 'corroboration_only'}
     stage = selection['stages'][mode]
     selected = stage['selected']
     prior = v3.read('url_v2_comparison.json')
     candidates = {**prior['comparators'], 'deployed_v3': selected, 'corroboration_only': selected}
-    result = {'policy': 'ordinary', 'pattern_policy': mode, 'production_brand_distance_unchanged': True,
+    result = {'policy': active_policy, 'pattern_policy': mode, 'production_brand_distance_unchanged': True,
               'destination_requests': 0, 'cohorts': {}}
     engine = create_engine('sqlite://')
     Base.metadata.create_all(engine)
@@ -44,7 +46,9 @@ def main():
                     p = v3.probabilities(candidate, name, frame)
                     t = candidate['threshold']
                     raw = np.isfinite(p) & (p >= t)
-                    expected = baseline if label == 'corroboration_only' else baseline | (b['eligible'] & raw)
+                    candidate_policy = active_policy if label == 'deployed_v3' else (
+                        'corroboration_only' if label == 'corroboration_only' else 'ordinary')
+                    expected = baseline if candidate_policy == 'corroboration_only' else baseline | (b['eligible'] & raw)
                     indices = np.unique(np.concatenate([
                         np.argsort(np.abs(p - t))[:75],
                         np.random.default_rng(42).choice(len(frame), min(50, len(frame)), replace=False),
@@ -54,7 +58,7 @@ def main():
                     for idx in indices:
                         url = frame.iloc[idx].url
                         finding = {'probability': float(p[idx]), 'threshold': t} if np.isfinite(p[idx]) else None
-                        with patch.object(risk_scoring, 'URL_MODEL_POLICY', 'corroboration_only' if label == 'corroboration_only' else 'ordinary'):
+                        with patch.object(risk_scoring, 'URL_MODEL_POLICY', candidate_policy):
                             try:
                                 if label == 'deployed_v3':
                                     actual_probability = score_url(url.strip())['probability']
@@ -85,9 +89,13 @@ def main():
                 result['cohorts'][name] = {'policies': samples, 'packaged_probability_max_difference': max_delta}
     finally:
         engine.dispose()
-    v3.write('deployed_scanner_verification_v3.json', result)
+    output = Path(output) if output else v3.OUT / 'query-shortcut/scanner-verification.json'
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(json.dumps(result))
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path)
+    main(parser.parse_args().output)

@@ -58,9 +58,15 @@ otherwise LOW. All applicable checks run before deciding. Official domains bypas
 brand resemblance; they never override text or exact-blacklist evidence. No arithmetic
 fusion, confidence percentage or unvalidated two-signal escalation is used.
 
-The v3 URL deployment uses ordinary model support at a frozen calibration
-threshold: an unsuppressed model alert may create MEDIUM. Text-only HIGH still
-requires corroboration. `checked_links[].patterns` contains flags eligible to
+The current URL deployment uses corroboration-only model support at the frozen
+calibration threshold, following the query-shortcut review of `16fc7a5`.
+A raw model alert alone cannot create MEDIUM or corroborate text HIGH. Independent
+brand evidence, an alerting pattern on the same link, domain blacklist evidence,
+or an explicit secret request is required for URL-model support.
+`url_model_raw_above_threshold` still reports the uncorrected classifier result;
+`url_model_above_threshold` reports eligible support after policy and suppression.
+See the [mitigation and recall cost](../evaluation/reports/2026-10-v4/query-shortcut/REPORT.md).
+Text-only HIGH still requires corroboration. `checked_links[].patterns` contains flags eligible to
 support a warning; `pattern_observations` retains all detected pattern flags,
 including diagnostic observations that cannot create a warning alone. The
 separately evaluated pattern policy and acceptance results are recorded in the

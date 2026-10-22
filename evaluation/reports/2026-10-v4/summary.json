@@ -1,12 +1,12 @@
 {
-  "deployed_policy": "ordinary",
+  "deployed_policy": "corroboration_only",
   "deployed_artifact": {
     "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
     "artifact_sha256": "4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8",
     "source_artifact_sha256": "44b6f1334cc82c56d1852d0ee5ba15529244a518eee6419c3ba46dbd196aded1",
     "threshold": 0.9903286846155258,
     "representation": "full_url",
-    "policy": "ordinary",
+    "policy": "corroboration_only",
     "pattern_policy": "four_structural_only",
     "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v3.md",
     "selection_rule_sha256": "dc22f0dc7281384e2dbc4ffd35b624eaf0d64f6846c0916dc1b8a3fdf0c677c7",
@@ -18,9 +18,13 @@
     "passes_model_v3": true,
     "passes_incremental_fp_gate": true,
     "report": "evaluation/reports/2026-10-v4/url_v3_final_selection.json",
-    "fallback": false,
+    "fallback": true,
+    "ordinary_deployment_blocked": true,
+    "policy_override_reason": "Query-string shortcut reproduced after review of 16fc7a5; raw scores retained, independent evidence required.",
+    "policy_override_report": "evaluation/reports/2026-10-v4/query-shortcut/REPORT.md",
+    "query_distribution_audit": "evaluation/reports/2026-10-v4/query-shortcut/distribution.json",
     "sealed_test_run": false,
-    "limitations": "Exposed selection; matched healthy empty blacklist; no Egyptian SMS validation."
+    "limitations": "Raw model still overreacts to ordinary queries. V3 gate passes describe historical cohort measurements, not query robustness. Corroboration-only reduces recall; no Egyptian SMS validation."
   },
   "frozen_candidate_count": 202,
   "passing_candidates": 97,
@@ -297,7 +301,7 @@
   },
   "full_scanner_verification_matches": 1619,
   "full_scanner_mismatches": 0,
-  "pytest_passed": 251,
+  "pytest_passed": 392,
   "check_exit_codes": {
     "pytest": 0,
     "initialize": 0,
@@ -319,5 +323,39 @@
   "sealed_test_run": false,
   "genuine_egyptian_sms_test_count": 0,
   "push_performed": false,
-  "merge_performed": false
+  "merge_performed": false,
+  "comparisons_scope": "Historical exposed v3 URL-only comparisons; deployed_v3 denotes the ordinary-policy candidate, now superseded.",
+  "current_url_only_metrics": {
+    "phreshphish_test": {
+      "recall": 0.0287109375,
+      "tp": 2205,
+      "phishing_n": 76800,
+      "total_fp": 206,
+      "benign_n": 91260,
+      "total_fpr": 0.002257286872671488,
+      "non_model_fp": 206,
+      "model_added_fp": 0,
+      "model_added_fpr": 0.0,
+      "runtime_abstentions": 133
+    },
+    "etis_grouped_validation": {
+      "recall": 0.01573748535074502,
+      "tp": 94,
+      "phishing_n": 5973,
+      "total_fp": 8,
+      "benign_n": 2916,
+      "total_fpr": 0.0027434842249657062,
+      "non_model_fp": 8,
+      "model_added_fp": 0,
+      "model_added_fpr": 0.0,
+      "runtime_abstentions": 0
+    }
+  },
+  "current_mitigation_report": "query-shortcut/REPORT.md",
+  "current_checks": "query-shortcut/retained-checks.json",
+  "current_replays": "query-shortcut/retained-followup.json",
+  "current_scanner_verification": "query-shortcut/scanner-verification.json",
+  "query_probe_total": 88,
+  "query_probe_medium_or_high": 0,
+  "current_host_probes": "query-shortcut/retained-host-probes.json"
 }

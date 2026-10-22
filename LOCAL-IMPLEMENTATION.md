@@ -2,10 +2,18 @@
 
 ## 17 October follow-up
 
-Current changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
-Rule v3 replaces the v2 fallback with ordinary support from an existing full-URL
-LightGBM, using the unchanged frozen calibration threshold. The model's own alerts
-and added scanner false positives pass all limits. A pattern proposal chosen only
+**18 October override:** review of `16fc7a5` reproduced a query-string shortcut in
+the selected full-URL LightGBM. Current deployment requires independent evidence
+before model support can alert. The artifact and threshold are unchanged, so raw
+scores still exhibit the shortcut. All 88 query/path probes now return LOW;
+392 backend tests, the 23/7/15 replays and 17 host probes pass. The [mitigation report](evaluation/reports/2026-10-v4/query-shortcut/REPORT.md)
+records the substantial recall cost and current reproduction commands. Ordinary
+promotion is blocked pending replacement validation. No push or merge performed.
+
+Historical changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
+Rule v3 had replaced the v2 fallback with ordinary support from an existing full-URL
+LightGBM, using the unchanged frozen calibration threshold. Its cohort-level gates
+passed but did not establish query robustness. A pattern proposal chosen only
 on PhreshPhish training/calibration passes the test FPR and replay checks. Its
 substantial recall cost and six remaining brand-resemblance false alarms are
 explicit in the report. The September text model/tokenizer and

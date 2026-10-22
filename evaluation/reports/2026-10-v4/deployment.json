@@ -4,7 +4,7 @@
   "source_artifact_sha256": "44b6f1334cc82c56d1852d0ee5ba15529244a518eee6419c3ba46dbd196aded1",
   "threshold": 0.9903286846155258,
   "representation": "full_url",
-  "policy": "ordinary",
+  "policy": "corroboration_only",
   "pattern_policy": "four_structural_only",
   "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v3.md",
   "selection_rule_sha256": "dc22f0dc7281384e2dbc4ffd35b624eaf0d64f6846c0916dc1b8a3fdf0c677c7",
@@ -16,7 +16,11 @@
   "passes_model_v3": true,
   "passes_incremental_fp_gate": true,
   "report": "evaluation/reports/2026-10-v4/url_v3_final_selection.json",
-  "fallback": false,
+  "fallback": true,
+  "ordinary_deployment_blocked": true,
+  "policy_override_reason": "Query-string shortcut reproduced after review of 16fc7a5; raw scores retained, independent evidence required.",
+  "policy_override_report": "evaluation/reports/2026-10-v4/query-shortcut/REPORT.md",
+  "query_distribution_audit": "evaluation/reports/2026-10-v4/query-shortcut/distribution.json",
   "sealed_test_run": false,
-  "limitations": "Exposed selection; matched healthy empty blacklist; no Egyptian SMS validation."
+  "limitations": "Raw model still overreacts to ordinary queries. V3 gate passes describe historical cohort measurements, not query robustness. Corroboration-only reduces recall; no Egyptian SMS validation."
 }

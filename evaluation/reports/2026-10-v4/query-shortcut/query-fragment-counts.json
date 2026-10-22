@@ -1,0 +1,160 @@
+{
+  "scope": "PhreshPhish rows only, in existing filtered fitting/calibration pools and the complete official test split",
+  "definitions": {
+    "with_query": "Nonempty urllib.parse.urlsplit query; an empty ? is not counted.",
+    "with_fragment": "Nonempty urllib.parse.urlsplit fragment; an empty # is not counted.",
+    "with_both": "Nonempty query and nonempty fragment on the same URL.",
+    "selected_combined_model": "Only PhreshPhish rows from the selected combined model pools; ETIS rows excluded.",
+    "phreshphish_only_model": "PhreshPhish-only model pools, whose filtering differs from the combined setting.",
+    "train_calibration": "Fitting and calibration pools combined; not the unfiltered upstream official training split."
+  },
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+  "prepared_cache_sha256": "53b3fc7c8a5b90d44e7047cd5688ee47ec229e6167d5ed18bd78a07e119b9144",
+  "pools": {
+    "selected_combined_model": {
+      "fit": {
+        "benign": {
+          "total": 84208,
+          "with_query": 3,
+          "without_query": 84205,
+          "with_fragment": 1,
+          "without_fragment": 84207,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 133954,
+          "with_query": 7936,
+          "without_query": 126018,
+          "with_fragment": 821,
+          "without_fragment": 133133,
+          "with_both": 163,
+          "parse_failures": 0
+        }
+      },
+      "calibration": {
+        "benign": {
+          "total": 21178,
+          "with_query": 3,
+          "without_query": 21175,
+          "with_fragment": 0,
+          "without_fragment": 21178,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 35053,
+          "with_query": 1929,
+          "without_query": 33124,
+          "with_fragment": 290,
+          "without_fragment": 34763,
+          "with_both": 56,
+          "parse_failures": 0
+        }
+      },
+      "train_calibration": {
+        "benign": {
+          "total": 105386,
+          "with_query": 6,
+          "without_query": 105380,
+          "with_fragment": 1,
+          "without_fragment": 105385,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 169007,
+          "with_query": 9865,
+          "without_query": 159142,
+          "with_fragment": 1111,
+          "without_fragment": 167896,
+          "with_both": 219,
+          "parse_failures": 0
+        }
+      }
+    },
+    "phreshphish_only_model": {
+      "fit": {
+        "benign": {
+          "total": 84220,
+          "with_query": 3,
+          "without_query": 84217,
+          "with_fragment": 1,
+          "without_fragment": 84219,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 137919,
+          "with_query": 8027,
+          "without_query": 129892,
+          "with_fragment": 821,
+          "without_fragment": 137098,
+          "with_both": 163,
+          "parse_failures": 0
+        }
+      },
+      "calibration": {
+        "benign": {
+          "total": 21187,
+          "with_query": 3,
+          "without_query": 21184,
+          "with_fragment": 0,
+          "without_fragment": 21187,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 35883,
+          "with_query": 1948,
+          "without_query": 33935,
+          "with_fragment": 290,
+          "without_fragment": 35593,
+          "with_both": 56,
+          "parse_failures": 0
+        }
+      },
+      "train_calibration": {
+        "benign": {
+          "total": 105407,
+          "with_query": 6,
+          "without_query": 105401,
+          "with_fragment": 1,
+          "without_fragment": 105406,
+          "with_both": 0,
+          "parse_failures": 0
+        },
+        "phishing": {
+          "total": 173802,
+          "with_query": 9975,
+          "without_query": 163827,
+          "with_fragment": 1111,
+          "without_fragment": 172691,
+          "with_both": 219,
+          "parse_failures": 0
+        }
+      }
+    }
+  },
+  "test": {
+    "benign": {
+      "total": 91260,
+      "with_query": 52,
+      "without_query": 91208,
+      "with_fragment": 0,
+      "without_fragment": 91260,
+      "with_both": 0,
+      "parse_failures": 0
+    },
+    "phishing": {
+      "total": 76800,
+      "with_query": 18398,
+      "without_query": 58402,
+      "with_fragment": 107,
+      "without_fragment": 76693,
+      "with_both": 10,
+      "parse_failures": 0
+    }
+  }
+}

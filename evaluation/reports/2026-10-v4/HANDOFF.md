@@ -1,5 +1,19 @@
 # URL contribution-gate v3 handover
 
+**18 October override after review of `16fc7a5`: current policy is
+`corroboration_only`.** The raw full-URL model overreacts to ordinary queries.
+All 88 exposed URL-shape probes now return LOW; the artifact/threshold are
+unchanged. Tests: **392 passed**, replays **23/23, 7/7, 15/15**, **17/17 host probes**,
+full scanner
+verification **1,619 matches, zero mismatches**. Initialize (isolated DB), frontend
+build and lint pass. Ordinary promotion is blocked. See the
+[current mitigation report](query-shortcut/REPORT.md) and [retained checks](query-shortcut/retained-checks.json).
+URL-only recall drops to **2.871% PhreshPhish / 1.574% ETIS** in the previously
+measured comparison; the classifier needs replacement. Changes are uncommitted
+for review. No push or merge performed.
+
+The remainder preserves the historical 17 October handover and its measurements.
+
 Branch: `fix/url-subdomains-and-hygiene`. Local commit only; no push or merge.
 
 Deployed **ordinary** support from existing `combined_full_url_lightgbm.joblib`,

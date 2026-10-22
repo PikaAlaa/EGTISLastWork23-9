@@ -1,0 +1,263 @@
+{
+  "head": "16fc7a5be11668a8b15cd13e956f59534fec1b89",
+  "scope": "Uncommitted local query-shortcut mitigation; actual final tool output, initial pytest progress dots omitted.",
+  "commands": {
+    "pytest": {
+      "command": ".venv/Scripts/python.exe -m pytest -q -p no:cacheprovider --basetemp .local/pytest-query-shortcut-expanded",
+      "exit_code": 0,
+      "passed": 352,
+      "output": "........................................................................ [ 20%]\r\n........................................................................ [ 40%]\r\n........................................................................ [ 61%]\r\n........................................................................ [ 81%]\r\n................................................................         [100%]\r\n============================== warnings summary ===============================\r\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\r\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\r\n    from starlette.testclient import TestClient as TestClient  # noqa\r\n\r\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\r\n352 passed, 1 warning in 30.46s\r\n"
+    },
+    "initialize": {
+      "exit_code": 0,
+      "output": "{\"initialized\": true, \"database\": \"project-local SQLite unless DATABASE_URL explicitly configured\", \"key\": \"stored in ignored .env; never printed\"}\r\n",
+      "command": ".venv/Scripts/python.exe scripts/initialize.py",
+      "database_url": "sqlite:///C:/Users/Pikaa/pikagraphics/GRAD_PROJECT/ETIS/.local/query-shortcut-init.db"
+    },
+    "frontend_build": {
+      "exit_code": 0,
+      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\rtransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 1.58s\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "command": "npm.cmd run build",
+      "cwd": "etis-frontend"
+    },
+    "frontend_lint": {
+      "exit_code": 0,
+      "output": "\n> etis-frontend@0.0.0 lint\n> oxlint\n\n",
+      "command": "npm.cmd run lint",
+      "cwd": "etis-frontend"
+    },
+    "followup": {
+      "exit_code": 0,
+      "output": "{\r\n  \"detection_passed\": 23,\r\n  \"detection_total\": 23,\r\n  \"robustness_passed\": 7,\r\n  \"robustness_total\": 7,\r\n  \"followup_passed\": 15,\r\n  \"followup_total\": 15,\r\n  \"supplied_probe_results_matched\": 14,\r\n  \"known_limitations\": []\r\n}\r\n",
+      "command": ".venv/Scripts/python.exe evaluation/run_followup.py --output evaluation/reports/2026-10-v4/query-shortcut/followup.json"
+    },
+    "cohort_verification": {
+      "exit_code": 0,
+      "output": "{\"policy\": \"corroboration_only\", \"pattern_policy\": \"four_structural_only\", \"production_brand_distance_unchanged\": true, \"destination_requests\": 0, \"cohorts\": {\"phreshphish_test\": {\"policies\": {\"old_v3_deployed\": {\"full_scanner_matches\": 194, \"mismatches\": 0}, \"v1_selected\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"deployed_v3\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"corroboration_only\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"non_model_baseline\": {\"full_scanner_matches\": 100, \"mismatches\": 0}}, \"packaged_probability_max_difference\": 0.0}, \"etis_grouped_validation\": {\"policies\": {\"old_v3_deployed\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"v1_selected\": {\"full_scanner_matches\": 181, \"mismatches\": 0}, \"deployed_v3\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"corroboration_only\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"non_model_baseline\": {\"full_scanner_matches\": 100, \"mismatches\": 0}}, \"packaged_probability_max_difference\": 0.0}}}\r\n",
+      "command": ".venv/Scripts/python.exe evaluation/verify_url_v3_deployment.py"
+    }
+  },
+  "initial_attempts": [
+    "Default pytest: 306 passed, 20 PermissionError fixture errors at existing user temp directory; rerun with fresh workspace basetemp passed, including two additional guard tests.",
+    "npm run build/lint: npm.ps1 execution policy restriction; npm.cmd succeeded."
+  ],
+  "sealed_test_run": false,
+  "push_performed": false,
+  "merge_performed": false,
+  "previous_pytest": {
+    "exit_code": 0,
+    "output": "......................................................... [ 43%]\r\n........................................................................ [ 65%]\r\n........................................................................ [ 87%]\r\n........................................                                 [100%]\r\n============================== warnings summary ===============================\r\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\r\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\r\n    from starlette.testclient import TestClient as TestClient  # noqa\r\n\r\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\r\n328 passed, 1 warning in 27.67s\r\n",
+    "command": ".venv/Scripts/python.exe -m pytest -q -p no:cacheprovider --basetemp .local/pytest-query-shortcut",
+    "passed": 328
+  },
+  "expanded_probe_count": 88,
+  "expanded_probe_summary": {
+    "path_control": {
+      "hosts": 8,
+      "raw_above_threshold": 0,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "LOW": 8
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "order_query": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "sms_tracking": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "login_control": {
+      "hosts": 8,
+      "raw_above_threshold": 0,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "LOW": 8
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "login_query": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "root_query": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "search_query": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "pagination": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "tracking": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "fragment": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    },
+    "multiple_parameters": {
+      "hosts": 8,
+      "raw_above_threshold": 8,
+      "verdicts": {
+        "active": {
+          "LOW": 8
+        },
+        "ordinary": {
+          "MEDIUM": 4,
+          "LOW": 4
+        },
+        "corroboration_only": {
+          "LOW": 8
+        },
+        "non_model": {
+          "LOW": 8
+        }
+      }
+    }
+  }
+}

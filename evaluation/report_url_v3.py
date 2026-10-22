@@ -32,6 +32,8 @@ def main():
     training = read('pattern_training_proposal_v3.json')
     brands = read('etis_brand_resemblance_pairs_v3.json')
     deployment = read('deployment.json')
+    if deployment['policy'] != 'ordinary':
+        raise RuntimeError('Historical ordinary-policy renderer cannot overwrite the current mitigation report.')
     checks = read('final_checks.json')
     verification = read('deployed_scanner_verification_v3.json')
     replay = read('followup_v3.json')['summary']

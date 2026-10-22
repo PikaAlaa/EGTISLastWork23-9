@@ -1,5 +1,13 @@
 # URL model contribution and pattern follow-up
 
+**Superseded deployment, 18 October:** the query-shortcut review of `16fc7a5`
+reproduced 8/8 raw alerts for ordinary order-query URLs. Current URL-model support
+is **corroboration-only**, with the same artifact/threshold. See the
+[mitigation report](query-shortcut/REPORT.md) for current checks and the substantial
+recall cost. The measurements below describe the historical ordinary-policy
+selection; passing those gates did not establish query robustness. The historical
+promotion/report commands below now reject attempts to restore that deployment.
+
 Deployed **ordinary URL-model support** from the existing combined full-URL LightGBM at **0.99032868461552581**. It passes rule v3's own-model and incremental-scanner FP limits. The independently frozen pattern proposal also passes its acceptance rule. The text model is unchanged.
 
 [Rule v3](url_selection_rule_v3.md) was written **after seeing v2 results, before any new v3 computation**. V2 had incorrectly required the whole scanner to meet the model gates. V3 gates the URL model's own alerts and the extra benign warnings it adds above a matched non-model baseline. Total scanner FPR is reported separately. [REPORT_v2.md](REPORT_v2.md) preserves the prior result; [REPORT_v1.md](REPORT_v1.md) preserves the earlier work.

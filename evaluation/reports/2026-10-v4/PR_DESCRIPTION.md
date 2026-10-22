@@ -1,4 +1,21 @@
-# Gate URL-model contribution and reduce pattern false alarms
+# Contain the full-URL model's query-string shortcut
+
+Review of `16fc7a5` found 8/8 raw model alerts on ordinary order-query URLs,
+versus 0/8 path controls. Require independent corroboration for URL-model support
+while retaining the raw diagnostics, full URL and frozen artifact/threshold.
+Historical promotion/report scripts cannot silently restore ordinary support.
+
+All 88 exposed URL-shape probes return LOW. Four of the eight reviewer hosts
+already have registry suppression, so the actual ordinary scanner warns on 4/8
+order-query URLs. This change adds no host exceptions. The classifier is still
+biased; the fallback reduces previously measured URL-only recall from
+59.479% to 2.871% on PhreshPhish and from 17.294% to 1.574% on ETIS.
+
+Validation: 392 backend tests; 23/23, 7/7, 15/15 replays; 17/17 host probes; 1,619 full scanner
+checks with zero mismatches; isolated initialization, frontend build and lint.
+See the [mitigation report](query-shortcut/REPORT.md). No push or merge.
+
+## Historical contribution-gate changes already in 16fc7a5
 
 V2's total-scanner gate obscured an ordinary model policy that adds few false alarms.
 Freeze v3 after disclosing v2 results, reuse all 202 calibration-frozen candidates,
