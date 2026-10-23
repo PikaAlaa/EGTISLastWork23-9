@@ -43,6 +43,13 @@ def score_url(value: str) -> dict | None:
         representation = schema['representation']
         if representation not in {'host_only', 'full_url', 'shortcut_only'}:
             raise ValueError('Unsupported deployed URL representation')
+        input_mode = schema.get('input_mode', 'original')
+        if input_mode == 'host_path' and representation == 'full_url':
+            # Model input only. The scanner retains the complete original URL
+            # for blacklist identity, brand/pattern checks and displayed evidence.
+            value = value.split('#', 1)[0].split('?', 1)[0]
+        elif input_mode != 'original':
+            raise ValueError('Unsupported deployed URL input mode')
         feature = value if representation == 'full_url' else parsed.host
         if 'pipeline' in artifact:
             probability = float(artifact['pipeline'].predict_proba([feature])[0, 1])

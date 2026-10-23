@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT), str(ROOT / 'backend')]
 import joblib
 import numpy as np
-from rapidfuzz.distance import Levenshtein
 from app.core.exceptions import InvalidScanInputError
 from app.core.egyptian_brands import EGYPTIAN_BRAND_DOMAINS
 from app.engines.rule_based import domain_typosquatting_detector as brand
@@ -173,6 +172,7 @@ def selection_key(c):
 @contextmanager
 def accelerated_brands():
     # Exact distance substitution already checked on 7,506 pairs in v2.
+    from rapidfuzz.distance import Levenshtein
     original = brand.calculate_levenshtein_distance
     brand.calculate_levenshtein_distance = Levenshtein.distance
     try:

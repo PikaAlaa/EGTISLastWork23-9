@@ -1,44 +1,18 @@
-# Contain the full-URL model's query-string shortcut
+# Evaluate query-invariant URL candidates and fix runtime-only CI
 
-Review of `16fc7a5` found 8/8 raw model alerts on ordinary order-query URLs,
-versus 0/8 path controls. Require independent corroboration for URL-model support
-while retaining the raw diagnostics, full URL and frozen artifact/threshold.
-Historical promotion/report scripts cannot silently restore ordinary support.
+The historical full-URL classifier flags 35/52 benign query URLs despite seeing only three in fitting. Execute the unchanged v4 rule with 202 original candidates plus 87 host+path thresholds chosen only on calibration data and frozen before evaluation. Preserve all inputs, weights, registry entries, pattern policy and historical promotion guards.
 
-All 88 exposed URL-shape probes return LOW. Four of the eight reviewer hosts
-already have registry suppression, so the actual ordinary scanner warns on 4/8
-order-query URLs. This change adds no host exceptions. The classifier is still
-biased; the fallback reduces previously measured URL-only recall from
-59.479% to 2.871% on PhreshPhish and from 17.294% to 1.574% on ETIS.
+The numerical winner is `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` with **host_path**, threshold **0.98706904485526037**. **Deployment is blocked**: it passes v3 and QUERY-INVARIANCE but fails 29 assertions in the unchanged backend suite. All 289 candidates receive that suite, the 40-query tests, 23/7/15 replays, 17 hosts and 88 shape cases. Keep corroboration-only active; do not silently rerank the numerical winner or reinterpret the fallback order. Historical-policy assertions and original-input metadata tests require an explicit resolution before ordinary replacement deployment.
 
-Validation: 392 backend tests; 23/23, 7/7, 15/15 replays; 17/17 host probes; 1,619 full scanner
-checks with zero mismatches; isolated initialization, frontend build and lint.
-See the [mitigation report](query-shortcut/REPORT.md). No push or merge.
+| Configuration | PhreshPhish recall | PhreshPhish FP / benign | ETIS recall | ETIS FP / benign |
+|---|---:|---:|---:|---:|
+| Historical v3 ordinary | 45,680/76,800 (59.479%) | 254/91,260 | 1,033/5,973 (17.294%) | 10/2,916 |
+| Before this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
+| After this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
+| Numerical v4 winner, ordinary projection; NOT DEPLOYED | 32,474/76,800 (42.284%) | 227/91,260 | 764/5,973 (12.791%) | 14/2,916 |
 
-## Historical contribution-gate changes already in 16fc7a5
+The candidate row is an exposed development projection, not deployed performance. [Complete evidence and limitations](REPORT.md), including the malformed coverage hash in the unchanged rule, sparse natural-query/fragment coverage, every candidate's gates, paired diagnostics and engineering failures.
 
-V2's total-scanner gate obscured an ordinary model policy that adds few false alarms.
-Freeze v3 after disclosing v2 results, reuse all 202 calibration-frozen candidates,
-and deploy the highest integrated PhreshPhish-recall passer: existing full-URL
-LightGBM at 0.9903286846155258, with ordinary support. Its own alerts pass all three
-FPR limits; extra scanner FP are 48/91,260 on PhreshPhish and 2/2,916 on ETIS.
+Move RapidFuzz into the evaluation function that uses it. Fresh venv with only runtime requirements: 383 passed, 5 optional skips; RapidFuzz absent. Current deployment checks: 392 backend tests, 40 query tests, 23/7/15 replays, 17 host probes, 88 shape probes, 1,619 scanner matches, isolated initialization, frontend build and lint pass. Keep the production model-input preprocessor inactive pending deployment clearance.
 
-Choose one pattern proposal only on PhreshPhish training/calibration after freezing
-acceptance. Keep keyword, HTTP, length and subdomain-count observations diagnostic;
-IP, userinfo, nonstandard port and punycode may alert. Test pattern FPR is
-17/91,260 (0.018628%), and the 23/7/15 replays have no loss. The same model's integrated
-recall falls 11.710 points on PhreshPhish and 9.861 on ETIS from this change.
-
-List all 13 ETIS brand/domain pairs offline. Add only seven cited missing official
-Amazon/Orange domains; retain six unsupported resemblance cases as limitations.
-Final scanner recall is 59.479% PhreshPhish / 17.294% ETIS, with total false positives
-254/91,260 and 10/2,916. Report matched original-v3, v1 and corroboration-only results,
-separating non-model and model-added false positives on both cohorts.
-
-Validation: 251 pytest tests; initialize, frontend build and lint pass; replays
-23/23, 7/7, 15/15; all 17 host probes avoid MEDIUM/HIGH; full-scanner cohort checks
-have zero mismatches. Logs and detailed evidence: [REPORT.md](REPORT.md).
-
-The text model, frozen thresholds and historical data safeguards remain. These
-repeatedly exposed cohorts do not establish independent or Egyptian SMS accuracy.
-No sealed test, push, merge, data upload or history rewrite.
+No rule/test weakening, frozen input changes, new fitting, destination/HTML access, sealed final test, push or merge. Genuine Egyptian SMS final-test count remains zero.

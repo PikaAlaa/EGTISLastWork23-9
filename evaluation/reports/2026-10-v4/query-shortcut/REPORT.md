@@ -1,3 +1,17 @@
+# 22 October v4 evaluation update
+
+Current policy remains **corroboration_only**. The unchanged v4 rule produced a numerical winner (`release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` with **host_path**, threshold **0.98706904485526037**), but its unchanged engineering suite blocks deployment. No fallback tier was invented to bypass that blocker. See [the complete v4 report](../REPORT.md), [decision](../url_v4_decision.json) and [candidate checks](../url_v4_engineering.json). The RapidFuzz CI import failure is fixed and verified in a fresh runtime-only venv.
+
+| Configuration | PhreshPhish recall | PhreshPhish FP / benign | ETIS recall | ETIS FP / benign |
+|---|---:|---:|---:|---:|
+| Historical v3 ordinary | 45,680/76,800 (59.479%) | 254/91,260 | 1,033/5,973 (17.294%) | 10/2,916 |
+| Before this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
+| After this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
+| Numerical v4 winner, ordinary projection; NOT DEPLOYED | 32,474/76,800 (42.284%) | 227/91,260 | 764/5,973 (12.791%) | 14/2,916 |
+
+The candidate row is a measured, undeployed projection. Before/after deployment metrics are unchanged. The historical query diagnosis and containment evidence below remain valid; current checks are in the v4 report.
+
+<!-- V4 QUERY HISTORY -->
 # Query-string shortcut: local containment after 16fc7a5
 
 The full-URL `combined_full_url_lightgbm` classifier at the unchanged threshold

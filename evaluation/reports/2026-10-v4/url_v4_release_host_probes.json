@@ -1,0 +1,731 @@
+{
+  "kind": "exposed regression probes, not population or Egyptian-performance evidence",
+  "url_model_policy": "corroboration_only",
+  "artifact_sha256": "4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8",
+  "destination_requests": 0,
+  "sealed_test_run": false,
+  "rows": [
+    {
+      "host": "login.microsoftonline.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.23791075639537634,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "microsoftonline.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://login.microsoftonline.com/",
+        "host": "login.microsoftonline.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": null,
+          "matched_brand_domain": null,
+          "technique": null,
+          "normalized_domain": "login.microsoftonline.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.23791075639537634,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": false,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "outlook.office365.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.46000990799988756,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "office365.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://outlook.office365.com/",
+        "host": "outlook.office365.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": null,
+          "matched_brand_domain": null,
+          "technique": null,
+          "normalized_domain": "outlook.office365.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.46000990799988756,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": false,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "teams.microsoft.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.17446232274351767,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "microsoft.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://teams.microsoft.com/",
+        "host": "teams.microsoft.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": null,
+          "matched_brand_domain": null,
+          "technique": null,
+          "normalized_domain": "teams.microsoft.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.17446232274351767,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": false,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "secure.paymob.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.17662962442237448,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "paymob.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://secure.paymob.com/",
+        "host": "secure.paymob.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Paymob",
+          "matched_brand_domain": "paymob.com",
+          "technique": "exact_match",
+          "normalized_domain": "secure.paymob.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.17662962442237448,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "accept.paymob.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.17446232274351767,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "paymob.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://accept.paymob.com/",
+        "host": "accept.paymob.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Paymob",
+          "matched_brand_domain": "paymob.com",
+          "technique": "exact_match",
+          "normalized_domain": "accept.paymob.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.17446232274351767,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "careers.vodafone.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.22106145783387784,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "vodafone.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://careers.vodafone.com/",
+        "host": "careers.vodafone.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Vodafone Group",
+          "matched_brand_domain": "vodafone.com",
+          "technique": "exact_match",
+          "normalized_domain": "careers.vodafone.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.22106145783387784,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "booking.egyptair.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.25670449377011184,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "egyptair.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://booking.egyptair.com/",
+        "host": "booking.egyptair.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "EgyptAir",
+          "matched_brand_domain": "egyptair.com",
+          "technique": "exact_match",
+          "normalized_domain": "booking.egyptair.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.25670449377011184,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "vendor.talabat.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.22106145783387784,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "talabat.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://vendor.talabat.com/",
+        "host": "vendor.talabat.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Talabat Egypt",
+          "matched_brand_domain": "talabat.com",
+          "technique": "exact_match",
+          "normalized_domain": "vendor.talabat.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.22106145783387784,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "ebanking.cibeg.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.22106145783387784,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "cibeg.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://ebanking.cibeg.com/",
+        "host": "ebanking.cibeg.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Commercial International Bank (CIB)",
+          "matched_brand_domain": "cibeg.com",
+          "technique": "exact_match",
+          "normalized_domain": "ebanking.cibeg.com",
+          "decisive": false,
+          "official_contact": {
+            "phone": "19666",
+            "source": "https://www.cibeg.com/ar/complaint-form",
+            "verified_on": "2026-10-08",
+            "country": "EG"
+          }
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.22106145783387784,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "bm-online.banquemisr.com",
+      "kind": "subdomain",
+      "model": {
+        "probability": 0.5494048568190187,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "banquemisr.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://bm-online.banquemisr.com/",
+        "host": "bm-online.banquemisr.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Banque Misr",
+          "matched_brand_domain": "banquemisr.com",
+          "technique": "exact_match",
+          "normalized_domain": "bm-online.banquemisr.com",
+          "decisive": false,
+          "official_contact": {
+            "phone": "19888",
+            "source": "https://www.banquemisr.com/ar-EG/Home/CONTACT-US/Call-Center?sc_lang=en",
+            "verified_on": "2026-10-08",
+            "country": "EG"
+          }
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.5494048568190187,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "microsoftonline.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.416860772561918,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "microsoftonline.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://microsoftonline.com/",
+        "host": "microsoftonline.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": null,
+          "matched_brand_domain": null,
+          "technique": null,
+          "normalized_domain": "microsoftonline.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.416860772561918,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": false,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "paymob.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.3423014814884379,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "paymob.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://paymob.com/",
+        "host": "paymob.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Paymob",
+          "matched_brand_domain": "paymob.com",
+          "technique": "exact_match",
+          "normalized_domain": "paymob.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.3423014814884379,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "vodafone.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.38769643228704603,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "vodafone.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://vodafone.com/",
+        "host": "vodafone.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Vodafone Group",
+          "matched_brand_domain": "vodafone.com",
+          "technique": "exact_match",
+          "normalized_domain": "vodafone.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.38769643228704603,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "egyptair.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.38769643228704603,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "egyptair.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://egyptair.com/",
+        "host": "egyptair.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "EgyptAir",
+          "matched_brand_domain": "egyptair.com",
+          "technique": "exact_match",
+          "normalized_domain": "egyptair.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.38769643228704603,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "talabat.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.4227693898367992,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "talabat.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://talabat.com/",
+        "host": "talabat.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Talabat Egypt",
+          "matched_brand_domain": "talabat.com",
+          "technique": "exact_match",
+          "normalized_domain": "talabat.com",
+          "decisive": false,
+          "official_contact": null
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.4227693898367992,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "cibeg.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.35043201022150355,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "cibeg.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://cibeg.com/",
+        "host": "cibeg.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Commercial International Bank (CIB)",
+          "matched_brand_domain": "cibeg.com",
+          "technique": "exact_match",
+          "normalized_domain": "cibeg.com",
+          "decisive": false,
+          "official_contact": {
+            "phone": "19666",
+            "source": "https://www.cibeg.com/ar/complaint-form",
+            "verified_on": "2026-10-08",
+            "country": "EG"
+          }
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.35043201022150355,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    },
+    {
+      "host": "banquemisr.com",
+      "kind": "main",
+      "model": {
+        "probability": 0.3572109932427548,
+        "threshold": 0.9903286846155258,
+        "registered_domain": "banquemisr.com",
+        "version": "4fb9b6afbb4b356e"
+      },
+      "verdict": "LOW",
+      "reason": "no_warning_signs",
+      "signals": [],
+      "link": {
+        "url": "https://banquemisr.com/",
+        "host": "banquemisr.com",
+        "bare": false,
+        "brand": {
+          "score": 0.0,
+          "matched_brand": "Banque Misr",
+          "matched_brand_domain": "banquemisr.com",
+          "technique": "exact_match",
+          "normalized_domain": "banquemisr.com",
+          "decisive": false,
+          "official_contact": {
+            "phone": "19888",
+            "source": "https://www.banquemisr.com/ar-EG/Home/CONTACT-US/Call-Center?sc_lang=en",
+            "verified_on": "2026-10-08",
+            "country": "EG"
+          }
+        },
+        "patterns": [],
+        "pattern_observations": [],
+        "blacklist": {
+          "score": 0.0,
+          "match_type": null,
+          "matched_entry": null
+        },
+        "url_model_probability": 0.3572109932427548,
+        "url_model_threshold": 0.9903286846155258,
+        "url_model_above_threshold": false,
+        "url_model_raw_above_threshold": false,
+        "verified_official_host": true,
+        "shared_hosting_domain": false,
+        "analysis_complete": true
+      }
+    }
+  ],
+  "summary": {
+    "hosts": 17,
+    "raw_above_threshold": 0,
+    "medium_or_high": 0
+  }
+}
