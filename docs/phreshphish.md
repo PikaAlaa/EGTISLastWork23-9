@@ -1,5 +1,14 @@
 # PhreshPhish URL-only reproduction
 
+For the current host-model change use `python evaluation/run_url_subdomains_v4.py`
+after restoring the authorized ETIS development inputs and downloading the permitted
+projection. Its aggregates go to `evaluation/reports/2026-10-v4/`; candidates and
+row scores stay local. The original protocol below remains frozen; the v4 selection
+rule explicitly records the user's promotion authorization. Historical candidate
+binaries are now in ignored `release-artifacts/` with a SHA-256 manifest, rather
+than in the Git tree. The original comparison commands below describe the historical
+run and require restoring its candidate files to their manifest paths if reusing them.
+
 Source: [PhreshPhish dataset card at the pinned revision](https://huggingface.co/datasets/phreshphish/phreshphish/blob/eabec4b7a66324b79cc8a0ad856d1731dc26fe1a/README.md). Cite Dalton et al. (2025), *PhreshPhish: A Real-World, High-Quality, Large-Scale Phishing Website Dataset and Benchmark*, arXiv preprint, [DOI 10.48550/arxiv.2507.10854](https://doi.org/10.48550/arxiv.2507.10854). The current card identifies version 1.0.1, dated 7 February 2026; commit `eabec4b7a66324b79cc8a0ad856d1731dc26fe1a` pins the actual files.
 
 The card states CC BY 4.0 and requests anti-phishing research use only. It does not state where benign URLs were sourced. Its test class counts sum to 168,136 although the stated total is 168,060, a difference of 76. Use locally measured label counts in the report.

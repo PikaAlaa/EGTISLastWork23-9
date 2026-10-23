@@ -1,0 +1,166 @@
+{
+  "created_at": "2026-10-23T14:56:52.687873+00:00",
+  "status": "deployed",
+  "base_commit": "fe51b3f",
+  "branch": "fix/url-subdomains-and-hygiene",
+  "deployment": {
+    "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+    "candidate_id": "ee0ba9f0077c1fd140aa",
+    "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+    "source_artifact_sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+    "threshold": 0.9870690448552604,
+    "representation": "full_url",
+    "input_mode": "host_path",
+    "phresh_schema": true,
+    "preprocessing_sha256": "43b286771b8893f044efb06d97a797b933cfc9997279d3950bcc85e45c8f321a",
+    "policy": "ordinary",
+    "pattern_policy": "four_structural_only",
+    "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v4.md",
+    "selection_rule_sha256": "6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa",
+    "frozen_thresholds_path": "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.json",
+    "frozen_thresholds_sha256": "5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44",
+    "pattern_acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "pattern_training_proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+    "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+    "report": "evaluation/reports/2026-10-v4/REPORT.md",
+    "numerical_decision": "evaluation/reports/2026-10-v4/url_v4_decision.json",
+    "owner_authorized_test_rewrite": true,
+    "historical_engineering_failures": 29,
+    "model_weights_fitted": false,
+    "thresholds_retuned": false,
+    "sealed_test_run": false,
+    "limitations": "Exposed development selection; sparse natural benign queries, no benign fragment coverage or genuine Egyptian SMS final test."
+  },
+  "historical_decision": "url_v4_decision.json",
+  "historical_status": "blocked_engineering",
+  "historical_engineering": {
+    "passed": 363,
+    "failed": 29
+  },
+  "test_rewrite": {
+    "owner_authorized": true,
+    "historical_failures_reconciled": 29,
+    "files": {
+      "backend/tests/test_url_query_shortcut.py": "1d48959bd278bcfc84a7607255277d966a2bd314c122058aae70bd56534d531c",
+      "backend/tests/test_review_data_integrity.py": "4a46a93ebe2518441fadbbc5fb7699bbc1e8850d23c60608f03c740cda761a04",
+      "backend/tests/test_url_legit_subdomains.py": "b683154c4c274d51ae949dde3882af9bf003626a3c803034ea2b944cde3d0ce8"
+    },
+    "properties": [
+      "Benign queries cannot create model support",
+      "Raw host_path probabilities are invariant to queries and fragments",
+      "Representation, source hash and frozen threshold follow deployment metadata",
+      "Ordinary support can warn; HIGH still needs independent evidence"
+    ]
+  },
+  "checks": {
+    "pytest_passed": 392,
+    "pytest_failed": 0,
+    "runtime_only_passed": 383,
+    "runtime_only_skipped": 5,
+    "query_invariance_40": 40,
+    "replays": {
+      "detection_passed": 23,
+      "detection_total": 23,
+      "robustness_passed": 7,
+      "robustness_total": 7,
+      "followup_passed": 15,
+      "followup_total": 15,
+      "supplied_probe_results_matched": 14,
+      "known_limitations": []
+    },
+    "host_probes": {
+      "hosts": 17,
+      "raw_above_threshold": 0,
+      "medium_or_high": 0
+    },
+    "query_path_low": 88,
+    "query_path_raw_alerts": 0,
+    "scanner_matches": 332,
+    "scanner_abstentions": 10,
+    "scanner_mismatches": 0,
+    "initialize_exit_code": 0,
+    "frontend_build_exit_code": 0,
+    "frontend_lint_exit_code": 0
+  },
+  "before_after": {
+    "before": {
+      "phreshphish_test": {
+        "recall": 0.0287109375,
+        "tp": 2205,
+        "phishing_n": 76800,
+        "total_fp": 206,
+        "benign_n": 91260,
+        "total_fpr": 0.002257286872671488,
+        "non_model_fp": 206,
+        "model_added_fp": 0,
+        "model_added_fpr": 0.0,
+        "runtime_abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "recall": 0.01573748535074502,
+        "tp": 94,
+        "phishing_n": 5973,
+        "total_fp": 8,
+        "benign_n": 2916,
+        "total_fpr": 0.0027434842249657062,
+        "non_model_fp": 8,
+        "model_added_fp": 0,
+        "model_added_fpr": 0.0,
+        "runtime_abstentions": 0
+      }
+    },
+    "after": {
+      "phreshphish_test": {
+        "tp": 32474,
+        "phishing_n": 76800,
+        "recall": 0.4228385416666667,
+        "total_fp": 227,
+        "benign_n": 91260,
+        "non_model_fp": 206,
+        "model_added_fp": 21,
+        "model_added_fpr": 0.00023011176857330704,
+        "total_fpr": 0.002487398641244795,
+        "abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "tp": 764,
+        "phishing_n": 5973,
+        "recall": 0.127908923489034,
+        "total_fp": 14,
+        "benign_n": 2916,
+        "non_model_fp": 8,
+        "model_added_fp": 6,
+        "model_added_fpr": 0.00205761316872428,
+        "total_fpr": 0.004801097393689987,
+        "abstentions": 0
+      }
+    },
+    "provenance": "Reused existing v4 frozen cohort measurements; verified packaged scorer on samples, no evaluation rerun"
+  },
+  "protected_file_hashes": {
+    "evaluation/reports/2026-10-v4/url_selection_rule_v4.md": "6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa",
+    "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.json": "5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44",
+    "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.sha256": "8a02a477e358d87171ed32fa77226ffc053ee0a6903004f1f9bc717d202a264c",
+    "evaluation/reports/2026-10-v4/url_v4_decision.json": "b27d1f9d5a7ad1cac6db20f185f1afe7b95b9a82438072d000c52ff9485b386d",
+    "evaluation/reports/2026-10-v4/url_v4_comparison.json": "4175eb85070a44d218ee04ef0b5771491fe3c19b611a21abc124c9661dcbec14",
+    "evaluation/reports/2026-10-v4/url_v4_engineering.json": "59e343a4fee621162c26e17b4610758258ebd51b56f90fe7349916e70a95dd93",
+    "evaluation/reports/2026-10-v4/url_v4_runtime_parity.json": "cac046c5465c86874568f509d74acd05e316f4972e26b9dbedf2ea87faf51bd1",
+    "evaluation/reports/2026-10-v4/url_v4_provenance.json": "c9845bf92f4d744f92f0c2befb4723cb380804efc55e50a4ff2a1330729d7fea",
+    "evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json": "cc85a74db40f420daf2414efdbfe255891e64302933d00caf13bcab13496e7ca",
+    "evaluation/reports/2026-10-v4/url_pattern_acceptance_rule_v3.md": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "evaluation/reports/2026-10-v4/pattern_training_proposal_v3.json": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372"
+  },
+  "immutable_source_artifacts_verified": 36,
+  "prepared_url_only_cache_sha256": "53b3fc7c8a5b90d44e7047cd5688ee47ec229e6167d5ed18bd78a07e119b9144",
+  "v4_evaluation_rerun": false,
+  "selection_changed": false,
+  "thresholds_changed": false,
+  "model_weights_fitted": false,
+  "destination_requests": 0,
+  "phreshphish_html_loaded": false,
+  "sealed_test_run": false,
+  "genuine_egyptian_sms_test_count": 0,
+  "push_performed": false,
+  "merge_performed": false
+}

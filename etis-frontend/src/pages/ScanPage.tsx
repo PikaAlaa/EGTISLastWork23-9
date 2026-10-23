@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box,TextField,Button,Typography,CircularProgress,Alert,Stack,Paper,Chip } from '@mui/material';
+import { Box,TextField,Button,Typography,CircularProgress,Alert,Stack,Paper,Chip,MenuItem } from '@mui/material';
 import { analyzeScan,ApiError } from '../api/client';
-import type { AnalyzeResponse } from '../api/types';
+import type { AnalyzeResponse,SenderType } from '../api/types';
 import { VerdictCard } from '../components/VerdictCard';
 
 export function ScanPage() {
  const {t}=useTranslation();
  const [url,setUrl]=useState(''),[text,setText]=useState('');
+ const [senderType,setSenderType]=useState<SenderType>('unknown');
  const [loading,setLoading]=useState(false),[error,setError]=useState<string|null>(null);
  const [result,setResult]=useState<AnalyzeResponse|null>(null);
  const mounted=useRef(true);
@@ -17,7 +18,7 @@ export function ScanPage() {
   if(!url.trim()&&!text.trim()){setError('inputRequired');return;}
   setLoading(true);setError(null);setResult(null);
   try {
-   const response=await analyzeScan({url:url.trim()||undefined,text:text.trim()||undefined});
+   const response=await analyzeScan({url:url.trim()||undefined,text:text.trim()||undefined,sender_type:text.trim()?senderType:undefined});
    if(mounted.current)setResult(response);
   } catch(err){
    if(mounted.current)setError(err instanceof ApiError&&err.status===400?'invalidInput':err instanceof ApiError&&err.status===429?'tooMany':'requestFailed');
@@ -32,6 +33,9 @@ export function ScanPage() {
    <Stack spacing={2}>
     <TextField label={t('scan.urlLabel')} value={url} disabled={loading} onChange={e=>{setUrl(e.target.value);setResult(null)}} fullWidth slotProps={{htmlInput:{maxLength:2048,dir:'ltr'}}} placeholder="https://example.com" />
     <TextField label={t('scan.textLabel')} value={text} disabled={loading} onChange={e=>{setText(e.target.value);setResult(null)}} fullWidth multiline minRows={4} slotProps={{htmlInput:{maxLength:5000}}} helperText={t('scan.textLimit',{count:text.length})} />
+    <TextField select label={t('scan.senderLabel')} value={senderType} disabled={loading||!text.trim()} onChange={e=>{setSenderType(e.target.value as SenderType);setResult(null)}} fullWidth helperText={t('scan.senderHelp')}>
+     {(['unknown','company_name','short_code','mobile_number'] as SenderType[]).map(type=><MenuItem key={type} value={type}>{t(`scan.senderTypes.${type}`)}</MenuItem>)}
+    </TextField>
     <Button type="submit" variant="contained" disabled={loading}>{loading?<CircularProgress size={22} aria-label={t('scan.loading')}/>:t('scan.submit')}</Button>
    </Stack>
   </Box>

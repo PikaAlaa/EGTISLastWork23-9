@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "etis-frontend",
+    "run",
+    "build"
+  ],
+  "exit_code": 0,
+  "seconds": 2.7863276999560185,
+  "date": "2026-10-17T19:13:15.256132+00:00",
+  "stdout": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-BPm9yGbt.js   547.27 kB \u2502 gzip: 172.44 kB\n\n\u2713 built in 221ms\n",
+  "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+}

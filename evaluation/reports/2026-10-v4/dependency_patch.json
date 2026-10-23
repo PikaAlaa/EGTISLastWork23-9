@@ -1,0 +1,9 @@
+{
+  "changed_packages": {
+    "node_modules/source-map-js": {
+      "before": "1.2.1",
+      "after": "1.2.2"
+    }
+  },
+  "package_manifest_unchanged": true
+}

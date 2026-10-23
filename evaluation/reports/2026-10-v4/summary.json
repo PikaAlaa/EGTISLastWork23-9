@@ -1,0 +1,361 @@
+{
+  "deployed_policy": "corroboration_only",
+  "deployed_artifact": {
+    "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/combined_full_url_lightgbm.joblib",
+    "artifact_sha256": "4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8",
+    "source_artifact_sha256": "44b6f1334cc82c56d1852d0ee5ba15529244a518eee6419c3ba46dbd196aded1",
+    "threshold": 0.9903286846155258,
+    "representation": "full_url",
+    "policy": "corroboration_only",
+    "pattern_policy": "four_structural_only",
+    "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v3.md",
+    "selection_rule_sha256": "dc22f0dc7281384e2dbc4ffd35b624eaf0d64f6846c0916dc1b8a3fdf0c677c7",
+    "frozen_thresholds_sha256": "cc85a74db40f420daf2414efdbfe255891e64302933d00caf13bcab13496e7ca",
+    "pattern_acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "pattern_training_proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+    "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+    "passes_model_v3": true,
+    "passes_incremental_fp_gate": true,
+    "report": "evaluation/reports/2026-10-v4/url_v3_final_selection.json",
+    "fallback": true,
+    "ordinary_deployment_blocked": true,
+    "policy_override_reason": "Query-string shortcut reproduced after review of 16fc7a5; raw scores retained, independent evidence required.",
+    "policy_override_report": "evaluation/reports/2026-10-v4/query-shortcut/REPORT.md",
+    "query_distribution_audit": "evaluation/reports/2026-10-v4/query-shortcut/distribution.json",
+    "sealed_test_run": false,
+    "limitations": "Raw model still overreacts to ordinary queries. V3 gate passes describe historical cohort measurements, not query robustness. Corroboration-only reduces recall; no Egyptian SMS validation."
+  },
+  "frozen_candidate_count": 202,
+  "passing_candidates": 97,
+  "thresholds_added": 0,
+  "comparisons": {
+    "old_v3_deployed": {
+      "phreshphish_test": {
+        "recall": 0.6182552083333334,
+        "tp": 47482,
+        "phishing_n": 76800,
+        "total_fp": 42741,
+        "benign_n": 91260,
+        "total_fpr": 0.4683431952662722,
+        "non_model_fp": 206,
+        "model_added_fp": 42535,
+        "model_added_fpr": 0.4660859083936007,
+        "runtime_abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "recall": 0.7219152854511971,
+        "tp": 4312,
+        "phishing_n": 5973,
+        "total_fp": 10,
+        "benign_n": 2916,
+        "total_fpr": 0.003429355281207133,
+        "non_model_fp": 8,
+        "model_added_fp": 2,
+        "model_added_fpr": 0.0006858710562414266,
+        "runtime_abstentions": 0
+      }
+    },
+    "v1_selected": {
+      "phreshphish_test": {
+        "recall": 0.3996484375,
+        "tp": 30693,
+        "phishing_n": 76800,
+        "total_fp": 347,
+        "benign_n": 91260,
+        "total_fpr": 0.003802323033092264,
+        "non_model_fp": 206,
+        "model_added_fp": 141,
+        "model_added_fpr": 0.001545036160420776,
+        "runtime_abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "recall": 0.5953457224175456,
+        "tp": 3556,
+        "phishing_n": 5973,
+        "total_fp": 86,
+        "benign_n": 2916,
+        "total_fpr": 0.029492455418381344,
+        "non_model_fp": 8,
+        "model_added_fp": 78,
+        "model_added_fpr": 0.026748971193415638,
+        "runtime_abstentions": 0
+      }
+    },
+    "deployed_v3": {
+      "phreshphish_test": {
+        "recall": 0.5947916666666667,
+        "tp": 45680,
+        "phishing_n": 76800,
+        "total_fp": 254,
+        "benign_n": 91260,
+        "total_fpr": 0.0027832566294104756,
+        "non_model_fp": 206,
+        "model_added_fp": 48,
+        "model_added_fpr": 0.0005259697567389875,
+        "runtime_abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "recall": 0.17294491880127238,
+        "tp": 1033,
+        "phishing_n": 5973,
+        "total_fp": 10,
+        "benign_n": 2916,
+        "total_fpr": 0.003429355281207133,
+        "non_model_fp": 8,
+        "model_added_fp": 2,
+        "model_added_fpr": 0.0006858710562414266,
+        "runtime_abstentions": 0
+      }
+    },
+    "corroboration_only": {
+      "phreshphish_test": {
+        "recall": 0.0287109375,
+        "tp": 2205,
+        "phishing_n": 76800,
+        "total_fp": 206,
+        "benign_n": 91260,
+        "total_fpr": 0.002257286872671488,
+        "non_model_fp": 206,
+        "model_added_fp": 0,
+        "model_added_fpr": 0.0,
+        "runtime_abstentions": 133
+      },
+      "etis_grouped_validation": {
+        "recall": 0.01573748535074502,
+        "tp": 94,
+        "phishing_n": 5973,
+        "total_fp": 8,
+        "benign_n": 2916,
+        "total_fpr": 0.0027434842249657062,
+        "non_model_fp": 8,
+        "model_added_fp": 0,
+        "model_added_fpr": 0.0,
+        "runtime_abstentions": 0
+      }
+    }
+  },
+  "pattern_acceptance": {
+    "proposal_frozen_before_evaluation": true,
+    "proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "proposal": "four_structural_only",
+    "test_used_to_choose_proposal": false,
+    "example_hosts_printed": 0,
+    "destination_requests": 0,
+    "cohorts": {
+      "phreshphish_test": {
+        "benign_flag_counts": {
+          "ip_address_host": 0,
+          "userinfo_in_url": 0,
+          "non_standard_port": 0,
+          "punycode_domain": 17,
+          "no_https": 532,
+          "suspicious_path_keyword": 2799,
+          "long_url": 594,
+          "many_subdomains": 818
+        },
+        "benign_flag_counts_are_overlapping": true,
+        "legacy": {
+          "n": 168060,
+          "phishing_n": 76800,
+          "benign_n": 91260,
+          "abstentions": 133,
+          "threshold": 0.5,
+          "tp": 18517,
+          "fp": 4677,
+          "fn": 58283,
+          "tn": 86583,
+          "recall": 0.24110677083333334,
+          "false_positive_rate": 0.0512491781722551,
+          "recall_wilson_95": [
+            0.23809450897595863,
+            0.24414493055362507
+          ],
+          "fpr_wilson_95": [
+            0.049837342098611834,
+            0.05269879170026033
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.04536537336739096,
+          "precision_at_phishing_base_rate_0_1pct": 0.004687233484220547,
+          "precision_conservative_bound_1pct": 0.04364482338555887,
+          "precision_conservative_bound_0_1pct": 0.00450218714898904,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "proposed": {
+          "n": 168060,
+          "phishing_n": 76800,
+          "benign_n": 91260,
+          "abstentions": 133,
+          "threshold": 0.5,
+          "tp": 1589,
+          "fp": 17,
+          "fn": 75211,
+          "tn": 91243,
+          "recall": 0.020690104166666667,
+          "false_positive_rate": 0.00018628095551172474,
+          "recall_wilson_95": [
+            0.019707096882287643,
+            0.021721058251419786
+          ],
+          "fpr_wilson_95": [
+            0.00011631330405571655,
+            0.00029832471923819253
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.5287270550756938,
+          "precision_at_phishing_base_rate_0_1pct": 0.10005622413047277,
+          "precision_conservative_bound_1pct": 0.4002152514165049,
+          "precision_conservative_bound_0_1pct": 0.062023983670644954,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "pattern_recall_change": -0.22041666666666668
+      },
+      "etis_grouped_validation": {
+        "benign_flag_counts": {
+          "ip_address_host": 0,
+          "userinfo_in_url": 0,
+          "non_standard_port": 0,
+          "punycode_domain": 1,
+          "no_https": 0,
+          "suspicious_path_keyword": 0,
+          "long_url": 0,
+          "many_subdomains": 0
+        },
+        "benign_flag_counts_are_overlapping": true,
+        "legacy": {
+          "n": 8889,
+          "phishing_n": 5973,
+          "benign_n": 2916,
+          "abstentions": 0,
+          "threshold": 0.5,
+          "tp": 976,
+          "fp": 1,
+          "fn": 4997,
+          "tn": 2915,
+          "recall": 0.16340197555667169,
+          "false_positive_rate": 0.0003429355281207133,
+          "recall_wilson_95": [
+            0.1542423727004936,
+            0.172994257599318
+          ],
+          "fpr_wilson_95": [
+            6.053910667907364e-05,
+            0.0019400691123210956
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.8279697429089853,
+          "precision_at_phishing_base_rate_0_1pct": 0.32293227208808584,
+          "precision_conservative_bound_1pct": 0.44538916696322395,
+          "precision_conservative_bound_0_1pct": 0.07371653594945786,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "proposed": {
+          "n": 8889,
+          "phishing_n": 5973,
+          "benign_n": 2916,
+          "abstentions": 0,
+          "threshold": 0.5,
+          "tp": 32,
+          "fp": 1,
+          "fn": 5941,
+          "tn": 2915,
+          "recall": 0.005357441821530219,
+          "false_positive_rate": 0.0003429355281207133,
+          "recall_wilson_95": [
+            0.003797600970111617,
+            0.007553119855948255
+          ],
+          "fpr_wilson_95": [
+            6.053910667907364e-05,
+            0.0019400691123210956
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.13629372559845407,
+          "precision_at_phishing_base_rate_0_1pct": 0.015397158475788238,
+          "precision_conservative_bound_1pct": 0.01938892486151022,
+          "precision_conservative_bound_0_1pct": 0.0019555841522105356,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "pattern_recall_change": -0.15804453373514146
+      }
+    },
+    "test_fpr_pass": true,
+    "replay_pass": true,
+    "accepted": true,
+    "replay_counts": {
+      "detection_passed": 23,
+      "detection_total": 23,
+      "robustness_passed": 7,
+      "robustness_total": 7,
+      "followup_passed": 15,
+      "followup_total": 15,
+      "supplied_probe_results_matched": 14,
+      "known_limitations": []
+    }
+  },
+  "pattern_integrated_recall_changes": {
+    "phreshphish_test": -0.11709635416666664,
+    "etis_grouped_validation": -0.09861041352754063
+  },
+  "brand_pairs": {
+    "count": 13,
+    "fixed": 7,
+    "remaining": 6
+  },
+  "full_scanner_verification_matches": 1619,
+  "full_scanner_mismatches": 0,
+  "pytest_passed": 392,
+  "check_exit_codes": {
+    "pytest": 0,
+    "initialize": 0,
+    "frontend_build": 0,
+    "frontend_lint": 0
+  },
+  "replays": {
+    "detection_passed": 23,
+    "detection_total": 23,
+    "robustness_passed": 7,
+    "robustness_total": 7,
+    "followup_passed": 15,
+    "followup_total": 15,
+    "supplied_probe_results_matched": 14,
+    "known_limitations": []
+  },
+  "host_probes_medium_or_high": 0,
+  "host_probe_count": 17,
+  "sealed_test_run": false,
+  "genuine_egyptian_sms_test_count": 0,
+  "push_performed": false,
+  "merge_performed": false,
+  "comparisons_scope": "Historical exposed v3 URL-only comparisons; deployed_v3 denotes the ordinary-policy candidate, now superseded.",
+  "current_url_only_metrics": {
+    "phreshphish_test": {
+      "recall": 0.0287109375,
+      "tp": 2205,
+      "phishing_n": 76800,
+      "total_fp": 206,
+      "benign_n": 91260,
+      "total_fpr": 0.002257286872671488,
+      "non_model_fp": 206,
+      "model_added_fp": 0,
+      "model_added_fpr": 0.0,
+      "runtime_abstentions": 133
+    },
+    "etis_grouped_validation": {
+      "recall": 0.01573748535074502,
+      "tp": 94,
+      "phishing_n": 5973,
+      "total_fp": 8,
+      "benign_n": 2916,
+      "total_fpr": 0.0027434842249657062,
+      "non_model_fp": 8,
+      "model_added_fp": 0,
+      "model_added_fpr": 0.0,
+      "runtime_abstentions": 0
+    }
+  },
+  "current_mitigation_report": "query-shortcut/REPORT.md",
+  "current_checks": "query-shortcut/retained-checks.json",
+  "current_replays": "query-shortcut/retained-followup.json",
+  "current_scanner_verification": "query-shortcut/scanner-verification.json",
+  "query_probe_total": 88,
+  "query_probe_medium_or_high": 0,
+  "current_host_probes": "query-shortcut/retained-host-probes.json"
+}

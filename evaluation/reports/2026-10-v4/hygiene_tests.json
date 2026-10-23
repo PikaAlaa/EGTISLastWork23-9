@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "backend/tests/test_hygiene_restore.py",
+    "backend/tests/test_review_data_integrity.py"
+  ],
+  "exit_code": 0,
+  "seconds": 2.89267650002148,
+  "date": "2026-10-17T19:07:40.987299+00:00",
+  "stdout": ".......                                                                  [100%]\n7 passed in 1.78s\n",
+  "stderr": ""
+}

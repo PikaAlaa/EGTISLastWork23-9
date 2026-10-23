@@ -1,0 +1,6 @@
+{
+  "first_committed_sha256": "a8ad8dfe78b16d7c98b2cdda46092f3959be355f7482f4cf8457ce4fc6be5f6a",
+  "frozen_working_sha256": "f046c72d7b654e823a1b7955c7ee65c3a9d7882075d26693c2de931c2652cbe8",
+  "same_normalized_content": true,
+  "pin_original_working_bytes_for_portability": true
+}

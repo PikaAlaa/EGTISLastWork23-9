@@ -1,5 +1,37 @@
 # Raw data licences and reproducibility
 
+## October v4 public-tree hygiene
+
+The raw files inventoried below are now untracked and ignored, including PhiUSIIL.
+Their existing local bytes are retained. The original September processed dataset,
+the v3 text train/validation export and the historical Tranco export are likewise
+untracked without changing their local contents. Frozen hash/split reports remain.
+See `evaluation/reports/2026-10-v4/data_hygiene.json` for exact paths and SHA-256.
+
+**These files remain in Git history and on GitHub.** Removing them from the current
+tree does not purge them. Making the repository private limits public access; a
+separately authorized history rewrite would be needed to remove historical copies.
+No history rewrite or push was performed for this work.
+
+Research model binaries were moved to ignored `release-artifacts/`; its local
+`MANIFEST.json` maps original paths to SHA-256-verified release paths. A committed
+copy is `evaluation/reports/2026-10-v4/release_manifest.json`. This prepares files for
+the team's review; it does not establish redistribution rights for learned models
+or authorize uploading them. Deployed artifacts and the preserved September model
+and tokenizer remain tracked as required; their data provenance restrictions still apply.
+
+Fresh clones run the packaged scanner and tests without the removed research data.
+For authorized research reproduction, run `python data/scripts/restore_raw_data.py
+--check-all` for per-file restore commands. Missing historical files require the
+authorized pinned originals with `--input`; PhiUSIIL retains its pinned official
+download. Import remains byte-exact; inventory recognizes exact LF/CRLF variants
+introduced by Git without changing files. Restore the processed dataset from an
+authorized original copy matching the hash in the v4 inventory, then use the existing
+rebuild command in the historical reports. Never replace snapshots with current feeds.
+
+The audit and table below are retained as historical provenance, not a list of files
+still distributed in the current tree.
+
 Audit date: 13 October 2026. The inventory covers every file under `data/raw/`. No raw data was deleted or replaced. Source access does not establish reuse permission. `LICENSE` is an unchosen project-code placeholder; it does not license third-party data.
 
 ## Source terms

@@ -1,5 +1,37 @@
 # Local implementation handover — 8 October 2026
 
+## 17 October follow-up
+
+**23 October replacement:** candidate `ee0ba9f0077c1fd140aa` is deployed with
+`host_path` model input, threshold `0.9870690448552604`, and ordinary support.
+The owner authorized rewriting 29 obsolete historical-artifact/policy test
+expectations as query-safety and deployment-metadata checks. The full suite,
+40 query tests, 23/7/15 replays, 17 hosts and 88 query/path probes pass. The
+[release report](evaluation/reports/2026-10-v4/REPORT.md) records current checks
+and the historical containment's recall cost. Historical promoters remain blocked.
+No v4 evaluation rerun, threshold/selection change, push or merge.
+
+Historical changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
+Rule v3 had replaced the v2 fallback with ordinary support from an existing full-URL
+LightGBM, using the unchanged frozen calibration threshold. Its cohort-level gates
+passed but did not establish query robustness. A pattern proposal chosen only
+on PhreshPhish training/calibration passes the test FPR and replay checks. Its
+substantial recall cost and six remaining brand-resemblance false alarms are
+explicit in the report. The September text model/tokenizer and
+frozen splits remain unchanged. The optional `sender_type` input adds supporting evidence only and
+is not retained as an input field. Sourced payment, delivery and government registry
+entries are documented in [brand sources](docs/brand-sources.md).
+
+Raw snapshots and derived exports were removed from the current Git tree with their
+local bytes retained. Use the [licence/recovery instructions](docs/data-licences.md)
+for authorized research copies. Candidate binaries are local in `release-artifacts/`
+with `MANIFEST.json`; a report copy of the hashes is committed. Historical copies
+remain on GitHub unless public access is restricted or a separately authorized
+history rewrite purges them. No rewrite or push was performed.
+
+No sealed final test ran; genuine Egyptian SMS test count remains zero. The older
+sections below are historical and their model/verification claims are superseded.
+
 Current model evidence is in the [13 October review report](evaluation/reports/2026-10-v3/review-2026-10-13/REPORT.md). The older evaluation and selection claims below are historical. See [data licences](docs/data-licences.md) before publishing the preserved data.
 
 The required engineering work has been implemented in this separate local copy.

@@ -1,0 +1,274 @@
+{
+  "created_at": "2026-10-23T14:54:42.234993+00:00",
+  "scope": "Fresh venv created with python -m venv; installed only requirements-runtime.txt",
+  "install_command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Scripts\\python.exe",
+    "-m",
+    "pip",
+    "install",
+    "-r",
+    "requirements-runtime.txt"
+  ],
+  "install_exit_code": 0,
+  "python": "3.12.10 (main, May 30 2025, 05:39:07) [MSC v.1943 64 bit (AMD64)]",
+  "prefix": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed",
+  "base_prefix": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\python\\cpython-3.12.10-windows-x86_64-none",
+  "rapidfuzz_present": false,
+  "pyarrow_present": false,
+  "deployment": {
+    "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+    "candidate_id": "ee0ba9f0077c1fd140aa",
+    "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+    "source_artifact_sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+    "threshold": 0.9870690448552604,
+    "representation": "full_url",
+    "input_mode": "host_path",
+    "phresh_schema": true,
+    "preprocessing_sha256": "43b286771b8893f044efb06d97a797b933cfc9997279d3950bcc85e45c8f321a",
+    "policy": "ordinary",
+    "pattern_policy": "four_structural_only",
+    "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v4.md",
+    "selection_rule_sha256": "6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa",
+    "frozen_thresholds_path": "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.json",
+    "frozen_thresholds_sha256": "5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44",
+    "pattern_acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "pattern_training_proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+    "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+    "report": "evaluation/reports/2026-10-v4/REPORT.md",
+    "numerical_decision": "evaluation/reports/2026-10-v4/url_v4_decision.json",
+    "owner_authorized_test_rewrite": true,
+    "historical_engineering_failures": 29,
+    "model_weights_fitted": false,
+    "thresholds_retuned": false,
+    "sealed_test_run": false,
+    "limitations": "Exposed development selection; sparse natural benign queries, no benign fragment coverage or genuine Egyptian SMS final test."
+  },
+  "command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    ".local/pytest-v4-deployed-runtime-only"
+  ],
+  "exit_code": 0,
+  "output": "........................................................................ [ 18%]\n........................................................................ [ 37%]\n....................................................................s.ss [ 55%]\ns....................................................................... [ 74%]\n........................................................................ [ 93%]\n...........................                                              [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ===========================\nSKIPPED [1] backend\\tests\\test_phreshphish.py:11: could not import 'pyarrow': No module named 'pyarrow'\nSKIPPED [1] backend\\tests\\test_url_legit_subdomains.py:57: could not import 'pyarrow': No module named 'pyarrow'\nSKIPPED [3] backend\\tests\\test_url_model_engine.py:16: could not import 'pyarrow': No module named 'pyarrow'\n383 passed, 5 skipped, 1 warning in 56.80s\n",
+  "packages": [
+    {
+      "name": "alembic",
+      "version": "1.20.1"
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0"
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2"
+    },
+    {
+      "name": "click",
+      "version": "8.5.0"
+    },
+    {
+      "name": "cloudpickle",
+      "version": "3.1.2"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6"
+    },
+    {
+      "name": "Deprecated",
+      "version": "3.0.0"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.161.1"
+    },
+    {
+      "name": "filelock",
+      "version": "4.2.4"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1"
+    },
+    {
+      "name": "idna",
+      "version": "3.20"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "name": "joblib",
+      "version": "1.6.0"
+    },
+    {
+      "name": "lightgbm",
+      "version": "4.7.0"
+    },
+    {
+      "name": "limits",
+      "version": "5.8.0"
+    },
+    {
+      "name": "Mako",
+      "version": "1.4.3"
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.4"
+    },
+    {
+      "name": "narwhals",
+      "version": "2.27.1"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4"
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.45.1"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pandas",
+      "version": "3.1.0"
+    },
+    {
+      "name": "pip",
+      "version": "25.0.1"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0"
+    },
+    {
+      "name": "psycopg2-binary",
+      "version": "2.9.13"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.1"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.1"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0"
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "3.0.0"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.4"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2"
+    },
+    {
+      "name": "requests-file",
+      "version": "3.0.1"
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.9.0"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0"
+    },
+    {
+      "name": "slowapi",
+      "version": "0.1.10"
+    },
+    {
+      "name": "SQLAlchemy",
+      "version": "2.1.6"
+    },
+    {
+      "name": "starlette",
+      "version": "1.9.0"
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.7.0"
+    },
+    {
+      "name": "tldextract",
+      "version": "5.4.0"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4"
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.5"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.54.0"
+    },
+    {
+      "name": "wrapt",
+      "version": "2.5.1"
+    }
+  ],
+  "pip_check_exit_code": 0,
+  "pip_check_output": "No broken requirements found.\n",
+  "sealed_test_run": false,
+  "destination_requests": 0
+}

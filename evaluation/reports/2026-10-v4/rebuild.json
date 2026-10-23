@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "data/scripts/rebuild_dataset.py",
+    "--output",
+    "evaluation/local-results/v3-data"
+  ],
+  "exit_code": 0,
+  "seconds": 14.279078399995342,
+  "date": "2026-10-17T19:03:12.952453+00:00",
+  "stdout": "{\n  \"version\": \"dataset-v2\",\n  \"dataset_sha256\": \"f3f7c3a03c61a511b89de5c1b20ac09a26f0ddc32609f7edac50a0667a61d99d\",\n  \"dataset_fingerprint_method\": \"etis-csv-content-v1\",\n  \"dataset_file_sha256\": \"f7c77101197d4c336f579e9fcb298d81bd3ac09334b316f3e6b20fb85f29dca1\",\n  \"source_identity\": {\n    \"dataset_sha256\": \"5376add45a39946338248f69b3c5f48f578e0b71184822e45e87224c92d6d582\",\n    \"dataset_fingerprint_method\": \"etis-csv-content-v1\",\n    \"dataset_file_sha256\": \"510d54ae730ce55e3811ca2aa755ff938a1059a41088d4aadff618031b3b0d76\"\n  },\n  \"seed\": 42,\n  \"near_duplicate_cosine\": 0.95,\n  \"removed_spam_rows\": 78,\n  \"conflicting_text_rows_quarantined\": 0,\n  \"invalid_url_rows_removed\": 49,\n  \"splits\": {\n    \"train\": 60990,\n    \"test\": 15429,\n    \"val\": 9778\n  },\n  \"text_splits\": {\n    \"train\": 1347,\n    \"val\": 282,\n    \"test\": 273\n  },\n  \"real_sms_sealed\": 0,\n  \"real_sms_sealed_groups\": 0,\n  \"real_sms_target_met\": false,\n  \"synthetic_notifications_added\": 0,\n  \"synthetic_role\": \"training only; never real-data evidence\",\n  \"labels\": {\n    \"phishing\": \"deceptive request to disclose credentials, transfer funds, or open a fraudulent destination\",\n    \"legitimate\": \"reviewed non-deceptive communication\",\n    \"spam\": \"excluded unsolicited advertising\",\n    \"scam\": \"requires adjudication before binary use\"\n  }\n}\n",
+  "stderr": ""
+}

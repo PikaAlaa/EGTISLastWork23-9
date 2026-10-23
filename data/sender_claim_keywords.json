@@ -1,0 +1,21 @@
+{
+  "purpose": "Curated rule vocabulary, not collected SMS or Egyptian evaluation data",
+  "aliases": {
+    "Commercial International Bank (CIB)": ["CIB", "cibeg", "البنك التجاري الدولي"],
+    "National Bank of Egypt (NBE)": ["NBE", "البنك الأهلي", "البنك الاهلي المصري"],
+    "Banque Misr": ["Banque Misr", "Bank Misr", "بنك مصر"],
+    "QNB Al Ahli": ["QNB", "QNB Al Ahli", "بنك قطر الوطني", "كيو ان بي"],
+    "Arab African International Bank": ["AAIB", "البنك العربي الافريقي", "العربي الأفريقي"],
+    "Vodafone Egypt": ["Vodafone", "فودافون"],
+    "Vodafone Cash": ["Vodafone Cash", "فودافون كاش"],
+    "Orange Egypt": ["Orange", "اورنج", "أورانج"],
+    "Etisalat Misr (e&)": ["Etisalat", "e&", "اتصالات"],
+    "Telecom Egypt (WE)": ["Telecom Egypt", "WE", "المصرية للاتصالات", "وي"],
+    "Instapay": ["InstaPay", "انستاباي", "إنستاباي", "انستا باي"],
+    "Fawry": ["Fawry", "فوري"],
+    "Paymob": ["Paymob", "باي موب", "بايموب"],
+    "ValU": ["ValU", "فاليو", "ڤاليو"]
+  },
+  "claim_prefixes": ["from", "this is", "we are", "customer service", "your", "من", "معك", "معاك", "خدمة عملاء", "بنك", "شركة", "محفظة", "حسابك في", "حسابك لدى"],
+  "generic_claims": ["from your bank", "from your wallet provider", "from your telecom provider", "من البنك", "من المصرف", "من شركة الاتصالات", "من محفظة"]
+}

@@ -1,0 +1,16 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "backend/tests/test_url_legit_subdomains.py",
+    "backend/tests/test_url_model_engine.py",
+    "backend/tests/test_review_data_integrity.py"
+  ],
+  "exit_code": 0,
+  "seconds": 2.597003700037021,
+  "date": "2026-10-17T19:09:00.476508+00:00",
+  "stdout": ".........................                                                [100%]\n25 passed in 1.70s\n",
+  "stderr": ""
+}

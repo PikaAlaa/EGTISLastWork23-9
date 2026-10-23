@@ -1,0 +1,58 @@
+{
+  "policy": "ordinary",
+  "pattern_policy": "four_structural_only",
+  "production_brand_distance_unchanged": true,
+  "destination_requests": 0,
+  "cohorts": {
+    "phreshphish_test": {
+      "policies": {
+        "old_v3_deployed": {
+          "full_scanner_matches": 194,
+          "mismatches": 0
+        },
+        "v1_selected": {
+          "full_scanner_matches": 195,
+          "mismatches": 0
+        },
+        "deployed_v3": {
+          "full_scanner_matches": 195,
+          "mismatches": 0
+        },
+        "corroboration_only": {
+          "full_scanner_matches": 195,
+          "mismatches": 0
+        },
+        "non_model_baseline": {
+          "full_scanner_matches": 100,
+          "mismatches": 0
+        }
+      },
+      "packaged_probability_max_difference": 0.0
+    },
+    "etis_grouped_validation": {
+      "policies": {
+        "old_v3_deployed": {
+          "full_scanner_matches": 153,
+          "mismatches": 0
+        },
+        "v1_selected": {
+          "full_scanner_matches": 181,
+          "mismatches": 0
+        },
+        "deployed_v3": {
+          "full_scanner_matches": 153,
+          "mismatches": 0
+        },
+        "corroboration_only": {
+          "full_scanner_matches": 153,
+          "mismatches": 0
+        },
+        "non_model_baseline": {
+          "full_scanner_matches": 100,
+          "mismatches": 0
+        }
+      },
+      "packaged_probability_max_difference": 0.0
+    }
+  }
+}

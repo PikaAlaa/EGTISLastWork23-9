@@ -1,0 +1,35 @@
+{
+  "scope": "Current local scanner regression verification; not v4 candidate evaluation or threshold selection.",
+  "base_head": "16fc7a5be11668a8b15cd13e956f59534fec1b89",
+  "commands": {
+    "pytest": {
+      "command": ".venv/Scripts/python.exe -m pytest -q -p no:cacheprovider --basetemp .local/pytest-query-invariance-retained",
+      "exit_code": 0,
+      "output": "........................................................................ [ 18%]\r\n........................................................................ [ 36%]\r\n........................................................................ [ 55%]\r\n........................................................................ [ 73%]\r\n........................................................................ [ 91%]\r\n................................                                         [100%]\r\n============================== warnings summary ===============================\r\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\r\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\r\n    from starlette.testclient import TestClient as TestClient  # noqa\r\n\r\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\r\n392 passed, 1 warning in 17.11s\r\n"
+    },
+    "replays": {
+      "command": ".venv/Scripts/python.exe evaluation/run_followup.py --output evaluation/reports/2026-10-v4/query-shortcut/retained-followup.json",
+      "exit_code": 0,
+      "output": "{\r\n  \"detection_passed\": 23,\r\n  \"detection_total\": 23,\r\n  \"robustness_passed\": 7,\r\n  \"robustness_total\": 7,\r\n  \"followup_passed\": 15,\r\n  \"followup_total\": 15,\r\n  \"supplied_probe_results_matched\": 14,\r\n  \"known_limitations\": []\r\n}\r\n"
+    },
+    "host_probes": {
+      "command": ".venv/Scripts/python.exe evaluation/probe_legit_hosts.py --output evaluation/reports/2026-10-v4/query-shortcut/retained-host-probes.json",
+      "exit_code": 0,
+      "output": "{\"hosts\": 17, \"raw_above_threshold\": 0, \"medium_or_high\": 0}\r\n"
+    }
+  },
+  "summary": {
+    "pytest_passed": 392,
+    "detection_passed": 23,
+    "detection_total": 23,
+    "robustness_passed": 7,
+    "robustness_total": 7,
+    "followup_passed": 15,
+    "followup_total": 15,
+    "legitimate_hosts": 17,
+    "host_medium_or_high": 0
+  },
+  "sealed_test_run": false,
+  "push_performed": false,
+  "merge_performed": false
+}

@@ -4,7 +4,7 @@
 same-origin `/api/analyze` through the Node proxy and receives no key. Send JSON:
 
 ```json
-{"url":"https://example.com/","text":"Optional suspicious message"}
+{"url":"https://example.com/","text":"Optional suspicious message","sender_type":"unknown"}
 ```
 
 At least one nonempty string is required. Text max 5,000 characters; URL max 2,048;
@@ -12,6 +12,29 @@ unknown fields, invalid hosts, schemes and ports return 400. HTTP(S), bare domai
 IDNA, userinfo and scheme-specific default ports use the shared parser. Fragments do
 not change reputation identity; path/query case and content remain evidence. An
 additional tracking-stripped lookup key never rewrites the analyzed URL.
+
+`sender_type` is optional: `company_name`, `short_code`, `mobile_number` or `unknown`.
+Omitting it or sending `null` means unknown. It describes what the user sees in the
+SMS sender display; do not submit the actual number or sender name. Invalid enum
+values/types return 400. The browser sends this field only with message text.
+
+A bank, wallet, payment/finance or telecom sender claim together with
+`sender_type=mobile_number` adds `brand_claim_from_mobile_number`. Named claims
+use the eligible brand registry and curated Arabic/English keyword lists; branded
+prefixes, sender signatures and explicit generic bank/wallet/telecom claims are
+recognized. Casual mid-sentence brand mentions alone are insufficient. This is a
+heuristic, not verified sender identity or an exhaustive claim parser.
+
+This signal alone produces MEDIUM. It does not corroborate a high text-model score
+into HIGH. Other independent decisive findings keep their normal precedence; missing
+required checks still produce INCOMPLETE. Advice explains that banks normally send
+under their company name, but sender names can be faked. A company-name/short-code
+selection never reduces existing evidence or proves legitimacy.
+
+The sender field is transient: no database column, input echo, browser storage or
+logging is added. Existing minimal scan metadata can retain the computed reason code,
+as it retains other supporting signals; the submitted sender category itself is not
+stored. The existing privacy/retention policy is otherwise unchanged.
 
 The response includes:
 
@@ -34,6 +57,21 @@ The decision order is decisive HIGH, otherwise INCOMPLETE, otherwise supporting 
 otherwise LOW. All applicable checks run before deciding. Official domains bypass only
 brand resemblance; they never override text or exact-blacklist evidence. No arithmetic
 fusion, confidence percentage or unvalidated two-signal escalation is used.
+
+The current URL deployment uses corroboration-only model support at the frozen
+calibration threshold, following the query-shortcut review of `16fc7a5`.
+A raw model alert alone cannot create MEDIUM or corroborate text HIGH. Independent
+brand evidence, an alerting pattern on the same link, domain blacklist evidence,
+or an explicit secret request is required for URL-model support.
+`url_model_raw_above_threshold` still reports the uncorrected classifier result;
+`url_model_above_threshold` reports eligible support after policy and suppression.
+See the [mitigation and recall cost](../evaluation/reports/2026-10-v4/query-shortcut/REPORT.md).
+Text-only HIGH still requires corroboration. `checked_links[].patterns` contains flags eligible to
+support a warning; `pattern_observations` retains all detected pattern flags,
+including diagnostic observations that cannot create a warning alone. The
+separately evaluated pattern policy and acceptance results are recorded in the
+v4 report and deployment metadata. Official/shared-host model suppression and
+decisive/incomplete precedence remain.
 
 Brand findings can include `official_contact`: a manually verified organization-owned
 contact page, Egyptian retail hotline and verification date. Details are from the

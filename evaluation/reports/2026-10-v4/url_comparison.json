@@ -1,0 +1,1029 @@
+{
+  "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+  "selection_rule_sha256": "f046c72d7b654e823a1b7955c7ee65c3a9d7882075d26693c2de931c2652cbe8",
+  "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+  "libraries": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "lightgbm": "4.7.0",
+    "pyarrow": "23.0.1",
+    "requests": "2.34.2"
+  },
+  "deployment_operating_point": "0_1pct",
+  "models": {
+    "current_artifact": {
+      "model_sha256": "619ea13cedc98645ccd9603af3e9554b290a3eb9f7a5d1e46397098e00e92232",
+      "artifact_path": "ml/models/url_host_v3.joblib",
+      "thresholds": {
+        "deployed": 0.979680498647069
+      },
+      "cohorts": {
+        "phreshphish_test": {
+          "deployed": {
+            "n": 168060,
+            "phishing_n": 76800,
+            "benign_n": 91260,
+            "abstentions": 122,
+            "threshold": 0.979680498647069,
+            "tp": 46887,
+            "fp": 43696,
+            "fn": 29913,
+            "tn": 47564,
+            "recall": 0.6105078125,
+            "false_positive_rate": 0.47880780188472494,
+            "recall_wilson_95": [
+              0.6070536111031017,
+              0.6139509594703743
+            ],
+            "fpr_wilson_95": [
+              0.4755676993792904,
+              0.48204968842543744
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.012715606649947643,
+            "precision_at_phishing_base_rate_0_1pct": 0.0012747075780636082,
+            "precision_conservative_bound_1pct": 0.012560603211014881,
+            "precision_conservative_bound_0_1pct": 0.0012589910269799644,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "etis_grouped_validation": {
+          "deployed": {
+            "n": 8889,
+            "phishing_n": 5973,
+            "benign_n": 2916,
+            "abstentions": 0,
+            "threshold": 0.979680498647069,
+            "tp": 4394,
+            "fp": 2,
+            "fn": 1579,
+            "tn": 2914,
+            "recall": 0.7356437301188682,
+            "false_positive_rate": 0.0006858710562414266,
+            "recall_wilson_95": [
+              0.724311276290169,
+              0.7466732762355782
+            ],
+            "fpr_wilson_95": [
+              0.00018811073709764617,
+              0.0024974661790754813
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.9154979029775018,
+            "precision_at_phishing_base_rate_0_1pct": 0.5177567279178313,
+            "precision_conservative_bound_1pct": 0.745513357071673,
+            "precision_conservative_bound_0_1pct": 0.22499169961081358,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "phreshphish_test_benign_subdomains": {
+          "deployed": {
+            "n": 23610,
+            "phishing_n": 0,
+            "benign_n": 23610,
+            "abstentions": 0,
+            "threshold": 0.979680498647069,
+            "tp": 0,
+            "fp": 11344,
+            "fn": 0,
+            "tn": 12266,
+            "recall": null,
+            "false_positive_rate": 0.48047437526471837,
+            "recall_wilson_95": [
+              null,
+              null
+            ],
+            "fpr_wilson_95": [
+              0.4741051458418709,
+              0.48684995747717874
+            ],
+            "precision_at_phishing_base_rate_1pct": null,
+            "precision_at_phishing_base_rate_0_1pct": null,
+            "precision_conservative_bound_1pct": null,
+            "precision_conservative_bound_0_1pct": null,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        }
+      },
+      "calibration": null,
+      "fit_seconds": null,
+      "warnings": [],
+      "probe": [
+        {
+          "host": "login.microsoftonline.com",
+          "probability": 0.9987996973640967,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "url_model"
+          ]
+        },
+        {
+          "host": "outlook.office365.com",
+          "probability": 0.9992447791439607,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "url_model"
+          ]
+        },
+        {
+          "host": "teams.microsoft.com",
+          "probability": 0.9969634933728241,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "url_model"
+          ]
+        },
+        {
+          "host": "secure.paymob.com",
+          "probability": 0.9971237365568718,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "url_model"
+          ]
+        },
+        {
+          "host": "accept.paymob.com",
+          "probability": 0.9976319489942562,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "url_model"
+          ]
+        },
+        {
+          "host": "careers.vodafone.com",
+          "probability": 0.9975224419612946,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance",
+            "url_model"
+          ]
+        },
+        {
+          "host": "booking.egyptair.com",
+          "probability": 0.997601970455561,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vendor.talabat.com",
+          "probability": 0.9973781633233177,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "ebanking.cibeg.com",
+          "probability": 0.9974922955041691,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "bm-online.banquemisr.com",
+          "probability": 0.9987737223448587,
+          "above_threshold": true,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "microsoftonline.com",
+          "probability": 0.17041467989758743,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "paymob.com",
+          "probability": 0.1228395962892967,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vodafone.com",
+          "probability": 0.05729924222514497,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance"
+          ]
+        },
+        {
+          "host": "egyptair.com",
+          "probability": 0.07433910338436497,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "talabat.com",
+          "probability": 0.05886382868953813,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "cibeg.com",
+          "probability": 0.027739417532477672,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "banquemisr.com",
+          "probability": 0.07841350871524218,
+          "above_threshold": false,
+          "threshold": 0.979680498647069,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        }
+      ],
+      "deployment_point": "deployed",
+      "passes_subdomain_gate": false
+    },
+    "combined/host_only/lightgbm": {
+      "model_sha256": "4b9ea8c38d558f62682ef08aca988b691548b9a48821cf857c2ea11562d1ff08",
+      "artifact_path": "release-artifacts/v4/lightgbm.joblib",
+      "thresholds": {
+        "1pct": 0.8062729604821155,
+        "0_1pct": 0.9595301737990387
+      },
+      "cohorts": {
+        "phreshphish_test": {
+          "1pct": {
+            "n": 168060,
+            "phishing_n": 76800,
+            "benign_n": 91260,
+            "abstentions": 122,
+            "threshold": 0.8062729604821155,
+            "tp": 37446,
+            "fp": 645,
+            "fn": 39354,
+            "tn": 90615,
+            "recall": 0.487578125,
+            "false_positive_rate": 0.007067718606180145,
+            "recall_wilson_95": [
+              0.48404372069564794,
+              0.491113771901607
+            ],
+            "fpr_wilson_95": [
+              0.0065445728515436214,
+              0.007632361168974138
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.4106674028132688,
+            "precision_at_phishing_base_rate_0_1pct": 0.06459503602603793,
+            "precision_conservative_bound_1pct": 0.39046884691116407,
+            "precision_conservative_bound_0_1pct": 0.05969383393039147,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 168060,
+            "phishing_n": 76800,
+            "benign_n": 91260,
+            "abstentions": 122,
+            "threshold": 0.9595301737990387,
+            "tp": 25355,
+            "fp": 78,
+            "fn": 51445,
+            "tn": 91182,
+            "recall": 0.33014322916666666,
+            "false_positive_rate": 0.0008547008547008547,
+            "recall_wilson_95": [
+              0.3268258935550512,
+              0.33347755605835805
+            ],
+            "fpr_wilson_95": [
+              0.0006849581597990978,
+              0.0010664633918875737
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.7959888431398592,
+            "precision_at_phishing_base_rate_0_1pct": 0.27883968716558316,
+            "precision_conservative_bound_1pct": 0.7558314821860257,
+            "precision_conservative_bound_0_1pct": 0.2347511392419486,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "etis_grouped_validation": {
+          "1pct": {
+            "n": 8889,
+            "phishing_n": 5973,
+            "benign_n": 2916,
+            "abstentions": 0,
+            "threshold": 0.8062729604821155,
+            "tp": 4433,
+            "fp": 228,
+            "fn": 1540,
+            "tn": 2688,
+            "recall": 0.7421731123388582,
+            "false_positive_rate": 0.07818930041152264,
+            "recall_wilson_95": [
+              0.7309264363401519,
+              0.7531084874456341
+            ],
+            "fpr_wilson_95": [
+              0.06899060298489507,
+              0.08849789949236661
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.08749035121574682,
+            "precision_at_phishing_base_rate_0_1pct": 0.009412076106249804,
+            "precision_conservative_bound_1pct": 0.07700269830616385,
+            "precision_conservative_bound_0_1pct": 0.008199727917768058,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 8889,
+            "phishing_n": 5973,
+            "benign_n": 2916,
+            "abstentions": 0,
+            "threshold": 0.9595301737990387,
+            "tp": 2051,
+            "fp": 21,
+            "fn": 3922,
+            "tn": 2895,
+            "recall": 0.3433785367487025,
+            "false_positive_rate": 0.00720164609053498,
+            "recall_wilson_95": [
+              0.3314407249507359,
+              0.3555176772603926
+            ],
+            "fpr_wilson_95": [
+              0.004715204405238245,
+              0.010984777757221084
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.32506394650066256,
+            "precision_at_phishing_base_rate_0_1pct": 0.045554072788049176,
+            "precision_conservative_bound_1pct": 0.23358435957790327,
+            "precision_conservative_bound_0_1pct": 0.029317458941278775,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "phreshphish_test_benign_subdomains": {
+          "1pct": {
+            "n": 23610,
+            "phishing_n": 0,
+            "benign_n": 23610,
+            "abstentions": 0,
+            "threshold": 0.8062729604821155,
+            "tp": 0,
+            "fp": 259,
+            "fn": 0,
+            "tn": 23351,
+            "recall": null,
+            "false_positive_rate": 0.010969927996611605,
+            "recall_wilson_95": [
+              null,
+              null
+            ],
+            "fpr_wilson_95": [
+              0.009718572640022672,
+              0.012380392483068978
+            ],
+            "precision_at_phishing_base_rate_1pct": null,
+            "precision_at_phishing_base_rate_0_1pct": null,
+            "precision_conservative_bound_1pct": null,
+            "precision_conservative_bound_0_1pct": null,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 23610,
+            "phishing_n": 0,
+            "benign_n": 23610,
+            "abstentions": 0,
+            "threshold": 0.9595301737990387,
+            "tp": 0,
+            "fp": 13,
+            "fn": 0,
+            "tn": 23597,
+            "recall": null,
+            "false_positive_rate": 0.0005506141465480729,
+            "recall_wilson_95": [
+              null,
+              null
+            ],
+            "fpr_wilson_95": [
+              0.00032182318344728823,
+              0.0009419042313714123
+            ],
+            "precision_at_phishing_base_rate_1pct": null,
+            "precision_at_phishing_base_rate_0_1pct": null,
+            "precision_conservative_bound_1pct": null,
+            "precision_conservative_bound_0_1pct": null,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        }
+      },
+      "calibration": {
+        "1pct": {
+          "n": 60592,
+          "phishing_n": 39414,
+          "benign_n": 21178,
+          "abstentions": 0,
+          "threshold": 0.8062729604821155,
+          "tp": 29446,
+          "fp": 211,
+          "fn": 9968,
+          "tn": 20967,
+          "recall": 0.7470949408839499,
+          "false_positive_rate": 0.009963169326659742,
+          "recall_wilson_95": [
+            0.7427796957601861,
+            0.7513620248195269
+          ],
+          "fpr_wilson_95": [
+            0.008711600852140252,
+            0.011392480261325085
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.43098762545656827,
+          "precision_at_phishing_base_rate_0_1pct": 0.06981999235595686,
+          "precision_conservative_bound_1pct": 0.39707350702556665,
+          "precision_conservative_bound_0_1pct": 0.06126590357244402,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "0_1pct": {
+          "n": 60592,
+          "phishing_n": 39414,
+          "benign_n": 21178,
+          "abstentions": 0,
+          "threshold": 0.9595301737990387,
+          "tp": 25208,
+          "fp": 21,
+          "fn": 14206,
+          "tn": 21157,
+          "recall": 0.6395696960470899,
+          "false_positive_rate": 0.000991595051468505,
+          "recall_wilson_95": [
+            0.6348163157912258,
+            0.6442958728224925
+          ],
+          "fpr_wilson_95": [
+            0.0006486841096399517,
+            0.001515502555141476
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.866933840327473,
+          "precision_at_phishing_base_rate_0_1pct": 0.39233236977331726,
+          "precision_conservative_bound_1pct": 0.8088366584020635,
+          "precision_conservative_bound_0_1pct": 0.29542782980210036,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        }
+      },
+      "fit_seconds": 14.698774100048468,
+      "warnings": [],
+      "probe": [
+        {
+          "host": "login.microsoftonline.com",
+          "probability": 0.1100911905983186,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "outlook.office365.com",
+          "probability": 0.1880389168041425,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "teams.microsoft.com",
+          "probability": 0.08176951011340856,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "secure.paymob.com",
+          "probability": 0.08470362382607624,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "accept.paymob.com",
+          "probability": 0.14797199082899437,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "careers.vodafone.com",
+          "probability": 0.08176951011340856,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance"
+          ]
+        },
+        {
+          "host": "booking.egyptair.com",
+          "probability": 0.11710575450764393,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vendor.talabat.com",
+          "probability": 0.08387013432911847,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "ebanking.cibeg.com",
+          "probability": 0.08270186135493067,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "bm-online.banquemisr.com",
+          "probability": 0.2568217403315074,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "microsoftonline.com",
+          "probability": 0.25591757418169286,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "paymob.com",
+          "probability": 0.25833722876012305,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vodafone.com",
+          "probability": 0.2600458161988802,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance"
+          ]
+        },
+        {
+          "host": "egyptair.com",
+          "probability": 0.2581020229639341,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "talabat.com",
+          "probability": 0.25833722876012305,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "cibeg.com",
+          "probability": 0.25382141874396913,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "banquemisr.com",
+          "probability": 0.25994462445893346,
+          "above_threshold": false,
+          "threshold": 0.9595301737990387,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        }
+      ],
+      "deployment_point": "0_1pct",
+      "passes_subdomain_gate": true
+    },
+    "combined/host_only/char_calibrated_svm": {
+      "model_sha256": "3c1371981cb60fb35204ae8d75f20ee291c8688f0f6192bc5c0b7ffc0019ddc0",
+      "artifact_path": "release-artifacts/v4/char_calibrated_svm.joblib",
+      "thresholds": {
+        "1pct": 0.880683232133141,
+        "0_1pct": 0.9810657259755076
+      },
+      "cohorts": {
+        "phreshphish_test": {
+          "1pct": {
+            "n": 168060,
+            "phishing_n": 76800,
+            "benign_n": 91260,
+            "abstentions": 122,
+            "threshold": 0.880683232133141,
+            "tp": 46969,
+            "fp": 1654,
+            "fn": 29831,
+            "tn": 89606,
+            "recall": 0.6115755208333333,
+            "false_positive_rate": 0.018124041200964277,
+            "recall_wilson_95": [
+              0.6081229858663323,
+              0.6150168945677569
+            ],
+            "fpr_wilson_95": [
+              0.017278611534445307,
+              0.01901003691473306
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.254202920949318,
+            "precision_at_phishing_base_rate_0_1pct": 0.03267400881461643,
+            "precision_conservative_bound_1pct": 0.24421465886134724,
+            "precision_conservative_bound_0_1pct": 0.031028028771448175,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 168060,
+            "phishing_n": 76800,
+            "benign_n": 91260,
+            "abstentions": 122,
+            "threshold": 0.9810657259755076,
+            "tp": 29352,
+            "fp": 141,
+            "fn": 47448,
+            "tn": 91119,
+            "recall": 0.3821875,
+            "false_positive_rate": 0.001545036160420776,
+            "recall_wilson_95": [
+              0.3787568332622291,
+              0.3856299518740014
+            ],
+            "fpr_wilson_95": [
+              0.0013103354610925432,
+              0.001821698587130916
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.714174156119237,
+            "precision_at_phishing_base_rate_0_1pct": 0.19846899435091178,
+            "precision_conservative_bound_1pct": 0.6774341809522278,
+            "precision_conservative_bound_0_1pct": 0.17226918222245247,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "etis_grouped_validation": {
+          "1pct": {
+            "n": 8889,
+            "phishing_n": 5973,
+            "benign_n": 2916,
+            "abstentions": 0,
+            "threshold": 0.880683232133141,
+            "tp": 4869,
+            "fp": 353,
+            "fn": 1104,
+            "tn": 2563,
+            "recall": 0.8151682571572074,
+            "false_positive_rate": 0.1210562414266118,
+            "recall_wilson_95": [
+              0.80512294848024,
+              0.8248084334946939
+            ],
+            "fpr_wilson_95": [
+              0.10971271972989506,
+              0.13339686989398633
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.06368633283294407,
+            "precision_at_phishing_base_rate_0_1pct": 0.006695407726625194,
+            "precision_conservative_bound_1pct": 0.057461937962552154,
+            "precision_conservative_bound_0_1pct": 0.006005306034867033,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 8889,
+            "phishing_n": 5973,
+            "benign_n": 2916,
+            "abstentions": 0,
+            "threshold": 0.9810657259755076,
+            "tp": 3536,
+            "fp": 78,
+            "fn": 2437,
+            "tn": 2838,
+            "recall": 0.5919973212790892,
+            "false_positive_rate": 0.026748971193415638,
+            "recall_wilson_95": [
+              0.5794784664163137,
+              0.6043979183885873
+            ],
+            "fpr_wilson_95": [
+              0.021486166162668754,
+              0.03325703173864918
+            ],
+            "precision_at_phishing_base_rate_1pct": 0.1827070194424749,
+            "precision_at_phishing_base_rate_0_1pct": 0.02167359460284997,
+            "precision_conservative_bound_1pct": 0.1496616088902705,
+            "precision_conservative_bound_0_1pct": 0.017142683381538053,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        },
+        "phreshphish_test_benign_subdomains": {
+          "1pct": {
+            "n": 23610,
+            "phishing_n": 0,
+            "benign_n": 23610,
+            "abstentions": 0,
+            "threshold": 0.880683232133141,
+            "tp": 0,
+            "fp": 301,
+            "fn": 0,
+            "tn": 23309,
+            "recall": null,
+            "false_positive_rate": 0.01274883523930538,
+            "recall_wilson_95": [
+              null,
+              null
+            ],
+            "fpr_wilson_95": [
+              0.011394991610456848,
+              0.014261209218925305
+            ],
+            "precision_at_phishing_base_rate_1pct": null,
+            "precision_at_phishing_base_rate_0_1pct": null,
+            "precision_conservative_bound_1pct": null,
+            "precision_conservative_bound_0_1pct": null,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          },
+          "0_1pct": {
+            "n": 23610,
+            "phishing_n": 0,
+            "benign_n": 23610,
+            "abstentions": 0,
+            "threshold": 0.9810657259755076,
+            "tp": 0,
+            "fp": 61,
+            "fn": 0,
+            "tn": 23549,
+            "recall": null,
+            "false_positive_rate": 0.002583650995340957,
+            "recall_wilson_95": [
+              null,
+              null
+            ],
+            "fpr_wilson_95": [
+              0.0020120625022465376,
+              0.003317077148332738
+            ],
+            "precision_at_phishing_base_rate_1pct": null,
+            "precision_at_phishing_base_rate_0_1pct": null,
+            "precision_conservative_bound_1pct": null,
+            "precision_conservative_bound_0_1pct": null,
+            "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+          }
+        }
+      },
+      "calibration": {
+        "1pct": {
+          "n": 60592,
+          "phishing_n": 39414,
+          "benign_n": 21178,
+          "abstentions": 0,
+          "threshold": 0.880683232133141,
+          "tp": 31831,
+          "fp": 211,
+          "fn": 7583,
+          "tn": 20967,
+          "recall": 0.8076064342619373,
+          "false_positive_rate": 0.009963169326659742,
+          "recall_wilson_95": [
+            0.8036850221133994,
+            0.8114678909483563
+          ],
+          "fpr_wilson_95": [
+            0.008711600852140252,
+            0.011392480261325085
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.45018079851593573,
+          "precision_at_phishing_base_rate_0_1pct": 0.07505069225838362,
+          "precision_conservative_bound_1pct": 0.4160849818194522,
+          "precision_conservative_bound_0_1pct": 0.06595814588383954,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        },
+        "0_1pct": {
+          "n": 60592,
+          "phishing_n": 39414,
+          "benign_n": 21178,
+          "abstentions": 0,
+          "threshold": 0.9810657259755076,
+          "tp": 25116,
+          "fp": 21,
+          "fn": 14298,
+          "tn": 21157,
+          "recall": 0.6372355000761151,
+          "false_positive_rate": 0.000991595051468505,
+          "recall_wilson_95": [
+            0.6324757101652855,
+            0.6419685414638004
+          ],
+          "fpr_wilson_95": [
+            0.0006486841096399517,
+            0.001515502555141476
+          ],
+          "precision_at_phishing_base_rate_1pct": 0.8665114837141031,
+          "precision_at_phishing_base_rate_0_1pct": 0.39146102108829584,
+          "precision_conservative_bound_1pct": 0.8082648603061873,
+          "precision_conservative_bound_0_1pct": 0.29465953061980654,
+          "precision_bound_note": "Combines marginal Wilson bounds; descriptive conservative bound, not joint or domain-cluster confidence interval."
+        }
+      },
+      "fit_seconds": 28.134759800042957,
+      "warnings": [],
+      "probe": [
+        {
+          "host": "login.microsoftonline.com",
+          "probability": 0.5777331313290296,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "outlook.office365.com",
+          "probability": 0.6515269472256069,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "teams.microsoft.com",
+          "probability": 0.22989616945544278,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "secure.paymob.com",
+          "probability": 0.4135892606903093,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "accept.paymob.com",
+          "probability": 0.7385050231462447,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "careers.vodafone.com",
+          "probability": 0.20714457489514668,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance"
+          ]
+        },
+        {
+          "host": "booking.egyptair.com",
+          "probability": 0.34830289814066606,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vendor.talabat.com",
+          "probability": 0.24723048082570478,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "ebanking.cibeg.com",
+          "probability": 0.3913082989197755,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "bm-online.banquemisr.com",
+          "probability": 0.4377714320944087,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "microsoftonline.com",
+          "probability": 0.7515178256869646,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "paymob.com",
+          "probability": 0.7830166423978829,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "vodafone.com",
+          "probability": 0.277659173834484,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "MEDIUM",
+          "signals": [
+            "brand_resemblance"
+          ]
+        },
+        {
+          "host": "egyptair.com",
+          "probability": 0.44261573820402494,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "talabat.com",
+          "probability": 0.39535310348815605,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "cibeg.com",
+          "probability": 0.6257682465841445,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        },
+        {
+          "host": "banquemisr.com",
+          "probability": 0.7506578384288287,
+          "above_threshold": false,
+          "threshold": 0.9810657259755076,
+          "full_scanner_verdict": "LOW",
+          "signals": []
+        }
+      ],
+      "deployment_point": "0_1pct",
+      "passes_subdomain_gate": true
+    }
+  },
+  "sealed_test_run": false,
+  "genuine_egyptian_sms_test_count": 0,
+  "subset_definition": "Benign official test rows with any non-www private-PSL subdomain label",
+  "subset_n": 23610,
+  "test_unparseable_hosts": 122,
+  "warning": "Exposed development selection, not independent final validation; PPV is a prior scenario.",
+  "selection": {
+    "winner": "combined/host_only/char_calibrated_svm",
+    "promote_new_model": true,
+    "fallback_required": false,
+    "tie_order": [
+      "current_artifact",
+      "combined/host_only/lightgbm",
+      "combined/host_only/char_calibrated_svm"
+    ]
+  }
+}

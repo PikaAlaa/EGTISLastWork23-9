@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "evaluation/run_followup.py",
+    "--output",
+    "evaluation/reports/2026-10-v4/followup_final.json"
+  ],
+  "exit_code": 0,
+  "seconds": 2.551450900034979,
+  "date": "2026-10-17T19:14:38.743855+00:00",
+  "stdout": "{\n  \"detection_passed\": 23,\n  \"detection_total\": 23,\n  \"robustness_passed\": 7,\n  \"robustness_total\": 7,\n  \"followup_passed\": 15,\n  \"followup_total\": 15,\n  \"supplied_probe_results_matched\": 14,\n  \"known_limitations\": []\n}\n",
+  "stderr": ""
+}

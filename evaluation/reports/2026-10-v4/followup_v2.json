@@ -1,0 +1,356 @@
+{
+  "kind": "exposed development inputs; in-process engine replay, not HTTP or final accuracy",
+  "blacklist": "single frozen fixture in isolated in-memory SQLite; no live DB/feed changes",
+  "model": "char",
+  "policy": "decision-v2",
+  "url_model_policy": "corroboration_only",
+  "artifact_sha256": "8f5489ba82604084886080501da6306b8b6b5d784a8b83271f52034b00b533e6",
+  "probes_sha256": "85413830ff80d6738d9451081ff83d7cd84f7b74628a8e3efc70ee345d6bd45b",
+  "detection_cases": [
+    {
+      "id": "D1a",
+      "got": "HIGH",
+      "reason": "userinfo_brand",
+      "pass": true
+    },
+    {
+      "id": "D1b",
+      "got": "HIGH",
+      "reason": "userinfo_brand",
+      "pass": true
+    },
+    {
+      "id": "D2",
+      "got": "HIGH",
+      "reason": "text_high_corroborated",
+      "pass": true
+    },
+    {
+      "id": "D4",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true
+    },
+    {
+      "id": "D5a",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    },
+    {
+      "id": "D5b",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    },
+    {
+      "id": "D6a",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true
+    },
+    {
+      "id": "D6b",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true
+    },
+    {
+      "id": "D6c",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true
+    },
+    {
+      "id": "D7",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D8a",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D8b",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D9a",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    },
+    {
+      "id": "D9b",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    },
+    {
+      "id": "D9c",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    },
+    {
+      "id": "D10a",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D10b",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D10c",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D10d",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "D12a",
+      "got": 400,
+      "reason": "invalid_input",
+      "pass": true
+    },
+    {
+      "id": "D12b",
+      "got": 400,
+      "reason": "invalid_input",
+      "pass": true
+    },
+    {
+      "id": "D13",
+      "got": 400,
+      "reason": "invalid_input",
+      "pass": true
+    },
+    {
+      "id": "D14",
+      "got": 400,
+      "reason": "invalid_input",
+      "pass": true
+    }
+  ],
+  "robustness": [
+    {
+      "id": "long_legit",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "long_phish_tail",
+      "got": "HIGH",
+      "reason": "text_high_corroborated",
+      "pass": true
+    },
+    {
+      "id": "short_phish",
+      "got": "HIGH",
+      "reason": "text_high_corroborated",
+      "pass": true
+    },
+    {
+      "id": "mixed_lang",
+      "got": "HIGH",
+      "reason": "text_high_corroborated",
+      "pass": true
+    },
+    {
+      "id": "english_phish",
+      "got": "HIGH",
+      "reason": "text_high_corroborated",
+      "pass": true
+    },
+    {
+      "id": "english_legit",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true
+    },
+    {
+      "id": "multi_link",
+      "got": "HIGH",
+      "reason": "blacklist_exact",
+      "pass": true
+    }
+  ],
+  "everyday_invented": {
+    "MEDIUM": 8,
+    "LOW": 4
+  },
+  "followup_probes": [
+    {
+      "probe": "brand domain as subdomain",
+      "expected": "HIGH",
+      "got": "HIGH",
+      "reason": "domain_embedding",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "cyrillic c in cibeg",
+      "expected": "HIGH",
+      "got": "HIGH",
+      "reason": "homoglyph_confusable",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "instapay lookalike",
+      "expected": "HIGH",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "fawry lookalike, no action word",
+      "expected": "MEDIUM/HIGH",
+      "got": "MEDIUM",
+      "reason": "brand_resemblance",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "banquemisr typo",
+      "expected": "MEDIUM/HIGH",
+      "got": "MEDIUM",
+      "reason": "brand_resemblance",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "vodafone cash lookalike",
+      "expected": "MEDIUM/HIGH",
+      "got": "MEDIUM",
+      "reason": "brand_resemblance",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "official NBE deep link",
+      "expected": "LOW",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "official Banque Misr subdomain",
+      "expected": "LOW",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "official vodafone subdomain",
+      "expected": "LOW",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "defanged link in SMS",
+      "expected": "HIGH",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "bare domain in SMS",
+      "expected": "HIGH",
+      "got": "HIGH",
+      "reason": "brand_label_reuse",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "legit NBE SMS with official link",
+      "expected": "LOW/MEDIUM",
+      "got": "MEDIUM",
+      "reason": "text_model_high_uncorroborated",
+      "pass": true,
+      "known_limitation": true,
+      "matches_supplied_result": false
+    },
+    {
+      "probe": "scheme bare domain",
+      "expected": "LOW",
+      "got": "LOW",
+      "reason": "no_warning_signs",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "https on port 80",
+      "expected": "not 400",
+      "got": "MEDIUM",
+      "reason": "url_patterns",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    },
+    {
+      "probe": "11 links",
+      "expected": "INCOMPLETE",
+      "got": "INCOMPLETE",
+      "reason": "links_truncated",
+      "pass": true,
+      "known_limitation": false,
+      "matches_supplied_result": true
+    }
+  ],
+  "final_test_run": false,
+  "summary": {
+    "detection_passed": 23,
+    "detection_total": 23,
+    "robustness_passed": 7,
+    "robustness_total": 7,
+    "followup_passed": 15,
+    "followup_total": 15,
+    "supplied_probe_results_matched": 14,
+    "known_limitations": []
+  },
+  "data_sha256": "0dc76dc51072d6ddded0f3fb6a6bbaf6739a5e9fd37f5a98a50617ae65e92102",
+  "model_sha256": "8f5489ba82604084886080501da6306b8b6b5d784a8b83271f52034b00b533e6",
+  "url_model_sha256": "cff31fd9f2a7cd1324190e1dfccf5523bdcfa663ccc23af2988288cf86b3a35a",
+  "libraries": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "tldextract": "5.4.0",
+    "SQLAlchemy": "2.1.5"
+  }
+}

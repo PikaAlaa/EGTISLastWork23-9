@@ -17,6 +17,7 @@ class AnalyzeRequest(BaseModel):
     model_config = ConfigDict(extra='forbid', strict=True)
     url: str | None = Field(default=None, max_length=2048)
     text: str | None = Field(default=None, max_length=5000)
+    sender_type: Literal['company_name', 'short_code', 'mobile_number', 'unknown'] | None = None
 class AnalyzeResponse(BaseModel):
     verdict: Literal['LOW', 'MEDIUM', 'HIGH', 'INCOMPLETE']
     final_score: float
@@ -35,7 +36,7 @@ class AnalyzeResponse(BaseModel):
 @router.post('', response_model=AnalyzeResponse, dependencies=[Depends(verify_api_key)])
 @limiter.limit(settings.rate_limit)
 def analyze(request: Request, payload: AnalyzeRequest, db: Session = Depends(get_db_session)):
-    result = calculate_final_risk_score(text=payload.text, url=payload.url, db=db)
+    result = calculate_final_risk_score(text=payload.text, url=payload.url, db=db, sender_type=payload.sender_type)
     try:
         digest = lambda value: hashlib.sha256(value.encode('utf-8')).hexdigest() if value else None
         scan = ScanRequest(url_hash=digest(payload.url), text_hash=digest(payload.text),

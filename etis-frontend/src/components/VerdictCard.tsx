@@ -16,6 +16,7 @@ export function VerdictCard({ result }: { result: AnalyzeResponse }) {
   </Alert>}
   <Box sx={{mt:3}}>
    <Typography variant="h6" component="h3">{t('advice.heading')}</Typography>
+   {result.supporting_signals.includes('brand_claim_from_mobile_number')&&<Alert severity="info" sx={{mt:1,mb:2}}>{t('advice.senderType')}</Alert>}
    <Stack component="ul" spacing={1} sx={{pl:3}}>
     {(t(`advice.${result.verdict}`,{returnObjects:true}) as string[]).map((item,i)=><Typography component="li" key={i}>{item}</Typography>)}
    </Stack>

@@ -59,3 +59,22 @@ evaluation/local-results/
 
 # PhreshPhish: only download code, hashes and aggregate results belong in Git.
 data/external/phreshphish/
+
+# Local release weights and candidate bundles
+release-artifacts/
+
+# Authorised snapshots stay local; redistribution is not cleared (docs/data-licences.md).
+data/raw/
+data/processed/dataset.csv
+evaluation/reports/2026-10-v3/text_trainval.csv
+evaluation/reports/2026-10-v3/tranco-PY35J-top-20000.csv
+# Historical research binaries can be restored from release-artifacts/MANIFEST.json.
+evaluation/reports/2026-10-v3/**/*.joblib
+evaluation/reports/2026-10-v3/**/*.keras
+evaluation/reports/2026-10-v3/**/*.pkl
+ml/models/*.joblib
+!ml/models/deployed_char.joblib
+!ml/models/url_host_v3.joblib
+
+# Machine handover remains local; HANDOFF.md is committed with this follow-up.
+evaluation/reports/2026-10-v4/handoff.json
