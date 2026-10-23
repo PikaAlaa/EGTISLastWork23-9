@@ -1,73 +1,126 @@
-"""Validate and merge six local-runtime transformer prediction files."""
-import hashlib, json, statistics, math
+"""Import complete transformer development evidence; never select or deploy a model."""
+import argparse
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]; REPORT=ROOT/'evaluation/reports/2026-10-v3'; PRED=REPORT/'predictions'
-def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
-def metrics(labels,scores,threshold_95=None,threshold_1=None):
- import numpy as np
- from sklearn.metrics import f1_score,average_precision_score
- y=np.asarray(labels,dtype=int);p=np.asarray(scores,dtype=float);pos=y==1;neg=~pos
- high=threshold_95
- if high is None: high=max(float(t) for t in np.unique(p[pos]) if float((p[pos]>=t).mean())>=.95)
- pred=p>=high; tp=int((pred&pos).sum());fp=int((pred&neg).sum());fn=int((~pred&pos).sum());tn=int((~pred&neg).sum())
- allowed=int(.01*neg.sum()); n=np.sort(p[neg]); threshold=threshold_1
- if threshold is None: threshold=float(np.nextafter(n[len(n)-allowed-1],np.inf)) if allowed<len(n) else 0.0
- edges=np.linspace(0,1,16);ece=0.0
- for i,(a,b) in enumerate(zip(edges[:-1],edges[1:])):
-  m=(p>=a)&(p<(b if i<14 else b+1e-12))
-  if m.any():ece+=float(m.mean()*abs(y[m].mean()-p[m].mean()))
- f1p=2*tp/max(2*tp+fp+fn,1);f1n=2*tn/max(2*tn+fp+fn,1)
- return {'n':len(y),'macro_f1_at_recall_95':float((f1p+f1n)/2),'threshold_at_recall_95':high,'legitimate_fpr_at_recall_95':float(fp/neg.sum()) if neg.any() else None,'recall_at_fpr_le_1pct':float((p[pos]>=threshold).mean()) if pos.any() else None,'threshold_at_fpr_le_1pct':threshold,'ece_15_bins':ece,'pr_auc':float(average_precision_score(y,p)) if pos.any() and neg.any() else None,'confusion_at_recall_95':{'tp':tp,'fp':fp,'fn':fn,'tn':tn}}
-def main():
- split=json.loads((REPORT/'text_split.json').read_text(encoding='utf-8')); expected={r['row_id']:(r['content_sha256'],int(r['label']=='phishing'),r['split'],r['source'],r['language'],r['content_type']) for r in split['rows'] if r['split']=='val'}
- overlay_path=REPORT/'review-2026-10-13/language_overlay.json'
- if overlay_path.exists():
-  overlay=json.loads(overlay_path.read_text(encoding='utf-8'))
-  if overlay['data_sha256']!=split['data_sha256']:raise ValueError('Language overlay split identity differs')
-  for row in overlay['rows']:
-   if row['row_id'] in expected:
-    values=list(expected[row['row_id']]);values[4]=row['corrected_language'];expected[row['row_id']]=tuple(values)
- by_model={}; inputs=[]
- for name in ['marbertv2','camelbert_da']:
-  runs=[]
-  for seed in [42,43,44]:
-   path=PRED/f'{name}_seed{seed}.json'
-   if not path.is_file():raise FileNotFoundError(f'Missing {path.name}')
-   obj=json.loads(path.read_text(encoding='utf-8'));inputs.append({'file':path.name,'sha256':sha(path)})
-   if obj.get('data_sha256')!=split['dataset_identity']['dataset_sha256'] or obj.get('text_split_sha256')!=split['text_split_sha256'] or obj.get('seed')!=seed:raise ValueError(f'Split or seed mismatch in {path.name}')
-   if obj.get('runtime')!='local':raise ValueError(f'Local-runtime provenance is required in {path.name}')
-   rows=obj['rows']; got={r['row_id'] for r in rows}
-   if got!=set(expected) or len(rows)!=len(expected):raise ValueError(f'Validation row set differs or contains duplicates in {path.name}')
-   if any(not math.isfinite(float(r['score'])) or not 0<=float(r['score'])<=1 for r in rows):raise ValueError(f'Invalid prediction scores in {path.name}')
-   if not obj.get('cpu_latency',{}).get('cpu_only') or obj['cpu_latency'].get('batch_size')!=1:raise ValueError(f'CPU batch-size-one latency is required in {path.name}')
-   for r in rows:
-    h,y,*_=expected[r['row_id']]
-    if r['content_sha256']!=h or r['label']!=y:raise ValueError(f'Content or label mismatch for row {r["row_id"]}')
-   rows=sorted(rows,key=lambda r:r['row_id']); eligible=[r for r in rows if expected[r['row_id']][3]!='kaggle_dialectal_arabic_sms']; labels=[r['label'] for r in eligible]; scores=[r['score'] for r in eligible]; m=metrics(labels,scores)
-   subgroup={}
-   for dimension,index in [('source',3),('language',4),('content_type',5)]:
-    subgroup[dimension]={}
-    for group in sorted({expected[r['row_id']][index] for r in rows}):
-     subset=[r for r in rows if expected[r['row_id']][index]==group]
-     subgroup[dimension][group]=metrics([r['label'] for r in subset],[r['score'] for r in subset],m['threshold_at_recall_95'],m['threshold_at_fpr_le_1pct'])
-     if dimension=='source':
-      subgroup[dimension][group]['provenance']={'kaggle_arabic_phishing_fully_dataset':'translated fraud letters and UCI ham; not Egyptian SMS','salloum_gaber_bilingual_corpus':'translated/parallel emails; not Egyptian SMS','kaggle_dialectal_arabic_sms':'mixed-regional/non-Egyptian markers; apparently templated; origin unverified; training only'}.get(group,'not established')
-      subgroup[dimension][group]['selection_eligible']=group!='kaggle_dialectal_arabic_sms'
-   dialect='kaggle_dialectal_arabic_sms'
-   subgroup['kaggle_dialectal_source']={'source':dialect,'geographic_interpretation':'Mixed-regional and apparently templated; not an authenticated Egyptian source; training only','metrics':subgroup['source'].get(dialect)}
-   m['subgroups']=subgroup
-   m.update({'seed':seed,'model_sha256':obj['model_sha256'],'model_size_bytes':obj['model_size_bytes'],'cpu_latency':obj['cpu_latency'],'libraries':obj['libraries']});runs.append(m)
-  def mean(field):return statistics.mean(r[field] for r in runs)
-  by_model[name]={'seeds':runs,'mean_macro_f1_at_recall_95':mean('macro_f1_at_recall_95'),'mean_legitimate_fpr_at_recall_95':mean('legitimate_fpr_at_recall_95'),'mean_recall_at_fpr_le_1pct':mean('recall_at_fpr_le_1pct'),'mean_ece_15_bins':mean('ece_15_bins'),'mean_cpu_p50_ms':statistics.mean(r['cpu_latency']['p50_ms'] for r in runs),'mean_cpu_p95_ms':statistics.mean(r['cpu_latency']['p95_ms'] for r in runs),'model_sha256_by_seed':[r['model_sha256'] for r in runs]}
- out={'stage':'development_validation','final_test_run':False,'data_sha256':split['dataset_identity']['dataset_sha256'],'text_split_sha256':split['text_split_sha256'],'model_sha256':None,'libraries':{'numpy':__import__('numpy').__version__,'pandas':__import__('pandas').__version__,'scikit-learn':__import__('sklearn').__version__},'input_prediction_files':inputs,'models':by_model,'aggregation':'unweighted mean across three seeds; seed-specific validation metrics retained','model_selection_rule':'Apply model_selection_rule.json after comparing local results; transformer results are external to this run and require local-runtime provenance.'}
- local=json.loads((REPORT/'text_local_metrics.json').read_text(encoding='utf-8'))
- combined={'stage':'development_validation_model_comparison','final_test_run':False,'data_sha256':split['dataset_identity']['dataset_sha256'],'text_split_sha256':split['text_split_sha256'],'model_sha256':None,'libraries':out['libraries'],'local_models':local['models'],'transformer_models':by_model,'selection_rule':json.loads((REPORT/'model_selection_rule.json').read_text(encoding='utf-8')),'final_choice_waits_for_transformers':False,'input_prediction_files':inputs}
- revised=REPORT/'review-2026-10-13/model_selection_rule.json'
- if revised.exists():combined['selection_rule']=json.loads(revised.read_text())
- combined['final_choice']=False
- combined['final_choice_waits_for_transformers']=True
- combined['selection_status']='INCOMPLETE: validation predictions alone cannot select a winner. Supply transformer leave-one-source-out and everyday-probe evidence under the revised rule.'
- out['model_selection_rule']=combined['selection_status']
- (REPORT/'combined_model_comparison.json').write_text(json.dumps(combined,indent=2),encoding='utf-8')
- (REPORT/'transformer_comparison.json').write_text(json.dumps(out,indent=2),encoding='utf-8');print(json.dumps({k:{'mean_macro_f1':v['mean_macro_f1_at_recall_95'],'mean_legit_fpr':v['mean_legitimate_fpr_at_recall_95']} for k,v in by_model.items()},indent=2))
-if __name__=='__main__':main()
+import statistics
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT), str(ROOT / 'backend')]
+from evaluation.transformer_contract import (MODELS, SCHEMA, SEEDS, load_bundle, read_json,
+                                            require, sha, validate_run, write_json)
+
+REPORT = ROOT / 'evaluation/reports/2026-10-v3'
+DEFAULT_RESULTS = ROOT / 'evaluation/local-results/text-transformers'
+
+
+def metrics(rows, threshold):
+    tp = sum(r['label'] == 1 and r['score'] >= threshold for r in rows)
+    fn = sum(r['label'] == 1 and r['score'] < threshold for r in rows)
+    fp = sum(r['label'] == 0 and r['score'] >= threshold for r in rows)
+    tn = sum(r['label'] == 0 and r['score'] < threshold for r in rows)
+    return dict(n=len(rows), phishing_n=tp + fn, legitimate_n=fp + tn,
+                threshold_95=threshold, confusion=dict(tp=tp, fn=fn, fp=fp, tn=tn),
+                phishing_recall=tp / (tp + fn) if tp + fn else None,
+                legitimate_fpr=fp / (fp + tn) if fp + tn else None,
+                macro_f1=(2 * tp / max(2 * tp + fp + fn, 1) + 2 * tn / max(2 * tn + fp + fn, 1)) / 2)
+
+
+def replay_probes(obj, probes):
+    # Use the existing review's exact policy replay and its 0.2 low threshold.
+    # The adapter serves returned probabilities, never loads or trains a model.
+    import numpy as np
+    from app.core.text_utils import normalize_arabic_text, text_windows
+    from evaluation.run_text_review import probe_results
+    scores = {p['probe_index']: p['score'] for p in obj['probes']}
+    lookup = {}
+    for probe in probes:
+        for window in text_windows(probe['text']):
+            key = normalize_arabic_text(window)
+            require(key not in lookup or lookup[key] == scores[probe['probe_index']], 'Conflicting probe-window scores')
+            lookup[key] = scores[probe['probe_index']]
+
+    class ReturnedScores:
+        def predict_proba(self, texts):
+            return np.array([[1 - lookup[t], lookup[t]] for t in texts])
+
+    result = probe_results(ReturnedScores(), obj['folds']['full']['threshold_95'], [p['text'] for p in probes])
+    # The adapter's lookup time is not model latency. Use the separate CPU pass only.
+    result.pop('cpu_p95_ms', None)
+    require(result['incomplete_n'] == 0, 'Incomplete Decision-v2 probe replay')
+    return result
+
+
+def import_results(bundle, predictions):
+    bundle, predictions = Path(bundle), Path(predictions)
+    manifest, _, rule, probes = load_bundle(bundle)
+    require(sha(REPORT / 'text_split.json') == manifest['files']['text_split.json'], 'Current frozen split hash mismatch')
+    for ext in ('json', 'md'):
+        require(sha(REPORT / f'review-2026-10-13/model_selection_rule.{ext}') == manifest['files'][f'rule.{ext}'],
+                'Current frozen rule hash mismatch')
+    for name, digest in manifest['local_replay_sha256'].items():
+        require(sha(ROOT / name) == digest, f'Local policy/probe source hash mismatch: {name}')
+    from evaluation.build_transformer_colab_bundle import existing_probes
+    require([p['text'] for p in probes] == existing_probes(), 'Existing everyday probes differ')
+    receipt = read_json(predictions / 'results_manifest.json')
+    require(receipt.get('schema') == SCHEMA and receipt.get('final_test_run') is False, 'Result manifest schema/test mismatch')
+    require(receipt.get('bundle_manifest_sha256') == sha(bundle / 'manifest.json'), 'Result input manifest hash mismatch')
+    expected_files = {f'{name}_seed{seed}.json' for name in MODELS for seed in SEEDS}
+    require(set(receipt['files']) == expected_files and receipt.get('complete') is True, 'Six complete result files required')
+    require({p.name for p in predictions.iterdir()} == expected_files | {'results_manifest.json'}, 'Unexpected returned files')
+    # Validate the complete return before replay or writing any merged evidence.
+    objects = {}
+    for name in MODELS:
+        for seed in SEEDS:
+            filename = f'{name}_seed{seed}.json'
+            require(sha(predictions / filename) == receipt['files'][filename], f'Returned SHA-256 mismatch: {filename}')
+            objects[name, seed] = validate_run(read_json(predictions / filename), bundle, name, seed)
+    models = {}
+    for name in MODELS:
+        runs = []
+        for seed in SEEDS:
+            obj = objects[name, seed]
+            full = obj['folds']['full']
+            loso = {}
+            for source in rule['primary_sources']:
+                fold = obj['folds'][source]
+                loso[source] = dict(provenance=rule['provenance'][source],
+                                    threshold_validation=metrics(fold['validation'], fold['threshold_95']),
+                                    held_source=metrics(fold['held'], fold['threshold_95']),
+                                    training_n=len(fold['training_row_ids']), model_sha256=fold['model_sha256'])
+            everyday = replay_probes(obj, probes)
+            components = dict(source_mean_fnr=statistics.mean(1 - x['held_source']['phishing_recall'] for x in loso.values()),
+                              source_mean_fpr=statistics.mean(x['held_source']['legitimate_fpr'] for x in loso.values()),
+                              everyday_medium_or_high_rate=float(everyday['medium_or_high_rate']))
+            runs.append(dict(seed=seed, validation=metrics(full['validation'], full['threshold_95']),
+                             loso=loso, everyday=everyday, primary_loss_components=components,
+                             primary_loss=statistics.mean(components.values()), cpu_latency=obj['cpu_latency'],
+                             cpu_gate_passes=obj['cpu_latency']['p95_ms'] <= rule['max_p95_cpu_ms'],
+                             model_sha256=full['model_sha256'], libraries=obj['libraries']))
+        models[name] = dict(seeds=runs, mean_primary_loss=statistics.mean(r['primary_loss'] for r in runs),
+                            mean_cpu_p95_ms=statistics.mean(r['cpu_latency']['p95_ms'] for r in runs))
+    return dict(schema=SCHEMA, stage='phase1_validated_development_evidence', final_test_run=False,
+                final_choice=False, deployed_text_model_changed=False, selection_performed=False,
+                data_sha256=manifest['data_sha256'], bundle_manifest_sha256=sha(bundle / 'manifest.json'),
+                input_prediction_files=receipt['files'], models=models, provenance=rule['provenance'],
+                aggregation='Unweighted means across three seeds; no ranking or selection performed.',
+                limitations=['Colab CPU timing describes the recorded hardware, not the deployment machine.',
+                             'File hashes and row contracts detect mismatched files, not proof of honest training.',
+                             'Translated sources and invented probes are not an authentic Egyptian SMS benchmark.'])
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--bundle', type=Path, default=ROOT / 'colab-bundle/payload')
+    parser.add_argument('--predictions', type=Path, default=DEFAULT_RESULTS / 'returned')
+    parser.add_argument('--output', type=Path, default=DEFAULT_RESULTS / 'imported.json')
+    args = parser.parse_args(argv)
+    require(args.output.resolve().is_relative_to((ROOT / 'evaluation/local-results').resolve()),
+            'Output must stay under ignored evaluation/local-results; reviewed reports are read-only')
+    result = import_results(args.bundle, args.predictions)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    write_json(args.output, result)
+    print(f'Validated six runs: {args.output}. No model selected or deployed.')
+
+
+if __name__ == '__main__':
+    main()
