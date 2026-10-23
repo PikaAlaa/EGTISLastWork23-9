@@ -346,9 +346,9 @@ def select_final():
 
 def promote(pattern_policy=None):
     deployed = json.loads((ROOT / 'ml/models/url_host_deployment.json').read_text(encoding='utf-8'))
-    if deployed.get('ordinary_deployment_blocked'):
+    if deployed.get('ordinary_deployment_blocked') or deployed.get('candidate_id'):
         raise RuntimeError('Ordinary URL-model deployment is blocked by the query shortcut review; '
-                           'validate a replacement before changing deployment policy.')
+                           'this historical promoter cannot replace the validated v4 deployment.')
     report = read('url_v3_final_selection.json')
     assert report['rule_sha256'] == sha(OUT / 'url_selection_rule_v3.md')
     assert report['frozen_thresholds_sha256'] == sha(OUT / 'url_v2_frozen_thresholds.json')

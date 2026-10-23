@@ -1,6 +1,35 @@
 {
-  "created_at": "2026-10-22T20:22:03.632581+00:00",
+  "created_at": "2026-10-23T14:51:01.159061+00:00",
   "isolated_initialization": true,
+  "deployment": {
+    "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+    "candidate_id": "ee0ba9f0077c1fd140aa",
+    "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+    "source_artifact_sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+    "threshold": 0.9870690448552604,
+    "representation": "full_url",
+    "input_mode": "host_path",
+    "phresh_schema": true,
+    "preprocessing_sha256": "43b286771b8893f044efb06d97a797b933cfc9997279d3950bcc85e45c8f321a",
+    "policy": "ordinary",
+    "pattern_policy": "four_structural_only",
+    "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v4.md",
+    "selection_rule_sha256": "6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa",
+    "frozen_thresholds_path": "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.json",
+    "frozen_thresholds_sha256": "5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44",
+    "pattern_acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "pattern_training_proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+    "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+    "report": "evaluation/reports/2026-10-v4/REPORT.md",
+    "numerical_decision": "evaluation/reports/2026-10-v4/url_v4_decision.json",
+    "owner_authorized_test_rewrite": true,
+    "historical_engineering_failures": 29,
+    "model_weights_fitted": false,
+    "thresholds_retuned": false,
+    "sealed_test_run": false,
+    "limitations": "Exposed development selection; sparse natural benign queries, no benign fragment coverage or genuine Egyptian SMS final test."
+  },
   "sealed_test_run": false,
   "destination_requests": 0,
   "commands": {
@@ -13,11 +42,11 @@
         "-p",
         "no:cacheprovider",
         "--basetemp",
-        ".local/pytest-v4-final-20261022202203625128"
+        ".local/pytest-v4-final-20261023145101153067"
       ],
       "exit_code": 0,
-      "seconds": 36.26686850000988,
-      "output": "........................................................................ [ 18%]\n........................................................................ [ 36%]\n........................................................................ [ 55%]\n........................................................................ [ 73%]\n........................................................................ [ 91%]\n................................                                         [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n392 passed, 1 warning in 33.31s\n"
+      "seconds": 39.34455819999994,
+      "output": "........................................................................ [ 18%]\n........................................................................ [ 36%]\n........................................................................ [ 55%]\n........................................................................ [ 73%]\n........................................................................ [ 91%]\n................................                                         [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n392 passed, 1 warning in 36.87s\n"
     },
     "query_invariance_40": {
       "command": [
@@ -29,11 +58,11 @@
         "no:cacheprovider",
         "backend/tests/test_url_query_invariance.py",
         "--basetemp",
-        ".local/pytest-v4-query-20261022202203625128"
+        ".local/pytest-v4-query-20261023145101153067"
       ],
       "exit_code": 0,
-      "seconds": 7.856325100001413,
-      "output": "........................................                                 [100%]\n40 passed in 5.50s\n"
+      "seconds": 3.2076313000000027,
+      "output": "........................................                                 [100%]\n40 passed in 1.98s\n"
     },
     "replays": {
       "command": [
@@ -43,7 +72,7 @@
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\evaluation\\reports\\2026-10-v4\\url_v4_release_replays.json"
       ],
       "exit_code": 0,
-      "seconds": 6.7943050999892876,
+      "seconds": 2.7010382000000845,
       "output": "{\n  \"detection_passed\": 23,\n  \"detection_total\": 23,\n  \"robustness_passed\": 7,\n  \"robustness_total\": 7,\n  \"followup_passed\": 15,\n  \"followup_total\": 15,\n  \"supplied_probe_results_matched\": 14,\n  \"known_limitations\": []\n}\n"
     },
     "host_probes": {
@@ -54,7 +83,7 @@
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\evaluation\\reports\\2026-10-v4\\url_v4_release_host_probes.json"
       ],
       "exit_code": 0,
-      "seconds": 5.487972700007958,
+      "seconds": 2.3068504999998822,
       "output": "{\"hosts\": 17, \"raw_above_threshold\": 0, \"medium_or_high\": 0}\n"
     },
     "query_path_88": {
@@ -65,19 +94,19 @@
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\evaluation\\reports\\2026-10-v4\\url_v4_release_query_probes.json"
       ],
       "exit_code": 0,
-      "seconds": 8.35769849998178,
-      "output": "{\n  \"path_control\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"order_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"sms_tracking\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"login_control\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"login_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"root_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"search_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"pagination\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"tracking\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"fragment\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"multiple_parameters\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 8,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"MEDIUM\": 4,\n        \"LOW\": 4\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  }\n}\n"
+      "seconds": 2.9733439999999973,
+      "output": "{\n  \"path_control\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"order_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"sms_tracking\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"login_control\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"login_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"root_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"search_query\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"pagination\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"tracking\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"fragment\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  },\n  \"multiple_parameters\": {\n    \"hosts\": 8,\n    \"raw_above_threshold\": 0,\n    \"verdicts\": {\n      \"active\": {\n        \"LOW\": 8\n      },\n      \"ordinary\": {\n        \"LOW\": 8\n      },\n      \"corroboration_only\": {\n        \"LOW\": 8\n      },\n      \"non_model\": {\n        \"LOW\": 8\n      }\n    }\n  }\n}\n"
     },
     "scanner_parity": {
       "command": [
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
-        "evaluation/verify_url_v3_deployment.py",
+        "evaluation/verify_deployed_url_v4.py",
         "--output",
         "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\evaluation\\reports\\2026-10-v4\\url_v4_release_scanner_verification.json"
       ],
       "exit_code": 0,
-      "seconds": 28.28883490001317,
-      "output": "{\"policy\": \"corroboration_only\", \"pattern_policy\": \"four_structural_only\", \"production_brand_distance_unchanged\": true, \"destination_requests\": 0, \"cohorts\": {\"phreshphish_test\": {\"policies\": {\"old_v3_deployed\": {\"full_scanner_matches\": 194, \"mismatches\": 0}, \"v1_selected\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"deployed_v3\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"corroboration_only\": {\"full_scanner_matches\": 195, \"mismatches\": 0}, \"non_model_baseline\": {\"full_scanner_matches\": 100, \"mismatches\": 0}}, \"packaged_probability_max_difference\": 0.0}, \"etis_grouped_validation\": {\"policies\": {\"old_v3_deployed\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"v1_selected\": {\"full_scanner_matches\": 181, \"mismatches\": 0}, \"deployed_v3\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"corroboration_only\": {\"full_scanner_matches\": 153, \"mismatches\": 0}, \"non_model_baseline\": {\"full_scanner_matches\": 100, \"mismatches\": 0}}, \"packaged_probability_max_difference\": 0.0}}}\n"
+      "seconds": 10.205911399999877,
+      "output": "{\n  \"candidate_id\": \"ee0ba9f0077c1fd140aa\",\n  \"artifact_sha256\": \"1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52\",\n  \"policy\": \"ordinary\",\n  \"input_mode\": \"host_path\",\n  \"threshold\": 0.9870690448552604,\n  \"weights_and_vectorizer_unchanged\": true,\n  \"method\": \"Boundary/random samples of recorded winner only; existing frozen predictions, no evaluation rerun\",\n  \"destination_requests\": 0,\n  \"sealed_test_run\": false,\n  \"cohorts\": {\n    \"phreshphish_test\": {\n      \"full_scanner_matches\": 175,\n      \"runtime_input_abstentions\": 10,\n      \"mismatches\": 0,\n      \"packaged_probability_max_difference\": 0.0\n    },\n    \"etis_grouped_validation\": {\n      \"full_scanner_matches\": 157,\n      \"runtime_input_abstentions\": 0,\n      \"mismatches\": 0,\n      \"packaged_probability_max_difference\": 0.0\n    }\n  },\n  \"passes\": true\n}\n"
     },
     "initialize": {
       "command": [
@@ -85,7 +114,7 @@
         "scripts/initialize.py"
       ],
       "exit_code": 0,
-      "seconds": 2.2517153000226244,
+      "seconds": 1.3292923999999857,
       "output": "{\"initialized\": true, \"database\": \"project-local SQLite unless DATABASE_URL explicitly configured\", \"key\": \"stored in ignored .env; never printed\"}\n"
     },
     "frontend_build": {
@@ -95,8 +124,8 @@
         "build"
       ],
       "exit_code": 0,
-      "seconds": 7.378382599999895,
-      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 404ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+      "seconds": 27.89323360000003,
+      "output": "\n> etis-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\ntransforming...\u2713 952 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.52 kB \u2502 gzip:   0.34 kB\ndist/assets/index-B0AaMWbR.css    0.16 kB \u2502 gzip:   0.15 kB\ndist/assets/index-DGkugAhw.js   547.53 kB \u2502 gzip: 172.57 kB\n\n\u2713 built in 2.10s\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "frontend_lint": {
       "command": [
@@ -105,7 +134,7 @@
         "lint"
       ],
       "exit_code": 0,
-      "seconds": 1.5444949000084307,
+      "seconds": 1.1183926000001065,
       "output": "\n> etis-frontend@0.0.0 lint\n> oxlint\n\n"
     }
   }

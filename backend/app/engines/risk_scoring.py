@@ -19,9 +19,9 @@ from app.engines.url_model import score_url
 from app.core.sender_claims import has_financial_or_telecom_brand_claim
 
 POLICY_VERSION = 'decision-v2'
-# The full-URL artifact overreacts to ordinary query strings. Keep raw scores
-# diagnostic; require independent evidence until a replacement is validated.
-URL_MODEL_POLICY = 'corroboration_only'
+# V4 selected host_path input excludes query/fragment characters from model
+# features. Ordinary support can warn; independent evidence still gates HIGH.
+URL_MODEL_POLICY = 'ordinary'
 
 def calculate_final_risk_score(text=None, url=None, db=None, sender_type=None):
     start = time.perf_counter()

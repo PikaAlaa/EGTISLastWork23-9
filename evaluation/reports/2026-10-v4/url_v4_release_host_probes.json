@@ -1,7 +1,7 @@
 {
   "kind": "exposed regression probes, not population or Egyptian-performance evidence",
-  "url_model_policy": "corroboration_only",
-  "artifact_sha256": "4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8",
+  "url_model_policy": "ordinary",
+  "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
   "destination_requests": 0,
   "sealed_test_run": false,
   "rows": [
@@ -9,10 +9,10 @@
       "host": "login.microsoftonline.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.23791075639537634,
-        "threshold": 0.9903286846155258,
+        "probability": 0.24955196805274327,
+        "threshold": 0.9870690448552604,
         "registered_domain": "microsoftonline.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -37,8 +37,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.23791075639537634,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.24955196805274327,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": false,
@@ -50,10 +50,10 @@
       "host": "outlook.office365.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.46000990799988756,
-        "threshold": 0.9903286846155258,
+        "probability": 0.49939555963936244,
+        "threshold": 0.9870690448552604,
         "registered_domain": "office365.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -78,8 +78,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.46000990799988756,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.49939555963936244,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": false,
@@ -91,10 +91,10 @@
       "host": "teams.microsoft.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.17446232274351767,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1822508394406849,
+        "threshold": 0.9870690448552604,
         "registered_domain": "microsoft.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -119,8 +119,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.17446232274351767,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.1822508394406849,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": false,
@@ -132,10 +132,10 @@
       "host": "secure.paymob.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.17662962442237448,
-        "threshold": 0.9903286846155258,
+        "probability": 0.19016975558296348,
+        "threshold": 0.9870690448552604,
         "registered_domain": "paymob.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -160,8 +160,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.17662962442237448,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.19016975558296348,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -173,10 +173,10 @@
       "host": "accept.paymob.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.17446232274351767,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1814683796697423,
+        "threshold": 0.9870690448552604,
         "registered_domain": "paymob.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -201,8 +201,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.17446232274351767,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.1814683796697423,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -214,10 +214,10 @@
       "host": "careers.vodafone.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.22106145783387784,
-        "threshold": 0.9903286846155258,
+        "probability": 0.23908586175042473,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vodafone.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -242,8 +242,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.22106145783387784,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.23908586175042473,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -255,10 +255,10 @@
       "host": "booking.egyptair.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.25670449377011184,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2780336855321214,
+        "threshold": 0.9870690448552604,
         "registered_domain": "egyptair.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -283,8 +283,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.25670449377011184,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.2780336855321214,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -296,10 +296,10 @@
       "host": "vendor.talabat.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.22106145783387784,
-        "threshold": 0.9903286846155258,
+        "probability": 0.23956040993353037,
+        "threshold": 0.9870690448552604,
         "registered_domain": "talabat.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -324,8 +324,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.22106145783387784,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.23956040993353037,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -337,10 +337,10 @@
       "host": "ebanking.cibeg.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.22106145783387784,
-        "threshold": 0.9903286846155258,
+        "probability": 0.23956040993353037,
+        "threshold": 0.9870690448552604,
         "registered_domain": "cibeg.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -370,8 +370,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.22106145783387784,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.23956040993353037,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -383,10 +383,10 @@
       "host": "bm-online.banquemisr.com",
       "kind": "subdomain",
       "model": {
-        "probability": 0.5494048568190187,
-        "threshold": 0.9903286846155258,
+        "probability": 0.5329910823172528,
+        "threshold": 0.9870690448552604,
         "registered_domain": "banquemisr.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -416,8 +416,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.5494048568190187,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.5329910823172528,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -429,10 +429,10 @@
       "host": "microsoftonline.com",
       "kind": "main",
       "model": {
-        "probability": 0.416860772561918,
-        "threshold": 0.9903286846155258,
+        "probability": 0.398943982027881,
+        "threshold": 0.9870690448552604,
         "registered_domain": "microsoftonline.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -457,8 +457,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.416860772561918,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.398943982027881,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": false,
@@ -470,10 +470,10 @@
       "host": "paymob.com",
       "kind": "main",
       "model": {
-        "probability": 0.3423014814884379,
-        "threshold": 0.9903286846155258,
+        "probability": 0.36309464760726673,
+        "threshold": 0.9870690448552604,
         "registered_domain": "paymob.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -498,8 +498,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.3423014814884379,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.36309464760726673,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -511,10 +511,10 @@
       "host": "vodafone.com",
       "kind": "main",
       "model": {
-        "probability": 0.38769643228704603,
-        "threshold": 0.9903286846155258,
+        "probability": 0.36770139245696126,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vodafone.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -539,8 +539,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.38769643228704603,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.36770139245696126,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -552,10 +552,10 @@
       "host": "egyptair.com",
       "kind": "main",
       "model": {
-        "probability": 0.38769643228704603,
-        "threshold": 0.9903286846155258,
+        "probability": 0.36770139245696126,
+        "threshold": 0.9870690448552604,
         "registered_domain": "egyptair.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -580,8 +580,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.38769643228704603,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.36770139245696126,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -593,10 +593,10 @@
       "host": "talabat.com",
       "kind": "main",
       "model": {
-        "probability": 0.4227693898367992,
-        "threshold": 0.9903286846155258,
+        "probability": 0.39492480529492474,
+        "threshold": 0.9870690448552604,
         "registered_domain": "talabat.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -621,8 +621,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.4227693898367992,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.39492480529492474,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -634,10 +634,10 @@
       "host": "cibeg.com",
       "kind": "main",
       "model": {
-        "probability": 0.35043201022150355,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3535675214785573,
+        "threshold": 0.9870690448552604,
         "registered_domain": "cibeg.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -667,8 +667,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.35043201022150355,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.3535675214785573,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,
@@ -680,10 +680,10 @@
       "host": "banquemisr.com",
       "kind": "main",
       "model": {
-        "probability": 0.3572109932427548,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3636157320779013,
+        "threshold": 0.9870690448552604,
         "registered_domain": "banquemisr.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "verdict": "LOW",
       "reason": "no_warning_signs",
@@ -713,8 +713,8 @@
           "match_type": null,
           "matched_entry": null
         },
-        "url_model_probability": 0.3572109932427548,
-        "url_model_threshold": 0.9903286846155258,
+        "url_model_probability": 0.3636157320779013,
+        "url_model_threshold": 0.9870690448552604,
         "url_model_above_threshold": false,
         "url_model_raw_above_threshold": false,
         "verified_official_host": true,

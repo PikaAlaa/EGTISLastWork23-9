@@ -1,8 +1,8 @@
 {
   "kind": "exposed reviewer and authored development regressions; not population accuracy",
-  "url_model_policy": "corroboration_only",
-  "artifact_sha256": "4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8",
-  "scanner_sha256": "5f42268a8ed3d66fd6501cb2cb86e6b43a6dfb8242a65275749565a79b8b5c69",
+  "url_model_policy": "ordinary",
+  "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+  "scanner_sha256": "7143c387d654a3f98ecf231ecf6310abc77328fde8f77e72c837c3fca81529db",
   "blacklist": "isolated healthy empty in-memory fixture; production registry populated",
   "destination_requests": 0,
   "sealed_test_run": false,
@@ -27,14 +27,13 @@
     },
     "order_query": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -46,14 +45,13 @@
     },
     "sms_tracking": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -83,14 +81,13 @@
     },
     "login_query": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -102,14 +99,13 @@
     },
     "root_query": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -121,14 +117,13 @@
     },
     "search_query": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -140,14 +135,13 @@
     },
     "pagination": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -159,14 +153,13 @@
     },
     "tracking": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -178,14 +171,13 @@
     },
     "fragment": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -197,14 +189,13 @@
     },
     "multiple_parameters": {
       "hosts": 8,
-      "raw_above_threshold": 8,
+      "raw_above_threshold": 0,
       "verdicts": {
         "active": {
           "LOW": 8
         },
         "ordinary": {
-          "MEDIUM": 4,
-          "LOW": 4
+          "LOW": 8
         },
         "corroboration_only": {
           "LOW": 8
@@ -221,10 +212,10 @@
       "variant": "path_control",
       "url": "https://youm7.com/track/12345",
       "model": {
-        "probability": 0.3201752648656027,
-        "threshold": 0.9903286846155258,
+        "probability": 0.28204295694346115,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -266,27 +257,25 @@
       "variant": "order_query",
       "url": "https://youm7.com/track?order=12345",
       "model": {
-        "probability": 0.9981291728451884,
-        "threshold": 0.9903286846155258,
+        "probability": 0.536262141453736,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -294,7 +283,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -307,34 +296,32 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.5925017546280819
+      "query_len_zero_probability": 0.5887051584569933
     },
     {
       "host": "youm7.com",
       "variant": "sms_tracking",
       "url": "https://youm7.com/?utm_source=sms",
       "model": {
-        "probability": 0.9978286097738512,
-        "threshold": 0.9903286846155258,
+        "probability": 0.4823073087263945,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -342,7 +329,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -361,10 +348,10 @@
       "variant": "login_control",
       "url": "https://youm7.com/login",
       "model": {
-        "probability": 0.5124737986051394,
-        "threshold": 0.9903286846155258,
+        "probability": 0.563893957608503,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -406,27 +393,25 @@
       "variant": "login_query",
       "url": "https://youm7.com/login?next=/home",
       "model": {
-        "probability": 0.997760840139067,
-        "threshold": 0.9903286846155258,
+        "probability": 0.563893957608503,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -434,7 +419,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -453,27 +438,25 @@
       "variant": "root_query",
       "url": "https://youm7.com/?q=weather",
       "model": {
-        "probability": 0.9975945242028629,
-        "threshold": 0.9903286846155258,
+        "probability": 0.4823073087263945,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -481,7 +464,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -500,27 +483,25 @@
       "variant": "search_query",
       "url": "https://youm7.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9981447552054025,
-        "threshold": 0.9903286846155258,
+        "probability": 0.5052647472846207,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -528,7 +509,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -547,27 +528,25 @@
       "variant": "pagination",
       "url": "https://youm7.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9979282333040859,
-        "threshold": 0.9903286846155258,
+        "probability": 0.33146650339727757,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -575,7 +554,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -594,27 +573,25 @@
       "variant": "tracking",
       "url": "https://youm7.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9990708876744392,
-        "threshold": 0.9903286846155258,
+        "probability": 0.4857917778189171,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -622,7 +599,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -641,27 +618,25 @@
       "variant": "fragment",
       "url": "https://youm7.com/track?order=12345#status",
       "model": {
-        "probability": 0.9981114434945954,
-        "threshold": 0.9903286846155258,
+        "probability": 0.536262141453736,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -669,7 +644,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -688,27 +663,25 @@
       "variant": "multiple_parameters",
       "url": "https://youm7.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.998309092236016,
-        "threshold": 0.9903286846155258,
+        "probability": 0.536262141453736,
+        "threshold": 0.9870690448552604,
         "registered_domain": "youm7.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -716,7 +689,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -735,10 +708,10 @@
       "variant": "path_control",
       "url": "https://masrawy.com/track/12345",
       "model": {
-        "probability": 0.34047343348940184,
-        "threshold": 0.9903286846155258,
+        "probability": 0.299708971549327,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -780,27 +753,25 @@
       "variant": "order_query",
       "url": "https://masrawy.com/track?order=12345",
       "model": {
-        "probability": 0.9981101688241666,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -808,7 +779,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -821,34 +792,32 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.6034789835919192
+      "query_len_zero_probability": 0.5996699785053613
     },
     {
       "host": "masrawy.com",
       "variant": "sms_tracking",
       "url": "https://masrawy.com/?utm_source=sms",
       "model": {
-        "probability": 0.9979549606656788,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3647860708027596,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -856,7 +825,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -875,10 +844,10 @@
       "variant": "login_control",
       "url": "https://masrawy.com/login",
       "model": {
-        "probability": 0.3432584413049086,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3685763671716186,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -920,27 +889,25 @@
       "variant": "login_query",
       "url": "https://masrawy.com/login?next=/home",
       "model": {
-        "probability": 0.9977933774734482,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3685763671716186,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -948,7 +915,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -967,27 +934,25 @@
       "variant": "root_query",
       "url": "https://masrawy.com/?q=weather",
       "model": {
-        "probability": 0.9975293871318117,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3647860708027596,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -995,7 +960,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1014,27 +979,25 @@
       "variant": "search_query",
       "url": "https://masrawy.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9978268927884416,
-        "threshold": 0.9903286846155258,
+        "probability": 0.30531155360081713,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1042,7 +1005,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1061,27 +1024,25 @@
       "variant": "pagination",
       "url": "https://masrawy.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9990658873759106,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2505893477216133,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1089,7 +1050,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1108,27 +1069,25 @@
       "variant": "tracking",
       "url": "https://masrawy.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9989281504346145,
-        "threshold": 0.9903286846155258,
+        "probability": 0.31437945347454715,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1136,7 +1095,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1155,27 +1114,25 @@
       "variant": "fragment",
       "url": "https://masrawy.com/track?order=12345#status",
       "model": {
-        "probability": 0.9984251430585145,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1183,7 +1140,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1202,27 +1159,25 @@
       "variant": "multiple_parameters",
       "url": "https://masrawy.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9983179086802413,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "masrawy.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1230,7 +1185,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1249,10 +1204,10 @@
       "variant": "path_control",
       "url": "https://vezeeta.com/track/12345",
       "model": {
-        "probability": 0.34047343348940184,
-        "threshold": 0.9903286846155258,
+        "probability": 0.299708971549327,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -1294,27 +1249,25 @@
       "variant": "order_query",
       "url": "https://vezeeta.com/track?order=12345",
       "model": {
-        "probability": 0.9980836024123917,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1322,7 +1275,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1335,34 +1288,32 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.6001273801916364
+      "query_len_zero_probability": 0.5985001549992908
     },
     {
       "host": "vezeeta.com",
       "variant": "sms_tracking",
       "url": "https://vezeeta.com/?utm_source=sms",
       "model": {
-        "probability": 0.9979549606656788,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3647860708027596,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1370,7 +1321,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1389,10 +1340,10 @@
       "variant": "login_control",
       "url": "https://vezeeta.com/login",
       "model": {
-        "probability": 0.3232028861166395,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3500079314056086,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -1434,27 +1385,25 @@
       "variant": "login_query",
       "url": "https://vezeeta.com/login?next=/home",
       "model": {
-        "probability": 0.997763619943012,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3500079314056086,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1462,7 +1411,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1481,27 +1430,25 @@
       "variant": "root_query",
       "url": "https://vezeeta.com/?q=weather",
       "model": {
-        "probability": 0.9975293871318117,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3647860708027596,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1509,7 +1456,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1528,27 +1475,25 @@
       "variant": "search_query",
       "url": "https://vezeeta.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9978268927884416,
-        "threshold": 0.9903286846155258,
+        "probability": 0.30531155360081713,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1556,7 +1501,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1575,27 +1520,25 @@
       "variant": "pagination",
       "url": "https://vezeeta.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9989546958861376,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2505893477216133,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1603,7 +1546,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1622,27 +1565,25 @@
       "variant": "tracking",
       "url": "https://vezeeta.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9989281504346145,
-        "threshold": 0.9903286846155258,
+        "probability": 0.29905997657891636,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1650,7 +1591,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1669,27 +1610,25 @@
       "variant": "fragment",
       "url": "https://vezeeta.com/track?order=12345#status",
       "model": {
-        "probability": 0.9984107135594983,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1697,7 +1636,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1716,27 +1655,25 @@
       "variant": "multiple_parameters",
       "url": "https://vezeeta.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9983179086802413,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3250452053833792,
+        "threshold": 0.9870690448552604,
         "registered_domain": "vezeeta.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1744,7 +1681,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -1763,10 +1700,10 @@
       "variant": "path_control",
       "url": "https://noon.com/track/12345",
       "model": {
-        "probability": 0.17252316027084297,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1349035939917848,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -1808,17 +1745,17 @@
       "variant": "order_query",
       "url": "https://noon.com/track?order=12345",
       "model": {
-        "probability": 0.9947644896528813,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1826,7 +1763,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1834,7 +1771,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1847,24 +1784,24 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.2745543712175503
+      "query_len_zero_probability": 0.2855492557653569
     },
     {
       "host": "noon.com",
       "variant": "sms_tracking",
       "url": "https://noon.com/?utm_source=sms",
       "model": {
-        "probability": 0.9957723623425354,
-        "threshold": 0.9903286846155258,
+        "probability": 0.11753589765541345,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1872,7 +1809,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1880,7 +1817,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1899,10 +1836,10 @@
       "variant": "login_control",
       "url": "https://noon.com/login",
       "model": {
-        "probability": 0.18297179513122672,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -1944,17 +1881,17 @@
       "variant": "login_query",
       "url": "https://noon.com/login?next=/home",
       "model": {
-        "probability": 0.9954815346034009,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1962,7 +1899,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1970,7 +1907,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -1989,17 +1926,17 @@
       "variant": "root_query",
       "url": "https://noon.com/?q=weather",
       "model": {
-        "probability": 0.9950426208633619,
-        "threshold": 0.9903286846155258,
+        "probability": 0.11753589765541345,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2007,7 +1944,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2015,7 +1952,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2034,17 +1971,17 @@
       "variant": "search_query",
       "url": "https://noon.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9951776148245453,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2052,7 +1989,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2060,7 +1997,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2079,17 +2016,17 @@
       "variant": "pagination",
       "url": "https://noon.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9975743136302436,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1252268827614902,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2097,7 +2034,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2105,7 +2042,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2124,17 +2061,17 @@
       "variant": "tracking",
       "url": "https://noon.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9978498813083014,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1766756280816535,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2142,7 +2079,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2150,7 +2087,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2169,17 +2106,17 @@
       "variant": "fragment",
       "url": "https://noon.com/track?order=12345#status",
       "model": {
-        "probability": 0.9964706655742426,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2187,7 +2124,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2195,7 +2132,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2214,17 +2151,17 @@
       "variant": "multiple_parameters",
       "url": "https://noon.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9959258344265426,
-        "threshold": 0.9903286846155258,
+        "probability": 0.20279390030434835,
+        "threshold": 0.9870690448552604,
         "registered_domain": "noon.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2232,7 +2169,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2240,7 +2177,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2259,10 +2196,10 @@
       "variant": "path_control",
       "url": "https://wuzzuf.net/track/12345",
       "model": {
-        "probability": 0.18164282883831642,
-        "threshold": 0.9903286846155258,
+        "probability": 0.1838110675228223,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -2304,27 +2241,25 @@
       "variant": "order_query",
       "url": "https://wuzzuf.net/track?order=12345",
       "model": {
-        "probability": 0.9924193041185262,
-        "threshold": 0.9903286846155258,
+        "probability": 0.37839309075701155,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2332,7 +2267,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2345,34 +2280,32 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.5132725314602378
+      "query_len_zero_probability": 0.4885919901895173
     },
     {
       "host": "wuzzuf.net",
       "variant": "sms_tracking",
       "url": "https://wuzzuf.net/?utm_source=sms",
       "model": {
-        "probability": 0.9942905204966331,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3388266149143349,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2380,7 +2313,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2399,10 +2332,10 @@
       "variant": "login_control",
       "url": "https://wuzzuf.net/login",
       "model": {
-        "probability": 0.3792539008716744,
-        "threshold": 0.9903286846155258,
+        "probability": 0.39274123473764544,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -2444,27 +2377,25 @@
       "variant": "login_query",
       "url": "https://wuzzuf.net/login?next=/home",
       "model": {
-        "probability": 0.9953343440609932,
-        "threshold": 0.9903286846155258,
+        "probability": 0.39274123473764544,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2472,7 +2403,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2491,27 +2422,25 @@
       "variant": "root_query",
       "url": "https://wuzzuf.net/?q=weather",
       "model": {
-        "probability": 0.9925104457598922,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3388266149143349,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2519,7 +2448,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2538,27 +2467,25 @@
       "variant": "search_query",
       "url": "https://wuzzuf.net/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9952804692932989,
-        "threshold": 0.9903286846155258,
+        "probability": 0.34752100064935343,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2566,7 +2493,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2585,27 +2512,25 @@
       "variant": "pagination",
       "url": "https://wuzzuf.net/products?page=2&sort=price",
       "model": {
-        "probability": 0.9978052538678208,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2639118442749789,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2613,7 +2538,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2632,27 +2557,25 @@
       "variant": "tracking",
       "url": "https://wuzzuf.net/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9977266221681521,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3091447279338637,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2660,7 +2583,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2679,27 +2602,25 @@
       "variant": "fragment",
       "url": "https://wuzzuf.net/track?order=12345#status",
       "model": {
-        "probability": 0.9921267283830624,
-        "threshold": 0.9903286846155258,
+        "probability": 0.37839309075701155,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2707,7 +2628,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2726,27 +2647,25 @@
       "variant": "multiple_parameters",
       "url": "https://wuzzuf.net/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9935577110687438,
-        "threshold": 0.9903286846155258,
+        "probability": 0.37839309075701155,
+        "threshold": 0.9870690448552604,
         "registered_domain": "wuzzuf.net",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
         "ordinary": {
-          "verdict": "MEDIUM",
-          "signals": [
-            "url_model"
-          ],
-          "model_support": true,
-          "raw_above_threshold": true,
+          "verdict": "LOW",
+          "signals": [],
+          "model_support": false,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2754,7 +2673,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": false,
           "shared_host": false
         },
@@ -2773,10 +2692,10 @@
       "variant": "path_control",
       "url": "https://breadfast.com/track/12345",
       "model": {
-        "probability": 0.34806498043143574,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3001767892894474,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -2818,17 +2737,17 @@
       "variant": "order_query",
       "url": "https://breadfast.com/track?order=12345",
       "model": {
-        "probability": 0.9980836024123917,
-        "threshold": 0.9903286846155258,
+        "probability": 0.30840521376810354,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2836,7 +2755,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2844,7 +2763,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2857,24 +2776,24 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.6001273801916364
+      "query_len_zero_probability": 0.5985001549992908
     },
     {
       "host": "breadfast.com",
       "variant": "sms_tracking",
       "url": "https://breadfast.com/?utm_source=sms",
       "model": {
-        "probability": 0.9981274016509064,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3697832721005057,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2882,7 +2801,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2890,7 +2809,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2909,10 +2828,10 @@
       "variant": "login_control",
       "url": "https://breadfast.com/login",
       "model": {
-        "probability": 0.34271962512597876,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3467740491653689,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -2954,17 +2873,17 @@
       "variant": "login_query",
       "url": "https://breadfast.com/login?next=/home",
       "model": {
-        "probability": 0.9981728502244017,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3467740491653689,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2972,7 +2891,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2980,7 +2899,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -2999,17 +2918,17 @@
       "variant": "root_query",
       "url": "https://breadfast.com/?q=weather",
       "model": {
-        "probability": 0.9978049258212586,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3697832721005057,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3017,7 +2936,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3025,7 +2944,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3044,17 +2963,17 @@
       "variant": "search_query",
       "url": "https://breadfast.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9981745200780598,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2999722264524781,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3062,7 +2981,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3070,7 +2989,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3089,17 +3008,17 @@
       "variant": "pagination",
       "url": "https://breadfast.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9989546958861376,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2561996778461447,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3107,7 +3026,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3115,7 +3034,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3134,17 +3053,17 @@
       "variant": "tracking",
       "url": "https://breadfast.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9990421629198517,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3085947960597716,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3152,7 +3071,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3160,7 +3079,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3179,17 +3098,17 @@
       "variant": "fragment",
       "url": "https://breadfast.com/track?order=12345#status",
       "model": {
-        "probability": 0.9984107135594983,
-        "threshold": 0.9903286846155258,
+        "probability": 0.30840521376810354,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3197,7 +3116,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3205,7 +3124,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3224,17 +3143,17 @@
       "variant": "multiple_parameters",
       "url": "https://breadfast.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9983179086802413,
-        "threshold": 0.9903286846155258,
+        "probability": 0.30840521376810354,
+        "threshold": 0.9870690448552604,
         "registered_domain": "breadfast.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3242,7 +3161,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3250,7 +3169,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3269,10 +3188,10 @@
       "variant": "path_control",
       "url": "https://bosta.co/track/12345",
       "model": {
-        "probability": 0.7226155912949531,
-        "threshold": 0.9903286846155258,
+        "probability": 0.5786913115990573,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -3314,17 +3233,17 @@
       "variant": "order_query",
       "url": "https://bosta.co/track?order=12345",
       "model": {
-        "probability": 0.9977072184366643,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3332,7 +3251,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3340,7 +3259,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3353,24 +3272,24 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.9053740470434478
+      "query_len_zero_probability": 0.8234726827386871
     },
     {
       "host": "bosta.co",
       "variant": "sms_tracking",
       "url": "https://bosta.co/?utm_source=sms",
       "model": {
-        "probability": 0.9979316748015722,
-        "threshold": 0.9903286846155258,
+        "probability": 0.5381998699111586,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3378,7 +3297,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3386,7 +3305,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3405,10 +3324,10 @@
       "variant": "login_control",
       "url": "https://bosta.co/login",
       "model": {
-        "probability": 0.8312739117500183,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -3450,17 +3369,17 @@
       "variant": "login_query",
       "url": "https://bosta.co/login?next=/home",
       "model": {
-        "probability": 0.9984857142594877,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3468,7 +3387,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3476,7 +3395,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3495,17 +3414,17 @@
       "variant": "root_query",
       "url": "https://bosta.co/?q=weather",
       "model": {
-        "probability": 0.9973313911464157,
-        "threshold": 0.9903286846155258,
+        "probability": 0.5381998699111586,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3513,7 +3432,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3521,7 +3440,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3540,17 +3459,17 @@
       "variant": "search_query",
       "url": "https://bosta.co/search?q=cairo%20weather",
       "model": {
-        "probability": 0.9984737099662258,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3558,7 +3477,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3566,7 +3485,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3585,17 +3504,17 @@
       "variant": "pagination",
       "url": "https://bosta.co/products?page=2&sort=price",
       "model": {
-        "probability": 0.9993333913510862,
-        "threshold": 0.9903286846155258,
+        "probability": 0.6647577834172211,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3603,7 +3522,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3611,7 +3530,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3630,17 +3549,17 @@
       "variant": "tracking",
       "url": "https://bosta.co/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9992519073419002,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7504599439815994,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3648,7 +3567,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3656,7 +3575,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3675,17 +3594,17 @@
       "variant": "fragment",
       "url": "https://bosta.co/track?order=12345#status",
       "model": {
-        "probability": 0.9978709214360807,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3693,7 +3612,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3701,7 +3620,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3720,17 +3639,17 @@
       "variant": "multiple_parameters",
       "url": "https://bosta.co/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9977334468715562,
-        "threshold": 0.9903286846155258,
+        "probability": 0.7703938266097254,
+        "threshold": 0.9870690448552604,
         "registered_domain": "bosta.co",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3738,7 +3657,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3746,7 +3665,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3765,10 +3684,10 @@
       "variant": "path_control",
       "url": "https://aramex.com/track/12345",
       "model": {
-        "probability": 0.34047343348940184,
-        "threshold": 0.9903286846155258,
+        "probability": 0.2951842849714243,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -3810,17 +3729,17 @@
       "variant": "order_query",
       "url": "https://aramex.com/track?order=12345",
       "model": {
-        "probability": 0.9980622392727739,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3536804676077185,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3828,7 +3747,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3836,7 +3755,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3849,24 +3768,24 @@
           "shared_host": false
         }
       },
-      "query_len_zero_probability": 0.5974589761066932
+      "query_len_zero_probability": 0.5838139102810708
     },
     {
       "host": "aramex.com",
       "variant": "sms_tracking",
       "url": "https://aramex.com/?utm_source=sms",
       "model": {
-        "probability": 0.9977861137201176,
-        "threshold": 0.9903286846155258,
+        "probability": 0.36309464760726673,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3874,7 +3793,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3882,7 +3801,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3901,10 +3820,10 @@
       "variant": "login_control",
       "url": "https://aramex.com/login",
       "model": {
-        "probability": 0.35163682263170176,
-        "threshold": 0.9903286846155258,
+        "probability": 0.40834569361782036,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
@@ -3946,17 +3865,17 @@
       "variant": "login_query",
       "url": "https://aramex.com/login?next=/home",
       "model": {
-        "probability": 0.9977933774734482,
-        "threshold": 0.9903286846155258,
+        "probability": 0.40834569361782036,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3964,7 +3883,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3972,7 +3891,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -3991,17 +3910,17 @@
       "variant": "root_query",
       "url": "https://aramex.com/?q=weather",
       "model": {
-        "probability": 0.9973254972337302,
-        "threshold": 0.9903286846155258,
+        "probability": 0.36309464760726673,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4009,7 +3928,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4017,7 +3936,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4036,17 +3955,17 @@
       "variant": "search_query",
       "url": "https://aramex.com/search?q=cairo%20weather",
       "model": {
-        "probability": 0.997486217291689,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3298541303203904,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4054,7 +3973,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4062,7 +3981,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4081,17 +4000,17 @@
       "variant": "pagination",
       "url": "https://aramex.com/products?page=2&sort=price",
       "model": {
-        "probability": 0.9989546958861376,
-        "threshold": 0.9903286846155258,
+        "probability": 0.25288922873365727,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4099,7 +4018,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4107,7 +4026,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4126,17 +4045,17 @@
       "variant": "tracking",
       "url": "https://aramex.com/article?utm_source=newsletter&utm_medium=email",
       "model": {
-        "probability": 0.9989281504346145,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3018110830986656,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4144,7 +4063,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4152,7 +4071,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4171,17 +4090,17 @@
       "variant": "fragment",
       "url": "https://aramex.com/track?order=12345#status",
       "model": {
-        "probability": 0.9981613943230992,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3536804676077185,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4189,7 +4108,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4197,7 +4116,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4216,17 +4135,17 @@
       "variant": "multiple_parameters",
       "url": "https://aramex.com/track?order=12345&lang=ar",
       "model": {
-        "probability": 0.9982258583336117,
-        "threshold": 0.9903286846155258,
+        "probability": 0.3536804676077185,
+        "threshold": 0.9870690448552604,
         "registered_domain": "aramex.com",
-        "version": "4fb9b6afbb4b356e"
+        "version": "1b964f155ef290be"
       },
       "scans": {
         "active": {
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4234,7 +4153,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },
@@ -4242,7 +4161,7 @@
           "verdict": "LOW",
           "signals": [],
           "model_support": false,
-          "raw_above_threshold": true,
+          "raw_above_threshold": false,
           "official_host": true,
           "shared_host": false
         },

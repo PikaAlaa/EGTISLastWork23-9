@@ -2,13 +2,14 @@
 
 ## 17 October follow-up
 
-**18 October override:** review of `16fc7a5` reproduced a query-string shortcut in
-the selected full-URL LightGBM. Current deployment requires independent evidence
-before model support can alert. The artifact and threshold are unchanged, so raw
-scores still exhibit the shortcut. All 88 query/path probes now return LOW;
-392 backend tests, the 23/7/15 replays and 17 host probes pass. The [mitigation report](evaluation/reports/2026-10-v4/query-shortcut/REPORT.md)
-records the substantial recall cost and current reproduction commands. Ordinary
-promotion is blocked pending replacement validation. No push or merge performed.
+**23 October replacement:** candidate `ee0ba9f0077c1fd140aa` is deployed with
+`host_path` model input, threshold `0.9870690448552604`, and ordinary support.
+The owner authorized rewriting 29 obsolete historical-artifact/policy test
+expectations as query-safety and deployment-metadata checks. The full suite,
+40 query tests, 23/7/15 replays, 17 hosts and 88 query/path probes pass. The
+[release report](evaluation/reports/2026-10-v4/REPORT.md) records current checks
+and the historical containment's recall cost. Historical promoters remain blocked.
+No v4 evaluation rerun, threshold/selection change, push or merge.
 
 Historical changes and measured checks are in the [v4 report](evaluation/reports/2026-10-v4/REPORT.md).
 Rule v3 had replaced the v2 fallback with ordinary support from an existing full-URL

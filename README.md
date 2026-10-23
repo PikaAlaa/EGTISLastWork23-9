@@ -1,10 +1,11 @@
 # ETIS — reviewed October implementation
 
-**18 October query-shortcut mitigation:** the full-URL LightGBM overreacts to
-ordinary query strings. URL-model support now requires independent corroboration;
-raw probabilities remain diagnostic. All 88 exposed URL-shape probes return LOW.
-This contains the false alarms but substantially reduces URL-only recall; the
-classifier itself still needs replacement. See the [review report](evaluation/reports/2026-10-v4/query-shortcut/REPORT.md).
+**23 October v4 deployment:** candidate `ee0ba9f0077c1fd140aa` uses host/path
+model input at the frozen threshold `0.9870690448552604`, with ordinary URL-model
+support. Queries and fragments do not affect its raw score. The owner authorized
+replacing 29 obsolete historical-artifact/policy test expectations. All 88 exposed
+URL-shape probes return LOW. See the [release report](evaluation/reports/2026-10-v4/REPORT.md)
+for verification and the earlier query-shortcut history.
 
 The [17 October v4 report](evaluation/reports/2026-10-v4/REPORT.md)
 records the legitimate-subdomain work and the historical v3 contribution gate.
@@ -28,7 +29,7 @@ implemented in this copy. The 2026-10 v3 development report updates text corrobo
 and compares lexical URL and text models; it still does not establish real-world
 Egyptian SMS accuracy.
 
-V4 uses corroboration-only URL-model support. Text-model HIGH alerts require corroboration.
+V4 uses ordinary URL-model support. Text-model HIGH alerts require corroboration.
 All twelve existing everyday probes avoid HIGH, while eight remain
 MEDIUM under the deployed text model. The revised local comparison provisionally
 favors TF-IDF LightGBM; deployment still uses the preserved character model.

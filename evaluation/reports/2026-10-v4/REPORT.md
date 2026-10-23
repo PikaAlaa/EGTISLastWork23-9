@@ -1,62 +1,49 @@
-# V4 frozen evaluation: deployment blocked by unchanged engineering tests
+# V4 selected candidate deployed with owner-approved test corrections
 
-The v4 numerical selection is `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` with **host_path**, threshold **0.98706904485526037**. **It is not deployed. Current URL-model policy remains `corroboration_only`**, with the unchanged artifact and threshold. The selected candidate passes every v3 numerical gate and QUERY-INVARIANCE, but its unchanged full backend suite has **363 passes / 29 failures**. All candidates were checked; 0/289 pass the entire unchanged engineering bundle.
+Candidate **`ee0ba9f0077c1fd140aa`** is deployed with the **ordinary** policy, **`host_path`** input and the exact frozen threshold **`0.9870690448552604`**. Source: `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib`. The numerical selection, rule and frozen thresholds are unchanged; the v4 evaluation was not rerun. [Deployment metadata](deployment.json), [completion evidence](url_v4_deployment_completion.json).
 
-The rule requires engineering checks to pass before deployment in every tier. It does not authorize reranking numerical winners or choosing a lower fallback tier after an engineering failure. This is a **release blocker**, not a claim that no candidate passes the numerical gates. No tests, replay expectations, frozen inputs, model weights, vectorizers, registry entries or rule bytes were changed to force a result.
+The project owner explicitly authorized rewriting the **29 tests that encoded the old shortcut/artifact/policy assumptions**. The preserved [22 October decision](url_v4_decision.json) records `blocked_engineering`, 363 passes and 29 failures before that approval. It remains an unchanged historical snapshot; the completion record above supplies current deployment status. There was no reranking, fallback substitution, new fitting or threshold adjustment.
 
-## Query finding and calibration freeze
+## Corrected engineering contract
 
-The historical full-URL LightGBM flags **35/52 benign PhreshPhish query URLs (67.308%)**, versus 13/91,208 query-free benign rows. Its fitting pool contains only **3/84,208** benign PhreshPhish query URLs; calibration has 3/21,178. Those 35 query false positives also become ordinary-policy scanner alerts. ETIS validation contains zero benign queries among 2,916 rows. Aggregate v3 gates hid this subgroup failure.
+`test_url_query_shortcut.py` now requires benign query URLs to remain LOW with no raw alert or model support. For `host_path`, it compares actual raw probabilities on the same host/path with queries, fragments, both, and neither. The tests no longer require the former classifier to score benign queries above threshold. Ordinary model support alone is tested as MEDIUM, and model-plus-secret-request escalation uses an explicit mocked alert rather than depending on the historical shortcut. Independent structural evidence, exact query-bearing blacklist identity and unavailable-check handling remain covered.
 
-Applied [the unchanged v4 rule](url_selection_rule_v4.md), SHA-256 `6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa`. The expanded [inventory](url_v4_frozen_thresholds.json) was written and hash-locked **before any v4 evaluation/probe predictions**: `5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44`. It contains 202 unchanged original threshold pairs plus 87 calibration-only host+path pairs, from 36 unchanged source artifacts (15 also scored in host+path mode). The six unchanged FPR caps and conservative `threshold_at_fpr` helper were used; thresholds were deduplicated within artifact/input mode. No test, validation or probe result chose a threshold, and no model was fitted. Source schema, original calibration exclusions/membership and transformed-input fingerprints are retained. The existing full-URL weights were not trained anew on stripped inputs.
+`test_review_data_integrity.py` and `test_url_legit_subdomains.py` read `ml/models/url_host_deployment.json`, verify its packaged hash, representation/input mode and exact threshold, and match the declared source/input mode to its frozen inventory entry. The direct vectorizer/classifier check applies the declared model-input preprocessing independently. Historical promotion/report guards now also reject overwriting a v4 deployment, even though its policy is ordinary.
 
-The rule prints a malformed 63-character coverage-audit digest. The audit matches the committed `a80e790` bytes; its actual SHA-256 is `b248342ee2357e36bfff43059a71d2708f5e17480a682c7edeeedc5fa1370d06`. The discrepancy is recorded in the frozen inventory; neither file was amended.
+The historical combined full-URL classifier flagged **35/52 benign PhreshPhish query URLs**, with only three benign queries in fitting. That is a documented historical regression, never a requirement on the deployed classifier. [Historical diagnosis and containment](query-shortcut/REPORT.md). The scanner retains the complete URL for blacklist identity, brand/pattern checks and displayed evidence; only model input excludes queries and fragments.
 
-## Before/after and numerical candidate projection
+## Before and after
 
 | Configuration | PhreshPhish recall | PhreshPhish FP / benign | ETIS recall | ETIS FP / benign |
 |---|---:|---:|---:|---:|
-| Historical v3 ordinary | 45,680/76,800 (59.479%) | 254/91,260 | 1,033/5,973 (17.294%) | 10/2,916 |
-| Before this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
-| After this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
-| Numerical v4 winner, ordinary projection; NOT DEPLOYED | 32,474/76,800 (42.284%) | 227/91,260 | 764/5,973 (12.791%) | 14/2,916 |
+| Before: corroboration-only | 2,205/76,800 (2.9%) | 206/91,260 | 94/5,973 (1.6%) | 8/2,916 |
+| After: selected v4 ordinary, deployed | 32,474/76,800 (42.3%) | 227/91,260 | 764/5,973 (12.8%) | 14/2,916 |
 
-These are exposed URL-only development cohorts, with the fixed production registry, four structural pattern families and an isolated healthy empty blacklist. The session's deployed recall and false positives are unchanged. The numerical winner's figures are a measured projection, not current deployment performance. Corroboration-only retains the large historical recall cost: 56.608 PhreshPhish and 15.721 ETIS percentage points versus ordinary v3. Phishing abstentions remain misses; benign abstentions do not alert.
+These are the already recorded frozen v4 measurements for the before/after configurations, not a new evaluation run. Model-added false positives after deployment are **21/91,260** on PhreshPhish and **6/2,916** on ETIS, above non-model baselines of 206 and 8. Own-model false positives are 1/23,610 on PhreshPhish benign subdomains, 21/91,260 overall and 6/2,916 on ETIS. Natural PhreshPhish benign-query raw/scanner false positives are 0/52; ETIS has no benign-query coverage. Phishing abstentions remain misses.
 
-## Complete gate evidence and release blocker
+## Release verification
 
-| Input mode | Candidates | Pass v3 | Pass QUERY-INVARIANCE | Pass both |
-|---|---:|---:|---:|---:|
-| original | 202 | 97 | 143 | 83 |
-| host_path | 87 | 39 | 87 | 39 |
+The deployed working tree passes **392/392 pytest tests**, **40/40 query-invariance tests**, **23/23 detection, 7/7 robustness and 15/15 follow-up replays**, **17/17 host probes** with zero raw alerts or MEDIUM/HIGH verdicts, and **88/88 query/path probes LOW** with zero raw model alerts. Isolated database initialization, frontend build and lint all exit 0. [Actual release outputs](url_v4_release_checks.json), [replays](url_v4_release_replays.json), [hosts](url_v4_release_host_probes.json), [query/path probes](url_v4_release_query_probes.json).
 
-Selected candidate raw-model gate counts:
+A newly created venv installed only `requirements-runtime.txt`: **383 passed, 5 optional PyArrow skips**, zero failures. RapidFuzz and PyArrow are absent; `pip check` passes. Module-level optional skips explain the collection/count difference. [Runtime-only output and package inventory](url_v4_runtime_only_checks.json).
 
-| Cohort | Raw FP / benign | Limit |
-|---|---:|---:|
-| PhreshPhish benign subdomains | 1/23,610 (0.00424%) | 1% |
-| PhreshPhish overall | 21/91,260 (0.02301%) | 0.5% |
-| ETIS validation | 6/2,916 (0.20576%) | 0.5% |
+The packaged classifier weights and vectorizer match the selected source exactly. Against existing frozen predictions, the real deployed scorer and scanner match **332 valid samples**, with **10 expected invalid-input abstentions**, zero mismatches and maximum probability difference 0.0. This checks only the selected deployment; it does not rerun v4 selection or cohort evaluation. [Deployment verification](url_v4_release_scanner_verification.json). Existing Starlette deprecation and frontend bundle-size warnings remain.
 
-Model-added scanner FP are 21/91260 and 6/2916, respectively (each below the 0.5-point limit). Natural benign-query raw/scanner FP are 0/52 and 0/52 on PhreshPhish; ETIS benign-query FPR is not estimable (zero rows).
+## Frozen provenance and limits
 
-The primary tier has 122 numerical passers; the genuine host-only v3 fallback pool has 56. Selection uses the rule's exact recall/FP/path/threshold/input-mode tie-breakers. The [complete comparison](url_v4_comparison.json) reports every numerical gate, raw-model FP/benign and recall, ordinary/corroboration/no-model scanner outcomes, model-added FP, query/fragment subgroups, domain coverage and abstentions. [Provenance](url_v4_provenance.json) adds fitting/calibration/union coverage, original schema fingerprints and preserved input hashes.
+Source SHA-256: `40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985`. Packaged SHA-256: `1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52`. Packaging adds the declared deployment schema and frozen operating threshold; fitted weights and vectorizer are unchanged.
 
-QUERY-INVARIANCE is checked separately on each candidate's original calibration negatives, all 91,260 PhreshPhish benign rows, all 2,916 ETIS benign rows, 88 exposed shape probes and 17 root probes. Each result retains O/S/N counts, abstentions, paired newly/no-longer-alerting counts and all four exact `200 * alert_delta <= n` comparisons. Host+path invariance is measured after applying its declared preprocessor to all three forms. These counterfactuals are synthetic diagnostics, not independently labelled traffic. Natural benign query coverage remains 52 PhreshPhish rows and zero ETIS rows; benign fragment FPR is not estimable on either cohort.
+Rule SHA-256: `6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa`. Inventory SHA-256: `5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44`. The original 202 pairs plus 87 host/path pairs, all 36 source artifacts and the prepared URL-only cache are unchanged. The rule's malformed 63-character coverage-audit digest remains documented in the original inventory; it was not corrected. [Original comparison](url_v4_comparison.json), [original engineering results](url_v4_engineering.json), [original parity](url_v4_runtime_parity.json), [provenance](url_v4_provenance.json). Their historical test failures are not relabelled as passes.
 
-[Every candidate's engineering results](url_v4_engineering.json) and the [per-candidate actual outputs](url-v4-engineering/) retain the unchanged full suite, the 40-query file, all 23/7/15 replays, 17 hosts and 88 shape cases. The selected candidate has 40/40 query-test passes; replay and probe counts are in its retained record. Failures include the existing test that explicitly requires a mocked probability of 1.0 to remain LOW without corroboration, assertions that the historical raw query shortcut remains above threshold, and representation/threshold tests written for original-input v2 deployment. Keeping those assertions unchanged conflicts with deploying an ordinary host+path replacement. They were not deleted, skipped, weakened, or relabelled as passes. See the exact selected failure list in [the decision](url_v4_decision.json).
+The original selection has 122 primary numerical passers; candidate `ee0ba9f0077c1fd140aa` remains selected exactly as recorded. No other candidate was reevaluated. Natural benign-query coverage remains sparse; neither cohort supplies benign-fragment coverage, and ETIS has no benign-query rows. Repeated exposed development selection is not independent final validation. Genuine Egyptian SMS final-test count remains **0**.
 
-[Runtime/scanner parity](url_v4_runtime_parity.json) checks boundary/random samples from calibration and evaluation predictions for every frozen threshold with the real production scorer, and checks sampled outcomes under all three scanner policies against the original non-model components. It records probability differences, runtime input abstentions and mismatches. The host+path runtime branch strips only model input; the scanner's blacklist identity, brand/pattern input and displayed evidence retain the complete URL. That branch is available for verification but inactive in the retained deployment.
-
-## CI and retained deployment verification
-
-Moved the optional RapidFuzz import into `accelerated_brands`; importing the historical promotion guard no longer requires the evaluation-only dependency. A fresh venv installed **only `requirements-runtime.txt`**: **383 passed, 5 skipped**, including the historical-promotion test, with RapidFuzz and PyArrow absent. Existing optional PyArrow tests account for the clean-environment skips/collection difference. See [actual output and package inventory](url_v4_runtime_only_checks.json).
-
-For the retained deployment: **392 backend tests**, **40/40 query tests**, **23/23, 7/7, 15/15 replays**, **17/17 hosts avoiding MEDIUM/HIGH**, **88/88 shape probes LOW**, and **1,619 scanner checks with zero mismatches**. Isolated database initialization, frontend build and lint pass. [Actual release outputs](url_v4_release_checks.json). Existing Starlette deprecation and frontend bundle-size warnings remain.
-
-No destination visits, DNS resolution, HTML column access, data upload, sealed final test, push or merge. Genuine Egyptian SMS final-test count remains zero. Row predictions remain ignored/local. Repeated use of exposed development cohorts is not independent validation.
+No destination requests, DNS resolution, PhreshPhish HTML-column access, data upload, sealed final test, frozen-input changes, push or merge. Commit locally on `fix/url-subdomains-and-hygiene`, then stop.
 
 <!-- V4 HISTORICAL REPORT -->
+
+The section below preserves the historical v3 record verbatim. Any “current” or
+“deployed” labels within it refer to that earlier period; the v4 release above supersedes them.
+
 
 ## Historical v3 record (superseded deployment)
 

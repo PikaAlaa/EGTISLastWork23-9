@@ -1,20 +1,22 @@
-# V4 handoff: numerical winner found; deployment blocked
+# V4 handoff: selected candidate deployed
 
-Branch `fix/url-subdomains-and-hygiene`. Evaluation complete; **deployment completion is blocked** by the unchanged suite. Current policy stays **corroboration_only**, artifact `4fb9b6afbb4b356e54b842490e9192628a74db22a6dc88bb60d6c1054ce335f8`, threshold `0.99032868461552581`. Historical ordinary-promotion commands remain blocked. No push or merge.
+Branch `fix/url-subdomains-and-hygiene`, continuing `fe51b3f`. Candidate **`ee0ba9f0077c1fd140aa`** is deployed with **ordinary** support, **`host_path`** input and threshold **`0.9870690448552604`**, exactly as selected. Source SHA-256 `40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985`; packaged SHA-256 `1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52`.
 
-Numerical selection: `release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` with **host_path**, threshold **0.98706904485526037**. There are 122 primary numerical passers and 56 genuine host-only v3 passers. The winner's suite has 29 failures; every one of the 289 frozen candidates received the complete unchanged engineering bundle. The rule does not permit reranking or invoking fallback solely to evade this engineering blocker. See [REPORT.md](REPORT.md), [decision](url_v4_decision.json), [comparison](url_v4_comparison.json), [engineering outputs](url_v4_engineering.json) and [runtime parity](url_v4_runtime_parity.json).
-
-The rule and original frozen inputs are unchanged. Inventory freeze SHA-256: `5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44`; 202 original pairs plus 87 host+path pairs, chosen only on original calibration pools before any v4 evaluation. The rule's 63-character coverage-hash typo is documented without amending it.
+The owner authorized rewriting **29 obsolete shortcut/artifact/policy tests**. They now enforce benign-query safety, raw query/fragment invariance, deployment-metadata integrity and ordinary-policy evidence handling. Old artifact behavior is historical evidence only. Historical v3 promotion/report guards prevent replacement of this v4 deployment. [Report](REPORT.md), [current completion](url_v4_deployment_completion.json), [metadata](deployment.json).
 
 | Configuration | PhreshPhish recall | PhreshPhish FP / benign | ETIS recall | ETIS FP / benign |
 |---|---:|---:|---:|---:|
-| Historical v3 ordinary | 45,680/76,800 (59.479%) | 254/91,260 | 1,033/5,973 (17.294%) | 10/2,916 |
-| Before this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
-| After this session: corroboration-only | 2,205/76,800 (2.871%) | 206/91,260 | 94/5,973 (1.574%) | 8/2,916 |
-| Numerical v4 winner, ordinary projection; NOT DEPLOYED | 32,474/76,800 (42.284%) | 227/91,260 | 764/5,973 (12.791%) | 14/2,916 |
+| Before: corroboration-only | 2,205/76,800 (2.9%) | 206/91,260 | 94/5,973 (1.6%) | 8/2,916 |
+| After: selected v4 ordinary, deployed | 32,474/76,800 (42.3%) | 227/91,260 | 764/5,973 (12.8%) | 14/2,916 |
 
-The query finding remains 35/52 benign PhreshPhish query URLs flagged by the historical full-URL model, with only three benign query URLs in fitting. Natural benign fragments and ETIS benign queries have no coverage. The v4 row is an undeployed projection. Corpus predictions stay local; no HTML, fetching, sealed test or invented real-SMS claims. Genuine Egyptian SMS count 0.
+Cohort figures reuse the existing frozen v4 measurements. **No evaluation rerun, rule/threshold/selection change or model fitting.** The original [decision](url_v4_decision.json) retains its historical `blocked_engineering` status and 363/29 result; current status is in the completion record.
 
-CI fixed by importing RapidFuzz only inside its accelerator. Fresh runtime-only venv: 383 passed, 5 skipped, RapidFuzz absent. Retained deployment: 392 tests; 40 query tests; 23/7/15 replays; 17 hosts; 88 shape probes; 1,619 scanner matches, zero mismatches; isolated initialize, frontend build and lint pass. Actual outputs are linked in the report.
+The deployed working tree passes **392/392 pytest tests**, **40/40 query-invariance tests**, **23/23 detection, 7/7 robustness and 15/15 follow-up replays**, **17/17 host probes** with zero raw alerts or MEDIUM/HIGH verdicts, and **88/88 query/path probes LOW** with zero raw model alerts. Isolated database initialization, frontend build and lint all exit 0. [Actual release outputs](url_v4_release_checks.json), [replays](url_v4_release_replays.json), [hosts](url_v4_release_host_probes.json), [query/path probes](url_v4_release_query_probes.json).
 
-To resolve the release blocker, an explicit instruction is needed on reconciling historical-policy/model-specific tests with an ordinary replacement. No existing assertions were changed. Numerical thresholds and gates must remain frozen. Stop after the local commit; do not push or merge.
+A newly created venv installed only `requirements-runtime.txt`: **383 passed, 5 optional PyArrow skips**, zero failures. RapidFuzz and PyArrow are absent; `pip check` passes. Module-level optional skips explain the collection/count difference. [Runtime-only output and package inventory](url_v4_runtime_only_checks.json).
+
+The packaged classifier weights and vectorizer match the selected source exactly. Against existing frozen predictions, the real deployed scorer and scanner match **332 valid samples**, with **10 expected invalid-input abstentions**, zero mismatches and maximum probability difference 0.0. This checks only the selected deployment; it does not rerun v4 selection or cohort evaluation. [Deployment verification](url_v4_release_scanner_verification.json). Existing Starlette deprecation and frontend bundle-size warnings remain.
+
+Keep all frozen inputs unchanged. No URL fetching, PhreshPhish HTML, sealed test, push or merge. Exposed development results are not independent final validation; genuine Egyptian SMS final-test count is 0. Stop after the local commit.
+
+Reproduce release checks with `.venv/Scripts/python.exe evaluation/check_url_release_v4.py`; it uses an isolated initialization database. To repeat runtime-only pytest, create a fresh venv, install only `requirements-runtime.txt`, and run `python -m pytest -q -rs -p no:cacheprovider --basetemp .local/pytest-v4-runtime-new`. Do not run historical evaluation/selection/report generators. Packaging, if needed, uses `evaluation/deploy_selected_url_v4.py` followed by all release checks; it reads the preserved decision without evaluating candidates.

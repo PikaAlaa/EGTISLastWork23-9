@@ -1,5 +1,5 @@
 """Critical safeguards for pinned data restoration and host-only inference."""
-import hashlib,importlib.util
+import hashlib,importlib.util,json
 from pathlib import Path
 import pytest
 ROOT=Path(__file__).resolve().parents[2]
@@ -29,16 +29,23 @@ def test_packaged_url_model_uses_its_declared_representation():
     b=score_url('http://example.com/account/verify?id=123456789')
     from app.engines.url_model import _load
     artifact = _load()
-    representation = artifact.get('deployment_schema', {}).get('representation', 'host_only')
+    metadata = json.loads((ROOT/'ml/models/url_host_deployment.json').read_text())
+    assert hashlib.sha256(ARTIFACT.read_bytes()).hexdigest() == metadata['artifact_sha256']
+    schema = artifact.get('deployment_schema', {})
+    representation = metadata['representation']
+    assert schema.get('representation', 'host_only') == representation
+    assert schema.get('input_mode', 'original') == metadata.get('input_mode', 'original')
     if representation == 'host_only':
         assert a['probability']==b['probability']
     else:
-        # v2 explicitly includes existing full-URL candidates. Verify the
-        # packaged model consumes full URL characters, with no schema drift.
+        # Independently apply the deployed input contract, then verify the
+        # real classifier/vectorizer score rather than pinning an old model.
         from app.core.url_utils import parse_url
         from app.engines.url_model import _extractor
         from app.engines.url_features import phresh_features, url_features, shortcut_features
         value = 'http://example.com/account/verify?id=123456789'
+        if metadata.get('input_mode') == 'host_path':
+            value = value.split('#', 1)[0].split('?', 1)[0]
         if 'pipeline' in artifact:
             expected = artifact['pipeline'].predict_proba([value])[0, 1]
         else:
@@ -49,7 +56,7 @@ def test_packaged_url_model_uses_its_declared_representation():
                            if artifact['deployment_schema']['phresh_schema'] else url_features(value, _extractor()))
             expected = artifact['classifier'].predict_proba(artifact['vectorizer'].transform([feature]))[0, 1]
         assert b['probability'] == float(expected)
-    assert a['threshold']==b['threshold']
+    assert a['threshold']==b['threshold']==metadata['threshold']
 
 def test_frozen_text_manifest_cannot_be_rewritten(tmp_path,monkeypatch):
     import pandas as pd

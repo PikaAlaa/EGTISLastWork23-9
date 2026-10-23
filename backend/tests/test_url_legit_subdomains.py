@@ -18,9 +18,13 @@ def test_packaged_model_and_frozen_rule_match_deployment_metadata():
     assert hashlib.sha256((root/metadata.get('selection_rule_path', 'evaluation/reports/2026-10-v4/url_selection_rule.md')).read_bytes()).hexdigest()==metadata['selection_rule_sha256']
     if metadata.get('policy') in {'ordinary', 'corroboration_only'}:
         assert risk_scoring.URL_MODEL_POLICY == metadata['policy']
-        assert hashlib.sha256((root/'evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json').read_bytes()).hexdigest()==metadata['frozen_thresholds_sha256']
-        frozen=json.loads((root/'evaluation/reports/2026-10-v4/url_v2_frozen_thresholds.json').read_text())
-        record=next(row for row in frozen['models'] if row['sha256']==metadata['source_artifact_sha256'])
+        frozen_path=root/metadata['frozen_thresholds_path']
+        assert hashlib.sha256(frozen_path.read_bytes()).hexdigest()==metadata['frozen_thresholds_sha256']
+        frozen=json.loads(frozen_path.read_text())
+        record=next(row for row in frozen['models'] if row['sha256']==metadata['source_artifact_sha256']
+                    and row.get('input_mode', 'original')==metadata.get('input_mode', 'original'))
+        assert record['path']==metadata['selected']
+        assert record['representation']==metadata['representation']
         assert any(point['threshold']==metadata['threshold'] for point in record['thresholds'])
         if metadata.get('pattern_policy'):
             from app.engines.rule_based import url_pattern_analyzer

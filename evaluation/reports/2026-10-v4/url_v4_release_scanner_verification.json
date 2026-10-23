@@ -1,58 +1,26 @@
 {
-  "policy": "corroboration_only",
-  "pattern_policy": "four_structural_only",
-  "production_brand_distance_unchanged": true,
+  "candidate_id": "ee0ba9f0077c1fd140aa",
+  "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+  "policy": "ordinary",
+  "input_mode": "host_path",
+  "threshold": 0.9870690448552604,
+  "weights_and_vectorizer_unchanged": true,
+  "method": "Boundary/random samples of recorded winner only; existing frozen predictions, no evaluation rerun",
   "destination_requests": 0,
+  "sealed_test_run": false,
   "cohorts": {
     "phreshphish_test": {
-      "policies": {
-        "old_v3_deployed": {
-          "full_scanner_matches": 194,
-          "mismatches": 0
-        },
-        "v1_selected": {
-          "full_scanner_matches": 195,
-          "mismatches": 0
-        },
-        "deployed_v3": {
-          "full_scanner_matches": 195,
-          "mismatches": 0
-        },
-        "corroboration_only": {
-          "full_scanner_matches": 195,
-          "mismatches": 0
-        },
-        "non_model_baseline": {
-          "full_scanner_matches": 100,
-          "mismatches": 0
-        }
-      },
+      "full_scanner_matches": 175,
+      "runtime_input_abstentions": 10,
+      "mismatches": 0,
       "packaged_probability_max_difference": 0.0
     },
     "etis_grouped_validation": {
-      "policies": {
-        "old_v3_deployed": {
-          "full_scanner_matches": 153,
-          "mismatches": 0
-        },
-        "v1_selected": {
-          "full_scanner_matches": 181,
-          "mismatches": 0
-        },
-        "deployed_v3": {
-          "full_scanner_matches": 153,
-          "mismatches": 0
-        },
-        "corroboration_only": {
-          "full_scanner_matches": 153,
-          "mismatches": 0
-        },
-        "non_model_baseline": {
-          "full_scanner_matches": 100,
-          "mismatches": 0
-        }
-      },
+      "full_scanner_matches": 157,
+      "runtime_input_abstentions": 0,
+      "mismatches": 0,
       "packaged_probability_max_difference": 0.0
     }
-  }
+  },
+  "passes": true
 }

@@ -1,3 +1,18 @@
+# Historical query-shortcut evidence; superseded on 23 October
+
+Candidate `ee0ba9f0077c1fd140aa` is now deployed with `host_path` input and the
+ordinary policy at the frozen threshold `0.9870690448552604`. The owner authorized
+rewriting the 29 historical-artifact/policy test failures. Raw benign-query scores
+must be safe and invariant to queries/fragments; the old classifier's high query
+scores below are historical observations, never requirements for the replacement.
+See the [current release report](../REPORT.md) and [deployment metadata](../deployment.json).
+
+Everything below records earlier deployments. Its ?current? labels refer to those
+historical dates, including the 22 October engineering blocker that has now been
+resolved. No historical cohort measurements or frozen evaluation inputs were rerun.
+
+---
+
 # 22 October v4 evaluation update
 
 Current policy remains **corroboration_only**. The unchanged v4 rule produced a numerical winner (`release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib` with **host_path**, threshold **0.98706904485526037**), but its unchanged engineering suite blocks deployment. No fallback tier was invented to bypass that blocker. See [the complete v4 report](../REPORT.md), [decision](../url_v4_decision.json) and [candidate checks](../url_v4_engineering.json). The RapidFuzz CI import failure is fixed and verified in a fresh runtime-only venv.

@@ -1,9 +1,14 @@
-"""Real-artifact regressions for the exposed query shortcut, not held-out accuracy."""
+"""Query safety properties of the deployed artifact, not held-out accuracy.
+
+The former combined full-URL artifact's high raw query scores are historical
+evidence in query-shortcut/REPORT.md, never an expectation for its replacement.
+"""
 import sys
 from pathlib import Path
 
 import pytest
 from app.engines import risk_scoring
+from app.engines.url_model import _load, score_url
 from app.services.registry import populate_registry
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -30,21 +35,28 @@ def test_ordinary_url_shape_cannot_create_model_support(healthy_db, host, varian
         assert not link['verified_official_host']
     assert not link['url_model_above_threshold']
     assert 'url_model' not in result['supporting_signals']
-    # Expose the unfixed classifier instead of hiding it behind a query rewrite.
-    if variant in {'order_query', 'sms_tracking', 'login_query'}:
-        assert link['url_model_raw_above_threshold']
-    elif variant in {'path_control', 'login_control'}:
-        assert not link['url_model_raw_above_threshold']
+    assert not link['url_model_raw_above_threshold']
+    # Check raw probabilities, so suppression cannot conceal query dependence.
+    if _load().get('deployment_schema', {}).get('input_mode') == 'host_path':
+        base = ('https://' + host + suffix).split('#', 1)[0].split('?', 1)[0]
+        baseline = score_url(base)
+        for tail in ['', '?utm_source=sms', '#status', '?next=/home#status']:
+            scored = score_url(base + tail)
+            assert scored['probability'] == baseline['probability']
+            assert scored['threshold'] == baseline['threshold']
+        assert link['url_model_probability'] == baseline['probability']
 
 
-def test_unlisted_host_needs_independent_evidence_even_at_maximum_probability(healthy_db, monkeypatch):
+def test_ordinary_model_support_alone_can_warn_but_cannot_be_high(healthy_db, monkeypatch):
     monkeypatch.setattr(risk_scoring, 'score_url', lambda _: {'probability': 1., 'threshold': .99})
     result = risk_scoring.calculate_final_risk_score(url='https://unlisted-service.test/?x=1', db=healthy_db)
     link = result['checked_links'][0]
     assert not link['verified_official_host'] and not link['shared_hosting_domain']
-    assert result['verdict'] == 'LOW'
+    assert risk_scoring.URL_MODEL_POLICY == 'ordinary'
+    assert result['verdict'] == 'MEDIUM'
     assert link['url_model_raw_above_threshold']
-    assert not link['url_model_above_threshold']
+    assert link['url_model_above_threshold']
+    assert result['supporting_signals'] == ['url_model']
 
 
 def test_query_model_cannot_escalate_unrelated_high_text(healthy_db, monkeypatch):
@@ -54,7 +66,7 @@ def test_query_model_cannot_escalate_unrelated_high_text(healthy_db, monkeypatch
         url='https://youm7.com/track?order=12345', text='An ordinary update.', db=healthy_db)
     assert result['verdict'] == 'MEDIUM'
     assert result['supporting_signals'] == ['text_model_high_uncorroborated']
-    assert result['checked_links'][0]['url_model_raw_above_threshold']
+    assert not result['checked_links'][0]['url_model_raw_above_threshold']
 
 
 @pytest.mark.parametrize('url,expected,signal', [
@@ -83,7 +95,10 @@ def test_query_keeps_exact_blacklist_identity(healthy_db):
     assert result['decisive_reason'] == 'blacklist_exact'
 
 
-def test_real_query_model_still_supports_explicit_secret_request(healthy_db, monkeypatch):
+def test_model_alert_with_explicit_secret_request_is_high(healthy_db, monkeypatch):
+    # Exercise policy with a deterministic alert, without requiring a benign
+    # query to trigger the real classifier's historical shortcut.
+    monkeypatch.setattr(risk_scoring, 'score_url', lambda _: {'probability': 1., 'threshold': .99})
     monkeypatch.setattr(risk_scoring, 'score_text', lambda _: {'probability': .01, 'score': 1})
     result = risk_scoring.calculate_final_risk_score(url='https://youm7.com/track?order=12345',
         text='Send your one-time code to continue', db=healthy_db)

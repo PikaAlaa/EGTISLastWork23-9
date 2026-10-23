@@ -1,10 +1,62 @@
 {
-  "scope": "fresh venv created with python -m venv; installed only requirements-runtime.txt",
+  "created_at": "2026-10-23T14:54:42.234993+00:00",
+  "scope": "Fresh venv created with python -m venv; installed only requirements-runtime.txt",
+  "install_command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Scripts\\python.exe",
+    "-m",
+    "pip",
+    "install",
+    "-r",
+    "requirements-runtime.txt"
+  ],
+  "install_exit_code": 0,
+  "python": "3.12.10 (main, May 30 2025, 05:39:07) [MSC v.1943 64 bit (AMD64)]",
+  "prefix": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed",
+  "base_prefix": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\python\\cpython-3.12.10-windows-x86_64-none",
   "rapidfuzz_present": false,
   "pyarrow_present": false,
-  "command": "python -m pytest -q -p no:cacheprovider --basetemp .local/pytest-v4-runtime-only",
+  "deployment": {
+    "selected": "release-artifacts/evaluation/reports/2026-10-v3/phreshphish/models/phreshphish_full_url_lightgbm.joblib",
+    "candidate_id": "ee0ba9f0077c1fd140aa",
+    "artifact_sha256": "1b964f155ef290beeb2487f7f5804a8ab9587ee6864260664af0802964c10e52",
+    "source_artifact_sha256": "40f229dfa5bf22542fce994eedaf66881fc4e388b0f1ad32fe405e51aee73985",
+    "threshold": 0.9870690448552604,
+    "representation": "full_url",
+    "input_mode": "host_path",
+    "phresh_schema": true,
+    "preprocessing_sha256": "43b286771b8893f044efb06d97a797b933cfc9997279d3950bcc85e45c8f321a",
+    "policy": "ordinary",
+    "pattern_policy": "four_structural_only",
+    "selection_rule_path": "evaluation/reports/2026-10-v4/url_selection_rule_v4.md",
+    "selection_rule_sha256": "6164475a6fe752e19a6797e2e17f2b988189c391ddd2539519bc1590c00b54fa",
+    "frozen_thresholds_path": "evaluation/reports/2026-10-v4/url_v4_frozen_thresholds.json",
+    "frozen_thresholds_sha256": "5882b7210d07ea9c82ab98a7764bacec813efc5902363da98ba02fc22884df44",
+    "pattern_acceptance_rule_sha256": "c0ce3f85baf0c197e7c2a3ed3f5e79063e647b333a7bb1c6fb6bace397170ffb",
+    "pattern_training_proposal_sha256": "444a4a213806aa1c60ba99a8e134a303dc26570501303fd98e3722f1c8dc1372",
+    "protocol_sha256": "8c041773f302e59c4a7676b1c548db4362f984ff7c7903b18f3deb829bc3c7af",
+    "data_sha256": "bad8f9344ee194529aa4627eb2040c64314ce265849d4f71ca3a2b81ce8e4a3f",
+    "report": "evaluation/reports/2026-10-v4/REPORT.md",
+    "numerical_decision": "evaluation/reports/2026-10-v4/url_v4_decision.json",
+    "owner_authorized_test_rewrite": true,
+    "historical_engineering_failures": 29,
+    "model_weights_fitted": false,
+    "thresholds_retuned": false,
+    "sealed_test_run": false,
+    "limitations": "Exposed development selection; sparse natural benign queries, no benign fragment coverage or genuine Egyptian SMS final test."
+  },
+  "command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    ".local/pytest-v4-deployed-runtime-only"
+  ],
   "exit_code": 0,
-  "output": "\u00ff\u00fe.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000 \u0000[\u0000 \u00001\u00008\u0000%\u0000]\u0000\n\u0000\n\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000 \u0000[\u0000 \u00003\u00007\u0000%\u0000]\u0000\n\u0000\n\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000s\u0000.\u0000s\u0000s\u0000 \u0000[\u0000 \u00005\u00005\u0000%\u0000]\u0000\n\u0000\n\u0000s\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000 \u0000[\u0000 \u00007\u00004\u0000%\u0000]\u0000\n\u0000\n\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000 \u0000[\u0000 \u00009\u00003\u0000%\u0000]\u0000\n\u0000\n\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000.\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000[\u00001\u00000\u00000\u0000%\u0000]\u0000\n\u0000\n\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000 \u0000w\u0000a\u0000r\u0000n\u0000i\u0000n\u0000g\u0000s\u0000 \u0000s\u0000u\u0000m\u0000m\u0000a\u0000r\u0000y\u0000 \u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000=\u0000\n\u0000\n\u0000b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000/\u0000t\u0000e\u0000s\u0000t\u0000s\u0000/\u0000t\u0000e\u0000s\u0000t\u0000_\u0000e\u0000n\u0000d\u0000p\u0000o\u0000i\u0000n\u0000t\u0000s\u0000.\u0000p\u0000y\u0000:\u0000:\u0000t\u0000e\u0000s\u0000t\u0000_\u0000r\u0000e\u0000v\u0000i\u0000e\u0000w\u0000_\u0000d\u0000e\u0000t\u0000e\u0000c\u0000t\u0000i\u0000o\u0000n\u0000_\u0000c\u0000a\u0000s\u0000e\u0000s\u0000[\u0000D\u00001\u0000a\u0000]\u0000\n\u0000\n\u0000 \u0000 \u0000C\u0000:\u0000\\\u0000U\u0000s\u0000e\u0000r\u0000s\u0000\\\u0000P\u0000i\u0000k\u0000a\u0000a\u0000\\\u0000p\u0000i\u0000k\u0000a\u0000g\u0000r\u0000a\u0000p\u0000h\u0000i\u0000c\u0000s\u0000\\\u0000G\u0000R\u0000A\u0000D\u0000_\u0000P\u0000R\u0000O\u0000J\u0000E\u0000C\u0000T\u0000\\\u0000E\u0000T\u0000I\u0000S\u0000\\\u0000.\u0000l\u0000o\u0000c\u0000a\u0000l\u0000\\\u0000r\u0000u\u0000n\u0000t\u0000i\u0000m\u0000e\u0000-\u0000o\u0000n\u0000l\u0000y\u0000-\u0000v\u00004\u0000\\\u0000L\u0000i\u0000b\u0000\\\u0000s\u0000i\u0000t\u0000e\u0000-\u0000p\u0000a\u0000c\u0000k\u0000a\u0000g\u0000e\u0000s\u0000\\\u0000f\u0000a\u0000s\u0000t\u0000a\u0000p\u0000i\u0000\\\u0000t\u0000e\u0000s\u0000t\u0000c\u0000l\u0000i\u0000e\u0000n\u0000t\u0000.\u0000p\u0000y\u0000:\u00001\u0000:\u0000 \u0000S\u0000t\u0000a\u0000r\u0000l\u0000e\u0000t\u0000t\u0000e\u0000D\u0000e\u0000p\u0000r\u0000e\u0000c\u0000a\u0000t\u0000i\u0000o\u0000n\u0000W\u0000a\u0000r\u0000n\u0000i\u0000n\u0000g\u0000:\u0000 \u0000U\u0000s\u0000i\u0000n\u0000g\u0000 \u0000`\u0000h\u0000t\u0000t\u0000p\u0000x\u0000`\u0000 \u0000w\u0000i\u0000t\u0000h\u0000 \u0000`\u0000s\u0000t\u0000a\u0000r\u0000l\u0000e\u0000t\u0000t\u0000e\u0000.\u0000t\u0000e\u0000s\u0000t\u0000c\u0000l\u0000i\u0000e\u0000n\u0000t\u0000`\u0000 \u0000i\u0000s\u0000 \u0000d\u0000e\u0000p\u0000r\u0000e\u0000c\u0000a\u0000t\u0000e\u0000d\u0000;\u0000 \u0000i\u0000n\u0000s\u0000t\u0000a\u0000l\u0000l\u0000 \u0000`\u0000h\u0000t\u0000t\u0000p\u0000x\u00002\u0000`\u0000 \u0000i\u0000n\u0000s\u0000t\u0000e\u0000a\u0000d\u0000.\u0000\n\u0000\n\u0000 \u0000 \u0000 \u0000 \u0000f\u0000r\u0000o\u0000m\u0000 \u0000s\u0000t\u0000a\u0000r\u0000l\u0000e\u0000t\u0000t\u0000e\u0000.\u0000t\u0000e\u0000s\u0000t\u0000c\u0000l\u0000i\u0000e\u0000n\u0000t\u0000 \u0000i\u0000m\u0000p\u0000o\u0000r\u0000t\u0000 \u0000T\u0000e\u0000s\u0000t\u0000C\u0000l\u0000i\u0000e\u0000n\u0000t\u0000 \u0000a\u0000s\u0000 \u0000T\u0000e\u0000s\u0000t\u0000C\u0000l\u0000i\u0000e\u0000n\u0000t\u0000 \u0000 \u0000#\u0000 \u0000n\u0000o\u0000q\u0000a\u0000\n\u0000\n\u0000\n\u0000\n\u0000-\u0000-\u0000 \u0000D\u0000o\u0000c\u0000s\u0000:\u0000 \u0000h\u0000t\u0000t\u0000p\u0000s\u0000:\u0000/\u0000/\u0000d\u0000o\u0000c\u0000s\u0000.\u0000p\u0000y\u0000t\u0000e\u0000s\u0000t\u0000.\u0000o\u0000r\u0000g\u0000/\u0000e\u0000n\u0000/\u0000s\u0000t\u0000a\u0000b\u0000l\u0000e\u0000/\u0000h\u0000o\u0000w\u0000-\u0000t\u0000o\u0000/\u0000c\u0000a\u0000p\u0000t\u0000u\u0000r\u0000e\u0000-\u0000w\u0000a\u0000r\u0000n\u0000i\u0000n\u0000g\u0000s\u0000.\u0000h\u0000t\u0000m\u0000l\u0000\n\u0000\n\u00003\u00008\u00003\u0000 \u0000p\u0000a\u0000s\u0000s\u0000e\u0000d\u0000,\u0000 \u00005\u0000 \u0000s\u0000k\u0000i\u0000p\u0000p\u0000e\u0000d\u0000,\u0000 \u00001\u0000 \u0000w\u0000a\u0000r\u0000n\u0000i\u0000n\u0000g\u0000 \u0000i\u0000n\u0000 \u00002\u00009\u0000.\u00001\u00004\u0000s\u0000\n\u0000\n\u0000",
+  "output": "........................................................................ [ 18%]\n........................................................................ [ 37%]\n....................................................................s.ss [ 55%]\ns....................................................................... [ 74%]\n........................................................................ [ 93%]\n...........................                                              [100%]\n============================== warnings summary ===============================\nbackend/tests/test_endpoints.py::test_review_detection_cases[D1a]\n  C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\runtime-only-v4-deployed\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ===========================\nSKIPPED [1] backend\\tests\\test_phreshphish.py:11: could not import 'pyarrow': No module named 'pyarrow'\nSKIPPED [1] backend\\tests\\test_url_legit_subdomains.py:57: could not import 'pyarrow': No module named 'pyarrow'\nSKIPPED [3] backend\\tests\\test_url_model_engine.py:16: could not import 'pyarrow': No module named 'pyarrow'\n383 passed, 5 skipped, 1 warning in 56.80s\n",
   "packages": [
     {
       "name": "alembic",
@@ -24,7 +76,7 @@
     },
     {
       "name": "certifi",
-      "version": "2026.10.19"
+      "version": "2026.10.23"
     },
     {
       "name": "charset-normalizer",
@@ -48,7 +100,7 @@
     },
     {
       "name": "fastapi",
-      "version": "0.161.0"
+      "version": "0.161.1"
     },
     {
       "name": "filelock",
@@ -214,5 +266,9 @@
       "name": "wrapt",
       "version": "2.5.1"
     }
-  ]
+  ],
+  "pip_check_exit_code": 0,
+  "pip_check_output": "No broken requirements found.\n",
+  "sealed_test_run": false,
+  "destination_requests": 0
 }
