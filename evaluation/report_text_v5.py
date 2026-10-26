@@ -206,6 +206,17 @@ def main():
               'at `b13501a`, preserving the bundle manifest, rather than weakening that guard. '
               'Decision-v2 verdict logic and all frozen inputs are unchanged.', '',
               '## Limitations', '',
+              '**Threshold ordering.** The deployed high threshold `0.10124534067817578` '
+              '(about `0.1012`) is below the low threshold `0.2`. The high check runs first, '
+              'so the text MEDIUM band is empty: any probability at or above the high threshold '
+              'is text-high. Text-high becomes HIGH with corroboration; without it, it produces '
+              'MEDIUM via `text_model_high_uncorroborated`, not `text_medium`. Existing invented '
+              'probe 3 illustrates this at probability `0.144231`. This is exactly the behavior '
+              'used to measure the selection loss. A legitimate message with a recognized phone '
+              'number or short link plus urgent-action wording would therefore be HIGH if its '
+              'probability reaches the deployed high threshold (about `0.10`; the exact cutoff '
+              'above applies). Any threshold change must be declared in a new dated rule before '
+              'measurement, never retuned on these results.', '',
               '- Translated fraud letters/UCI ham and translated/parallel emails dominate held-source evidence; '
               'they do not establish authentic Egyptian SMS performance.',
               '- The dialectal source is non-Egyptian/templated with unverified collection/licence, and remains '

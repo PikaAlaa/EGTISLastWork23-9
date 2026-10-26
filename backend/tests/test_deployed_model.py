@@ -36,6 +36,22 @@ def test_selected_pipeline_reproduces_everyday_scores_and_verdicts(db,index,text
     assert scored['probability']==pytest.approx(expected['probability'],abs=1e-12)
     assert calculate_final_risk_score(text=text,db=db)['verdict']==expected['verdict']
 
+
+def test_deployed_high_below_low_uses_uncorroborated_high_not_text_medium(db):
+    import joblib
+    from app.engines.text_model import score_text
+    artifact=joblib.load(ROOT/'ml/models/deployed_char.joblib')
+    high,low=artifact['high_threshold'],artifact['low_threshold']
+    assert high < low
+    text=cases.EVERYDAY_SMS[2]  # Existing invented probe 3, not authentic SMS.
+    assert high < score_text(text)['probability'] < low
+    result=calculate_final_risk_score(text=text,db=db)
+    assert result['verdict']=='MEDIUM'
+    assert result['decisive_reason']=='text_model_high_uncorroborated'
+    assert 'text_model_high_uncorroborated' in result['supporting_signals']
+    assert 'text_medium' not in result['supporting_signals']
+
+
 def test_userinfo_other_brand_on_official_host():
     assert calculate_domain_typosquatting_score('https://cibeg.com@nbe.com.eg/login')['decisive']
     assert not calculate_domain_typosquatting_score('https://cibeg.com@cibeg.com/')['decisive']
