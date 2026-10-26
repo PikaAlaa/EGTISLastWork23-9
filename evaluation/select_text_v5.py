@@ -5,6 +5,7 @@ read sealed data, or rewrite a reviewed report.
 """
 import math
 from pathlib import Path
+import re
 import statistics
 import sys
 
@@ -66,7 +67,7 @@ def main():
     receipt = read_json(WORK / 'returned/results_manifest.json')
     require(imported['input_prediction_files'] == receipt['files'], 'Imported prediction manifest mismatch')
     for file, digest in receipt['files'].items():
-        require(sha(WORK / 'returned' / file) == digest, 'Prediction hash changed since import')
+        require(sha((WORK / 'returned').joinpath(*re.split(r'[\\/]', file))) == digest, 'Prediction hash changed since import')
     names = [*rule['simplicity_order'], *MODELS]
     require(set(timings['models']) == set(names), 'All seven new timings required')
     models = {}
@@ -119,7 +120,7 @@ def main():
     result = dict(stage='exposed-development-text-selection', selected_model=winner,
                   transformer_winner=winner in MODELS, selection_only=True,
                   deployment_performed_by_this_script=False, final_test_run=False,
-                  rule_path=str((REVIEW / 'model_selection_rule.md').relative_to(ROOT)),
+                  rule_path=(REVIEW / 'model_selection_rule.md').relative_to(ROOT).as_posix(),
                   rule_json_sha256=sha(REVIEW / 'model_selection_rule.json'),
                   rule_md_sha256=sha(REVIEW / 'model_selection_rule.md'),
                   amendment_sha256=sha(OUT / 'latency_amendment.md'),

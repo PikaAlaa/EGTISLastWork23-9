@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import subprocess
 import sys
 import time
@@ -50,9 +51,9 @@ def worker(name):
         torch.set_num_interop_threads(THREADS)
         set_seed(42)
         snap = read_json(WORK / 'pretrained_manifest.json')['models'][name]
-        path = ROOT / snap['folder']
+        path = ROOT.joinpath(*re.split(r'[\\/]', snap['folder']))
         for file, digest in snap['files_sha256'].items():
-            require(sha(path / file) == digest, 'Pretrained snapshot hash mismatch')
+            require(sha(path.joinpath(*re.split(r'[\\/]', file))) == digest, 'Pretrained snapshot hash mismatch')
         tokenizer = AutoTokenizer.from_pretrained(str(path), local_files_only=True, trust_remote_code=False)
         model = AutoModelForSequenceClassification.from_pretrained(
             str(path), num_labels=2, local_files_only=True, trust_remote_code=False).to('cpu')

@@ -46,11 +46,11 @@ def main():
                                           weight])
         require((folder / 'model.safetensors').is_file() or (folder / 'pytorch_model.bin').is_file(),
                 'Snapshot has no PyTorch weights')
-        files = {str(p.relative_to(folder)): sha(p) for p in sorted(folder.rglob('*'))
+        files = {p.relative_to(folder).as_posix(): sha(p) for p in sorted(folder.rglob('*'))
                  if p.is_file() and '.cache' not in p.relative_to(folder).parts}
         require(expected_sha is None or files[weight] == expected_sha, 'Public model LFS SHA-256 mismatch')
         models[name] = dict(model_id=model_id, pretrained_commit=revision,
-                            folder=str(folder.relative_to(ROOT)), files_sha256=files,
+                            folder=folder.relative_to(ROOT).as_posix(), files_sha256=files,
                             public_weight_sha256=expected_sha, weight_bytes=available[weight].size)
         print(name, revision, flush=True)
     write_json(work / 'pretrained_manifest.json', dict(models=models, data_sent=False))

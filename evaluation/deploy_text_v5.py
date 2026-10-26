@@ -6,6 +6,7 @@ Transformer predictions cannot be deployed by this command.
 """
 from datetime import datetime, timezone
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,7 +27,7 @@ def main():
     candidate = comparison['models'][winner]
     require(candidate['latency_gate_passes'] and comparison['final_test_run'] is False, 'Selection gate failed')
     require(comparison['amendment_sha256'] == sha(out / 'latency_amendment.md'), 'Amendment mismatch')
-    rule = ROOT / comparison['rule_path']
+    rule = ROOT.joinpath(*re.split(r'[\\/]', comparison['rule_path']))
     require(sha(rule) == comparison['rule_md_sha256'], 'Frozen rule mismatch')
     source = ROOT / 'release-artifacts/evaluation/reports/2026-10-v3/models' / (winner + '.joblib')
     run = candidate['runs'][0]
@@ -49,17 +50,17 @@ def main():
     (work / 'previous_deployed_char.joblib').write_bytes(target.read_bytes())
     (work / 'previous_deployment_model.json').write_bytes((ROOT / 'ml/models/deployment_model.json').read_bytes())
     target.write_bytes(staged.read_bytes())
-    deployment = dict(selected=winner, artifact_path=str(target.relative_to(ROOT)),
-                      artifact_sha256=sha(target), source_artifact_path=str(source.relative_to(ROOT)),
+    deployment = dict(selected=winner, artifact_path=target.relative_to(ROOT).as_posix(),
+                      artifact_sha256=sha(target), source_artifact_path=source.relative_to(ROOT).as_posix(),
                       source_artifact_sha256=sha(source), previous_artifact_sha256=before['artifact_sha256'],
                       deployed_at_utc=datetime.now(timezone.utc).isoformat(),
                       runtime_backend='char (legacy name for the probability-pipeline adapter)',
                       model_name=winner, low_threshold=.2, high_threshold=artifact['high_threshold'],
-                      selection_rule_path=comparison['rule_path'], selection_rule_sha256=comparison['rule_md_sha256'],
+                      selection_rule_path=rule.relative_to(ROOT).as_posix(), selection_rule_sha256=comparison['rule_md_sha256'],
                       selection_rule_json_sha256=comparison['rule_json_sha256'],
                       latency_amendment_sha256=comparison['amendment_sha256'],
-                      comparison_path=str((out / 'comparison.json').relative_to(ROOT)),
-                      comparison_sha256=sha(out / 'comparison.json'), report=str((out / 'REPORT.md').relative_to(ROOT)),
+                      comparison_path=(out / 'comparison.json').relative_to(ROOT).as_posix(),
+                      comparison_sha256=sha(out / 'comparison.json'), report=(out / 'REPORT.md').relative_to(ROOT).as_posix(),
                       data_sha256=comparison['data_sha256'], frozen_split_sha256=comparison['frozen_split_sha256'],
                       primary_loss=candidate['mean_primary_loss'], primary_loss_components=candidate['mean_primary_loss_components'],
                       cpu_p95_ms=candidate['local_latency']['p95_ms'], cpu_gate_limit_ms=300,

@@ -1,5 +1,6 @@
 """Real artifact regressions complement the deterministic policy/endpoint tests."""
 import importlib.util,json,hashlib
+import re
 from pathlib import Path
 import pytest
 from app.engines.risk_scoring import calculate_final_risk_score
@@ -18,7 +19,8 @@ def test_deployed_artifact_hash_matches_manifest():
     manifest=json.loads((ROOT/'ml/models/deployment_model.json').read_text())
     comparison=json.loads((ROOT/'evaluation/reports/2026-10-v5/comparison.json').read_text())
     assert manifest['selected']==comparison['selected_model']=='tfidf_lightgbm'
-    assert manifest['comparison_sha256']==hashlib.sha256((ROOT/manifest['comparison_path']).read_bytes()).hexdigest()
+    comparison_path=ROOT.joinpath(*re.split(r'[\\/]', manifest['comparison_path']))
+    assert manifest['comparison_sha256']==hashlib.sha256(comparison_path.read_bytes()).hexdigest()
     assert manifest['source_artifact_sha256']==comparison['models']['tfidf_lightgbm']['runs'][0]['model_sha256']
     assert hashlib.sha256((ROOT/'ml/models/deployed_char.joblib').read_bytes()).hexdigest()==manifest['artifact_sha256']
 

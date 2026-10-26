@@ -1,5 +1,6 @@
 """Render the new text-selection report from aggregate evidence and check logs."""
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -185,7 +186,8 @@ def main():
         lines += ['']
     lines += ['## Verification', '', '| Check | Result | Evidence |', '| --- | --- | --- |']
     for name, check in checks['checks'].items():
-        lines.append(f'| {name} | {check["summary"]} (exit {check["exit_code"]}) | [{check["log"]}]({check["log"]}) |')
+        log_path=Path(*re.split(r'[\\/]', check['log'])).as_posix()
+        lines.append(f'| {name} | {check["summary"]} (exit {check["exit_code"]}) | [{log_path}]({log_path}) |')
     lines += ['', f'Protected-file hash comparison: **{checks["protected_files_checked"]} files unchanged**. '
               'Frozen inputs/rules/splits/targets, September artifacts, reviewed reports and the URL deployment '
               'are preserved. Tests and initialization use isolated SQLite databases. No push, merge, history '
