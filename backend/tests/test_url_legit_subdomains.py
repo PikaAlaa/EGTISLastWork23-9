@@ -2,6 +2,7 @@
 import sys
 import hashlib
 import json
+import re
 from pathlib import Path
 import pytest
 from app.engines import risk_scoring
@@ -15,10 +16,11 @@ def test_packaged_model_and_frozen_rule_match_deployment_metadata():
     root=Path(__file__).resolve().parents[2]
     metadata=json.loads((root/'ml/models/url_host_deployment.json').read_text())
     assert hashlib.sha256((root/'ml/models/url_host_v3.joblib').read_bytes()).hexdigest()==metadata['artifact_sha256']
-    assert hashlib.sha256((root/metadata.get('selection_rule_path', 'evaluation/reports/2026-10-v4/url_selection_rule.md')).read_bytes()).hexdigest()==metadata['selection_rule_sha256']
+    rule_path=root.joinpath(*re.split(r'[\\/]', metadata.get('selection_rule_path', 'evaluation/reports/2026-10-v4/url_selection_rule.md')))
+    assert hashlib.sha256(rule_path.read_bytes()).hexdigest()==metadata['selection_rule_sha256']
     if metadata.get('policy') in {'ordinary', 'corroboration_only'}:
         assert risk_scoring.URL_MODEL_POLICY == metadata['policy']
-        frozen_path=root/metadata['frozen_thresholds_path']
+        frozen_path=root.joinpath(*re.split(r'[\\/]', metadata['frozen_thresholds_path']))
         assert hashlib.sha256(frozen_path.read_bytes()).hexdigest()==metadata['frozen_thresholds_sha256']
         frozen=json.loads(frozen_path.read_text())
         record=next(row for row in frozen['models'] if row['sha256']==metadata['source_artifact_sha256']

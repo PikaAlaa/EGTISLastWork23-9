@@ -1,0 +1,10 @@
+{
+  "command": [
+    "C:\\Program Files\\nodejs\\npm.cmd",
+    "run",
+    "lint"
+  ],
+  "exit_code": 0,
+  "log": "check-lint.txt",
+  "log_sha256": "6f468e3f73131e58938b3a174c0324501c15cfd4ff8f4c61df19c72e91968ae1"
+}

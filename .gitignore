@@ -45,6 +45,7 @@ Thumbs.db
 
 # Local implementation runtime and private submissions
 .venv/
+.venv-latency/
 var/
 .local/
 *.log
@@ -62,6 +63,7 @@ data/external/phreshphish/
 
 # Local release weights and candidate bundles
 release-artifacts/
+colab-bundle/
 
 # Authorised snapshots stay local; redistribution is not cleared (docs/data-licences.md).
 data/raw/

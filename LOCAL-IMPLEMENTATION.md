@@ -1,5 +1,22 @@
 # Local implementation handover — 8 October 2026
 
+## 26 October text selection and deployment
+
+Phase 2 selects and deploys the frozen TF-IDF LightGBM pipeline at its existing
+eligible-validation threshold, with no refit or retuning. Primary loss: 0.156583;
+new common-protocol CPU p95: 1.475 ms. All seven candidates were re-timed using
+the same ordered 227 eligible validation messages and two-thread protocol. Both
+transformers fail the 300 ms p95 gate on this PC. Historical timings and the
+discarded incomplete eager-BiLSTM attempt remain separately disclosed.
+
+The existing twelve invented probes change from 0 HIGH / 8 MEDIUM / 4 LOW to
+0 HIGH / 2 MEDIUM / 10 LOW. The legacy `deployed_char.joblib` configuration path
+now contains the selected LightGBM probability pipeline; its metadata and API
+model identifier name the actual model. See the [Phase 2 report](evaluation/reports/2026-10-v5/REPORT.md)
+and `ml/models/deployment_model.json` for evidence and artifact identity. The URL
+deployment, September artifacts and frozen/reviewed evidence are unchanged.
+No sealed final test; genuine Egyptian SMS test count remains 0.
+
 ## 17 October follow-up
 
 **23 October replacement:** candidate `ee0ba9f0077c1fd140aa` is deployed with

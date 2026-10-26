@@ -18,3 +18,8 @@ evaluation/reports/2026-10-v4/url_pattern_acceptance_rule_v3.md -text
 evaluation/reports/2026-10-v4/pattern_training_proposal_v3.json -text
 # This existing audit is maintained with its original Windows line endings.
 docs/data-licences.md whitespace=cr-at-eol
+
+# Phase 2 receipts and timing-source hashes refer to exact measured bytes.
+evaluation/reports/2026-10-v5/** -text whitespace=cr-at-eol
+evaluation/reports/2026-10-v5/check-*.txt -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+evaluation/time_text_candidates.py -text

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "C:\\Program Files\\nodejs\\npm.cmd",
+    "run",
+    "build"
+  ],
+  "exit_code": 0,
+  "log": "check-build.txt",
+  "log_sha256": "28409aa557933f092a5837fffc5e09eb7205cd11ec2a81b08232c07c34867efb"
+}

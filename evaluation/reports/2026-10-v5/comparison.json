@@ -1,0 +1,2841 @@
+{
+  "stage": "exposed-development-text-selection",
+  "selected_model": "tfidf_lightgbm",
+  "transformer_winner": false,
+  "selection_only": true,
+  "deployment_performed_by_this_script": false,
+  "final_test_run": false,
+  "rule_path": "evaluation\\reports\\2026-10-v3\\review-2026-10-13\\model_selection_rule.md",
+  "rule_json_sha256": "0a4e57521b64567aa2ab4a26de999a0b41c47d891db4ef74b2e7dfac97cde0bb",
+  "rule_md_sha256": "72aebbd75cffc9f1a311f20b006fc557e8cd278616aee5552d7a92dc6dc18b68",
+  "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+  "frozen_split_sha256": "a404a48c0018143f5842018c602fc4d99499bacf9e1229ff5b05bfe21bee57f0",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "imported_sha256": "eace5d5910ab9d62ec44e5b78561af7156b5086a0e841a651e3c9b1efd9dc19c",
+  "local_latency_sha256": "23e6fe22e66b11f612f819e87634bf8738568d76c3095519ff747593137165c5",
+  "pretrained_manifest": {
+    "models": {
+      "marbertv2": {
+        "model_id": "UBC-NLP/MARBERTv2",
+        "pretrained_commit": "fe88db9db8ccdb0c4e1627495f405c44a5f89066",
+        "folder": "evaluation\\local-results\\text-transformers\\pretrained\\marbertv2",
+        "files_sha256": {
+          "config.json": "f3c6e81f15e54f7aa3f6f01c2a122323b140f9eb26fd60b372aa65cd5f29c977",
+          "pytorch_model.bin": "5d34aca06d9ec233e8483478faec43cea7c819d1ea4f83fc99d9c8067dcf8bab",
+          "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+          "tokenizer_config.json": "87a121bcbb979c889669471360e2621c0f3fdf8cc4c20facd9db82a3c04bae78",
+          "vocab.txt": "4cbe17fdb035ba4afb5eb9889657b0f9895e2c6bd26574409cf9f8bdf75e2542"
+        },
+        "public_weight_sha256": "5d34aca06d9ec233e8483478faec43cea7c819d1ea4f83fc99d9c8067dcf8bab",
+        "weight_bytes": 654190940
+      },
+      "camelbert_da": {
+        "model_id": "CAMeL-Lab/bert-base-arabic-camelbert-da",
+        "pretrained_commit": "231698eab9ebf0ae7b518a64277b81b2fe829f2d",
+        "folder": "evaluation\\local-results\\text-transformers\\pretrained\\camelbert_da",
+        "files_sha256": {
+          "config.json": "db65595aa025936628d4d4b5aae80ac88fd7607d3ddd28c516373f96c4ae56c2",
+          "pytorch_model.bin": "17c491b3b93187ad705568fece7e2fcb9c5ef5614bd8452bd43f7551b11c8ba1",
+          "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+          "tokenizer_config.json": "73f5e97ab29042bac49dc96f7b8a7a790994509bbd2fe3e9cd4f59affc46c2ce",
+          "vocab.txt": "1df5f8da6ad6c56153c7a974c0b149bb7a0a6e332bcfa795c99deee6c1136ce2"
+        },
+        "public_weight_sha256": "17c491b3b93187ad705568fece7e2fcb9c5ef5614bd8452bd43f7551b11c8ba1",
+        "weight_bytes": 438873130
+      }
+    },
+    "data_sent": false
+  },
+  "selection": {
+    "eligible": [
+      "char_tfidf_logistic",
+      "word_char_tfidf_logistic",
+      "char_tfidf_calibrated_svm",
+      "tfidf_lightgbm",
+      "bilstm"
+    ],
+    "loss_ties": [
+      "tfidf_lightgbm"
+    ],
+    "f1_ties": [
+      "tfidf_lightgbm"
+    ],
+    "cpu_p95_limit_ms": 300,
+    "tie_tolerance": 1e-06
+  },
+  "models": {
+    "char_tfidf_logistic": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.09850336554732449,
+            "source_mean_fpr": 0.14461912783080666,
+            "everyday_medium_or_high_rate": 0.6666666666666666
+          },
+          "primary_loss": 0.3032630533482659,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.5867472238150986,
+            "macro_f1_at_recall_95": 0.9814162914449447,
+            "legitimate_fpr_at_recall_95": 0.005747126436781609,
+            "phishing_recall_at_recall_95": 0.9622641509433962,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.42865921908077337,
+            "ece_15_bins": 0.06139500281429993,
+            "confusion_at_recall_95": {
+              "tp": 51,
+              "fp": 1,
+              "fn": 2,
+              "tn": 173
+            }
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated/parallel emails; not Egyptian SMS"
+              ],
+              "training_rows": 501,
+              "threshold_validation_rows": 48,
+              "model_sha256": "22b3fee74e97ae54ace9bf9719ac16e51c3d2a685b311cd568ff632d5545ae56",
+              "in_source_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_from_id_validation": 0.8410058168940227,
+                "macro_f1": 0.9787139689578714,
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 20,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 27
+                }
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_from_id_validation": 0.8410058168940227,
+                "macro_f1": 0.8713436152741388,
+                "phishing_recall": 0.9556650246305419,
+                "legitimate_fpr": 0.10462287104622871,
+                "confusion": {
+                  "tp": 194,
+                  "fp": 86,
+                  "fn": 9,
+                  "tn": 736
+                }
+              }
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated fraud letters and translated UCI ham; not Egyptian SMS"
+              ],
+              "training_rows": 1134,
+              "threshold_validation_rows": 179,
+              "model_sha256": "1058aea21f0cd240b88305564d08f3b0c75b773df2932fbe8eaa4efef770a80f",
+              "in_source_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_from_id_validation": 0.6418587865998958,
+                "macro_f1": 0.9903685768092547,
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 31,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 147
+                }
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_from_id_validation": 0.6418587865998958,
+                "macro_f1": 0.8313557330827068,
+                "phishing_recall": 0.8473282442748091,
+                "legitimate_fpr": 0.18461538461538463,
+                "confusion": {
+                  "tp": 111,
+                  "fp": 24,
+                  "fn": 20,
+                  "tn": 106
+                }
+              }
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.7017227213061495
+              },
+              {
+                "probe_index": 2,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.41846807142122144
+              },
+              {
+                "probe_index": 3,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4806230136393247
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.18511987509289696
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.11238319609169337
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.42517203960058186
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.6946575301066467
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.46834764952194535
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.07843096044273723
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.08431990818450295
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4132544221537447
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.2523261606336267
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 8,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.6666666666666666
+          },
+          "historical_local_latency": {
+            "batch_size": 1,
+            "cpu_only": true,
+            "p50_ms": 0.4211999985272996,
+            "p95_ms": 1.515449990256456,
+            "n": 282
+          },
+          "model_sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e"
+        }
+      ],
+      "mean_primary_loss": 0.3032630533482659,
+      "min_primary_loss": 0.3032630533482659,
+      "max_primary_loss": 0.3032630533482659,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.09850336554732449,
+        "source_mean_fpr": 0.14461912783080666,
+        "everyday_medium_or_high_rate": 0.6666666666666666
+      },
+      "mean_validation_macro_f1": 0.9814162914449447,
+      "local_latency": {
+        "model": "char_tfidf_logistic",
+        "measured_at_utc": "2026-10-26T16:42:05.920413+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "frozen-fitted-local-candidate",
+          "model_sha256": "1875882f8b5a37ce7f4109a21ee8938b23d4e5ccae0de41d2bcf74a55d5fb66e",
+          "estimator_n_jobs": {
+            "logisticregression": 2
+          },
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "vcomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\sklearn\\.libs\\vcomp140.dll",
+              "version": null
+            },
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\scipy.libs\\libscipy_openblas-197ee2fc9b4d071f7e048078cac74115.dll",
+              "version": "0.3.31.dev",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            }
+          ]
+        },
+        "p50_ms": 0.5047000013291836,
+        "p95_ms": 2.101839962415396
+      },
+      "latency_gate_passes": true
+    },
+    "word_char_tfidf_logistic": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.09604031136013237,
+            "source_mean_fpr": 0.07419052966498223,
+            "everyday_medium_or_high_rate": 0.6666666666666666
+          },
+          "primary_loss": 0.27896583589726043,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.4965166640406528,
+            "macro_f1_at_recall_95": 0.9814162914449447,
+            "legitimate_fpr_at_recall_95": 0.005747126436781609,
+            "phishing_recall_at_recall_95": 0.9622641509433962,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.4338885710771693,
+            "ece_15_bins": 0.07406396664127454,
+            "confusion_at_recall_95": {
+              "tp": 51,
+              "fp": 1,
+              "fn": 2,
+              "tn": 173
+            }
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated/parallel emails; not Egyptian SMS"
+              ],
+              "training_rows": 501,
+              "threshold_validation_rows": 48,
+              "model_sha256": "909aa24d82bfbd14dd2a931a8c7d54662846ee947da085911013b36d39b2ae94",
+              "in_source_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_from_id_validation": 0.8172920876112014,
+                "macro_f1": 0.9787139689578714,
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 20,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 27
+                }
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_from_id_validation": 0.8172920876112014,
+                "macro_f1": 0.8533919894233483,
+                "phishing_recall": 0.9605911330049262,
+                "legitimate_fpr": 0.12530413625304138,
+                "confusion": {
+                  "tp": 195,
+                  "fp": 103,
+                  "fn": 8,
+                  "tn": 719
+                }
+              }
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated fraud letters and translated UCI ham; not Egyptian SMS"
+              ],
+              "training_rows": 1134,
+              "threshold_validation_rows": 179,
+              "model_sha256": "9a2b41e1d11f739c5fe3aafa74e20b4b384c06f99ec4adfedd242169bfff10ec",
+              "in_source_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_from_id_validation": 0.5983456790269128,
+                "macro_f1": 0.9903685768092547,
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 31,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 147
+                }
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_from_id_validation": 0.5983456790269128,
+                "macro_f1": 0.9115449790024313,
+                "phishing_recall": 0.8473282442748091,
+                "legitimate_fpr": 0.023076923076923078,
+                "confusion": {
+                  "tp": 111,
+                  "fp": 3,
+                  "fn": 20,
+                  "tn": 127
+                }
+              }
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.5905223063721439
+              },
+              {
+                "probe_index": 2,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.3261539521747359
+              },
+              {
+                "probe_index": 3,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.41692987192498016
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.1733412954068205
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.1504293916068647
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4330338431045701
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.6168128138514207
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4322207034102174
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.09325131419567427
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.08517152454042766
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.5861693836603311
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.2887105295137776
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 8,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.6666666666666666
+          },
+          "historical_local_latency": {
+            "batch_size": 1,
+            "cpu_only": true,
+            "p50_ms": 0.9168499964289367,
+            "p95_ms": 2.2570249886484817,
+            "n": 282
+          },
+          "model_sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8"
+        }
+      ],
+      "mean_primary_loss": 0.27896583589726043,
+      "min_primary_loss": 0.27896583589726043,
+      "max_primary_loss": 0.27896583589726043,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.09604031136013237,
+        "source_mean_fpr": 0.07419052966498223,
+        "everyday_medium_or_high_rate": 0.6666666666666666
+      },
+      "mean_validation_macro_f1": 0.9814162914449447,
+      "local_latency": {
+        "model": "word_char_tfidf_logistic",
+        "measured_at_utc": "2026-10-26T16:42:08.839969+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "frozen-fitted-local-candidate",
+          "model_sha256": "059e79655d73c2cf42ae15d47c8c82a7078eed1ad469dd751de886cc405cb3b8",
+          "estimator_n_jobs": {
+            "featureunion": 1,
+            "logisticregression": 2
+          },
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "vcomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\sklearn\\.libs\\vcomp140.dll",
+              "version": null
+            },
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\scipy.libs\\libscipy_openblas-197ee2fc9b4d071f7e048078cac74115.dll",
+              "version": "0.3.31.dev",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            }
+          ]
+        },
+        "p50_ms": 1.1557000107131898,
+        "p95_ms": 3.230540012009442
+      },
+      "latency_gate_passes": true
+    },
+    "char_tfidf_calibrated_svm": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.08791787312450644,
+            "source_mean_fpr": 0.3346715328467153,
+            "everyday_medium_or_high_rate": 0.6666666666666666
+          },
+          "primary_loss": 0.3630853575459628,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.6142331627256173,
+            "macro_f1_at_recall_95": 0.9814162914449447,
+            "legitimate_fpr_at_recall_95": 0.005747126436781609,
+            "phishing_recall_at_recall_95": 0.9622641509433962,
+            "recall_at_fpr_le_1pct": 0.9811320754716981,
+            "threshold_at_fpr_le_1pct": 0.38824500594948463,
+            "ece_15_bins": 0.04722635425658418,
+            "confusion_at_recall_95": {
+              "tp": 51,
+              "fp": 1,
+              "fn": 2,
+              "tn": 173
+            }
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated/parallel emails; not Egyptian SMS"
+              ],
+              "training_rows": 501,
+              "threshold_validation_rows": 48,
+              "model_sha256": "61c2653b620d0d7c6c79d7a9939a90bdffa807b561f8374b8bf79128ee7074b4",
+              "in_source_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_from_id_validation": 0.9108102819190961,
+                "macro_f1": 0.9787139689578714,
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 20,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 27
+                }
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_from_id_validation": 0.9108102819190961,
+                "macro_f1": 0.8987617705526474,
+                "phishing_recall": 0.9310344827586207,
+                "legitimate_fpr": 0.06934306569343066,
+                "confusion": {
+                  "tp": 189,
+                  "fp": 57,
+                  "fn": 14,
+                  "tn": 765
+                }
+              }
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated fraud letters and translated UCI ham; not Egyptian SMS"
+              ],
+              "training_rows": 1134,
+              "threshold_validation_rows": 179,
+              "model_sha256": "e0b1d4ec1904e2f56f13e0b04f3ebe526514fe3b04a1866bc47a2c6b19c1a436",
+              "in_source_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_from_id_validation": 0.7854103261943668,
+                "macro_f1": 0.9903685768092547,
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 31,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 147
+                }
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_from_id_validation": 0.7854103261943668,
+                "macro_f1": 0.624201827970452,
+                "phishing_recall": 0.8931297709923665,
+                "legitimate_fpr": 0.6,
+                "confusion": {
+                  "tp": 117,
+                  "fp": 78,
+                  "fn": 14,
+                  "tn": 52
+                }
+              }
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8837742477416307
+              },
+              {
+                "probe_index": 2,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4234998125487282
+              },
+              {
+                "probe_index": 3,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.48107789449363253
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.1712914502529974
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.10967001974613576
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.40678831622840006
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8055411462053116
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.5814759624023749
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.09439506094035777
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0676139502734962
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.4534915414019561
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.32261969646665173
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 8,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.6666666666666666
+          },
+          "historical_local_latency": {
+            "batch_size": 1,
+            "cpu_only": true,
+            "p50_ms": 1.3942000005044974,
+            "p95_ms": 2.5943250053387588,
+            "n": 282
+          },
+          "model_sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de"
+        }
+      ],
+      "mean_primary_loss": 0.3630853575459628,
+      "min_primary_loss": 0.3630853575459628,
+      "max_primary_loss": 0.3630853575459628,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.08791787312450644,
+        "source_mean_fpr": 0.3346715328467153,
+        "everyday_medium_or_high_rate": 0.6666666666666666
+      },
+      "mean_validation_macro_f1": 0.9814162914449447,
+      "local_latency": {
+        "model": "char_tfidf_calibrated_svm",
+        "measured_at_utc": "2026-10-26T16:42:11.810226+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "frozen-fitted-local-candidate",
+          "model_sha256": "f17151d159ae4c29c064c139bd36afec97994054266e0e00656b4bf56b6285de",
+          "estimator_n_jobs": {
+            "calibratedclassifiercv": 2
+          },
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "vcomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\sklearn\\.libs\\vcomp140.dll",
+              "version": null
+            },
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\scipy.libs\\libscipy_openblas-197ee2fc9b4d071f7e048078cac74115.dll",
+              "version": "0.3.31.dev",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            }
+          ]
+        },
+        "p50_ms": 1.5231000143103302,
+        "p95_ms": 3.118069987976923
+      },
+      "latency_gate_passes": true
+    },
+    "tfidf_lightgbm": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.18089346820591884,
+            "source_mean_fpr": 0.1221879094141868,
+            "everyday_medium_or_high_rate": 0.16666666666666666
+          },
+          "primary_loss": 0.1565826814289241,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.10124534067817578,
+            "macro_f1_at_recall_95": 0.9520084566596194,
+            "legitimate_fpr_at_recall_95": 0.034482758620689655,
+            "phishing_recall_at_recall_95": 0.9622641509433962,
+            "recall_at_fpr_le_1pct": 0.8867924528301887,
+            "threshold_at_fpr_le_1pct": 0.8538038123724939,
+            "ece_15_bins": 0.023682113141463575,
+            "confusion_at_recall_95": {
+              "tp": 51,
+              "fp": 6,
+              "fn": 2,
+              "tn": 168
+            }
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated/parallel emails; not Egyptian SMS"
+              ],
+              "training_rows": 501,
+              "threshold_validation_rows": 48,
+              "model_sha256": "9a00f70095342734fd2cef66ef0f10779194c08b866253f4ebb94ea82ff83493",
+              "in_source_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_from_id_validation": 0.9677601220479468,
+                "macro_f1": 0.9787139689578714,
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 20,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 27
+                }
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_from_id_validation": 0.9677601220479468,
+                "macro_f1": 0.7724260064294826,
+                "phishing_recall": 0.7832512315270936,
+                "legitimate_fpr": 0.15206812652068127,
+                "confusion": {
+                  "tp": 159,
+                  "fp": 125,
+                  "fn": 44,
+                  "tn": 697
+                }
+              }
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated fraud letters and translated UCI ham; not Egyptian SMS"
+              ],
+              "training_rows": 1134,
+              "threshold_validation_rows": 179,
+              "model_sha256": "d4a381cf85a63f6e8e350c807f0128c0af888f1f1d6b176471e1ef1b6cf95039",
+              "in_source_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_from_id_validation": 0.185947767648452,
+                "macro_f1": 0.9809736394557823,
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.006802721088435374,
+                "confusion": {
+                  "tp": 31,
+                  "fp": 1,
+                  "fn": 1,
+                  "tn": 146
+                }
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_from_id_validation": 0.185947767648452,
+                "macro_f1": 0.8811632518175809,
+                "phishing_recall": 0.8549618320610687,
+                "legitimate_fpr": 0.09230769230769231,
+                "confusion": {
+                  "tp": 112,
+                  "fp": 12,
+                  "fn": 19,
+                  "tn": 118
+                }
+              }
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.028810225352160105
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0007018649229734571
+              },
+              {
+                "probe_index": 3,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.14423119689071512
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.026239060411685305
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.012719722577703317
+              },
+              {
+                "probe_index": 6,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.026119273439611942
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9944563509159364
+              },
+              {
+                "probe_index": 8,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.029485479370511603
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.09021420441443403
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0001613999291851455
+              },
+              {
+                "probe_index": 11,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.07265772902347775
+              },
+              {
+                "probe_index": 12,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0055817671050066575
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 2,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.16666666666666666
+          },
+          "historical_local_latency": {
+            "batch_size": 1,
+            "cpu_only": true,
+            "p50_ms": 0.6394000010914169,
+            "p95_ms": 0.8372300027986056,
+            "n": 282
+          },
+          "model_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58"
+        }
+      ],
+      "mean_primary_loss": 0.1565826814289241,
+      "min_primary_loss": 0.1565826814289241,
+      "max_primary_loss": 0.1565826814289241,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.18089346820591884,
+        "source_mean_fpr": 0.1221879094141868,
+        "everyday_medium_or_high_rate": 0.16666666666666666
+      },
+      "mean_validation_macro_f1": 0.9520084566596194,
+      "local_latency": {
+        "model": "tfidf_lightgbm",
+        "measured_at_utc": "2026-10-26T16:42:14.453244+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "frozen-fitted-local-candidate",
+          "model_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+          "estimator_n_jobs": {
+            "lgbmclassifier": 2
+          },
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "vcomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\sklearn\\.libs\\vcomp140.dll",
+              "version": null
+            },
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\scipy.libs\\libscipy_openblas-197ee2fc9b4d071f7e048078cac74115.dll",
+              "version": "0.3.31.dev",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            }
+          ]
+        },
+        "p50_ms": 0.7292000227607787,
+        "p95_ms": 1.4749799796845748
+      },
+      "latency_gate_passes": true
+    },
+    "bilstm": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.1312563456548716,
+            "source_mean_fpr": 0.1656279243870485,
+            "everyday_medium_or_high_rate": 0.4166666666666667
+          },
+          "primary_loss": 0.2378503122361956,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_at_recall_95": 0.37243160605430603,
+            "macro_f1_at_recall_95": 0.9635517019910083,
+            "legitimate_fpr_at_recall_95": 0.022988505747126436,
+            "phishing_recall_at_recall_95": 0.9622641509433962,
+            "recall_at_fpr_le_1pct": 0.9433962264150944,
+            "threshold_at_fpr_le_1pct": 0.736862599849701,
+            "ece_15_bins": 0.032296145634340044,
+            "confusion_at_recall_95": {
+              "tp": 51,
+              "fp": 4,
+              "fn": 2,
+              "tn": 170
+            }
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated/parallel emails; not Egyptian SMS"
+              ],
+              "training_rows": 501,
+              "threshold_validation_rows": 48,
+              "model_sha256": "e14baa4bf6ac0364d996649a00fc74e58c233cf3b27d0366a69ab46d0293bd51",
+              "in_source_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_from_id_validation": 0.9665662050247192,
+                "macro_f1": 0.9787139689578714,
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 20,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 27
+                }
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_from_id_validation": 0.9665662050247192,
+                "macro_f1": 0.7046764184397163,
+                "phishing_recall": 0.9359605911330049,
+                "legitimate_fpr": 0.3004866180048662,
+                "confusion": {
+                  "tp": 190,
+                  "fp": 247,
+                  "fn": 13,
+                  "tn": 575
+                }
+              }
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_selection_provenance": [
+                "translated fraud letters and translated UCI ham; not Egyptian SMS"
+              ],
+              "training_rows": 1134,
+              "threshold_validation_rows": 179,
+              "model_sha256": "80513972c2b64e542840b5eedc12ed23161c6ddb45b5828da4445622a566cab2",
+              "in_source_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_from_id_validation": 0.9828669428825378,
+                "macro_f1": 0.9903685768092547,
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.0,
+                "confusion": {
+                  "tp": 31,
+                  "fp": 0,
+                  "fn": 1,
+                  "tn": 147
+                }
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_from_id_validation": 0.9828669428825378,
+                "macro_f1": 0.8843085106382979,
+                "phishing_recall": 0.8015267175572519,
+                "legitimate_fpr": 0.03076923076923077,
+                "confusion": {
+                  "tp": 105,
+                  "fp": 4,
+                  "fn": 26,
+                  "tn": 126
+                }
+              }
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.5872658491134644
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.041242606937885284
+              },
+              {
+                "probe_index": 3,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.2129722386598587
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.01765214093029499
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.15305843949317932
+              },
+              {
+                "probe_index": 6,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.13928203284740448
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8042239546775818
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.48065537214279175
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.02921242080628872
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.019218947738409042
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.7398435473442078
+              },
+              {
+                "probe_index": 12,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.1486995965242386
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 5,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.4166666666666667
+          },
+          "historical_local_latency": {
+            "batch_size": 1,
+            "cpu_only": true,
+            "p50_ms": 48.20425000070827,
+            "p95_ms": 59.95203499842319,
+            "n": 282
+          },
+          "model_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1"
+        }
+      ],
+      "mean_primary_loss": 0.2378503122361956,
+      "min_primary_loss": 0.2378503122361956,
+      "max_primary_loss": 0.2378503122361956,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.1312563456548716,
+        "source_mean_fpr": 0.1656279243870485,
+        "everyday_medium_or_high_rate": 0.4166666666666667
+      },
+      "mean_validation_macro_f1": 0.9635517019910083,
+      "local_latency": {
+        "model": "bilstm",
+        "measured_at_utc": "2026-10-26T16:42:28.139774+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "frozen-fitted-local-candidate",
+          "model_sha256": "c94355fe30969f5ec1169286fd305b23f0ed8223a4b3cf9b7219cc74724e84e1",
+          "tokenizer_sha256": "101c4c89a6d719e3bfc261eca6849fa694044c94aed188ebf2a66ad29bd14afd",
+          "tf_intra_threads": 2,
+          "tf_inter_threads": 2,
+          "execution": "compiled tf.function; dynamic window batch; tracing in first warmup",
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "vcomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\sklearn\\.libs\\vcomp140.dll",
+              "version": null
+            },
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\scipy.libs\\libscipy_openblas-197ee2fc9b4d071f7e048078cac74115.dll",
+              "version": "0.3.31.dev",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            }
+          ]
+        },
+        "p50_ms": 17.654300027061254,
+        "p95_ms": 20.26476000319235
+      },
+      "latency_gate_passes": true
+    },
+    "marbertv2": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.0742488624826082,
+            "source_mean_fpr": 0.43628111547819576,
+            "everyday_medium_or_high_rate": 0.5
+          },
+          "primary_loss": 0.33684332598693467,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.9469411373138428,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 1,
+              "tn": 173
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.005747126436781609,
+            "macro_f1": 0.9814162914449447
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.9502726793289185,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.9502726793289185,
+                "confusion": {
+                  "tp": 193,
+                  "fn": 10,
+                  "fp": 47,
+                  "tn": 775
+                },
+                "phishing_recall": 0.9507389162561576,
+                "legitimate_fpr": 0.057177615571776155,
+                "macro_f1": 0.9179310044514617
+              },
+              "training_n": 501,
+              "model_sha256": "090a8109c8f7adeb42f0f9d34996eb3b0aafe2cd66cc46288a98135bd2d32009"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.9953363537788391,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 1,
+                  "tn": 146
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.006802721088435374,
+                "macro_f1": 0.9809736394557823
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.9953363537788391,
+                "confusion": {
+                  "tp": 118,
+                  "fn": 13,
+                  "fp": 106,
+                  "tn": 24
+                },
+                "phishing_recall": 0.9007633587786259,
+                "legitimate_fpr": 0.8153846153846154,
+                "macro_f1": 0.4761069410474825
+              },
+              "training_n": 1134,
+              "model_sha256": "70c129be70d0bb465a0fccb99bf33199c1ef08790eb6eac2f6a45f215e0abb1c"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9973425269126892
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.002746901009231806
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.010860332287847996
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0023504828568547964
+              },
+              {
+                "probe_index": 5,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9892648458480835
+              },
+              {
+                "probe_index": 6,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.05802474915981293
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9837693572044373
+              },
+              {
+                "probe_index": 8,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.09696201980113983
+              },
+              {
+                "probe_index": 9,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.9434518814086914
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0018639287445694208
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9648882150650024
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9728823304176331
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 6,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.5
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 112.39312100008192,
+            "p95_ms": 801.4513630999528,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "1926ab2af1726811ee169a7e79c8e24272c758a2a5f348c45747acb6e344a2fd"
+        },
+        {
+          "seed": 43,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.11672244575640206,
+            "source_mean_fpr": 0.4411660116039678,
+            "everyday_medium_or_high_rate": 0.5
+          },
+          "primary_loss": 0.35262948578678993,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.00912563782185316,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 2,
+              "tn": 172
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.011494252873563218,
+            "macro_f1": 0.9753849490349165
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.8728901743888855,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.8728901743888855,
+                "confusion": {
+                  "tp": 199,
+                  "fn": 4,
+                  "fp": 74,
+                  "tn": 748
+                },
+                "phishing_recall": 0.9802955665024631,
+                "legitimate_fpr": 0.09002433090024331,
+                "macro_f1": 0.8932895902960931
+              },
+              "training_n": 501,
+              "model_sha256": "c06b448ec6d30f21df8b5cd3fe80cad6d88c205d3a003719d2da5209ec8f80b1"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.9954261183738708,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 1,
+                  "tn": 146
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.006802721088435374,
+                "macro_f1": 0.9809736394557823
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.9954261183738708,
+                "confusion": {
+                  "tp": 103,
+                  "fn": 28,
+                  "fp": 103,
+                  "tn": 27
+                },
+                "phishing_recall": 0.7862595419847328,
+                "legitimate_fpr": 0.7923076923076923,
+                "macro_f1": 0.45158392814179166
+              },
+              "training_n": 1134,
+              "model_sha256": "6476e5d284705cff9e03831e07e80790cc3372d53110aa56776b0b6e8c27cd4e"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.10438597947359085
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.00292924209497869
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0036928525660187006
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0023276936262845993
+              },
+              {
+                "probe_index": 5,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9766023755073547
+              },
+              {
+                "probe_index": 6,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0063635739497840405
+              },
+              {
+                "probe_index": 7,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.004142016638070345
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.6584724187850952
+              },
+              {
+                "probe_index": 9,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.39155134558677673
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.002265050308778882
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.634882926940918
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8675976395606995
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 6,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.5
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 112.00486799998544,
+            "p95_ms": 806.7966562001156,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "c6a03793cbb21cf23cc1c0f6a21a981ac30c649f19fda31b88f46f7c83cb7a71"
+        },
+        {
+          "seed": 44,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.127683976986425,
+            "source_mean_fpr": 0.4202882275874977,
+            "everyday_medium_or_high_rate": 0.3333333333333333
+          },
+          "primary_loss": 0.293768512635752,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.9569973349571228,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 1,
+              "tn": 173
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.005747126436781609,
+            "macro_f1": 0.9814162914449447
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.9672250151634216,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.9672250151634216,
+                "confusion": {
+                  "tp": 193,
+                  "fn": 10,
+                  "fp": 46,
+                  "tn": 776
+                },
+                "phishing_recall": 0.9507389162561576,
+                "legitimate_fpr": 0.05596107055961071,
+                "macro_f1": 0.9192386483870242
+              },
+              "training_n": 501,
+              "model_sha256": "93d77146f76473a4a4c9e26cc5e52d1be79efb96c20b336ef707294ffe7f2f98"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.9938309192657471,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 1,
+                  "tn": 146
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.006802721088435374,
+                "macro_f1": 0.9809736394557823
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.9938309192657471,
+                "confusion": {
+                  "tp": 104,
+                  "fn": 27,
+                  "fp": 102,
+                  "tn": 28
+                },
+                "phishing_recall": 0.7938931297709924,
+                "legitimate_fpr": 0.7846153846153846,
+                "macro_f1": 0.45995669259764216
+              },
+              "training_n": 1134,
+              "model_sha256": "677b039767f164005eb1b63e48ebc3241e61f8bfdcfb140bcec3bd04fd7dc935"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9955834746360779
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0035380860790610313
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.004239825066179037
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0019304943270981312
+              },
+              {
+                "probe_index": 5,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9836912155151367
+              },
+              {
+                "probe_index": 6,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.005426943302154541
+              },
+              {
+                "probe_index": 7,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.10167861729860306
+              },
+              {
+                "probe_index": 8,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.008881675079464912
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0031236486975103617
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.001771802781149745
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.3647775948047638
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.9125920534133911
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 4,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.3333333333333333
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 113.50676699998985,
+            "p95_ms": 791.2633330998902,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "7b4424cf6c082af21f119fde5faee63a81a228b2a91223bb96d3503eba2af32e"
+        }
+      ],
+      "mean_primary_loss": 0.3277471081364922,
+      "min_primary_loss": 0.293768512635752,
+      "max_primary_loss": 0.35262948578678993,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.10621842840847842,
+        "source_mean_fpr": 0.4325784515565537,
+        "everyday_medium_or_high_rate": 0.4444444444444444
+      },
+      "mean_validation_macro_f1": 0.9794058439749352,
+      "local_latency": {
+        "model": "marbertv2",
+        "measured_at_utc": "2026-10-26T16:44:43.448368+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "pretrained-with-untrained-two-class-head",
+          "pretrained": {
+            "model_id": "UBC-NLP/MARBERTv2",
+            "pretrained_commit": "fe88db9db8ccdb0c4e1627495f405c44a5f89066",
+            "folder": "evaluation\\local-results\\text-transformers\\pretrained\\marbertv2",
+            "files_sha256": {
+              "config.json": "f3c6e81f15e54f7aa3f6f01c2a122323b140f9eb26fd60b372aa65cd5f29c977",
+              "pytorch_model.bin": "5d34aca06d9ec233e8483478faec43cea7c819d1ea4f83fc99d9c8067dcf8bab",
+              "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+              "tokenizer_config.json": "87a121bcbb979c889669471360e2621c0f3fdf8cc4c20facd9db82a3c04bae78",
+              "vocab.txt": "4cbe17fdb035ba4afb5eb9889657b0f9895e2c6bd26574409cf9f8bdf75e2542"
+            },
+            "public_weight_sha256": "5d34aca06d9ec233e8483478faec43cea7c819d1ea4f83fc99d9c8067dcf8bab",
+            "weight_bytes": 654190940
+          },
+          "torch_threads": 2,
+          "torch_interop_threads": 2,
+          "window_batch_size": 8,
+          "max_tokens": 256,
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "libiomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\torch\\lib\\libiomp5md.dll",
+              "version": null
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 1,
+              "prefix": "libiomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\torch\\lib\\libiompstubs5md.dll",
+              "version": null
+            }
+          ]
+        },
+        "p50_ms": 185.23170001571998,
+        "p95_ms": 2398.2485800224754
+      },
+      "latency_gate_passes": false
+    },
+    "camelbert_da": {
+      "runs": [
+        {
+          "seed": 42,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.09652916180949873,
+            "source_mean_fpr": 0.5480722440576455,
+            "everyday_medium_or_high_rate": 0.75
+          },
+          "primary_loss": 0.4648671352890481,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.7173584699630737,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 1,
+              "tn": 173
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.005747126436781609,
+            "macro_f1": 0.9814162914449447
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.9822876453399658,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.9822876453399658,
+                "confusion": {
+                  "tp": 201,
+                  "fn": 2,
+                  "fp": 98,
+                  "tn": 724
+                },
+                "phishing_recall": 0.9901477832512315,
+                "legitimate_fpr": 0.1192214111922141,
+                "macro_f1": 0.8680986647724348
+              },
+              "training_n": 501,
+              "model_sha256": "0d9daba1dcc7279c2be38271a06d771c6547587517a49e5f03328f152b93199b"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.339991956949234,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 3,
+                  "tn": 144
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.02040816326530612,
+                "macro_f1": 0.9628476546284765
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.339991956949234,
+                "confusion": {
+                  "tp": 107,
+                  "fn": 24,
+                  "fp": 127,
+                  "tn": 3
+                },
+                "phishing_recall": 0.816793893129771,
+                "legitimate_fpr": 0.9769230769230769,
+                "macro_f1": 0.31225896518628393
+              },
+              "training_n": 1134,
+              "model_sha256": "9c53bed9336207b0f5f34d502e6783b6b9871e6604217b361897b0107c934637"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9977568984031677
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.006589771248400211
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.03299237787723541
+              },
+              {
+                "probe_index": 4,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.2851230800151825
+              },
+              {
+                "probe_index": 5,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9101468920707703
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9957436919212341
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8403244614601135
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.88333660364151
+              },
+              {
+                "probe_index": 9,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.3030094504356384
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.004190636798739433
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9979731440544128
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9986409544944763
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 9,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.75
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 111.3941999999497,
+            "p95_ms": 796.9524873000402,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "a4d1f3ac5cc3d4e7bdcf8ebac15d7ff227c50f4ce1487272fb33732e6a721181"
+        },
+        {
+          "seed": 43,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.11758733501297335,
+            "source_mean_fpr": 0.4956017218790942,
+            "everyday_medium_or_high_rate": 0.5833333333333334
+          },
+          "primary_loss": 0.3988407967418003,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.6527949571609497,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 0,
+              "tn": 174
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.0,
+            "macro_f1": 0.9875274725274725
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.9870170950889587,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.9870170950889587,
+                "confusion": {
+                  "tp": 194,
+                  "fn": 9,
+                  "fp": 56,
+                  "tn": 766
+                },
+                "phishing_recall": 0.9556650246305419,
+                "legitimate_fpr": 0.0681265206812652,
+                "macro_f1": 0.9079054131573965
+              },
+              "training_n": 501,
+              "model_sha256": "546b961d67675ba01e46f63004edc335c6fc83e894f5a1ea4b742fd5bd8b0905"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.49560558795928955,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 1,
+                  "tn": 146
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.006802721088435374,
+                "macro_f1": 0.9809736394557823
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.49560558795928955,
+                "confusion": {
+                  "tp": 106,
+                  "fn": 25,
+                  "fp": 120,
+                  "tn": 10
+                },
+                "phishing_recall": 0.8091603053435115,
+                "legitimate_fpr": 0.9230769230769231,
+                "macro_f1": 0.3575248281130634
+              },
+              "training_n": 1134,
+              "model_sha256": "4306b51b72fab43553c6b52df47d494d39b348a2d56c32907414cd2b74795aa7"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9950659275054932
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.003317971481010318
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.010580707341432571
+              },
+              {
+                "probe_index": 4,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.22397057712078094
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0012399960542097688
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.995969295501709
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.7794687151908875
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.7931860685348511
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.03656250610947609
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0023186402395367622
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9984959363937378
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9969663023948669
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 7,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.5833333333333334
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 112.42527300009897,
+            "p95_ms": 802.3763664998105,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "1b5f614e8deabc7c845cece7824c84bd743bf3278b1003f47154be5ecae7c05b"
+        },
+        {
+          "seed": 44,
+          "primary_loss_components": {
+            "source_mean_fnr": 0.06464107095852292,
+            "source_mean_fpr": 0.6853453116226839,
+            "everyday_medium_or_high_rate": 0.5
+          },
+          "primary_loss": 0.41666212752706894,
+          "validation": {
+            "n": 227,
+            "phishing_n": 53,
+            "legitimate_n": 174,
+            "threshold_95": 0.8172100186347961,
+            "confusion": {
+              "tp": 51,
+              "fn": 2,
+              "fp": 1,
+              "tn": 173
+            },
+            "phishing_recall": 0.9622641509433962,
+            "legitimate_fpr": 0.005747126436781609,
+            "macro_f1": 0.9814162914449447
+          },
+          "loso": {
+            "kaggle_arabic_phishing_fully_dataset": {
+              "provenance": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 48,
+                "phishing_n": 21,
+                "legitimate_n": 27,
+                "threshold_95": 0.3841177225112915,
+                "confusion": {
+                  "tp": 20,
+                  "fn": 1,
+                  "fp": 0,
+                  "tn": 27
+                },
+                "phishing_recall": 0.9523809523809523,
+                "legitimate_fpr": 0.0,
+                "macro_f1": 0.9787139689578714
+              },
+              "held_source": {
+                "n": 1025,
+                "phishing_n": 203,
+                "legitimate_n": 822,
+                "threshold_95": 0.3841177225112915,
+                "confusion": {
+                  "tp": 200,
+                  "fn": 3,
+                  "fp": 330,
+                  "tn": 492
+                },
+                "phishing_recall": 0.9852216748768473,
+                "legitimate_fpr": 0.40145985401459855,
+                "macro_f1": 0.6464276058386449
+              },
+              "training_n": 501,
+              "model_sha256": "b817b133bc07b37a41c6fb171ed12fc0260c56ba42490d2b8ee32b1a337c544f"
+            },
+            "salloum_gaber_bilingual_corpus": {
+              "provenance": "translated/parallel emails; not Egyptian SMS",
+              "threshold_validation": {
+                "n": 179,
+                "phishing_n": 32,
+                "legitimate_n": 147,
+                "threshold_95": 0.019215846434235573,
+                "confusion": {
+                  "tp": 31,
+                  "fn": 1,
+                  "fp": 4,
+                  "tn": 143
+                },
+                "phishing_recall": 0.96875,
+                "legitimate_fpr": 0.027210884353741496,
+                "macro_f1": 0.9540955018720829
+              },
+              "held_source": {
+                "n": 261,
+                "phishing_n": 131,
+                "legitimate_n": 130,
+                "threshold_95": 0.019215846434235573,
+                "confusion": {
+                  "tp": 116,
+                  "fn": 15,
+                  "fp": 126,
+                  "tn": 4
+                },
+                "phishing_recall": 0.8854961832061069,
+                "legitimate_fpr": 0.9692307692307692,
+                "macro_f1": 0.33783759468845026
+              },
+              "training_n": 1134,
+              "model_sha256": "b7c50aed145a4c8b907afe0ff2b106773d6814e69fea9f9ab192245a481db8bd"
+            }
+          },
+          "everyday": {
+            "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+            "rows": [
+              {
+                "probe_index": 1,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9954791069030762
+              },
+              {
+                "probe_index": 2,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.0037800956051796675
+              },
+              {
+                "probe_index": 3,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.045268092304468155
+              },
+              {
+                "probe_index": 4,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.05315703526139259
+              },
+              {
+                "probe_index": 5,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.01581493206322193
+              },
+              {
+                "probe_index": 6,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9738195538520813
+              },
+              {
+                "probe_index": 7,
+                "verdict": "MEDIUM",
+                "reason": "text_medium",
+                "probability": 0.7139304876327515
+              },
+              {
+                "probe_index": 8,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.8969303965568542
+              },
+              {
+                "probe_index": 9,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.028544152155518532
+              },
+              {
+                "probe_index": 10,
+                "verdict": "LOW",
+                "reason": "no_warning_signs",
+                "probability": 0.011732465587556362
+              },
+              {
+                "probe_index": 11,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9981067180633545
+              },
+              {
+                "probe_index": 12,
+                "verdict": "MEDIUM",
+                "reason": "text_model_high_uncorroborated",
+                "probability": 0.9983450174331665
+              }
+            ],
+            "n": 12,
+            "high_n": 0,
+            "medium_or_high_n": 6,
+            "incomplete_n": 0,
+            "medium_or_high_rate": 0.5
+          },
+          "historical_colab_latency": {
+            "cpu_only": true,
+            "batch_size": 1,
+            "warmup_n": 3,
+            "includes_tokenization_and_windows": true,
+            "separate_from_gpu_inference": true,
+            "p50_ms": 114.34316999975636,
+            "p95_ms": 807.1646092000257,
+            "cpu_description": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+            "torch_threads": 2
+          },
+          "model_sha256": "902afa40bb72124f1d1f87e2053906e82768676e441448c1b8b1132cf3161fdb"
+        }
+      ],
+      "mean_primary_loss": 0.4267900198526391,
+      "min_primary_loss": 0.3988407967418003,
+      "max_primary_loss": 0.4648671352890481,
+      "mean_primary_loss_components": {
+        "source_mean_fnr": 0.09291918926033167,
+        "source_mean_fpr": 0.5763397591864745,
+        "everyday_medium_or_high_rate": 0.6111111111111112
+      },
+      "mean_validation_macro_f1": 0.9834533518057873,
+      "local_latency": {
+        "model": "camelbert_da",
+        "measured_at_utc": "2026-10-26T16:47:10.195931+00:00",
+        "final_test_run": false,
+        "trained": false,
+        "amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+        "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+        "timing_script_sha256": "b89a01ea3b1ed8ec0050fedcfaa1ad6bb722dffd007c83e4981169f6c16072b2",
+        "text_utils_sha256": "507e390c51ce3e6c6ced368492f95aa2d038508851445951266b8cb29c456eae",
+        "bundle_manifest_sha256": "6cd87cbec769d199d79baedbba4cd6500c76020df4f4a31ee547ce3b7cd6e02a",
+        "cpu_description": "Intel(R) Core(TM) i9-14900HX",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "logical_cpu_count": 32,
+        "fixed_threads": 2,
+        "libraries": {
+          "torch": "2.11.0+cpu",
+          "transformers": "4.45.2",
+          "safetensors": "0.8.0",
+          "numpy": "2.1.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.0",
+          "joblib": "1.6.0",
+          "lightgbm": "4.7.0",
+          "tensorflow-cpu": "2.21.0",
+          "keras": "3.15.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "cpu_only": true,
+        "batch_size": 1,
+        "warmup_n": 3,
+        "includes_preprocessing": true,
+        "window_words": 150,
+        "stride_words": 75,
+        "metadata": {
+          "kind": "pretrained-with-untrained-two-class-head",
+          "pretrained": {
+            "model_id": "CAMeL-Lab/bert-base-arabic-camelbert-da",
+            "pretrained_commit": "231698eab9ebf0ae7b518a64277b81b2fe829f2d",
+            "folder": "evaluation\\local-results\\text-transformers\\pretrained\\camelbert_da",
+            "files_sha256": {
+              "config.json": "db65595aa025936628d4d4b5aae80ac88fd7607d3ddd28c516373f96c4ae56c2",
+              "pytorch_model.bin": "17c491b3b93187ad705568fece7e2fcb9c5ef5614bd8452bd43f7551b11c8ba1",
+              "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+              "tokenizer_config.json": "73f5e97ab29042bac49dc96f7b8a7a790994509bbd2fe3e9cd4f59affc46c2ce",
+              "vocab.txt": "1df5f8da6ad6c56153c7a974c0b149bb7a0a6e332bcfa795c99deee6c1136ce2"
+            },
+            "public_weight_sha256": "17c491b3b93187ad705568fece7e2fcb9c5ef5614bd8452bd43f7551b11c8ba1",
+            "weight_bytes": 438873130
+          },
+          "torch_threads": 2,
+          "torch_interop_threads": 2,
+          "window_batch_size": 8,
+          "max_tokens": 256,
+          "threadpools": [
+            {
+              "user_api": "blas",
+              "internal_api": "openblas",
+              "num_threads": 2,
+              "prefix": "libscipy_openblas",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-c16e4918366c6bc1f1cd71e28ca36fc0.dll",
+              "version": "0.3.27",
+              "threading_layer": "pthreads",
+              "architecture": "Haswell"
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 2,
+              "prefix": "libiomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\torch\\lib\\libiomp5md.dll",
+              "version": null
+            },
+            {
+              "user_api": "openmp",
+              "internal_api": "openmp",
+              "num_threads": 1,
+              "prefix": "libiomp",
+              "filepath": "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv-latency\\Lib\\site-packages\\torch\\lib\\libiompstubs5md.dll",
+              "version": null
+            }
+          ]
+        },
+        "p50_ms": 204.83290002448484,
+        "p95_ms": 2470.099669962652
+      },
+      "latency_gate_passes": false
+    }
+  },
+  "provenance": {
+    "kaggle_arabic_phishing_fully_dataset": "translated fraud letters and translated UCI ham; not Egyptian SMS",
+    "salloum_gaber_bilingual_corpus": "translated/parallel emails; not Egyptian SMS",
+    "kaggle_dialectal_arabic_sms": "non-Egyptian; templated; collection/licence unverified; training only",
+    "everyday_probes": "12 existing invented development fixtures; not authentic SMS"
+  },
+  "genuine_egyptian_sms_test_count": 0,
+  "limitations": [
+    "Translated/non-Egyptian sources; not authentic Egyptian SMS performance.",
+    "Twelve invented exposed probes are selection diagnostics, not an independent test.",
+    "Retrospective hardware amendment after seeing Colab latency.",
+    "Transformer local timing uses pretrained weights with an untrained head; no trained weights returned."
+  ]
+}
