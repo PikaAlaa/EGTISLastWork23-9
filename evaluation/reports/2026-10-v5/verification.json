@@ -1,0 +1,64 @@
+{
+  "checks": {
+    "pytest": {
+      "command": [
+        "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--tb=short",
+        "--basetemp",
+        "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\pytest-text-v5-release-20261026"
+      ],
+      "exit_code": 0,
+      "log": "check-pytest.txt",
+      "log_sha256": "fe173ab1afa3e8e4c7ca434772670b00c95f1721f575f5f99c0f739b03662fe4",
+      "summary": "434 passed; one existing Starlette deprecation warning"
+    },
+    "initialize": {
+      "command": [
+        "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
+        "scripts/initialize.py"
+      ],
+      "exit_code": 0,
+      "log": "check-initialize.txt",
+      "log_sha256": "e6095f1d943889e1befda4a3ee4dac577612810be76395341b93df639cfbe9b3",
+      "summary": "isolated SQLite initialized"
+    },
+    "build": {
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log": "check-build.txt",
+      "log_sha256": "28409aa557933f092a5837fffc5e09eb7205cd11ec2a81b08232c07c34867efb",
+      "summary": "production build passed; existing bundle-size advisory"
+    },
+    "lint": {
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "log": "check-lint.txt",
+      "log_sha256": "6f468e3f73131e58938b3a174c0324501c15cfd4ff8f4c61df19c72e91968ae1",
+      "summary": "passed"
+    }
+  },
+  "protected_files_checked": 474,
+  "protected_files_unchanged": true,
+  "runtime_packages_unchanged": true,
+  "final_test_run": false,
+  "live_backend": {
+    "live": "alive",
+    "web_and_worker_preserved": true,
+    "readiness": "ready",
+    "text_model_available": true
+  },
+  "packaged_pipeline_matches_source": true
+}

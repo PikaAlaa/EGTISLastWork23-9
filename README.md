@@ -1,5 +1,14 @@
 # ETIS — reviewed October implementation
 
+**26 October text deployment:** the frozen source/probe rule selects TF-IDF
+LightGBM after the six Colab runs and a common-protocol CPU pass for all seven
+candidates. Its primary loss is 0.156583 and local p95 is 1.475 ms. The twelve
+existing invented everyday probes now give 0 HIGH, 2 MEDIUM and 10 LOW, compared
+with 0/8/4 previously. The URL deployment is unchanged. See the
+[Phase 2 report](evaluation/reports/2026-10-v5/REPORT.md) for counts, provenance,
+both machines' timings, the retrospective timing corrections and artifact hash.
+Genuine Egyptian SMS test count remains 0; no sealed final test ran.
+
 **23 October v4 deployment:** candidate `ee0ba9f0077c1fd140aa` uses host/path
 model input at the frozen threshold `0.9870690448552604`, with ordinary URL-model
 support. Queries and fragments do not affect its raw score. The owner authorized
@@ -30,10 +39,11 @@ and compares lexical URL and text models; it still does not establish real-world
 Egyptian SMS accuracy.
 
 V4 uses ordinary URL-model support. Text-model HIGH alerts require corroboration.
-All twelve existing everyday probes avoid HIGH, while eight remain
-MEDIUM under the deployed text model. The revised local comparison provisionally
-favors TF-IDF LightGBM; deployment still uses the preserved character model.
-Final selection requires transformer source-held-out and everyday-probe results.
+All twelve existing invented everyday probes avoid HIGH, while two remain
+MEDIUM under the deployed TF-IDF LightGBM text model. The completed comparison
+includes both transformers across three seeds; neither passes the new local
+CPU latency gate. These exposed development results do not establish authentic
+Egyptian SMS accuracy.
 
 Start locally with `./Start-ETIS.ps1`, then open `http://127.0.0.1:5173/scan`.
 For a fresh installation use `./Install-ETIS.ps1 -Start`.

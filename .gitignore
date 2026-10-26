@@ -45,6 +45,7 @@ Thumbs.db
 
 # Local implementation runtime and private submissions
 .venv/
+.venv-latency/
 var/
 .local/
 *.log

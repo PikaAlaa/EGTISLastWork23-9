@@ -1,0 +1,225 @@
+{
+  "selected": "tfidf_lightgbm",
+  "artifact_path": "ml\\models\\deployed_char.joblib",
+  "artifact_sha256": "023808d71047b76b5b62e535ce512fddd8e3b1268af90a0a9c98e92b5fb13d83",
+  "source_artifact_path": "release-artifacts\\evaluation\\reports\\2026-10-v3\\models\\tfidf_lightgbm.joblib",
+  "source_artifact_sha256": "bf26ca6de453a1fee6140fc9ae81fb610e7375a36d764fa25f2dca71cb47fb58",
+  "previous_artifact_sha256": "8f5489ba82604084886080501da6306b8b6b5d784a8b83271f52034b00b533e6",
+  "deployed_at_utc": "2026-10-26T16:47:31.441600+00:00",
+  "runtime_backend": "char (legacy name for the probability-pipeline adapter)",
+  "model_name": "tfidf_lightgbm",
+  "low_threshold": 0.2,
+  "high_threshold": 0.10124534067817578,
+  "selection_rule_path": "evaluation\\reports\\2026-10-v3\\review-2026-10-13\\model_selection_rule.md",
+  "selection_rule_sha256": "72aebbd75cffc9f1a311f20b006fc557e8cd278616aee5552d7a92dc6dc18b68",
+  "selection_rule_json_sha256": "0a4e57521b64567aa2ab4a26de999a0b41c47d891db4ef74b2e7dfac97cde0bb",
+  "latency_amendment_sha256": "c3133551e8306227a825458a72701d1dc7c16b999fcaaf1e238c06cef3d0e08c",
+  "comparison_path": "evaluation\\reports\\2026-10-v5\\comparison.json",
+  "comparison_sha256": "e0b0c83f46b900151c1ee678d24275083b8ae2c94ba8f0cf447a323c97cf1794",
+  "report": "evaluation\\reports\\2026-10-v5\\REPORT.md",
+  "data_sha256": "9c93b0d8a637f4f3840b2a771dda8fbf780a746913f2d32194bfc92d964fe2a0",
+  "frozen_split_sha256": "a404a48c0018143f5842018c602fc4d99499bacf9e1229ff5b05bfe21bee57f0",
+  "primary_loss": 0.1565826814289241,
+  "primary_loss_components": {
+    "source_mean_fnr": 0.18089346820591884,
+    "source_mean_fpr": 0.1221879094141868,
+    "everyday_medium_or_high_rate": 0.16666666666666666
+  },
+  "cpu_p95_ms": 1.4749799796845748,
+  "cpu_gate_limit_ms": 300,
+  "libraries": {
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "lightgbm": "4.7.0"
+  },
+  "preprocessing": "normalize_arabic_text; 150-word windows, stride 75; maximum probability",
+  "model_weights_fitted": false,
+  "thresholds_retuned": false,
+  "final_test_run": false,
+  "genuine_egyptian_sms_test_count": 0,
+  "status": "experimental; selected on exposed development evidence",
+  "limitations": [
+    "Translated/non-Egyptian sources; not authentic Egyptian SMS performance.",
+    "Twelve invented exposed probes are selection diagnostics, not an independent test.",
+    "Retrospective hardware amendment after seeing Colab latency.",
+    "Transformer local timing uses pretrained weights with an untrained head; no trained weights returned."
+  ],
+  "before_probes": {
+    "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+    "rows": [
+      {
+        "probe_index": 1,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.7073275533323873
+      },
+      {
+        "probe_index": 2,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.4269552440944591
+      },
+      {
+        "probe_index": 3,
+        "verdict": "MEDIUM",
+        "reason": "text_medium",
+        "probability": 0.2785120335470196
+      },
+      {
+        "probe_index": 4,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.18579299403990987
+      },
+      {
+        "probe_index": 5,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.16170225676126393
+      },
+      {
+        "probe_index": 6,
+        "verdict": "MEDIUM",
+        "reason": "text_medium",
+        "probability": 0.2556918968161498
+      },
+      {
+        "probe_index": 7,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.46922421301513323
+      },
+      {
+        "probe_index": 8,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.45659549881150535
+      },
+      {
+        "probe_index": 9,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.04003914404801564
+      },
+      {
+        "probe_index": 10,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.09186876063096172
+      },
+      {
+        "probe_index": 11,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.4472930016490901
+      },
+      {
+        "probe_index": 12,
+        "verdict": "MEDIUM",
+        "reason": "text_medium",
+        "probability": 0.2150530985851004
+      }
+    ],
+    "n": 12,
+    "high_n": 0,
+    "medium_or_high_n": 8,
+    "incomplete_n": 0,
+    "medium_or_high_rate": 0.6666666666666666
+  },
+  "after_probes": {
+    "provenance": "12 existing invented development fixtures; not authentic Egyptian SMS",
+    "rows": [
+      {
+        "probe_index": 1,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.028810225352160105
+      },
+      {
+        "probe_index": 2,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.0007018649229734571
+      },
+      {
+        "probe_index": 3,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.14423119689071512
+      },
+      {
+        "probe_index": 4,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.026239060411685305
+      },
+      {
+        "probe_index": 5,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.012719722577703317
+      },
+      {
+        "probe_index": 6,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.026119273439611942
+      },
+      {
+        "probe_index": 7,
+        "verdict": "MEDIUM",
+        "reason": "text_model_high_uncorroborated",
+        "probability": 0.9944563509159364
+      },
+      {
+        "probe_index": 8,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.029485479370511603
+      },
+      {
+        "probe_index": 9,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.09021420441443403
+      },
+      {
+        "probe_index": 10,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.0001613999291851455
+      },
+      {
+        "probe_index": 11,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.07265772902347775
+      },
+      {
+        "probe_index": 12,
+        "verdict": "LOW",
+        "reason": "no_warning_signs",
+        "probability": 0.0055817671050066575
+      }
+    ],
+    "n": 12,
+    "high_n": 0,
+    "medium_or_high_n": 2,
+    "incomplete_n": 0,
+    "medium_or_high_rate": 0.16666666666666666
+  },
+  "latency_libraries": {
+    "torch": "2.11.0+cpu",
+    "transformers": "4.45.2",
+    "safetensors": "0.8.0",
+    "numpy": "2.1.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.6.0",
+    "lightgbm": "4.7.0",
+    "tensorflow-cpu": "2.21.0",
+    "keras": "3.15.1",
+    "threadpoolctl": "3.7.0"
+  }
+}

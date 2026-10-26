@@ -1,0 +1,9 @@
+{
+  "command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
+    "scripts/initialize.py"
+  ],
+  "exit_code": 0,
+  "log": "check-initialize.txt",
+  "log_sha256": "e6095f1d943889e1befda4a3ee4dac577612810be76395341b93df639cfbe9b3"
+}

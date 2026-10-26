@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--tb=short",
+    "--basetemp",
+    "C:\\Users\\Pikaa\\pikagraphics\\GRAD_PROJECT\\ETIS\\.local\\pytest-text-v5-release-20261026"
+  ],
+  "exit_code": 0,
+  "log": "check-pytest.txt",
+  "log_sha256": "fe173ab1afa3e8e4c7ca434772670b00c95f1721f575f5f99c0f739b03662fe4"
+}

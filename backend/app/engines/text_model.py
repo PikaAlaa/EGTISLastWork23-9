@@ -22,5 +22,5 @@ def score_text(text):
     probabilities = artifact['pipeline'].predict_proba([normalize_arabic_text(w) for w in windows])[:, 1]
     probability = float(max(probabilities))
     return {'score': round(probability*100, 2), 'probability': probability,
-            'model': 'char', 'version': artifact['version'], 'windows': len(windows),
+            'model': artifact.get('model_name', 'char'), 'version': artifact['version'], 'windows': len(windows),
             'low_threshold': artifact['low_threshold'], 'high_threshold': artifact['high_threshold']}
