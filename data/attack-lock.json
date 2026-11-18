@@ -1,0 +1,28 @@
+{
+  "source": "mitre-attack/attack-stix-data",
+  "version": "20.0",
+  "pinned_on": "2026-11-18",
+  "pin_reason": "20.1 (modified 2026-11-05) was less than two weeks old when pinned.",
+  "destination": "data/external/attack/",
+  "copyright_statement": "Copyright 2015-2026, The MITRE Corporation. MITRE ATT&CK and ATT&CK are registered trademarks of The MITRE Corporation.",
+  "files": [
+    {
+      "collection": "enterprise",
+      "name": "Enterprise ATT&CK",
+      "file": "enterprise-attack-20.0.json",
+      "url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack-20.0.json",
+      "modified": "2026-10-13T17:53:10.145Z",
+      "size": 55271014,
+      "sha256": "2339a3c36353d5ee2c07e98af3fafbf00761e0e3979ede06402657445b7b4278"
+    },
+    {
+      "collection": "mobile",
+      "name": "Mobile ATT&CK",
+      "file": "mobile-attack-20.0.json",
+      "url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/mobile-attack/mobile-attack-20.0.json",
+      "modified": "2026-10-13T17:54:40.393Z",
+      "size": 6095145,
+      "sha256": "c7d6c923c1f8462ab1c5db0195d81e2585db9949d574128391c682f229c6695a"
+    }
+  ]
+}

@@ -15,9 +15,14 @@ def initialize(seed=False):
     sys.path.insert(0,str(ROOT/'backend'))
     from app.core.database import SessionLocal
     from app.services.registry import populate_registry
+    from app.services.findings import seed_correlation_stoplist
     with SessionLocal() as db:populate_registry(db)
+    with SessionLocal() as db:seed_correlation_stoplist(db)
+    from app.services.attack import load_catalogue
+    # Local pinned files only (data/scripts/fetch_attack.py); absent files leave the catalogue not installed.
+    with SessionLocal() as db:attack=load_catalogue(db)
     if seed:
         subprocess.run([sys.executable,'data/scripts/seed_database.py','--mode','archive'],cwd=ROOT,check=True)
-    print(json.dumps({'initialized':True,'database':'project-local SQLite unless DATABASE_URL explicitly configured','key':'stored in ignored .env; never printed'}))
+    print(json.dumps({'initialized':True,'database':'project-local SQLite unless DATABASE_URL explicitly configured','key':'stored in ignored .env; never printed','attack_catalogue':attack}))
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--seed-archive',action='store_true');initialize(p.parse_args().seed_archive)

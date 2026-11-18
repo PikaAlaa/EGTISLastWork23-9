@@ -1,0 +1,424 @@
+{
+ "description": "Subset of MITRE ATT&CK v20.0 for offline tests: identifiers, names, tactics, platforms and status flags only.",
+ "copyright_statement": "Copyright 2015-2026, The MITRE Corporation. MITRE ATT&CK and ATT&CK are registered trademarks of The MITRE Corporation.",
+ "attack_version": "20.0",
+ "sources": {
+  "enterprise": {
+   "file": "enterprise-attack-20.0.json",
+   "sha256": "2339a3c36353d5ee2c07e98af3fafbf00761e0e3979ede06402657445b7b4278"
+  },
+  "mobile": {
+   "file": "mobile-attack-20.0.json",
+   "sha256": "c7d6c923c1f8462ab1c5db0195d81e2585db9949d574128391c682f229c6695a"
+  }
+ },
+ "objects": {
+  "enterprise": [
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--45d84c8b-c1e2-474d-a14d-69b5de0a2bc0",
+    "name": "Source",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1153",
+      "url": "https://attack.mitre.org/techniques/T1153"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "execution"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": true
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--ef67e13e-5598-4adc-bdb2-998225874fa9",
+    "name": "Malicious Link",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1204.001",
+      "url": "https://attack.mitre.org/techniques/T1204/001"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "execution"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--a62a8db3-f23a-4d8f-afd6-9dbc77e7813b",
+    "name": "Phishing",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1566",
+      "url": "https://attack.mitre.org/techniques/T1566"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Identity Provider",
+     "Linux",
+     "macOS",
+     "Office Suite",
+     "SaaS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--2e34237d-8574-43f6-aace-ae2915de8597",
+    "name": "Spearphishing Attachment",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1566.001",
+      "url": "https://attack.mitre.org/techniques/T1566/001"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--2b742742-28c3-4e1b-bab7-8350d6300fa7",
+    "name": "Spearphishing Link",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1566.002",
+      "url": "https://attack.mitre.org/techniques/T1566/002"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Identity Provider",
+     "Linux",
+     "macOS",
+     "Office Suite",
+     "SaaS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--f6ad61ee-65f3-4bd0-a3f5-2f0accb36317",
+    "name": "Spearphishing via Service",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1566.003",
+      "url": "https://attack.mitre.org/techniques/T1566/003"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--bb5e59c4-abe7-40c7-8196-e373cb1e5974",
+    "name": "Spearphishing Voice",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1566.004",
+      "url": "https://attack.mitre.org/techniques/T1566/004"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Windows",
+     "Identity Provider"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--40f5caa0-4cb7-4117-89fc-d421bb493df3",
+    "name": "Domains",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1583.001",
+      "url": "https://attack.mitre.org/techniques/T1583/001"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "resource-development"
+     }
+    ],
+    "x_mitre_platforms": [
+     "PRE"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a",
+    "name": "Phishing for Information",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1598",
+      "url": "https://attack.mitre.org/techniques/T1598"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "reconnaissance"
+     }
+    ],
+    "x_mitre_platforms": [
+     "PRE"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--2d3f5b3c-54ca-4f4d-bb1f-849346d31230",
+    "name": "Spearphishing Link",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1598.003",
+      "url": "https://attack.mitre.org/techniques/T1598/003"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "reconnaissance"
+     }
+    ],
+    "x_mitre_platforms": [
+     "PRE"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--c9e0c59e-162e-40a4-b8b1-78fab4329ada",
+    "name": "Impersonation",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1656",
+      "url": "https://attack.mitre.org/techniques/T1656"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "stealth"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Office Suite",
+     "SaaS",
+     "Windows"
+    ],
+    "revoked": true,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--41e4d77a-6275-4976-9e35-785985598519",
+    "name": "Social Engineering",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1684",
+      "url": "https://attack.mitre.org/techniques/T1684"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "stealth"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Office Suite",
+     "SaaS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--cd92d2b8-ce43-4666-9472-f1b4b9f4f8be",
+    "name": "Impersonation",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1684.001",
+      "url": "https://attack.mitre.org/techniques/T1684/001"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "stealth"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Linux",
+     "macOS",
+     "Office Suite",
+     "SaaS",
+     "Windows"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   }
+  ],
+  "mobile": [
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--0c71033e-401e-4b97-9309-7a7c95e43a5d",
+    "name": "Obtain Device Cloud Backups",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1470",
+      "url": "https://attack.mitre.org/techniques/T1470"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-mobile-attack",
+      "phase_name": "remote-service-effects"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Android",
+     "iOS"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": true
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--53263a67-075e-48fa-974b-91c5b5445db7",
+    "name": "Deliver Malicious Application via Other Means",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1476",
+      "url": "https://attack.mitre.org/techniques/T1476"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-mobile-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Android",
+     "iOS"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   },
+   {
+    "type": "attack-pattern",
+    "id": "attack-pattern--defc1257-4db1-4fb3-8ef5-bb77f63146df",
+    "name": "Phishing",
+    "external_references": [
+     {
+      "source_name": "mitre-attack",
+      "external_id": "T1660",
+      "url": "https://attack.mitre.org/techniques/T1660"
+     }
+    ],
+    "kill_chain_phases": [
+     {
+      "kill_chain_name": "mitre-mobile-attack",
+      "phase_name": "initial-access"
+     }
+    ],
+    "x_mitre_platforms": [
+     "Android",
+     "iOS"
+    ],
+    "revoked": false,
+    "x_mitre_deprecated": false
+   }
+  ]
+ }
+}

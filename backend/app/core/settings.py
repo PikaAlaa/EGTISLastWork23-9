@@ -20,5 +20,11 @@ class Settings:
     rate_limit: str = os.getenv('ETIS_RATE_LIMIT', '20/minute')
     text_low_threshold: float = float(os.getenv('ETIS_TEXT_LOW_THRESHOLD', '0.2'))
     text_high_threshold: float = float(os.getenv('ETIS_TEXT_HIGH_THRESHOLD', '0.8'))
+    # Core v1 incident correlation window (design core-v1 §3.2); not a detection threshold.
+    correlation_window_days: int = int(os.getenv('ETIS_CORRELATION_WINDOW_DAYS', '14'))
+    # Record core v1 findings for /analyze scans (design core-v1 §5.1). Default on only
+    # because the verdict parity gate (tests/test_findings_parity.py) passes; set 0 to
+    # reproduce pre-core behaviour exactly.
+    findings_enabled: bool = os.getenv('ETIS_FINDINGS_ENABLED', '1') == '1'
 
 settings = Settings()
