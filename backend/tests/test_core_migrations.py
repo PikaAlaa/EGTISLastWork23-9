@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[2]
 PRE_CORE_HEAD = '003_feed_observations'
 CORE_TABLES = {'004_indicators': ['indicators', 'indicator_sightings', 'correlation_stoplist'],
                '005_findings_incidents': ['campaigns', 'incidents', 'findings', 'finding_indicators', 'finding_attack',
-                                          'incident_indicators', 'incident_links', 'incident_events']}
+                                          'incident_indicators', 'incident_links', 'incident_events'],
+               '006_attack_catalogue': ['attack_techniques']}
 ALL_CORE = [t for tables in CORE_TABLES.values() for t in tables]
 LEGACY_TABLES = ['blacklist_entries', 'feed_observations', 'feed_snapshots', 'feed_updates', 'scan_requests',
                  'scan_results', 'community_reports', 'egyptian_brands', 'brand_domains']

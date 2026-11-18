@@ -18,6 +18,7 @@ from app.core.indicators import normalize_domain, normalize_phone, sha256_hex
 from app.core.settings import settings
 from app.core.url_utils import registered_domain
 from app.engines.threat_intel.blacklist_lookup import SHARED_HOSTING_DOMAINS
+from app.services.attack import AttackValidator
 from app.models import (BrandDomain, CorrelationStoplist, FindingAttack, FindingIndicator, FindingRecord,
                         Incident, IncidentEvent, IncidentIndicator, IncidentLink, Indicator, IndicatorSighting)
 from app.models.finding import INCIDENT_RESOLUTIONS
@@ -125,6 +126,7 @@ def _record_sighting(db, indicator: Indicator, finding: Finding, observed: datet
 
 def record_findings(db, findings: list[Finding], scan_request_id: int | None = None) -> list[FindingRecord]:
     exclusions = _exclusions(db)
+    validator = AttackValidator(db)
     records = []
     for finding in findings:
         observed = _naive_utc(finding.observed_at)
@@ -147,6 +149,8 @@ def record_findings(db, findings: list[Finding], scan_request_id: int | None = N
                 indicators.append(indicator)
                 _record_sighting(db, indicator, finding, observed)
         for technique in {(a.technique_id, a.matrix): a for a in finding.attack}.values():
+            if not validator.accept(technique.technique_id, technique.matrix, technique.attack_version):
+                continue
             db.add(FindingAttack(finding_id=record.id, technique_id=technique.technique_id, matrix=technique.matrix,
                                  attack_version=technique.attack_version, basis=technique.basis))
         db.flush()
