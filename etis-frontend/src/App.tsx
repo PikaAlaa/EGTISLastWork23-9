@@ -20,8 +20,9 @@ import { ScanPage } from './pages/ScanPage';
 import { ThreatFeedPage } from './pages/ThreatFeedPage';
 import { StatsPage } from './pages/StatsPage';
 import { IncidentsPage } from './pages/IncidentsPage';
+import { IndicatorsPage } from './pages/IndicatorsPage';
 
-const PAGES = ['scan', 'threats', 'stats', 'incidents'] as const;
+const PAGES = ['scan', 'threats', 'stats', 'incidents', 'indicators'] as const;
 type PageKey = (typeof PAGES)[number];
 
 export default function App() {
@@ -76,6 +77,7 @@ export default function App() {
             <Tab value="threats" label={t('nav.threats')} />
             <Tab value="stats" label={t('nav.stats')} />
             <Tab value="incidents" label={t('nav.incidents')} />
+            <Tab value="indicators" label={t('nav.indicators')} />
           </Tabs>
 
           <Box>
@@ -83,6 +85,7 @@ export default function App() {
             {activePage === 'threats' && <ThreatFeedPage />}
             {activePage === 'stats' && <StatsPage />}
             {activePage === 'incidents' && <IncidentsPage />}
+            {activePage === 'indicators' && <IndicatorsPage />}
           </Box>
         </Container>
       </ThemeProvider>

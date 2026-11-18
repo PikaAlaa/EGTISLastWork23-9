@@ -109,6 +109,37 @@ export interface Campaign {
   incident_count: number;
 }
 
+export type HashAlgo = 'sha256' | 'sha1' | 'md5';
+
+export interface IndicatorDetail {
+  id: number;
+  type: IndicatorType;
+  value: string | null;
+  value_hash: string;
+  hash_algo: HashAlgo | null;
+  registered_domain: string | null;
+  first_seen: string;
+  last_seen: string;
+  sightings: { source_kind: string; source_name: string; first_seen: string; last_seen: string; active: boolean }[];
+  findings: { id: string; kind: string; severity: Severity; confidence: string; observed_at: string; incident_id: number | null; role: string }[];
+  incidents: { id: number; title: string; status: IncidentStatus; severity: Severity }[];
+}
+
+export interface IndicatorLookup {
+  type: IndicatorType;
+  found: boolean;
+  indicator: IndicatorDetail | null;
+}
+
+export interface CommunityReport {
+  id: number;
+  reported_value: string;
+  reporter_note: string | null;
+  status: 'pending' | 'confirmed' | 'rejected';
+  submitted_at: string;
+  reviewed_at: string | null;
+}
+
 export interface CampaignSuggestion {
   incident_ids: number[];
   reason: 'shared_contact' | 'shared_brand_and_indicator';

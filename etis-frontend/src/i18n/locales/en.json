@@ -7,7 +7,8 @@
     "scan": "Live Analysis",
     "threats": "Threat Feed",
     "stats": "Statistics",
-    "incidents": "Incidents"
+    "incidents": "Incidents",
+    "indicators": "Indicator search"
   },
   "scan": {
     "urlLabel": "URL",
@@ -168,6 +169,34 @@
       "not_found": "That incident or campaign does not exist.",
       "note_required": "Write a note first."
     }
+  },
+  "indicators": {
+    "intro": "Look up one indicator exactly: a link, domain, IP address, phone number, email or file hash. There is no partial search and no bulk export.",
+    "value": "Exact value",
+    "hashAlgo": "Algorithm",
+    "search": "Look up",
+    "privacy": "The value is normalized and hashed by the local backend to find an exact match. It is not stored, logged or opened.",
+    "invalidValue": "This value is not a valid indicator of the selected type.",
+    "notFound": "No record of this indicator.",
+    "hashOnly": "Seen only in scans: stored as a hash, no plain value is kept.",
+    "registeredDomain": "Registered domain",
+    "firstSeen": "First seen",
+    "lastSeen": "Last seen",
+    "sightings": "Sightings ({{count}})",
+    "sourceKind": "Source type",
+    "sourceName": "Source",
+    "findings": "Findings ({{count}})",
+    "incidents": "Incidents ({{count}})",
+    "openInIncidents": "Open the Incidents tab to review these incidents.",
+    "communityHeading": "Community reports awaiting review",
+    "communityHelp": "Confirming records the value as a community indicator. It never adds it to the threat database used for scan verdicts.",
+    "noPending": "No reports are waiting for review.",
+    "reported": "Reported value",
+    "reporterNote": "Reporter note",
+    "submitted": "Submitted",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "reportValueInvalid": "The reported value is not valid for the selected type."
   },
   "common": {
     "retry": "Try again",

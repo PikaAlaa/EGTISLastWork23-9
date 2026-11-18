@@ -8,6 +8,11 @@ import type {
 import type {
   Campaign,
   CampaignSuggestion,
+  CommunityReport,
+  HashAlgo,
+  IndicatorDetail,
+  IndicatorLookup,
+  IndicatorType,
   IncidentDetail,
   IncidentUpdate,
   IncidentsQueryParams,
@@ -152,4 +157,22 @@ export function assignCampaign(campaignId: number, incidentId: number): Promise<
 
 export function getCampaignSuggestions(): Promise<{ results: CampaignSuggestion[] }> {
   return request<{ results: CampaignSuggestion[] }>('/campaigns/suggestions');
+}
+
+/** Exact lookup: the backend normalizes and hashes the value; it is not stored or logged. */
+export function lookupIndicator(type: IndicatorType, q: string, hashAlgo?: HashAlgo): Promise<IndicatorLookup> {
+  return request<IndicatorLookup>(`/indicators${buildQueryString({ type, q, hash_algo: type === 'hash' ? hashAlgo : undefined })}`);
+}
+
+export function getIndicator(id: number): Promise<IndicatorDetail> {
+  return request<IndicatorDetail>(`/indicators/${id}`);
+}
+
+export function getCommunityReports(status?: CommunityReport['status']): Promise<{ total_matching: number; results: CommunityReport[] }> {
+  return request<{ total_matching: number; results: CommunityReport[] }>(`/community-reports${buildQueryString({ status })}`);
+}
+
+export function reviewCommunityReport(id: number, status: 'confirmed' | 'rejected', indicatorType?: IndicatorType): Promise<CommunityReport> {
+  return sendJson<CommunityReport>(`/community-reports/${id}`, 'PATCH',
+    status === 'confirmed' ? { status, indicator_type: indicatorType } : { status });
 }
