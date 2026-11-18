@@ -25,8 +25,8 @@ try {
  $started=$false
  for($attempt=0;$attempt -lt 30;$attempt++){
   try {
-   $live=Invoke-WebRequest 'http://127.0.0.1:8000/health/live' -TimeoutSec 1
-   $page=Invoke-WebRequest 'http://127.0.0.1:5173/scan' -TimeoutSec 1
+   $live=Invoke-WebRequest 'http://127.0.0.1:8000/health/live' -UseBasicParsing -TimeoutSec 1
+   $page=Invoke-WebRequest 'http://127.0.0.1:5173/scan' -UseBasicParsing -TimeoutSec 1
    if($live.StatusCode -eq 200 -and $page.StatusCode -eq 200){$started=$true;break}
   } catch {Start-Sleep -Milliseconds 200}
  }
