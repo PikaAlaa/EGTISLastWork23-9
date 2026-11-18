@@ -292,7 +292,11 @@
     "invalid_embedded_url": "A link inside the message could not be validated.",
     "supporting_evidence": "The content needs independent verification.",
     "blacklist_missing_source": "A required threat feed has not been loaded.",
-    "brand_claim_from_mobile_number": "The message claims to be from a financial or telecom brand but the sender is shown as a mobile number."
+    "brand_claim_from_mobile_number": "The message claims to be from a financial or telecom brand but the sender is shown as a mobile number.",
+    "text_high_corroborated": "The message contains a strong phishing signal, confirmed by independent evidence.",
+    "text_model_high_uncorroborated": "The message contains a strong phishing signal, but no independent evidence confirms it. Verify it.",
+    "url_model": "The link model rates this link as suspicious. Verify it.",
+    "url_model_corroborated": "The link model rates this link as suspicious, confirmed by brand impersonation or a request for secrets."
   },
   "pattern": {
     "ip_address_host": "IP address destination",

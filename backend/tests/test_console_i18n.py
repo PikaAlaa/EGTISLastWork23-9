@@ -39,6 +39,25 @@ def test_navigation_labels_exist_in_both_languages():
     assert set(EN['nav']) == set(AR['nav'])
 
 
+def emitted_reason_codes():
+    """Every code that can reach evidence.reasons: decisive, supporting and unavailable codes."""
+    app = ROOT / 'backend/app'
+    source = ''.join((app / p).read_text(encoding='utf-8') for p in (
+        'engines/risk_scoring.py', 'engines/threat_intel/blacklist_lookup.py', 'core/url_utils.py'))
+    codes = set(re.findall(r"(?:decisive|supporting|unavailable|invalid)\.append\('([a-z_]+)'\)", source))
+    codes |= set(re.findall(r"'reason':\s*'([a-z_]+)'", source)) | set(re.findall(r"'(blacklist_[a-z_]+)'", source))
+    brand = (app / 'engines/rule_based/domain_typosquatting_detector.py').read_text(encoding='utf-8')
+    codes |= set(re.findall(r"technique, score, decisive = '([a-z_]+)', 95\.0, True", brand))
+    return codes | {'no_warning_signs'}
+
+
+def test_every_reason_code_is_translated():
+    codes = emitted_reason_codes()
+    assert {'text_high_corroborated', 'url_model', 'blacklist_exact', 'userinfo_brand'} <= codes  # extraction works
+    for name, data in (('en', EN), ('ar', AR)):
+        assert not sorted(codes - set(data['reason'])), name
+
+
 @pytest.mark.parametrize('page', CONSOLE_PAGES + ['../components/InertValue.tsx'])
 def test_console_pages_render_indicators_inert(page):
     source = (PAGES / page).read_text(encoding='utf-8')
