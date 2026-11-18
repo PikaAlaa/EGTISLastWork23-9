@@ -143,7 +143,10 @@ robustness check after a separately frozen rule, never for selection.
 
 ### 2.5 Acquisition (later, with approval)
 
-Nothing is downloaded by this design. A later step adds `data/scripts/fetch_unsw_nb15.py`
+Nothing is downloaded by this design. **Only the 22-1-2015 PCAPs** (development data) and
+the ground-truth table are downloaded when acquisition is approved. The 17-2-2015 PCAPs
+(reserved test) are downloaded only when the reserved test itself is approved (§4.8), so
+they cannot be inspected or used earlier. A later step adds `data/scripts/fetch_unsw_nb15.py`
 and `data/unsw-nb15-lock.json` (file names, sizes, SHA-256 measured at first download),
 stores data under ignored `data/external/unsw-nb15/`, and adds a `docs/data-licences.md`
 entry quoting the official terms above. The download needs the owner's explicit go-ahead
@@ -237,8 +240,10 @@ never changes them.
 ### 4.5 Gates (validation, all must pass)
 
 1. **False-alarm limit:** validation benign flow FPR ≤ 0.2%.
-2. **Alert-volume limit:** ≤ 1 alerted record per 1,000 benign records in every 1-hour
-   validation slice (catches bursts that a global rate hides).
+2. **Alert-volume limit:** at most 0.5% of benign records alerted in every 1-hour
+   validation slice that contains at least 10,000 benign records (catches bursts that a
+   global rate hides). Slices with fewer than 10,000 benign records are reported with
+   their rates and counts, not gated.
 3. **CPU latency limit:** scoring p95 ≤ 50 ms per batch of 1,000 pre-computed feature rows,
    2 threads, on the project PC, using the existing timing protocol style (warm-up, 30
    repeats, linear-interpolated p95). Feature extraction throughput is reported, not gated.
@@ -246,10 +251,16 @@ never changes them.
 ### 4.6 Selection
 
 Among candidates passing every gate, pick the highest **validation attack recall** at the
-frozen threshold. An ML candidate is selected only if its recall exceeds R0's by at least
-**5 percentage points**; otherwise R0 is selected. Ties within 0.5 points go to the lower
-validation FPR, then to the simpler candidate (R0 < LR < RF < LGBM). If no candidate passes
-the gates, no network model is deployed and the engine is not registered.
+frozen threshold.
+
+- **If R0 passes every gate:** an ML candidate is selected only if its recall exceeds R0's
+  by at least **5 percentage points**; otherwise R0 is selected.
+- **If R0 fails any gate:** the 5-point margin does not apply; the best ML candidate that
+  passes every gate is selected.
+
+Ties within 0.5 points go to the lower validation FPR, then to the simpler candidate
+(R0 < LR < RF < LGBM). If no candidate passes the gates, no network model is deployed and
+the engine is not registered.
 
 ### 4.7 Reported, never gating
 
@@ -372,8 +383,10 @@ input unavailable; conn.log still works) or available.
    conflicting categories (dropped) and the audit counts.
 6. **Splits:** blocks are contiguous, buffers removed, no capture time in two splits,
    manifest hash stable.
-7. **Selection rule:** table-driven tests of thresholding at FPR ≤ 0.1%, every gate, the
-   5-point margin over R0, tie-breaks, and "no candidate passes → not deployed".
+7. **Selection rule:** table-driven tests of thresholding at FPR ≤ 0.1%, every gate
+   (including hourly slices under 10,000 benign records being reported but not gated), the
+   5-point margin over R0 when R0 passes, the best passing ML candidate when R0 fails a gate,
+   tie-breaks, and "no candidate passes → not deployed".
 8. **Findings:** grouping into one finding per (host, class, direction, window);
    severity/confidence tables; `net-map-v1` ids exist in the v20.0 fixture; no technique for
    outbound exploitation or `Generic`.
@@ -390,6 +403,10 @@ input unavailable; conn.log still works) or available.
 ## 8. Implementation order (small commits)
 
 Each commit runs pytest, database initialization, frontend build and lint.
+
+**Pause (18 November 2026):** every step that needs Zeek — step 3 onward — is paused until
+the owner installs WSL on the project PC. Steps 1 and 2 use invented fixtures only and
+need neither Zeek nor any dataset.
 
 1. `feat: zeek conn.log and dns.log parsers` — limits, invented fixtures (§7.1).
 2. `feat: network flow features with causal windows` — features module, exclusions (§7.2–7.4).
