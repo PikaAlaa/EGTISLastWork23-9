@@ -1,5 +1,16 @@
 # ETIS — reviewed October implementation
 
+**18 November core v1 platform:** ETIS now records hash-only Findings for warning
+scans, keeps a local indicator store fed from the existing blacklist, groups findings
+into incidents, and maps them to MITRE ATT&CK v20.0 (SMS phishing is Mobile `T1660`).
+New console tabs: Incidents, Indicator search and ATT&CK coverage, in Arabic and English.
+Verdicts, thresholds and frozen models are unchanged: a parity gate replays 153 existing
+inputs with findings off and on. Everything runs locally; ATT&CK data is a one-time pinned
+download (`python data/scripts/fetch_attack.py`). See the [design](docs/design/core-v1.md),
+[API additions](docs/api-v2.md#core-v1-additions-november-2026),
+[engine author guide](docs/engine-authors.md) and the
+[implementation status](LOCAL-IMPLEMENTATION.md#18-november-2026-core-v1-platform).
+
 **26 October text deployment:** the frozen source/probe rule selects TF-IDF
 LightGBM after the six Colab runs and a common-protocol CPU pass for all seven
 candidates. Its primary loss is 0.156583 and local p95 is 1.475 ms. The twelve
