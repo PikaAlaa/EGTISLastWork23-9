@@ -19,7 +19,7 @@ from app.core.settings import settings
 from app.core.url_utils import registered_domain
 from app.engines.threat_intel.blacklist_lookup import SHARED_HOSTING_DOMAINS
 from app.services.attack import AttackValidator
-from app.models import (BrandDomain, CorrelationStoplist, FindingAttack, FindingIndicator, FindingRecord,
+from app.models import (BrandDomain, Campaign, CorrelationStoplist, FindingAttack, FindingIndicator, FindingRecord,
                         Incident, IncidentEvent, IncidentIndicator, IncidentLink, Indicator, IndicatorSighting)
 from app.models.finding import INCIDENT_RESOLUTIONS
 
@@ -268,3 +268,122 @@ def transition_incident(db, incident_id: int, to_status: str, *, resolution: str
                          action=action, note=note, at=at))
     db.flush()
     return incident
+
+
+def add_incident_note(db, incident_id: int, note: str, *, actor: str = LOCAL_OPERATOR) -> Incident:
+    incident = db.get(Incident, incident_id)
+    if incident is None:
+        raise LookupError('incident_not_found')
+    if not (note and note.strip()):
+        raise ValueError('note_required')
+    db.add(IncidentEvent(incident_id=incident.id, actor=actor, from_status=incident.status,
+                         to_status=incident.status, action='note', note=note,
+                         at=_naive_utc(datetime.now(timezone.utc))))
+    db.flush()
+    return incident
+
+
+def merge_incidents(db, source_id: int, target_id: int, *, note: str | None = None,
+                    actor: str = LOCAL_OPERATOR) -> Incident:
+    """Analyst merge (§3.2 step 4): findings and indicators move to the target; the source is
+    resolved as a duplicate and linked `merged_into`. Never automatic."""
+    if source_id == target_id:
+        raise ValueError('cannot_merge_into_itself')
+    source, target = db.get(Incident, source_id), db.get(Incident, target_id)
+    if source is None or target is None:
+        raise LookupError('incident_not_found')
+    if source.status == 'resolved' or target.status == 'resolved':
+        raise ValueError('merge_requires_active_incidents')
+    at = _naive_utc(datetime.now(timezone.utc))
+    db.query(FindingRecord).filter_by(incident_id=source.id).update({'incident_id': target.id},
+                                                                      synchronize_session=False)
+    linked = {row.indicator_id for row in db.query(IncidentIndicator).filter_by(incident_id=target.id)}
+    for row in db.query(IncidentIndicator).filter_by(incident_id=source.id).all():
+        if row.indicator_id not in linked:
+            db.add(IncidentIndicator(incident_id=target.id, indicator_id=row.indicator_id))
+    if severity_rank(source.severity) > severity_rank(target.severity):
+        target.severity = source.severity
+    target.last_activity_at = max(target.last_activity_at, source.last_activity_at)
+    target.opened_at = min(target.opened_at, source.opened_at)
+    db.add(IncidentLink(incident_id=source.id, related_incident_id=target.id, relation='merged_into'))
+    previous = source.status
+    source.status, source.resolution, source.resolved_at = 'resolved', 'duplicate', at
+    db.add(IncidentEvent(incident_id=source.id, actor=actor, from_status=previous, to_status='resolved',
+                         action='merged_into', note=note, at=at))
+    db.add(IncidentEvent(incident_id=target.id, actor=actor, from_status=target.status, to_status=target.status,
+                         action='merged_from', note=note, at=at))
+    db.flush()
+    return target
+
+
+def create_campaign(db, name: str, description: str | None = None) -> Campaign:
+    if not (name and name.strip()):
+        raise ValueError('name_required')
+    campaign = Campaign(name=name.strip(), description=description, status='active')
+    db.add(campaign)
+    db.flush()
+    return campaign
+
+
+def assign_campaign(db, campaign_id: int, incident_id: int, *, actor: str = LOCAL_OPERATOR) -> Incident:
+    campaign, incident = db.get(Campaign, campaign_id), db.get(Incident, incident_id)
+    if campaign is None or incident is None:
+        raise LookupError('not_found')
+    incident.campaign_id = campaign.id
+    db.add(IncidentEvent(incident_id=incident.id, actor=actor, from_status=incident.status,
+                         to_status=incident.status, action='campaign_assigned', note=str(campaign.id),
+                         at=_naive_utc(datetime.now(timezone.utc))))
+    db.flush()
+    return incident
+
+
+def incident_brands(db, incident_ids: list[int]) -> dict[int, list[str]]:
+    brands: dict[int, set[str]] = {}
+    if not incident_ids:
+        return {}
+    for incident_id, evidence in db.query(FindingRecord.incident_id, FindingRecord.evidence).filter(
+            FindingRecord.incident_id.in_(incident_ids)):
+        for brand in (evidence or {}).get('details', {}).get('matched_brands') or []:
+            brands.setdefault(incident_id, set()).add(str(brand))
+    return {key: sorted(value) for key, value in brands.items()}
+
+
+def campaign_suggestions(db, limit: int = 500) -> list[dict]:
+    """§3.3: suggest incident pairs that share a phone/email indicator, or a matched brand plus
+    any pivotable indicator (regardless of the correlation window). Never auto-assigns."""
+    incidents = db.query(Incident).order_by(Incident.last_activity_at.desc()).limit(limit).all()
+    ids = [i.id for i in incidents]
+    if len(ids) < 2:
+        return []
+    by_id = {i.id: i for i in incidents}
+    brands = incident_brands(db, ids)
+    exclusions = _exclusions(db)
+    members: dict[int, set[int]] = {}
+    indicators = {}
+    for row, indicator in db.query(IncidentIndicator, Indicator).join(
+            Indicator, Indicator.id == IncidentIndicator.indicator_id).filter(IncidentIndicator.incident_id.in_(ids)):
+        members.setdefault(row.incident_id, set()).add(indicator.id)
+        indicators[indicator.id] = indicator
+    suggestions, seen = [], set()
+    for a in ids:
+        for b in ids:
+            if a >= b or (a, b) in seen:
+                continue
+            ia, ib = by_id[a], by_id[b]
+            if ia.campaign_id and ia.campaign_id == ib.campaign_id:
+                continue
+            shared = [indicators[i] for i in members.get(a, set()) & members.get(b, set())]
+            exact, domains = pivot_keys(shared, exclusions)
+            pivotable = [i for i in shared if i.id in exact or (i.type == 'domain' and
+                         (i.registered_domain_hash or i.value_hash) in domains)]
+            common_brands = sorted(set(brands.get(a, [])) & set(brands.get(b, [])))
+            reason = None
+            if any(i.type in ('phone', 'email') for i in pivotable):
+                reason = 'shared_contact'
+            elif common_brands and pivotable:
+                reason = 'shared_brand_and_indicator'
+            if reason:
+                seen.add((a, b))
+                suggestions.append({'incident_ids': [a, b], 'reason': reason, 'brands': common_brands,
+                                    'shared_indicator_types': sorted({i.type for i in pivotable})})
+    return suggestions

@@ -1,5 +1,55 @@
 # Local implementation handover — 8 October 2026
 
+## 18 November 2026 core v1 platform
+
+All 17 steps of [the core v1 design](docs/design/core-v1.md) §10 are implemented.
+
+- **Findings.** `finding-v1` schema; categorical confidence; hash-only scan indicators.
+  `/analyze` records findings in the scan's transaction behind `ETIS_FINDINGS_ENABLED`
+  (default on). Verdicts, thresholds, the v4 URL candidate and the text model are unchanged.
+- **Indicator store.** Copied from `blacklist_entries`/`feed_observations` by the worker
+  after each refresh, expiry or rollback. Feed tables remain the lookup source.
+- **Incidents.** Grouped by shared indicators within 14 days. Shared hosting, verified
+  brand domains and the four official bank hotlines are excluded. Workflow, notes, merge,
+  campaigns and campaign suggestions are available. Analyst actor is `local-operator`.
+- **ATT&CK.** Pinned v20.0 Enterprise/Mobile STIX, fetched once with SHA-256
+  verification, stored in ignored `data/external/attack/`, loaded into
+  `attack_techniques`. Mapping `attack-map-v1` never uses `T1566.004` (voice) or the
+  revoked `T1656`.
+- **Retention.** Scan-derived findings and orphaned scan-only indicators are deleted
+  with their scans, on SQLite as well. Incidents keep a `findings_expired` event.
+- **Console.** Incidents, Indicator search (exact lookup only, community review when
+  reports exist) and ATT&CK coverage (with the MITRE copyright statement). Arabic and
+  English, RTL. Indicators are inert text.
+- **Proxy.** Explicit SOC routes and methods are allowlisted; Host/Origin/session/rate checks are unchanged.
+- **Engines.** `app/engines/registry.py` protocol and registry. `/health/ready` adds a
+  per-engine report. Guide: [engine authors](docs/engine-authors.md).
+- **Migrations.** `004_indicators`, `005_findings_incidents`, `006_attack_catalogue`.
+  `001_baseline` skips core tables so a fresh PostgreSQL install creates them in order.
+
+| Check | Result |
+| --- | --- |
+| Backend tests | 640 passed (includes the proxy spawned against a stub backend, migrations, parity gate) |
+| Verdict parity gate | 153 existing inputs identical with findings off and on (real and fixture text model) |
+| Database initialization, frontend build, oxlint | Passed after every step |
+| Live local check | Scan → incident → note → indicator lookup → ATT&CK coverage through the proxy. Three console pages rendered in Chrome in Arabic and English with no console errors. Smoke rows removed afterwards. |
+
+Remaining work and known limits:
+
+1. PostgreSQL/Docker paths were not executed (Docker unavailable), as before.
+2. The emitter extracts mobile numbers with the policy's own pattern, so 5-digit hotlines
+   in message text are not extracted. Hotline exclusion is tested at the service level.
+3. Shared-hosting exclusion works at registered-domain level (for example all of `google.com`), which is broader than the design.
+4. The MITRE Terms of Use page was not re-read; `docs/data-licences.md` quotes the
+   statement embedded in the STIX files.
+5. Reason codes without existing translations (for example `text_high_corroborated`)
+   appear as codes in the incident timeline.
+6. Community-report promotion to the `manual` blacklist, a first non-phishing engine and
+   adding `finding_ids` to `/analyze` remain separately approved later work.
+7. The large frontend bundle warning (over 500 kB) predates this work.
+
+Genuine Egyptian SMS final-test count remains 0. No sealed final test ran.
+
 ## 26 October text selection and deployment
 
 Phase 2 selects and deploys the frozen TF-IDF LightGBM pipeline at its existing

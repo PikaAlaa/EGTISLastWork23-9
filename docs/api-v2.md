@@ -87,3 +87,45 @@ describe classifier output, not a validated probability that the user's message 
 Database/model failures cannot silently become LOW. Missing authentication is 401,
 throttling 429, unexpected unavailable service 503. Saving failure is a normal 200
 verdict with `saved=false`. Health has separate live and component-aware ready routes.
+
+## Core v1 additions (November 2026)
+
+Design: [core v1](design/core-v1.md). None of these routes or records changes a verdict,
+threshold, model or the `/analyze` response shape.
+
+**Findings from `/analyze`.** With `ETIS_FINDINGS_ENABLED=1` (the default), HIGH,
+MEDIUM and INCOMPLETE-with-signals scans also record one `finding-v1` Finding in the same
+transaction as the scan record. LOW and signal-free INCOMPLETE record none. Indicators
+from scans are stored as SHA-256 hashes only. If recording fails, the verdict is still
+returned with `saved=false`, and neither the scan nor its finding is kept. Set
+`ETIS_FINDINGS_ENABLED=0` to reproduce pre-core behaviour exactly. Retention
+(`ETIS_RETENTION_DAYS`) deletes scan-derived findings and orphaned scan-only indicators.
+Incidents keep a `findings_expired` event with the count.
+
+**`GET /health/ready`** adds `engines`: per-engine `{domain, version, available, reason}`.
+Today the only engine is `phishing.analyze`. The `status` field and the HTTP code are
+computed exactly as before.
+
+All routes below require `X-API-Key` when configured. The browser reaches them through
+the same-origin proxy as `/api/...`. The proxy forwards only the listed paths and methods
+and keeps its Host/Origin, session-cookie and rate-limit checks. Errors use
+`{error, detail}` with fixed codes and never echo submitted values. Validation failures are
+400 `invalid_input`, unknown ids 404 `not_found`, and refused workflow actions 409 with a code.
+
+| Method and path | Purpose |
+| --- | --- |
+| `GET /incidents?status=&severity=&domain=&brand=&since=&until=&limit=&offset=` | Incident list. `brand` matches brands recorded in the incident's findings; dates filter last activity (UTC). |
+| `GET /incidents/{id}` | Detail: findings timeline, indicators (URL values never listed; scan values hash-only), ATT&CK techniques, events, related/merge links, campaign, `expired_findings`. |
+| `PATCH /incidents/{id}` | `{status?, resolution?, note?}`. Transitions: open→investigating, open/investigating→resolved (resolution required), resolved→open (note required). A note alone adds a note event. Codes: `invalid_transition`, `resolution_required`, `reopen_note_required`. |
+| `POST /incidents/{id}/merge` | `{into, note?}`: moves findings and indicators into `into`; the source becomes resolved/duplicate with a `merged_into` link. Never automatic. |
+| `GET /campaigns`, `POST /campaigns` | List; create `{name, description?}` (201). |
+| `POST /campaigns/{id}/incidents` | `{incident_id}`: assign an incident to a campaign. |
+| `GET /campaigns/suggestions` | Pairs of incidents sharing a phone/email, or a brand plus a pivotable indicator. Suggestions only. |
+| `GET /indicators?type=&q=&hash_algo=` | Exact lookup: `q` is normalized and hashed. Returns the stored value only on this exact match. No partial search, no export. `q` is not stored or logged. |
+| `GET /indicators/{id}` | Indicator detail: sightings, findings (up to 100), incidents. |
+| `GET /community-reports?status=`, `PATCH /community-reports/{id}` | Analyst review `{status: confirmed\|rejected, indicator_type?}`. Confirming creates a community sighting only; it never adds to `blacklist_entries`. |
+| `GET /attack/techniques?matrix=enterprise\|mobile` | Local catalogue (pinned v20.0) with tactic order, `installed` flag and MITRE copyright statement. |
+| `GET /attack/coverage?matrix=&since=&until=` | Per-tactic technique grid with finding and incident counts, plus technique ids recorded but not in the catalogue. |
+| `GET /attack/techniques/{technique_id}?matrix=` | Technique, finding count and linked incidents. The MITRE URL is data for inert display only. |
+
+Analyst actions are recorded with actor `local-operator`; user accounts remain deferred.

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { routeDecision, BODY_METHODS, SPA_PATHS } from './proxy-routes.mjs';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const envFile=path.join(root,'../.env');
 if(fs.existsSync(envFile))for(const line of fs.readFileSync(envFile,'utf8').split(/\r?\n/)){
@@ -34,7 +35,9 @@ const server=http.createServer(async(req,res)=>{
   if(!allowedHosts.includes(hostname)){res.writeHead(403);res.end();return;}
   const url=new URL(req.url,'http://localhost');
   if(url.pathname.startsWith('/api/')){
-   if(!['/api/analyze','/api/threats','/api/stats','/api/health/ready'].includes(url.pathname)){res.writeHead(404);res.end();return;}
+   const decision=routeDecision(url.pathname,req.method);
+   if(decision==='not_found'){res.writeHead(404);res.end();return;}
+   if(decision==='method_not_allowed'){res.writeHead(405);res.end();return;}
    if(req.headers.origin&&new URL(req.headers.origin).host!==req.headers.host){res.writeHead(403);res.end();return;}
    if(!allowed('ip:'+req.socket.remoteAddress)){res.writeHead(429);res.end('{}');return;}
    let session=req.headers.cookie?.match(/(?:^|; )etis_session=([^;]+)/)?.[1];
@@ -47,14 +50,14 @@ const server=http.createServer(async(req,res)=>{
    for await(const chunk of req){body=Buffer.concat([body,chunk]);if(body.length>32768){res.writeHead(413);res.end('{}');return;}}
    const upstream=await fetch((process.env.ETIS_BACKEND_URL||'http://127.0.0.1:8000')+url.pathname.slice(4)+url.search,{
     method:req.method,headers:{'Content-Type':'application/json','X-API-Key':key,'X-ETIS-Session':session.split('.')[0]},
-    body:req.method==='POST'?body:undefined,signal:AbortSignal.timeout(30000)});
+    body:BODY_METHODS.has(req.method)?body:undefined,signal:AbortSignal.timeout(30000)});
    res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type','application/json');
    res.writeHead(upstream.status);res.end(await upstream.text());return;
   }
   if(req.method!=='GET'){res.writeHead(405);res.end();return;}
   const dist=path.resolve(root,'dist');let target=path.resolve(dist,'.'+decodeURIComponent(url.pathname));
   if(!target.startsWith(dist+path.sep)&&target!==dist){res.writeHead(403);res.end();return;}
-  if(['/','/scan','/threats','/stats'].includes(url.pathname))target=path.join(dist,'index.html');
+  if(SPA_PATHS.has(url.pathname))target=path.join(dist,'index.html');
   if(!fs.existsSync(target)||!fs.statSync(target).isFile()){res.writeHead(404);res.end();return;}
   res.setHeader('Content-Type',mime[path.extname(target)]||'application/octet-stream');
   fs.createReadStream(target).pipe(res);

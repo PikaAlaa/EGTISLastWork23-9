@@ -5,6 +5,22 @@ import type {
   ThreatsResponse,
   StatsResponse,
 } from './types';
+import type {
+  AttackCoverage,
+  AttackMatrix,
+  AttackTechniqueDetail,
+  Campaign,
+  CampaignSuggestion,
+  CommunityReport,
+  HashAlgo,
+  IndicatorDetail,
+  IndicatorLookup,
+  IndicatorType,
+  IncidentDetail,
+  IncidentUpdate,
+  IncidentsQueryParams,
+  IncidentsResponse,
+} from './socTypes';
 
 const BASE_URL = '/api';
 
@@ -106,4 +122,68 @@ export function getThreats(params: ThreatsQueryParams = {}): Promise<ThreatsResp
 
 export function getStats(): Promise<StatsResponse> {
   return request<StatsResponse>('/stats');
+}
+
+// ---- SOC console (design core-v1 §6) ----
+
+function sendJson<TResponse>(path: string, method: 'POST' | 'PATCH', payload: object): Promise<TResponse> {
+  return request<TResponse>(path, { method, body: JSON.stringify(payload), hasJsonBody: true });
+}
+
+export function getIncidents(params: IncidentsQueryParams = {}): Promise<IncidentsResponse> {
+  return request<IncidentsResponse>(`/incidents${buildQueryString(params)}`);
+}
+
+export function getIncident(id: number): Promise<IncidentDetail> {
+  return request<IncidentDetail>(`/incidents/${id}`);
+}
+
+export function updateIncident(id: number, update: IncidentUpdate): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/incidents/${id}`, 'PATCH', update);
+}
+
+export function mergeIncident(id: number, into: number, note?: string): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/incidents/${id}/merge`, 'POST', note ? { into, note } : { into });
+}
+
+export function getCampaigns(): Promise<{ results: Campaign[] }> {
+  return request<{ results: Campaign[] }>('/campaigns');
+}
+
+export function createCampaign(name: string): Promise<Campaign> {
+  return sendJson<Campaign>('/campaigns', 'POST', { name });
+}
+
+export function assignCampaign(campaignId: number, incidentId: number): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/campaigns/${campaignId}/incidents`, 'POST', { incident_id: incidentId });
+}
+
+export function getCampaignSuggestions(): Promise<{ results: CampaignSuggestion[] }> {
+  return request<{ results: CampaignSuggestion[] }>('/campaigns/suggestions');
+}
+
+/** Exact lookup: the backend normalizes and hashes the value; it is not stored or logged. */
+export function lookupIndicator(type: IndicatorType, q: string, hashAlgo?: HashAlgo): Promise<IndicatorLookup> {
+  return request<IndicatorLookup>(`/indicators${buildQueryString({ type, q, hash_algo: type === 'hash' ? hashAlgo : undefined })}`);
+}
+
+export function getIndicator(id: number): Promise<IndicatorDetail> {
+  return request<IndicatorDetail>(`/indicators/${id}`);
+}
+
+export function getCommunityReports(status?: CommunityReport['status']): Promise<{ total_matching: number; results: CommunityReport[] }> {
+  return request<{ total_matching: number; results: CommunityReport[] }>(`/community-reports${buildQueryString({ status })}`);
+}
+
+export function getAttackCoverage(matrix: AttackMatrix, since?: string, until?: string): Promise<AttackCoverage> {
+  return request<AttackCoverage>(`/attack/coverage${buildQueryString({ matrix, since, until })}`);
+}
+
+export function getAttackTechnique(techniqueId: string, matrix: AttackMatrix): Promise<AttackTechniqueDetail> {
+  return request<AttackTechniqueDetail>(`/attack/techniques/${encodeURIComponent(techniqueId)}${buildQueryString({ matrix })}`);
+}
+
+export function reviewCommunityReport(id: number, status: 'confirmed' | 'rejected', indicatorType?: IndicatorType): Promise<CommunityReport> {
+  return sendJson<CommunityReport>(`/community-reports/${id}`, 'PATCH',
+    status === 'confirmed' ? { status, indicator_type: indicatorType } : { status });
 }
