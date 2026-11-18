@@ -22,3 +22,5 @@ __all__ = [
 from app.models.snapshot import FeedSnapshot
 from app.models.feed_observation import FeedObservation
 from app.models.indicator import Indicator, IndicatorSighting, CorrelationStoplist
+from app.models.finding import (Campaign, Incident, FindingRecord, FindingIndicator, FindingAttack,
+                                IncidentIndicator, IncidentLink, IncidentEvent)

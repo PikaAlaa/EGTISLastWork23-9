@@ -14,7 +14,9 @@ import app.models  # noqa: F401  (registers every model)
 
 ROOT = Path(__file__).resolve().parents[2]
 PRE_CORE_HEAD = '003_feed_observations'
-CORE_TABLES = {'004_indicators': ['indicators', 'indicator_sightings', 'correlation_stoplist']}
+CORE_TABLES = {'004_indicators': ['indicators', 'indicator_sightings', 'correlation_stoplist'],
+               '005_findings_incidents': ['campaigns', 'incidents', 'findings', 'finding_indicators', 'finding_attack',
+                                          'incident_indicators', 'incident_links', 'incident_events']}
 ALL_CORE = [t for tables in CORE_TABLES.values() for t in tables]
 LEGACY_TABLES = ['blacklist_entries', 'feed_observations', 'feed_snapshots', 'feed_updates', 'scan_requests',
                  'scan_results', 'community_reports', 'egyptian_brands', 'brand_domains']
@@ -89,6 +91,24 @@ def test_downgrade_drops_only_its_tables_and_can_reapply(tmp_path, revision):
     assert set(LEGACY_TABLES) <= tables(db)
     migrate(db, 'upgrade', revision)
     assert set(CORE_TABLES[revision]) <= tables(db)
+
+
+def test_findings_downgrade_refuses_to_lose_analyst_notes(tmp_path):
+    db = tmp_path / 'notes.db'
+    migrate(db, 'upgrade', '005_findings_incidents')
+    with sqlite3.connect(db) as conn:
+        conn.execute("INSERT INTO incidents (id,title,domain,severity,status,opened_at,last_activity_at) "
+                     "VALUES (1,'t','phishing','high','open','2026-11-18','2026-11-18')")
+        conn.execute("INSERT INTO incident_events (incident_id,actor,action,note,at) "
+                     "VALUES (1,'local-operator','created','invented note','2026-11-18')")
+    with pytest.raises(subprocess.CalledProcessError) as error:
+        migrate(db, 'downgrade', '004_indicators')
+    assert 'incident_events_not_empty' in error.value.stderr
+    assert 'incident_events' in tables(db)
+    env = {**os.environ, 'DATABASE_URL': 'sqlite:///' + db.as_posix(), 'ETIS_ALLOW_DESTRUCTIVE_DOWNGRADE': '1'}
+    subprocess.run([sys.executable, '-m', 'alembic', 'downgrade', '004_indicators'], cwd=ROOT, env=env, check=True,
+                   capture_output=True)
+    assert 'incident_events' not in tables(db)
 
 
 def test_preexisting_table_with_wrong_columns_is_refused(tmp_path):
