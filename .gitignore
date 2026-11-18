@@ -61,6 +61,9 @@ evaluation/local-results/
 # PhreshPhish: only download code, hashes and aggregate results belong in Git.
 data/external/phreshphish/
 
+# MITRE ATT&CK STIX: pinned by data/attack-lock.json, fetched by data/scripts/fetch_attack.py.
+data/external/attack/
+
 # Local release weights and candidate bundles
 release-artifacts/
 colab-bundle/

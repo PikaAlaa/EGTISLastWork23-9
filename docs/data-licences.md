@@ -46,6 +46,16 @@ Public redistribution: CC BY 4.0 permits sharing subject to attribution; comply 
 
 Stored outside data/raw, only under ignored data/external/phreshphish/. Download only url, label, target, date, lang with data/scripts/download_phreshphish.py. data/phreshphish-lock.json pins revision, upstream-declared SHA-256 and independently measured selected-range/projected-file SHA-256. HTML column data is never downloaded by this script. Original whole-file hashes are not locally verified because whole-file downloading would retrieve HTML. Card test counts differ by 76; benign URL source is not stated.
 
+### attack
+
+Source: [MITRE ATT&CK STIX 2.1 data, Enterprise and Mobile collections v20.0 (modified 2026-10-13)](https://github.com/mitre-attack/attack-stix-data).
+
+Licence/terms: [MITRE ATT&CK Terms of Use](https://attack.mitre.org/resources/legal-and-branding/terms-of-use/). Quoted wording from the files' own STIX marking definition: “Copyright 2015-2026, The MITRE Corporation. MITRE ATT&CK and ATT&CK are registered trademarks of The MITRE Corporation.” The Terms of Use page itself was not re-read for this entry; the team should confirm its current wording before publishing ATT&CK text.
+
+Public redistribution: Not performed. Project policy: do not commit the STIX files. Any console page or committed artifact that shows ATT&CK names must carry the copyright statement above.
+
+Stored only under ignored data/external/attack/. Download only the two files pinned in data/attack-lock.json with data/scripts/fetch_attack.py, which verifies size and SHA-256 and discards any mismatch. The app never downloads ATT&CK data. The committed test fixture backend/tests/fixtures/attack-20.0-subset.json (added with the catalogue loader) holds technique identifiers, names, tactics, platforms and status flags only, with the copyright statement and the source files' hashes; no descriptions.
+
 ### openphish
 
 Source: [OpenPhish community feed; original retrieval date not recorded](https://openphish.com/terms.html).
