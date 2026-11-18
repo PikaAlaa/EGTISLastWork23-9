@@ -135,3 +135,43 @@ def sync_feed_indicators(db) -> dict:
             stats['sightings_deactivated'] += 1
     db.commit()
     return {**stats, 'synced_at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+
+
+def review_community_report(db, report_id: int, status: str, indicator_type: str | None = None):
+    """§2.5: confirm creates an indicator sighting (source_kind=community). It never inserts into
+    blacklist_entries; promotion to the blacklist stays a separate, later, explicit action."""
+    from app.core.indicators import normalize
+    from app.models import CommunityReport
+    report = db.get(CommunityReport, report_id)
+    if report is None:
+        raise LookupError('not_found')
+    if report.status != 'pending':
+        raise ValueError('already_reviewed')
+    if status not in ('confirmed', 'rejected'):
+        raise ValueError('invalid_status')
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    indicator = None
+    if status == 'confirmed':
+        if indicator_type is None:
+            raise ValueError('indicator_type_required')
+        normalized = normalize(indicator_type, report.reported_value)
+        indicator = db.query(Indicator).filter_by(type=normalized.type, value_hash=normalized.value_hash).one_or_none()
+        if indicator is None:
+            indicator = Indicator(type=normalized.type, value_hash=normalized.value_hash, value=normalized.value,
+                                  hash_algo=normalized.hash_algo, registered_domain=normalized.registered_domain,
+                                  registered_domain_hash=normalized.registered_domain_hash,
+                                  first_seen=now, last_seen=now)
+            db.add(indicator); db.flush()
+        else:
+            indicator.value = indicator.value or normalized.value
+            indicator.last_seen = max(indicator.last_seen, now)
+        sighting = db.query(IndicatorSighting).filter_by(indicator_id=indicator.id, source_kind='community',
+                                                         source_name='community_reports').one_or_none()
+        if sighting is None:
+            db.add(IndicatorSighting(indicator_id=indicator.id, source_kind='community', source_name='community_reports',
+                                     first_seen=now, last_seen=now, active=True, ref=f'community_reports:{report.id}'))
+        else:
+            sighting.last_seen, sighting.active = now, True
+    report.status, report.reviewed_at = status, now
+    db.flush()
+    return report, indicator

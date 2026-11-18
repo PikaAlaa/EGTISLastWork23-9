@@ -12,7 +12,7 @@ from app.core.rate_limit import limiter
 from app.core.exceptions import ETISException, InvalidScanInputError
 from app.core.security import AuthenticationError
 import app.models
-from app.routers import analyze, threats, stats
+from app.routers import analyze, threats, stats, incidents, indicators, attack
 import logging
 
 app = FastAPI(title='ETIS', version='0.2.0')
@@ -25,10 +25,13 @@ async def private_failures(request, call_next):
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 if settings.cors_origins:
-    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=['GET','POST'], allow_headers=['Content-Type','X-API-Key'])
+    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=['GET','POST','PATCH'], allow_headers=['Content-Type','X-API-Key'])
 app.include_router(analyze.router)
 app.include_router(threats.router)
 app.include_router(stats.router)
+app.include_router(incidents.router)
+app.include_router(indicators.router)
+app.include_router(attack.router)
 
 @app.exception_handler(ETISException)
 async def etis_error(request, exc):
