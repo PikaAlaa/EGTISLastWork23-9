@@ -198,8 +198,24 @@ Excluded from pivoting (they would merge unrelated activity):
 - hosts in `SHARED_HOSTING_DOMAINS` (`blacklist_lookup.py`) and their subdomains;
 - verified brand domains in `brand_domains` (an official domain is a victim
   brand, not adversary infrastructure);
+- official brand contact numbers — hotlines, short codes and official SMS sender
+  ids — for the same reason: a phishing message that quotes a bank's real hotline
+  (often to look credible) must not link it to every other message quoting it;
 - an editable `correlation_stoplist` for further shared services and short-link
   providers.
+
+Official contact numbers are excluded through `correlation_stoplist`, seeded
+from the brand registry where present and re-seeded idempotently by
+`scripts/initialize.py`. Today the source is `app/core/brand_contacts.py::BRAND_CONTACTS`,
+which holds four hotlines verified on 2026-10-08 (CIB 19666, NBE 19623, Banque
+Misr 19888, QNB Al Ahli 19700). They are stored as `phone` stoplist rows using
+the §2.2 normalization (short codes as digits), with `reason = official_brand_contact`
+and the brand name. Numeric short codes and official SMS sender ids added to
+the registry later are seeded the same way; alphanumeric sender ids are not an
+indicator type in v1 (the `/analyze` input carries only a `sender_type`
+category), so none can be pivoted on and the registry currently holds none to
+seed. Seeded rows are marked `seeded = true` and are replaced on re-seed;
+analyst-added rows are never overwritten.
 
 ### 3.2 Grouping algorithm (deterministic)
 
@@ -404,7 +420,7 @@ loopback, and return `database_unavailable` on errors without echoing values.
 | `incident_events` | `id`, `incident_id`, `actor`, `from_status`, `to_status`, `action`, `note` (Text, analyst-written), `at`. |
 | `campaigns` | `id`, `name`, `description`, `created_at`, `status`. |
 | `attack_techniques` | `technique_id`, `matrix`, `attack_version`, `name`, `tactics` JSON, `platforms` JSON, `stix_id`, `url`; PK `(technique_id, matrix, attack_version)`. Only non-revoked, non-deprecated rows. |
-| `correlation_stoplist` | `id`, `type`, `value_hash`, `value`, `reason`. |
+| `correlation_stoplist` | `id`, `type`, `value_hash`, `value`, `reason`, `brand` (nullable), `seeded` (bool); unique `(type, value_hash)`. |
 
 No column is added to or removed from existing tables.
 
@@ -497,7 +513,11 @@ fixture is absent).
    active entry/source and inactive otherwise; running it twice is a no-op;
    feed tables are byte-identical before and after sync.
 6. **Correlation.** Shared URL → same incident; shared shared-hosting or
-   official brand domain → separate incidents; multiple matches → oldest +
+   official brand domain → separate incidents; two findings whose only shared
+   indicator is an official brand hotline seeded from the registry (e.g. the
+   NBE hotline 19623, in invented messages) → separate incidents, while the same
+   two findings sharing a non-official phone number → one incident; stoplist
+   seeding is idempotent and preserves analyst rows; multiple matches → oldest +
    `related`; resolved incident + new finding → new incident with
    `reopened_from`; window boundary; low-severity finding without incident.
 7. **Workflow.** Allowed and forbidden transitions; `resolution` required;
@@ -525,7 +545,7 @@ Each step is a separate commit that leaves the suite green.
 2. `feat: migration 004 indicator store tables` — models, migration, fresh-vs-upgrade schema comparison tests.
 3. `feat: project feed blacklist into indicator store` — `sync_feed_indicators`, worker hook after commit, parity tests (§9.5).
 4. `feat: migration 005 findings and incidents tables` — models + migration tests.
-5. `feat: record_findings service with correlation` — persistence, correlation, stoplist seeded from `SHARED_HOSTING_DOMAINS`; tests (§9.6, §9.7).
+5. `feat: record_findings service with correlation` — persistence, correlation, stoplist seeded from `SHARED_HOSTING_DOMAINS` and official brand contact numbers; tests (§9.6, §9.7).
 6. `chore: pinned ATT&CK 20.0 fetch script, lock file and licence entry` — `data/scripts/fetch_attack.py`, `data/attack-lock.json`, `.gitignore`, `docs/data-licences.md`.
 7. `feat: migration 006 and ATT&CK catalogue loader` — loader in `scripts/initialize.py`, fixture subset, tests (§9.8).
 8. `feat: phishing finding emitter and attack-map-v1` — pure `phishing_findings`, mapping table, tests (§9.3).
