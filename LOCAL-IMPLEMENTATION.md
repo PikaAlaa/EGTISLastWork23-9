@@ -42,11 +42,9 @@ Remaining work and known limits:
 3. Shared-hosting exclusion works at registered-domain level (for example all of `google.com`), which is broader than the design.
 4. The MITRE Terms of Use page was not re-read; `docs/data-licences.md` quotes the
    statement embedded in the STIX files.
-5. Reason codes without existing translations (for example `text_high_corroborated`)
-   appear as codes in the incident timeline.
-6. Community-report promotion to the `manual` blacklist, a first non-phishing engine and
+5. Community-report promotion to the `manual` blacklist, a first non-phishing engine and
    adding `finding_ids` to `/analyze` remain separately approved later work.
-7. The large frontend bundle warning (over 500 kB) predates this work.
+6. The large frontend bundle warning (over 500 kB) predates this work.
 
 Genuine Egyptian SMS final-test count remains 0. No sealed final test ran.
 
