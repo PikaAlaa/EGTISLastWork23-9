@@ -9,7 +9,9 @@ from app.core.settings import settings
 from app.core.security import verify_api_key
 from app.core.rate_limit import limiter
 from app.engines.risk_scoring import calculate_final_risk_score
+from app.engines.phishing_findings import phishing_findings
 from app.models.scan import ScanRequest, ScanResult
+from app.services.findings import record_findings
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix='/analyze', tags=['analyze'])
@@ -48,6 +50,9 @@ def analyze(request: Request, payload: AnalyzeRequest, db: Session = Depends(get
                               'reason': result['decisive_reason'], 'signals': result['supporting_signals'],
                               'unavailable': result['checks_unavailable'], 'policy': result['policy_version'],
                               'model': (result['text_finding'] or {}).get('version')}))
+        if settings.findings_enabled:
+            # Built from the finished result only; same transaction as the scan record.
+            record_findings(db, phishing_findings(result, payload, scan.id), scan_request_id=scan.id)
         db.commit()
         result.update(saved=True, save_error=None)
     except Exception:
