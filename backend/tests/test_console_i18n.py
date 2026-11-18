@@ -39,6 +39,18 @@ def test_navigation_labels_exist_in_both_languages():
     assert set(EN['nav']) == set(AR['nav'])
 
 
+@pytest.mark.parametrize('page', CONSOLE_PAGES + ['../components/InertValue.tsx'])
+def test_console_pages_render_indicators_inert(page):
+    source = (PAGES / page).read_text(encoding='utf-8')
+    for forbidden in ('<a ', 'href', 'component="a"', "component='a'", '<Link', 'window.open', 'target="_blank"'):
+        assert forbidden not in source, f'{page} contains {forbidden!r}'
+
+
+def test_attack_page_shows_the_mitre_copyright_notice():
+    source = (PAGES / 'AttackPage.tsx').read_text(encoding='utf-8')
+    assert '{coverage.copyright}' in source
+
+
 @pytest.mark.parametrize('page', CONSOLE_PAGES)
 def test_every_literal_key_used_by_a_console_page_exists(page):
     path = PAGES / page

@@ -140,6 +140,41 @@ export interface CommunityReport {
   reviewed_at: string | null;
 }
 
+export interface AttackHeader {
+  matrix: AttackMatrix;
+  installed: boolean;
+  attack_version: string;
+  copyright: string;
+}
+
+export interface AttackTechniqueRow {
+  technique_id: string;
+  name: string;
+  tactics: string[];
+  platforms: string[];
+  url: string | null;
+}
+
+export interface CoverageCell extends AttackTechniqueRow {
+  findings: number;
+  incidents: number;
+}
+
+export interface AttackCoverage extends AttackHeader {
+  since: string | null;
+  until: string | null;
+  total_findings: number;
+  tactics: { tactic: string; techniques: CoverageCell[] }[];
+  uncatalogued: { technique_id: string; findings: number; incidents: number }[];
+}
+
+export interface AttackTechniqueDetail extends AttackHeader {
+  technique_id: string;
+  technique: AttackTechniqueRow | null;
+  findings: number;
+  incidents: { id: number; title: string; status: IncidentStatus; severity: Severity; last_activity_at: string }[];
+}
+
 export interface CampaignSuggestion {
   incident_ids: number[];
   reason: 'shared_contact' | 'shared_brand_and_indicator';

@@ -8,7 +8,8 @@
     "threats": "Threat Feed",
     "stats": "Statistics",
     "incidents": "Incidents",
-    "indicators": "Indicator search"
+    "indicators": "Indicator search",
+    "attack": "ATT&CK coverage"
   },
   "scan": {
     "urlLabel": "URL",
@@ -197,6 +198,41 @@
     "confirm": "Confirm",
     "reject": "Reject",
     "reportValueInvalid": "The reported value is not valid for the selected type."
+  },
+  "attack": {
+    "intro": "MITRE ATT&CK techniques mapped from recorded findings, by tactic. Shading shows how many findings map to each technique in the chosen period. Technique names are MITRE's English names.",
+    "matrix": "ATT&CK matrix",
+    "observedOnly": "Only techniques with findings",
+    "mappedFindings": "findings mapped",
+    "notInstalled": "The local ATT&CK catalogue is not installed. Findings keep their technique IDs. To install the pinned files, run:",
+    "noFindings": "No findings map to this matrix in the chosen period.",
+    "gridLabel": "ATT&CK techniques by tactic",
+    "cellLabel_one": "{{id}} {{name}}: {{count}} finding",
+    "cellLabel_other": "{{id}} {{name}}: {{count}} findings",
+    "uncatalogued": "Technique IDs recorded in findings but not in the installed catalogue:",
+    "reference": "MITRE reference (not a link)",
+    "linkedIncidents": "Linked incidents ({{count}}) · {{findings}} finding(s)",
+    "dataSource": "Data: MITRE ATT&CK v{{version}}, stored locally.",
+    "tactic": {
+      "reconnaissance": "Reconnaissance",
+      "resource-development": "Resource Development",
+      "initial-access": "Initial Access",
+      "execution": "Execution",
+      "persistence": "Persistence",
+      "privilege-escalation": "Privilege Escalation",
+      "stealth": "Stealth",
+      "defense-impairment": "Defense Impairment",
+      "defense-evasion": "Defense Evasion",
+      "credential-access": "Credential Access",
+      "discovery": "Discovery",
+      "lateral-movement": "Lateral Movement",
+      "collection": "Collection",
+      "command-and-control": "Command and Control",
+      "exfiltration": "Exfiltration",
+      "impact": "Impact",
+      "network-effects": "Network Effects",
+      "remote-service-effects": "Remote Service Effects"
+    }
   },
   "common": {
     "retry": "Try again",

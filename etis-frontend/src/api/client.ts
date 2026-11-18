@@ -6,6 +6,9 @@ import type {
   StatsResponse,
 } from './types';
 import type {
+  AttackCoverage,
+  AttackMatrix,
+  AttackTechniqueDetail,
   Campaign,
   CampaignSuggestion,
   CommunityReport,
@@ -170,6 +173,14 @@ export function getIndicator(id: number): Promise<IndicatorDetail> {
 
 export function getCommunityReports(status?: CommunityReport['status']): Promise<{ total_matching: number; results: CommunityReport[] }> {
   return request<{ total_matching: number; results: CommunityReport[] }>(`/community-reports${buildQueryString({ status })}`);
+}
+
+export function getAttackCoverage(matrix: AttackMatrix, since?: string, until?: string): Promise<AttackCoverage> {
+  return request<AttackCoverage>(`/attack/coverage${buildQueryString({ matrix, since, until })}`);
+}
+
+export function getAttackTechnique(techniqueId: string, matrix: AttackMatrix): Promise<AttackTechniqueDetail> {
+  return request<AttackTechniqueDetail>(`/attack/techniques/${encodeURIComponent(techniqueId)}${buildQueryString({ matrix })}`);
 }
 
 export function reviewCommunityReport(id: number, status: 'confirmed' | 'rejected', indicatorType?: IndicatorType): Promise<CommunityReport> {
