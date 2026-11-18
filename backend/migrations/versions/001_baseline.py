@@ -4,10 +4,14 @@ import sqlalchemy as sa
 from app.core.database import Base
 import app.models
 revision='001_baseline';down_revision=None;branch_labels=None;depends_on=None
+# Core v1 tables are created only by their own migrations (004+). Creating them here from
+# live models would, on PostgreSQL, reference scan_requests before this baseline creates it.
+CORE_V1_TABLES={'indicators','indicator_sightings','correlation_stoplist','findings','finding_indicators',
+    'finding_attack','incidents','incident_indicators','incident_links','incident_events','campaigns','attack_techniques'}
 def upgrade():
     bind=op.get_bind()
     for table in Base.metadata.sorted_tables:
-        if table.name not in {'scan_requests','scan_results','feed_snapshots','feed_observations'}:table.create(bind,checkfirst=True)
+        if table.name not in {'scan_requests','scan_results','feed_snapshots','feed_observations'}|CORE_V1_TABLES:table.create(bind,checkfirst=True)
     existing=sa.inspect(bind).get_table_names()
     if 'scan_requests' not in existing:
         op.create_table('scan_requests',sa.Column('id',sa.Integer,primary_key=True),
