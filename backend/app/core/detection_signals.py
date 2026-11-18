@@ -77,9 +77,13 @@ def _has_phrase_pair(text: str, left_terms: list[str], right_terms: list[str], m
     return any(max(b, d) - min(a, c) <= max_gap for a, b in left_spans for c, d in right_spans)
 
 
+# Mobile numbers only: local 01x form or international +20 1x form. Shared with the
+# core v1 phishing finding emitter so both see exactly the same numbers.
+EGYPTIAN_MOBILE_PATTERN = re.compile(r"(?<!\w)(?:0|\+?20[ .()-]*)1[0125](?:[ .()-]?\d){8}(?!\d)")
+
+
 def _contains_egyptian_phone(text: str) -> bool:
-    # Mobile numbers only: local 01x form or international +20 1x form.
-    return bool(re.search(r"(?<!\w)(?:0|\+?20[ .()-]*)1[0125](?:[ .()-]?\d){8}(?!\d)", text))
+    return bool(EGYPTIAN_MOBILE_PATTERN.search(text))
 
 
 def _contains_short_link(text: str) -> bool:
