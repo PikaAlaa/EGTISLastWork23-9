@@ -20,5 +20,7 @@ class Settings:
     rate_limit: str = os.getenv('ETIS_RATE_LIMIT', '20/minute')
     text_low_threshold: float = float(os.getenv('ETIS_TEXT_LOW_THRESHOLD', '0.2'))
     text_high_threshold: float = float(os.getenv('ETIS_TEXT_HIGH_THRESHOLD', '0.8'))
+    # Core v1 incident correlation window (design core-v1 §3.2); not a detection threshold.
+    correlation_window_days: int = int(os.getenv('ETIS_CORRELATION_WINDOW_DAYS', '14'))
 
 settings = Settings()

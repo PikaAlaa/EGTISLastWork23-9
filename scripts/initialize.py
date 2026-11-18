@@ -15,7 +15,9 @@ def initialize(seed=False):
     sys.path.insert(0,str(ROOT/'backend'))
     from app.core.database import SessionLocal
     from app.services.registry import populate_registry
+    from app.services.findings import seed_correlation_stoplist
     with SessionLocal() as db:populate_registry(db)
+    with SessionLocal() as db:seed_correlation_stoplist(db)
     if seed:
         subprocess.run([sys.executable,'data/scripts/seed_database.py','--mode','archive'],cwd=ROOT,check=True)
     print(json.dumps({'initialized':True,'database':'project-local SQLite unless DATABASE_URL explicitly configured','key':'stored in ignored .env; never printed'}))
