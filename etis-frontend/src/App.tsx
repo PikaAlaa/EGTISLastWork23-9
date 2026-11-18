@@ -19,8 +19,9 @@ import { createRtlCache, createLtrCache } from './theme/rtlCache';
 import { ScanPage } from './pages/ScanPage';
 import { ThreatFeedPage } from './pages/ThreatFeedPage';
 import { StatsPage } from './pages/StatsPage';
+import { IncidentsPage } from './pages/IncidentsPage';
 
-const PAGES = ['scan', 'threats', 'stats'] as const;
+const PAGES = ['scan', 'threats', 'stats', 'incidents'] as const;
 type PageKey = (typeof PAGES)[number];
 
 export default function App() {
@@ -74,12 +75,14 @@ export default function App() {
             <Tab value="scan" label={t('nav.scan')} />
             <Tab value="threats" label={t('nav.threats')} />
             <Tab value="stats" label={t('nav.stats')} />
+            <Tab value="incidents" label={t('nav.incidents')} />
           </Tabs>
 
           <Box>
             {activePage === 'scan' && <ScanPage />}
             {activePage === 'threats' && <ThreatFeedPage />}
             {activePage === 'stats' && <StatsPage />}
+            {activePage === 'incidents' && <IncidentsPage />}
           </Box>
         </Container>
       </ThemeProvider>

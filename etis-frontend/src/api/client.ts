@@ -5,6 +5,14 @@ import type {
   ThreatsResponse,
   StatsResponse,
 } from './types';
+import type {
+  Campaign,
+  CampaignSuggestion,
+  IncidentDetail,
+  IncidentUpdate,
+  IncidentsQueryParams,
+  IncidentsResponse,
+} from './socTypes';
 
 const BASE_URL = '/api';
 
@@ -106,4 +114,42 @@ export function getThreats(params: ThreatsQueryParams = {}): Promise<ThreatsResp
 
 export function getStats(): Promise<StatsResponse> {
   return request<StatsResponse>('/stats');
+}
+
+// ---- SOC console (design core-v1 §6) ----
+
+function sendJson<TResponse>(path: string, method: 'POST' | 'PATCH', payload: object): Promise<TResponse> {
+  return request<TResponse>(path, { method, body: JSON.stringify(payload), hasJsonBody: true });
+}
+
+export function getIncidents(params: IncidentsQueryParams = {}): Promise<IncidentsResponse> {
+  return request<IncidentsResponse>(`/incidents${buildQueryString(params)}`);
+}
+
+export function getIncident(id: number): Promise<IncidentDetail> {
+  return request<IncidentDetail>(`/incidents/${id}`);
+}
+
+export function updateIncident(id: number, update: IncidentUpdate): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/incidents/${id}`, 'PATCH', update);
+}
+
+export function mergeIncident(id: number, into: number, note?: string): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/incidents/${id}/merge`, 'POST', note ? { into, note } : { into });
+}
+
+export function getCampaigns(): Promise<{ results: Campaign[] }> {
+  return request<{ results: Campaign[] }>('/campaigns');
+}
+
+export function createCampaign(name: string): Promise<Campaign> {
+  return sendJson<Campaign>('/campaigns', 'POST', { name });
+}
+
+export function assignCampaign(campaignId: number, incidentId: number): Promise<IncidentDetail> {
+  return sendJson<IncidentDetail>(`/campaigns/${campaignId}/incidents`, 'POST', { incident_id: incidentId });
+}
+
+export function getCampaignSuggestions(): Promise<{ results: CampaignSuggestion[] }> {
+  return request<{ results: CampaignSuggestion[] }>('/campaigns/suggestions');
 }
