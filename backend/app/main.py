@@ -66,4 +66,8 @@ def ready():
         model = {'available': False, 'reason': 'text_model_unavailable'}
     usable = blacklist['available'] or model['available']
     status = 'ready' if blacklist['available'] and model['available'] else 'degraded' if usable else 'unavailable'
-    return JSONResponse(status_code=200 if usable else 503, content={'status': status, 'blacklist': blacklist, 'text_model': model})
+    # Per-engine report (design core-v1 §8.1); informational, it does not change status above.
+    from app.engines.registry import registry
+    engines = registry.health({'blacklist': blacklist, 'text_model': model})
+    return JSONResponse(status_code=200 if usable else 503,
+                        content={'status': status, 'blacklist': blacklist, 'text_model': model, 'engines': engines})
