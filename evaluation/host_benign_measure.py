@@ -195,22 +195,33 @@ def _short(value) -> str:
     return text if len(text) <= MAX_VALUE else text[:MAX_VALUE] + ' …'
 
 
-def _records_of(finding: Finding, index: dict) -> list[dict]:
+def rule_channels(rule: str, channels: dict | None = None) -> set[str]:
+    """Channels a rule reads: given mapping first, else the native rule's source channels."""
+    from app.engines.host.coverage import SOURCES
+    if channels and rule in channels:
+        return set(channels[rule])
+    return {channel for channel, _ in SOURCES.get(rule, ())}
+
+
+def _records_of(finding: Finding, index: dict, channels: set[str]) -> list[dict]:
+    """Records of a finding, matched on (Channel, EventRecordID): record ids are numbered per channel."""
     out = []
     for item in finding.alerts:
         for record_id in item.record_ids:
-            for record in index.get(record_id, ()):
-                if item.start <= record.get('TimeCreated', '') <= item.end and record not in out:
-                    out.append(record)
+            for channel in sorted(channels):
+                for record in index.get((channel, record_id), ()):
+                    if item.start <= record.get('TimeCreated', '') <= item.end and record not in out:
+                        out.append(record)
     return out
 
 
 def review_html(findings: list[Finding], records: list[dict], days: list[date], levels: dict,
-                titles: dict, extra: dict | None = None) -> str:
+                titles: dict, extra: dict | None = None, channels: dict | None = None) -> str:
+    """`channels` maps rule -> channels it reads (needed for Sigma rules); native rules use coverage.SOURCES."""
     esc = html.escape
     index: dict = defaultdict(list)
     for record in records:
-        index[record.get('EventRecordID')].append(record)
+        index[(record.get('Channel'), record.get('EventRecordID'))].append(record)
     dayset = set(days)
     parts = ['<!doctype html><meta charset="utf-8"><title>Host v1 owner review</title>',
              '<style>body{font:14px system-ui,sans-serif;margin:16px;max-width:1100px;color:#111;background:#fff}'
@@ -224,7 +235,8 @@ def review_html(findings: list[Finding], records: list[dict], days: list[date], 
     if extra:
         parts.append(f'<p>{esc(json.dumps(extra))}</p>')
     for rule, items in by_rule(findings).items():
-        matched = [r for f in items for r in _records_of(f, index)]
+        sources = rule_channels(rule, channels)
+        matched = [r for f in items for r in _records_of(f, index, sources)]
         on = sum(1 for f in items if _moment(f.start).date() in dayset)
         techniques = sorted({t for f in items for a in f.alerts for t in a.techniques})
         parts.append(f'<section class="rule"><h2>{esc(rule)} — {esc(titles.get(rule, ""))}</h2>'
@@ -232,6 +244,8 @@ def review_html(findings: list[Finding], records: list[dict], days: list[date], 
                      f'findings {len(items)} ({on} on host-days, {len(items) - on} outside); '
                      f'host-days with findings {len({_moment(f.start).date() for f in items} & dayset)}; '
                      f'matched events {len(matched)}.</p>')
+        if not sources:
+            parts.append('<p>Source channel unknown for this rule: events not shown.</p>')
         values: dict[str, Counter] = defaultdict(Counter)
         for record in matched:
             for key, value in record.items():
@@ -252,7 +266,7 @@ def review_html(findings: list[Finding], records: list[dict], days: list[date], 
             facts = {k: v for k, v in finding.alerts[0].facts.items() if k != 'sigma'}
             if facts:
                 parts.append(f'<p>Facts: {esc(json.dumps(facts))}</p>')
-            for record in _records_of(finding, index)[:3]:
+            for record in _records_of(finding, index, sources)[:3]:
                 cells = ''.join(f'<tr><th>{esc(str(k))}</th><td>{esc(_short(v))}</td></tr>'
                                 for k, v in record.items() if v not in (None, ''))
                 parts.append(f'<table>{cells}</table>')
@@ -300,6 +314,15 @@ def _stored_findings(stored: dict) -> list:
     return out
 
 
+def sigma_channels(candidates, rule_files) -> dict[str, set[str]]:
+    """'sigma:<id>' -> channels its log source reads, from the unmodified rule file."""
+    from sigma.collection import SigmaCollection
+    from app.engines.host.sigma_harness import _channels
+    texts = {item.path: item.text for item in rule_files}
+    return {'sigma:' + c.rule_id: _channels(SigmaCollection.from_yaml(texts[c.path]).rules[0].logsource)
+            for c in candidates}
+
+
 def measure(logs: Path) -> dict:
     sys.path.insert(0, str(ROOT / 'backend'))
     _load_env_key()
@@ -324,12 +347,14 @@ def measure(logs: Path) -> dict:
     levels = {r.id: r.level for r in NATIVE_RULES} | {'sigma:' + c.rule_id: c.level for c in selection.candidates}
     titles = {r.id: r.title for r in NATIVE_RULES} | {
         'sigma:' + c.rule_id: f'{c.title} (Sigma, {c.author}, {c.path})' for c in selection.candidates}
+    channels = sigma_channels(selection.candidates, rule_files)
     pool = {'release': release, 'candidates': len(selection.candidates), 'excluded': dict(selection.excluded)}
     agg = aggregates(records, days, findings, files=len(files), sigma_pool=pool, levels=levels, coverage=coverage)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / 'aggregates.pending.json').write_text(json.dumps(agg, indent=1) + '\n', encoding='utf-8')
     (OUT / 'findings.local.json').write_text(json.dumps(_serialise(findings), indent=1) + '\n', encoding='utf-8')
-    (OUT / 'review.html').write_text(review_html(findings, records, days, levels, titles), encoding='utf-8')
+    (OUT / 'review.html').write_text(review_html(findings, records, days, levels, titles, channels=channels),
+                                         encoding='utf-8')
     labels = OUT / 'labels.json'
     if not labels.exists():
         labels.write_text(json.dumps(label_template(findings), indent=1) + '\n', encoding='utf-8')

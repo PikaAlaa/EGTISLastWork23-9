@@ -209,6 +209,35 @@ def test_review_is_escaped_and_shows_at_most_ten_examples():
     assert 'H12' in page and 'Shadow copy' in page
 
 
+def test_review_matches_records_by_channel_and_record_id():
+    """Record ids are numbered per channel: a same-id event from another channel must not be shown."""
+    moment = T + timedelta(minutes=5)
+    right = ev(SEC, 4688, moment, CommandLine='right-' + MARKER)
+    wrong = ev(SYS, 7036, moment, Param1='wrong-' + MARKER)
+    wrong['EventRecordID'] = right['EventRecordID']
+    findings = tool.group_findings([alert('H12', moment, record_ids=(right['EventRecordID'],))])
+    page = tool.review_html(findings, [wrong, right], days=[], levels={}, titles={})
+    assert 'right-' + MARKER in page and 'wrong-' + MARKER not in page
+
+    sigma = tool.group_findings([alert('sigma:x', moment, record_ids=(right['EventRecordID'],))])
+    page = tool.review_html(sigma, [right, wrong], days=[], levels={}, titles={}, channels={'sigma:x': {SYS}})
+    assert 'wrong-' + MARKER in page and 'right-' + MARKER not in page
+    page = tool.review_html(sigma, [right, wrong], days=[], levels={}, titles={})
+    assert MARKER not in page and 'events not shown' in page
+
+
+def test_sigma_channels_come_from_the_rule_log_source():
+    from types import SimpleNamespace
+    from app.engines.host.sigma_harness import RuleFile
+    text = ('title: Invented\nid: 11111111-1111-1111-1111-111111111111\nstatus: test\nlevel: high\n'
+            'logsource:\n  product: windows\n  category: process_creation\n'
+            'detection:\n  sel:\n    CommandLine|contains: invented\n  condition: sel\n')
+    rule_files = [RuleFile(path='rules/invented.yml', text=text, sha256='0' * 64)]
+    candidate = SimpleNamespace(rule_id='11111111-1111-1111-1111-111111111111', path='rules/invented.yml')
+    assert tool.sigma_channels([candidate], rule_files) == {
+        'sigma:11111111-1111-1111-1111-111111111111': {SEC, SYSMON}}
+
+
 def test_logs_inside_the_repository_are_refused(tmp_path):
     with pytest.raises(SystemExit):
         tool.check_logs_dir(ROOT / 'data')
