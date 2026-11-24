@@ -1,8 +1,9 @@
 # Host engine v1 (`host.windows`) — design
 
 Status: **design approved** (18 November 2026) with **amendment 1** (24 November 2026,
-below), branch `feat/host-design`. No code, no dataset or rule download, no measurement
-accompany this document.
+below) and **amendment 2** (§4.7, pre-measurement clarifications), branch
+`feat/host-design`. The §4 rule and the per-file technique manifest were frozen on
+24 November 2026 in `evaluation/reports/2026-11-host-v1/` before any measurement.
 
 ### Amendment 1 (24 November 2026, approved by the owner, before any measurement)
 
@@ -283,6 +284,42 @@ A shipped-rule manifest is committed before the report half is measured. It list
 native rule ids with constants, and the Sigma rule ids, paths, authors and file SHA-256s.
 Reported but never gating: per-technique detection on the report half, benign alerts per
 rule, per host-day and per review label (§4.4), rules excluded and why, and channel coverage.
+
+### 4.7 Pre-measurement clarifications (amendment 2, 24 November 2026)
+
+Written before any rule was run on any attack sample or benign log, to remove choices that
+would otherwise be made after seeing results. They take precedence over §4.1–4.6 where
+those are silent or ambiguous.
+
+1. **Counting unit.** An "alert" in gates 1 and 3 is one grouped Finding as §6.1 defines
+   it: one per detection or Sigma rule, host reference, account reference (where the
+   detection has one) and fixed UTC clock hour of the first matching event.
+2. **Level in gate 3.** A rule's base level: native rules as in §6.2 without combination
+   escalation (native H6 and H7 are `low` and are not counted); Sigma rules by their
+   `level`.
+3. **Technique matching in gate 2.** A development file matches a rule when one of the
+   rule's gate techniques equals one of the file's manifest techniques exactly; a parent
+   technique never matches its sub-techniques or the reverse. Gate techniques: for native
+   rules the primary technique only — H1 `T1110.001`, H2 `T1110.003`, H3 `T1136.001`, H4
+   `T1098.007`, H6 `T1543.003`, H7 `T1053.005`, H8 `T1685.005` and `T1685.001`, H9 `T1133`,
+   H10 `T1685`, H11 `T1204.002`, H12 `T1490`, H13 `T1134.002`; secondary tags create no
+   obligation. For Sigma rules, every target-set technique left after remapping. "Alerts
+   on a file" means at least one alert when that file is imported on its own. A rule that
+   fails gate 2 is not shipped.
+4. **Imports.** Each attack-sample file is its own import (H13 therefore runs with
+   `baseline: none` on samples). Files with identical content are one sample. The owner's
+   exported files are imported together as one import.
+5. **Gate 4.** If the CPU limit fails, nothing ships; no rule is removed automatically. A
+   dated, owner-approved amendment is required before any re-measurement.
+6. **Sigma pool details.** The pool is fixed by `data/sigma-lock.json` (release
+   `r2026-07-01`, package `sigma_all_rules.zip`). `process_creation` rules are converted
+   for both Sysmon 1 and Security 4688. "Names fields ETIS never produces" means any field
+   name that is not a plain Windows field name (letters, digits and underscore; for
+   example a log shipper's dotted JSON path). Correlation rules are excluded.
+7. **Technique manifest.** `evaluation/reports/2026-11-host-v1/technique_manifest.json`,
+   built only from sample paths by the fixed keyword table in
+   `evaluation/host_technique_manifest.py` (no sample opened), is frozen together with
+   this rule. Samples it cannot label are excluded and counted.
 
 ## 5. ATT&CK v20.0
 
