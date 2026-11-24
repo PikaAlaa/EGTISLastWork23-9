@@ -29,8 +29,9 @@ MAX_EVENTS = int(os.getenv('ETIS_HOST_MAX_EVENTS', '2000000'))
 MAX_BYTES = int(os.getenv('ETIS_HOST_MAX_BYTES', str(1024 ** 3)))
 TABLE = 'logs'
 SYSTEM_FIELDS = ('Channel', 'Provider', 'EventID', 'TimeCreated', 'EventRecordID', 'Computer')
+_UNTYPED = {'EventID', 'EventRecordID'}
 _FILE_HEADER, _CHUNK = 4096, 65536
-_FIELD_NAME = re.compile(r'^[A-Za-z][A-Za-z0-9_.\-]{0,127}$')
+FIELD_NAME = re.compile(r'^[A-Za-z][A-Za-z0-9_.\-]{0,127}$')
 
 
 class HostInputError(ValueError):
@@ -200,15 +201,19 @@ class EventTable:
 
 
 @contextmanager
-def event_table(records: list[dict]) -> Iterator[EventTable]:
-    """Load records into an in-memory SQLite table `logs`; the database is closed on exit."""
+def event_table(records: list[dict], extra_columns: Iterable[str] = ()) -> Iterator[EventTable]:
+    """Load records into an in-memory SQLite table `logs`; the database is closed on exit.
+
+    Text columns use COLLATE NOCASE, as Sigma equality is case-insensitive (and as Zircolite
+    builds its table). `extra_columns` adds empty columns that queries name but no event has.
+    """
     names, folded, skipped = [], set(), set()
-    for record in records:
+    for record in [dict.fromkeys(SYSTEM_FIELDS)] + list(records) + [dict.fromkeys(extra_columns)]:
         for key in record:
             if key in names or key in skipped:
                 continue
             # SQLite column names are case-insensitive: a second spelling of a name is skipped.
-            if _FIELD_NAME.match(key) and key.lower() not in folded:
+            if FIELD_NAME.match(key) and key.lower() not in folded:
                 names.append(key)
                 folded.add(key.lower())
             else:
@@ -216,7 +221,8 @@ def event_table(records: list[dict]) -> Iterator[EventTable]:
     connection = sqlite3.connect(':memory:')
     try:
         quoted = ', '.join(f'"{name}"' for name in names)
-        connection.execute(f'CREATE TABLE {TABLE} (_etis_row INTEGER PRIMARY KEY, {quoted})')
+        declared = ', '.join(f'"{name}"' if name in _UNTYPED else f'"{name}" TEXT COLLATE NOCASE' for name in names)
+        connection.execute(f'CREATE TABLE {TABLE} (_etis_row INTEGER PRIMARY KEY, {declared})')
         placeholders = ', '.join('?' for _ in names)
         connection.executemany(f'INSERT INTO {TABLE} ({quoted}) VALUES ({placeholders})',
                                ([record.get(name) for name in names] for record in records))

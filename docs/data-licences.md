@@ -54,7 +54,15 @@ Licence/terms: [MITRE ATT&CK Terms of Use](https://attack.mitre.org/resources/le
 
 Public redistribution: Not performed. Project policy: do not commit the STIX files. Any console page or committed artifact that shows ATT&CK names must carry the copyright statement above.
 
-Stored only under ignored data/external/attack/. Download only the two files pinned in data/attack-lock.json with data/scripts/fetch_attack.py, which verifies size and SHA-256 and discards any mismatch. The app never downloads ATT&CK data. The committed test fixture backend/tests/fixtures/attack-20.0-subset.json (added with the catalogue loader) holds technique identifiers, names, tactics, platforms and status flags only, with the copyright statement and the source files' hashes; no descriptions.
+Stored only under ignored data/external/attack/. Download only the two files pinned in data/attack-lock.json with data/scripts/fetch_attack.py, which verifies size and SHA-256 and discards any mismatch. The app never downloads ATT&CK data. The committed test fixture backend/tests/fixtures/attack-20.0-subset.json (added with the catalogue loader) holds technique identifiers, names, tactics, platforms and status flags only, with the copyright statement and the source files' hashes; no descriptions. backend/tests/fixtures/attack-20.0-host-subset.json (added with the host Sigma harness) holds the same kind of fields for the host engine's techniques plus the five `revoked-by` relationships it remaps; no descriptions.
+
+### host-engine-libraries
+
+Source: PyPI packages pinned in requirements-runtime.txt for the host engine (docs/design/host-engine-v1.md §1.3, §2.3): `evtx` 0.15.0, `pySigma` 2.1.0, `pySigma-backend-sqlite` 2.1.1, `pySigma-pipeline-windows` 3.0.0, `pySigma-pipeline-sysmon` 3.0.0 (resolved on 2026-11-24 with nothing newer than 2026-11-10).
+
+Licence/terms: `evtx` MIT (PyPI classifier). `pySigma`, `pySigma-pipeline-windows` and `pySigma-pipeline-sysmon` LGPL-2.1-only; `pySigma-backend-sqlite` LGPL-3.0-only (PyPI licence expressions, checked 2026-11-24).
+
+Public redistribution: These are code libraries installed with pip, used unmodified as separate dependencies; ETIS does not copy or vendor their source. Anyone distributing a bundle that includes them must keep their licence texts and allow replacing the LGPL libraries. `LICENSE` remains the team's decision.
 
 ### openphish
 
