@@ -1,7 +1,24 @@
 # Host engine v1 (`host.windows`) — design
 
-Status: **design only** (18 November 2026), branch `feat/host-design`. No code, no
-dataset or rule download, no measurement accompany this document.
+Status: **design approved** (18 November 2026) with **amendment 1** (24 November 2026,
+below), branch `feat/host-design`. No code, no dataset or rule download, no measurement
+accompany this document.
+
+### Amendment 1 (24 November 2026, approved by the owner, before any measurement)
+
+1. **Benign corpus.** The team-built VM corpus is replaced by the **owner's own Windows PC
+   event logs**, used with the owner's explicit consent (granted 24 November 2026),
+   processed only locally and never committed. Only aggregate counts per rule and per
+   host-day may be committed. At least 14 host-days are required if the logs reach back
+   that far; otherwise the actual span is recorded. Reports say "one owner PC, one user's
+   habits". Owner-PC alerts are reviewed by the owner and are not assumed benign. Team VMs
+   are a later optional addition (§4.4).
+2. **Three detections added:** H11 Office application starting a shell or script host,
+   H12 shadow copy deletion, H13 run-as with another account's credentials from an
+   unusual account (§2.1). Their ATT&CK ids were checked in the local v20.0 catalogue
+   (§5.1).
+
+Sections changed: §0, §1.1, §2.1, §4 (intro, 4.1, 4.4, 4.5), §5.1, §6.2–6.5, §8.3, §9.
 
 `host.windows` reads Windows event logs that a user exports from their own PC, applies
 explainable detection rules locally, and emits `finding-v1` Findings through the core v1
@@ -20,7 +37,8 @@ everything runs in Python on Windows.
 | Phishing path unchanged | Separate engine and rules; the `/analyze` parity gate keeps running. |
 | Data and rule licences | Evaluation data and Sigma rules stay under ignored directories; `docs/data-licences.md` gets entries before acquisition; Sigma attribution is kept (§2.2). |
 | ATT&CK ids current | Every id is checked against the local, hash-verified v20.0 catalogue; revoked ids are remapped (§5.2). |
-| Honest claims | Evaluation uses public lab samples and a team-built benign corpus. Results are exposed development evidence, not accuracy on Egyptian PCs. |
+| Honest claims | Evaluation uses public lab samples and one owner PC's logs as the benign corpus ("one owner PC, one user's habits"). Results are exposed development evidence, not accuracy on Egyptian PCs. |
+| Owner's logs stay private | Read in place on the owner's PC; only aggregate counts per rule and per host-day are committed (§4.4). |
 
 ## 1. Input: Windows event logs exported by the user
 
@@ -28,7 +46,7 @@ everything runs in Python on Windows.
 
 | Channel | Required | Key events used |
 | --- | --- | --- |
-| `Security` | Yes | 4624 logon (LogonType, IpAddress), 4625 failed logon, 4740 lockout, 4720 account created, 4732/4728/4756 member added to a group, 4697 service installed, 4698 scheduled task created, 4719 audit policy changed, 1102 audit log cleared |
+| `Security` | Yes | 4624 logon (LogonType, IpAddress), 4625 failed logon, 4740 lockout, 4720 account created, 4732/4728/4756 member added to a group, 4697 service installed, 4698 scheduled task created, 4719 audit policy changed, 1102 audit log cleared, 4648 logon with explicit credentials, 4688 process created (`NewProcessName`, `ParentProcessName`, `CommandLine`) |
 | `System` | Yes | 7045 service installed, 7040 service start type changed, 7036 service state, 104 log cleared |
 | `Microsoft-Windows-PowerShell/Operational` | Yes | 4104 script block, 4103 module/pipeline |
 | `Microsoft-Windows-Windows Defender/Operational` | Recommended | 5001 real-time protection disabled, 5010/5012 scanning disabled, 5007 configuration changed |
@@ -37,7 +55,9 @@ everything runs in Python on Windows.
 | `Microsoft-Windows-Sysmon/Operational` | Optional | 1 process creation (with `Hashes`), 3 network connection, 13 registry value set, 22 DNS query |
 
 Many events are absent under Windows' default audit policy. For example, 4698 and 4697
-need object-access and system auditing, and full 4104 logging needs script block logging.
+need object-access and system auditing, full 4104 logging needs script block logging,
+4688 needs process-creation auditing, and its `CommandLine` needs the "include command
+line in process creation events" policy. H11 and H12 run on 4688 or Sysmon 1.
 Every import therefore produces a **coverage report**: channels present, the time span
 covered and which detections could not run. A detection that could not run is shown as
 "not visible", never as "nothing found".
@@ -99,10 +119,13 @@ disabling Defender.
 | H8 | Audit log cleared / auditing disabled | ETIS-native | 1102 (Security) or 104 (System) → clearing; 4719 removing success/failure auditing → disabling | `T1685.005` Clear Windows Event Logs; `T1685.001` Disable or Modify Windows Event Log |
 | H9 | RDP logon from outside | ETIS-native | 4624 LogonType 10 (or 1149) whose source is not local (§6.4) | `T1133` External Remote Services; `T1021.001` Remote Desktop Protocol |
 | H10 | Defender disabled | ETIS-native + Sigma | Defender 5001/5010/5012; 7040/7036 for `WinDefend` disabled or stopped; Sysmon 13 setting `DisableAntiSpyware`/`DisableRealtimeMonitoring` to 1 | `T1685` Disable or Modify Tools |
+| H11 | Office application starts a shell or script host | ETIS-native + Sigma | 4688 or Sysmon 1 whose parent image file name is `winword.exe`, `excel.exe`, `powerpnt.exe` or `outlook.exe` and whose image file name is `powershell.exe`, `pwsh.exe`, `cmd.exe`, `wscript.exe` or `mshta.exe` (file names compared case-insensitively, directories ignored) | `T1204.002` Malicious File; secondary by child: `T1059.001` PowerShell (`powershell.exe`, `pwsh.exe`), `T1059.003` Windows Command Shell (`cmd.exe`), `T1059.005` Visual Basic (`wscript.exe`), `T1218.005` Mshta (`mshta.exe`) |
+| H12 | Shadow copy deletion (ransomware warning sign) | ETIS-native + Sigma | 4688 or Sysmon 1 with image file name and lower-cased, whitespace-collapsed command line: `vssadmin.exe` containing `delete shadows`; `wmic.exe` containing `shadowcopy` and `delete`; `wbadmin.exe` containing `delete catalog`, `delete systemstatebackup` or `delete backup`. Without a command line the detection is "not visible". | `T1490` Inhibit System Recovery |
+| H13 | Run-as with another account's credentials from an unusual account | ETIS-native | 4648 whose `TargetServerName` is local (`localhost`, `127.0.0.1`, `::1` or the event's own computer name) and whose subject account differs from the target account (name and domain, case-insensitive); subject is not a machine account (name ending `$`), not `S-1-5-18`/`-19`/`-20` and not `-`. **Unusual:** the (subject, target) pair did not occur in a qualifying 4648 during the first 24 h of the import's covered span (the baseline). Imports covering less than 48 h have no baseline: every qualifying pair is treated as unusual and the finding records `baseline: none`. | `T1134.002` Create Process with Token; secondary `T1078` Valid Accounts |
 
 Combinations raise severity or confidence but never create a separate kind (§6.2–6.3):
-for example H3 then H4 for the same account, or H1/H2 then a successful 4624 or H9 from
-the same source.
+for example H3 then H4 for the same account, H1/H2 then a successful 4624 or H9 from
+the same source, or H11 followed by H5 or H12 on the same host within the window.
 
 ### 2.2 Sigma rules: licence and attribution
 
@@ -175,15 +198,15 @@ This section is the rule. Before any rule is run on any sample or benign log, it
 unchanged into `evaluation/reports/<date>-host-v1/selection_rule.md` with its SHA-256
 recorded. Later changes are dated pre-result amendments citing the previous hash. This is
 an **exposed development protocol**: the attack samples are public, the benign corpus is
-team-built, and neither represents Egyptian users' PCs.
+one owner PC with one user's habits, and neither represents Egyptian users' PCs.
 
 ### 4.1 Decision: rules only, no ML component in v1
 
 ML is **not a candidate** in v1:
 
 - Public attack samples have no per-event labels; files mix attack and background events.
-- No sizeable, labelled benign host-event corpus from the target population exists. A
-  team-built corpus would teach a model the team's VM habits.
+- No sizeable, labelled benign host-event corpus from the target population exists. One
+  owner PC would teach a model one user's habits.
 - Rules are explainable, carry ATT&CK tags and Sigma author attribution, and each can be
   tested on invented events.
 
@@ -192,7 +215,7 @@ new frozen rule.
 
 ### 4.2 Candidate pool (fixed)
 
-- **Native:** H1–H4, H6–H10 native parts, with the constants in §2.1. Never tuned.
+- **Native:** H1–H4, H6–H13 native parts, with the constants in §2.1. Never tuned.
 - **Sigma:** every rule in the pinned SigmaHQ release package that meets all of:
   - Windows log source ETIS can feed (§1.1);
   - `status` stable or test;
@@ -209,31 +232,39 @@ Files are split by the SHA-256 of their content: even last hex digit → **devel
 odd → **report**. Selection uses only the development half. The report half is measured
 once, after the shipped-rule manifest is frozen, and reported as exposed evidence.
 
-### 4.4 Benign corpus (no personal data)
+### 4.4 Benign corpus: the owner's own PC (amendment 1)
 
-- Logs come only from **Windows virtual machines the team creates for this purpose**, using
-  Microsoft's free evaluation images (their terms are checked and recorded at acquisition).
-  Accounts are invented (`etis-user1`, `etis-admin`).
-- No real person's PC, account or documents are used.
-- A committed scenario script drives a typical home or small-office workload, including
-  legitimate actions that resemble attacks:
-  - software installs that create services and scheduled tasks;
-  - Windows and Defender updates;
-  - an administrator creating a user and adding it to Administrators once;
-  - RDP from the LAN;
-  - administrative PowerShell scripts;
-  - a few mistyped passwords.
-- At least **14 host-days** in total (for example 2 VMs × 7 days), with audit policy and
-  script block logging enabled so that all §1.1 events can occur.
-- The exported EVTX files stay local and ignored. Only a manifest of host-days, event
-  counts and file hashes is committed.
-- Known corpus actions are listed in the scenario log, so the benign alerts they trigger
-  stay visible in reports. They are counted, not excused.
+- Logs come from the **owner's own Windows PC**, exported by the owner (§1.2) and used with
+  the owner's explicit consent (granted 24 November 2026). They are processed only locally
+  on that PC and are never committed, uploaded or shared. No other person's PC is used.
+- **Host-day:** a UTC calendar day lying wholly inside the covered span of every
+  *required* channel export (`Security`, `System`, `PowerShell/Operational`). Partial days
+  at either end are excluded. Logs that roll over early therefore give fewer host-days.
+- At least **14 host-days** are required if the logs reach back that far. If they do not,
+  the actual number of host-days and the span are recorded and used; nothing is padded or
+  extrapolated. The owner's audit policy is used as found; detections it hides are
+  reported as "not visible", not as clean days.
+- **Committed:** only aggregate counts — alerts per rule; alerts and events per host-day
+  (host-days numbered 1…N, not dated); events per channel and EventID; host-day count;
+  per-rule counts by review label (below). **Never committed:** the EVTX files, their
+  hashes or names, any event field, usernames, computer names, paths, command lines,
+  timestamps or record numbers. Per-alert review material stays under ignored
+  `evaluation/local-results/host-v1/`.
+- **Owner review, not assumed benign.** Every owner-PC alert is reviewed by the owner and
+  labelled `benign_explained`, `unexplained` or `suspected_malicious` before gates are
+  computed. `benign_explained` and `unexplained` alerts both count as false alarms for
+  gates 1 and 3 (a rule gets no credit for an unverified detection). A
+  `suspected_malicious` alert is excluded from false-alarm counts, reported separately,
+  and the owner is told to check the PC; if any exist, the report states that the benign
+  corpus may itself be contaminated.
+- Reports always say **"one owner PC, one user's habits"**.
+- **Team VMs are a later optional addition.** If added, they are a separately frozen
+  amendment with their own host-day counts, reported alongside, never merged silently.
 
 ### 4.5 Gates
 
-1. **Per-rule false-alarm limit:** at most 1 alert per 7 benign host-days (≤ 2 alerts over
-   14 host-days).
+1. **Per-rule false-alarm limit:** at most 1 alert per 7 benign host-days, i.e. at most
+   ⌊N / 7⌋ alerts over N host-days (≤ 2 over 14; 0 if N < 7).
 2. **Per-rule evidence:**
    - If the development half contains a file whose manifest technique matches the rule's
      mapped technique, the rule must alert on at least one such file.
@@ -241,7 +272,7 @@ once, after the shipped-rule manifest is frozen, and reported as exposed evidenc
      tests. It then ships flagged `unvalidated_on_samples`, with confidence capped at
      `single_signal`.
 3. **Shipped-set false-alarm limit:** all shipped rules together produce at most 1 medium-or-higher
-   alert per benign host-day. If exceeded, remove rules in descending order of benign alert
+   alert per benign host-day (at most N over N host-days). If exceeded, remove rules in descending order of benign alert
    count until the limit holds. Ties remove Sigma before native, then lower level first.
 4. **CPU limit:** parsing plus evaluation of 100,000 events takes ≤ 60 s (p95 over 5 runs)
    on the project PC.
@@ -251,7 +282,7 @@ once, after the shipped-rule manifest is frozen, and reported as exposed evidenc
 A shipped-rule manifest is committed before the report half is measured. It lists the
 native rule ids with constants, and the Sigma rule ids, paths, authors and file SHA-256s.
 Reported but never gating: per-technique detection on the report half, benign alerts per
-rule and per scenario action, rules excluded and why, and channel coverage.
+rule, per host-day and per review label (§4.4), rules excluded and why, and channel coverage.
 
 ## 5. ATT&CK v20.0
 
@@ -260,6 +291,19 @@ rule and per scenario action, rules excluded and why, and channel coverage.
 `T1110.001`, `T1110.003`, `T1136.001`, `T1098.007`, `T1059.001`, `T1027.010`, `T1105`,
 `T1543.003`, `T1053.005`, `T1685.005`, `T1685.001`, `T1133`, `T1021.001`, `T1685`, plus
 `T1078.003` Local Accounts, used only as a secondary tag when a successful logon follows H1/H2.
+
+Added by amendment 1 (checked 24 November 2026 in the local v20.0 catalogue, SHA-256
+`2339a3c3…b4278`; each present, not revoked, not deprecated, platform Windows):
+
+| Id | Name | Tactics (v20.0) | Used by |
+| --- | --- | --- | --- |
+| `T1204.002` | Malicious File | execution | H11 |
+| `T1059.003` | Windows Command Shell | execution | H11 (secondary) |
+| `T1059.005` | Visual Basic | execution | H11 (secondary) |
+| `T1218.005` | Mshta | stealth | H11 (secondary) |
+| `T1490` | Inhibit System Recovery | impact | H12 |
+| `T1134.002` | Create Process with Token | privilege-escalation, stealth | H13 (v20.0 text names `runas`) |
+| `T1078` | Valid Accounts | initial-access, persistence, privilege-escalation, stealth | H13 (secondary) |
 
 ### 5.2 Revoked ids that Sigma rules still use
 
@@ -299,6 +343,9 @@ Matches are grouped per (detection, host pseudonym, account pseudonym where rele
 | H8 log cleared or auditing disabled | high |
 | H9 RDP from outside | medium; **high** if H1/H2 from the same source preceded it |
 | H10 Defender disabled | high |
+| H11 Office application starts a shell or script host | high |
+| H12 shadow copy deletion | high |
+| H13 run-as from an unusual account | medium; **high** if H3 or H4 involved the same target account within 1 h |
 
 Severity is a fixed table, never derived from a score.
 
@@ -319,7 +366,7 @@ Severity is a fixed table, never derived from a score.
 | `ip` | Source address of 4624/4625/1149, Sysmon 3 destination, only for alerted events and only when not local (RFC 1918, loopback, link-local, `--local-net`) | `remote_endpoint` |
 | `domain` | Sysmon 22 `QueryName`, Sysmon 3 `DestinationHostname`, hosts of URLs in alerted PowerShell script blocks | `resolved_name` / `download_host` |
 | `url` | URLs in alerted PowerShell script blocks | `download_url` |
-| `hash` | Sysmon 1 `Hashes` (SHA256, else SHA1, else MD5) of alerted process events | `executed_file` |
+| `hash` | Sysmon 1 `Hashes` (SHA256, else SHA1, else MD5) of alerted process events, including H11 and H12 | `executed_file` |
 
 All are sent hash-only (`value=None`). URL and domain extraction reuses the existing URL
 parser, which never fetches.
@@ -334,7 +381,9 @@ recorded by their well-known SID, because they identify no person.
 
 Detection id; Sigma attribution block (§2.2); event counts per EventID and channel;
 window start and end; `host_ref`, `account_ref`; logon type; source locality
-(local/outside); coverage flags; the import's input file SHA-256; and up to 20
+(local/outside); for H11 the parent and child image *file names* only (fixed list values,
+e.g. `winword.exe` → `powershell.exe`); for H12 the tool file name; for H13 `baseline:
+24h|none`; coverage flags; the import's input file SHA-256; and up to 20
 `EventRecordID`s, so the user can find the events in their own file. Never: usernames,
 computer names, addresses, command lines, script text, file paths or service names.
 
@@ -384,9 +433,13 @@ pinned Sigma package verify; health reports `rules_missing` or `sigma_backend_un
    truncated files fail with reason codes. Limits are enforced.
 2. **Normaliser:** invented event dictionaries for every §1.1 EventID give the expected
    flat fields; the in-memory table is gone after the import.
-3. **Native detections:** table-driven positives and negatives for H1–H10 at their exact
+3. **Native detections:** table-driven positives and negatives for H1–H13 at their exact
    constants (19 vs 20 failures, 9 vs 10 accounts, local vs outside source, the
-   Administrators SID vs another group), plus combinations and window edges.
+   Administrators SID vs another group; H11 each listed parent × child vs `explorer.exe`
+   parent and `notepad.exe` child; H12 each tool's delete form vs `vssadmin list shadows`
+   and a missing command line; H13 same vs different account, machine and well-known
+   subjects, remote target, pair inside vs after the 24 h baseline, and spans of 47 h vs
+   48 h), plus combinations and window edges.
 4. **Sigma harness:** pinned conversion of a handful of invented Sigma-format test rules;
    `REGEXP`; excluded-rule accounting; the revoked-id remap produced from the local fixture
    catalogue; the attribution block present on every Sigma finding.
@@ -411,14 +464,15 @@ steps 5 and 6 need the owner's explicit approval first.
 
 1. `feat: evtx reader and event normalisation` — pinned `evtx`, team-made fixture, limits (§8.1–8.2).
 2. `feat: host pseudonyms and coverage report` — HMAC key in initialize, locality rules (§8.7).
-3. `feat: native host detections H1-H10` — invented events (§8.3).
+3. `feat: native host detections H1-H13` — invented events (§8.3).
 4. `feat: sigma evaluation harness on in-memory sqlite` — pinned pySigma + sqlite backend,
    Windows pipeline, `REGEXP`, revocation remap (§8.4).
 5. `chore: SigmaHQ release fetch, lock and licence entry` — DRL entry, rules ignored.
 6. `chore: EVTX-ATTACK-SAMPLES fetch, lock and licence entry` — GPL-3.0 entry, data ignored.
 7. `docs: host technique manifest and frozen selection rule` — per-file labels and §4 frozen
    with SHA-256, before any measurement.
-8. `chore: benign VM scenario and corpus manifest` — scenario script committed; logs local.
+8. `chore: owner-PC benign corpus aggregates` — the owner exports their own logs (§1.2);
+   only the aggregate counts of §4.4 are committed; logs and review material stay local.
 9. `feat: host rule evaluation and shipped-rule manifest` — gates, selection, report.
 10. `feat: host.windows engine` — grouping, severity, confidence, indicators, attribution,
     registry and health.
