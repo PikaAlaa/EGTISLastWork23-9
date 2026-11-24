@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import re
 import sqlite3
 from collections import Counter
@@ -125,6 +126,36 @@ def load_remap(lock_path: Path | None = None, root: Path = PROJECT_ROOT) -> Tech
     if len(body) != entry['size'] or hashlib.sha256(body).hexdigest() != entry['sha256']:
         raise ValueError('attack_catalogue_hash_mismatch')
     return TechniqueRemap.from_objects(json.loads(body)['objects'])
+
+
+def _long(path: Path) -> Path:
+    text = str(Path(path).resolve())
+    if os.name == 'nt' and not text.startswith('\\\\?\\'):
+        text = '\\\\?\\' + text  # deeply nested rule paths exceed 260 characters
+    return Path(text)
+
+
+def load_release(lock_path: Path | None = None, root: Path = PROJECT_ROOT) -> tuple[str, list[RuleFile]]:
+    """Read the pinned, extracted SigmaHQ rule files (data/sigma-lock.json); verify the tree hash."""
+    lock_path = lock_path or (PROJECT_ROOT / 'data' / 'sigma-lock.json')
+    lock = json.loads(Path(lock_path).read_text(encoding='utf-8'))
+    expected = lock['extracted']
+    base = Path(root) / lock['destination'] / expected['directory']
+    if not base.is_dir():
+        raise FileNotFoundError('sigma_rules_missing')
+    base = _long(base)
+    files, lines = [], []
+    for path in sorted(base.rglob('*.yml')):
+        if not path.is_file():
+            continue
+        body = path.read_bytes()
+        relative, digest = path.relative_to(base).as_posix(), hashlib.sha256(body).hexdigest()
+        lines.append(f'{relative}\t{digest}')
+        files.append(RuleFile(path=relative, text=body.decode('utf-8', errors='replace'), sha256=digest))
+    tree = hashlib.sha256(('\n'.join(sorted(lines)) + '\n').encode('utf-8')).hexdigest()
+    if tree != expected['tree_sha256'] or len(files) != expected['rule_files']:
+        raise ValueError('sigma_rules_hash_mismatch')
+    return lock['release'], sorted(files, key=lambda f: f.path)
 
 
 def regexp(pattern, value) -> bool:

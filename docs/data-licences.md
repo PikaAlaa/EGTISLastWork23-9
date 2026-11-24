@@ -56,6 +56,16 @@ Public redistribution: Not performed. Project policy: do not commit the STIX fil
 
 Stored only under ignored data/external/attack/. Download only the two files pinned in data/attack-lock.json with data/scripts/fetch_attack.py, which verifies size and SHA-256 and discards any mismatch. The app never downloads ATT&CK data. The committed test fixture backend/tests/fixtures/attack-20.0-subset.json (added with the catalogue loader) holds technique identifiers, names, tactics, platforms and status flags only, with the copyright statement and the source files' hashes; no descriptions. backend/tests/fixtures/attack-20.0-host-subset.json (added with the host Sigma harness) holds the same kind of fields for the host engine's techniques plus the five `revoked-by` relationships it remaps; no descriptions.
 
+### sigmahq
+
+Source: [SigmaHQ rules, release r2026-07-01 (published 2026-07-09), package `sigma_all_rules.zip`](https://github.com/SigmaHQ/sigma/releases/tag/r2026-07-01).
+
+Licence/terms: [Detection Rule License (DRL) 1.1](https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md), read 2026-11-24. Quoted wording: “If you share the Rules (including in modified form), you must retain the following if it is supplied within the Rules: 1. identification of the authors(s) ("author" field) of the Rule and any others designated to receive attribution, in any reasonable manner requested by the Rule author (including by pseudonym if designated). 2. a URI or hyperlink to the Rule set or explicit Rule to the extent reasonably practicable 3. indicate the Rules are licensed under this Detection Rule License, and include the text of, or the URI or hyperlink to, this Detection Rule License to the extent reasonably practicable” and “If you use the Rules (including in modified form) on data, messages based on matches with the Rules must retain the following if it is supplied within the Rules: 1. identification of the authors(s) ("author" field) of the Rule and any others designated to receive attribution, in any reasonable manner requested by the Rule author (including by pseudonym if designated).”
+
+Public redistribution: Not performed. Project policy: do not commit rule files or rule text. Committed artifacts may name rule ids, titles, authors, paths and file hashes (the shipped-rule manifest). Every Sigma-based finding stores the rule's id, title, author, level, status, release, path, SHA-256, `license: DRL-1.1` and a link to the rule (docs/design/host-engine-v1.md §2.2), and the console must show the author and source with it.
+
+Stored only under ignored data/external/sigma/. Download only the package pinned in data/sigma-lock.json with data/scripts/fetch_sigma.py, which verifies size and SHA-256 (equal to the digest GitHub publishes for the asset), extracts only `.yml` files and `version.txt`, refuses unsafe paths and oversized members, and keeps the extraction only when its tree hash matches the lock. Rule files are never modified. The app never downloads rules.
+
 ### host-engine-libraries
 
 Source: PyPI packages pinned in requirements-runtime.txt for the host engine (docs/design/host-engine-v1.md §1.3, §2.3): `evtx` 0.15.0, `pySigma` 2.1.0, `pySigma-backend-sqlite` 2.1.1, `pySigma-pipeline-windows` 3.0.0, `pySigma-pipeline-sysmon` 3.0.0 (resolved on 2026-11-24 with nothing newer than 2026-11-10).
