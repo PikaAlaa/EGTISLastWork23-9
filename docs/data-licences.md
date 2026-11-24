@@ -66,6 +66,16 @@ Public redistribution: Not performed. Project policy: do not commit rule files o
 
 Stored only under ignored data/external/sigma/. Download only the package pinned in data/sigma-lock.json with data/scripts/fetch_sigma.py, which verifies size and SHA-256 (equal to the digest GitHub publishes for the asset), extracts only `.yml` files and `version.txt`, refuses unsafe paths and oversized members, and keeps the extraction only when its tree hash matches the lock. Rule files are never modified. The app never downloads rules.
 
+### evtx_attack_samples
+
+Source: [EVTX-ATTACK-SAMPLES by sbousseaden, commit 4ceed2f4706daf601c212a8f91c113dd85349a2c (2023-01-24)](https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/tree/4ceed2f4706daf601c212a8f91c113dd85349a2c).
+
+Licence/terms: GNU General Public License v3.0 (repository `LICENSE.GPL`; README: “EVTX_ATT&CK's GNU General Public License”). Checked 2026-11-24.
+
+Public redistribution: Not performed. Project policy: do not commit the `.evtx` files, their contents, or any projection or per-event output derived from them. Committed artifacts may name the files' paths and SHA-256 (the lock, the per-file technique manifest) and aggregate results.
+
+Stored only under ignored data/external/evtx-attack-samples/. Download only the commit pinned in data/evtx-attack-samples-lock.json with data/scripts/fetch_evtx_samples.py. It keeps only the 278 `.evtx` files, `LICENSE.GPL` and `README.md`, refuses unsafe paths and oversized members, and keeps the extraction only when exactly the pinned files are present with matching SHA-256. GitHub-generated archives are not guaranteed byte-stable, so the per-file hashes are the authority. The repository's scripts and its `evtx_data.csv` (an event-level dump of the samples) are not kept. These are public lab recordings of attack tools: an exposed development set, not evidence about Egyptian users' PCs.
+
 ### host-engine-libraries
 
 Source: PyPI packages pinned in requirements-runtime.txt for the host engine (docs/design/host-engine-v1.md §1.3, §2.3): `evtx` 0.15.0, `pySigma` 2.1.0, `pySigma-backend-sqlite` 2.1.1, `pySigma-pipeline-windows` 3.0.0, `pySigma-pipeline-sysmon` 3.0.0 (resolved on 2026-11-24 with nothing newer than 2026-11-10).
