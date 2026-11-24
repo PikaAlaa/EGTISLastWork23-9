@@ -1,10 +1,10 @@
 {
  "frozen_on": "2026-11-24",
- "rule_source": "docs/design/host-engine-v1.md section 4 (including 4.7, amendment 2), copied unchanged",
- "design_doc_sha256_lf": "c337e2c27d194fc4c4904680dfbd6322230de201f5ebf4618b812dffc90abc3e",
+ "rule_source": "docs/design/host-engine-v1.md section 4 (including 4.7 amendment 2 and 4.8 amendment 3), copied unchanged",
+ "design_doc_sha256_lf": "3e4b14f02fe2445642b6f121018aae3a33a90ae4565d0abc627fdfa0b3242b20",
  "files": {
   "selection_rule.md": {
-   "sha256": "deece958a570ef97790029bf312164de85636e9d98eedb7951e08af94d0449ab"
+   "sha256": "56fefddfaf53d653d644e517f0f815ee67099441b57c11a868dfd1adabc9d6a4"
   },
   "technique_manifest.json": {
    "sha256": "c712a26d7944c201fbcef0028d234acfad712b89bcebc6c45783d535311f4c74"
@@ -31,5 +31,16 @@
   "development-half measurement",
   "report-half measurement"
  ],
- "amendment_rule": "Later changes are dated pre-result amendments citing selection_rule.md sha256 above."
+ "amendment_rule": "Later changes are dated pre-result amendments citing selection_rule.md sha256 above.",
+ "amendments": [
+  {
+   "amendment": 3,
+   "date": "2026-11-24",
+   "section": "4.8",
+   "summary": "per-rule owner review of owner-PC alerts; gate counting unchanged",
+   "previous_selection_rule_sha256": "deece958a570ef97790029bf312164de85636e9d98eedb7951e08af94d0449ab",
+   "selection_rule_sha256": "56fefddfaf53d653d644e517f0f815ee67099441b57c11a868dfd1adabc9d6a4",
+   "measurements_before_amendment": "none"
+  }
+ ]
 }
