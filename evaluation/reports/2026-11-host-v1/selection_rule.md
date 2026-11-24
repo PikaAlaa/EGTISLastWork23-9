@@ -126,3 +126,25 @@ those are silent or ambiguous.
    `evaluation/host_technique_manifest.py` (no sample opened), is frozen together with
    this rule. Samples it cannot label are excluded and counted.
 
+### 4.8 Per-rule owner review (amendment 3, 24 November 2026)
+
+Dated pre-result amendment, approved by the owner and written before any rule was run on
+any benign log or attack sample. It amends the rule frozen as `selection_rule.md` with
+SHA-256 `deece958a570ef97790029bf312164de85636e9d98eedb7951e08af94d0449ab`. It replaces the
+per-alert labelling of §4.4 with per-rule labelling:
+
+1. **Review unit.** The owner reviews alerts per rule, not per alert. For each rule that
+   alerted on the owner's PC, the owner sees a summary (number of alerts, host-days with
+   alerts, alerts outside host-days, level, techniques and the most frequent values of the
+   matched events' fields) and up to 10 example alerts. Examples are chosen without
+   judgement: all alerts if there are 10 or fewer, otherwise 10 spread evenly over the
+   rule's alerts in time order (first and last included).
+2. **Local only.** The summary and examples are shown only on the owner's PC, from ignored
+   `evaluation/local-results/host-v1/`, and are never committed, uploaded or shared.
+3. **One label per rule.** The owner gives one label — `benign_explained`, `unexplained`
+   or `suspected_malicious` — that applies to all of that rule's alerts.
+4. **Split.** If a rule's alerts differ, the owner may split them into groups by alert
+   number and give each group one label. Only the number of alerts per label is committed.
+5. **Gate counting is unchanged.** Each alert takes its rule's (or group's) label, and
+   §4.4, §4.5 and §4.7 count it exactly as before.
+

@@ -115,3 +115,15 @@ def test_frozen_rule_is_the_design_section_at_freeze_time():
     section = design[start:design.index('\n## 5. ', start) + 1]
     frozen = (REPORT / 'selection_rule.md').read_text(encoding='utf-8').replace('\r\n', '\n')
     assert section == frozen
+
+
+def test_amendment_3_cites_the_previous_frozen_rule_hash():
+    freeze = json.loads((REPORT / 'FREEZE.json').read_text(encoding='utf-8'))
+    previous = 'deece958a570ef97790029bf312164de85636e9d98eedb7951e08af94d0449ab'
+    history = freeze['amendments']
+    assert [a['amendment'] for a in history] == [3]
+    assert history[0]['previous_selection_rule_sha256'] == previous
+    assert history[0]['selection_rule_sha256'] == freeze['files']['selection_rule.md']['sha256'] != previous
+    assert history[0]['measurements_before_amendment'] == 'none'
+    rule = (REPORT / 'selection_rule.md').read_text(encoding='utf-8')
+    assert '### 4.8 Per-rule owner review (amendment 3, 24 November 2026)' in rule and previous in rule

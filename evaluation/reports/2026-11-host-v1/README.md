@@ -5,9 +5,14 @@ any EVTX-ATTACK-SAMPLES file or on the owner's logs.
 
 | File | What it is |
 | --- | --- |
-| `selection_rule.md` | §4 of `docs/design/host-engine-v1.md` (with amendment 2, §4.7) copied unchanged |
+| `selection_rule.md` | §4 of `docs/design/host-engine-v1.md` (with amendment 2, §4.7, and amendment 3, §4.8) copied unchanged |
 | `technique_manifest.json` | Expected ATT&CK v20.0 techniques per sample, from sample paths only |
 | `FREEZE.json` | SHA-256 of both files and of the pinned inputs (Sigma lock, samples lock, ATT&CK catalogue, manifest builder) |
+
+Amendment 3 (24 November 2026, still before any measurement): the owner labels owner-PC
+alerts per rule (one label per rule, optional split by alert number) after seeing a local
+summary and up to 10 examples; gate counting is unchanged. `FREEZE.json` records the
+previous rule hash `deece958…49ab` and the new one.
 
 ## Technique manifest
 
@@ -33,3 +38,7 @@ Reproduce: `python evaluation/host_technique_manifest.py` (needs the pinned ATT&
    committed, reported as "one owner PC, one user's habits".
 2. Development-half measurement and selection, then the shipped-rule manifest.
 3. Report-half measurement, once, as exposed development evidence.
+
+## Dated notes
+
+2026-11-25 — Benign measurement window fixed before any results were seen. The current export covers fewer than 7 full host-days. To reach N >= 7, the owner raised the log size caps on 2026-11-25 and will re-export after 2026-11-28T00:00Z. The measurement runs once on that export. Host-days are counted by host_days() in evaluation/host_benign_measure.py (design §4.4) as-is, with no padding, and the window will not be changed after results are seen.
