@@ -64,6 +64,12 @@ data/external/phreshphish/
 # MITRE ATT&CK STIX: pinned by data/attack-lock.json, fetched by data/scripts/fetch_attack.py.
 data/external/attack/
 
+# SigmaHQ rules (DRL 1.1): pinned by data/sigma-lock.json, fetched by data/scripts/fetch_sigma.py.
+data/external/sigma/
+
+# EVTX-ATTACK-SAMPLES (GPL-3.0): pinned by data/evtx-attack-samples-lock.json, fetched by data/scripts/fetch_evtx_samples.py.
+data/external/evtx-attack-samples/
+
 # Local release weights and candidate bundles
 release-artifacts/
 colab-bundle/

@@ -1,0 +1,35 @@
+{
+ "frozen_on": "2026-11-24",
+ "rule_source": "docs/design/host-engine-v1.md section 4 (including 4.7, amendment 2), copied unchanged",
+ "design_doc_sha256_lf": "c337e2c27d194fc4c4904680dfbd6322230de201f5ebf4618b812dffc90abc3e",
+ "files": {
+  "selection_rule.md": {
+   "sha256": "deece958a570ef97790029bf312164de85636e9d98eedb7951e08af94d0449ab"
+  },
+  "technique_manifest.json": {
+   "sha256": "c712a26d7944c201fbcef0028d234acfad712b89bcebc6c45783d535311f4c74"
+  }
+ },
+ "inputs": {
+  "data/sigma-lock.json": {
+   "sha256_lf": "0cfe176d5d9cea7ac3b31fc8476d616fe49d304af0cd601471ded48ffd561686"
+  },
+  "data/evtx-attack-samples-lock.json": {
+   "sha256_lf": "52f72bb1fe3e7df7f67b4435c1db79d593935ed243f7bfbbc36b73491d1c4d4e"
+  },
+  "attack_catalogue": {
+   "file": "enterprise-attack-20.0.json",
+   "sha256": "2339a3c36353d5ee2c07e98af3fafbf00761e0e3979ede06402657445b7b4278"
+  },
+  "evaluation/host_technique_manifest.py": {
+   "sha256_lf": "a383cb92bd8cb733de7fe5170e519312b3d6a4d512b8dab00777f27182b47b50"
+  }
+ },
+ "measurements_before_freeze": "none",
+ "not_yet_done": [
+  "benign owner-PC measurement",
+  "development-half measurement",
+  "report-half measurement"
+ ],
+ "amendment_rule": "Later changes are dated pre-result amendments citing selection_rule.md sha256 above."
+}

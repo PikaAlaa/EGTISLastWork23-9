@@ -23,3 +23,6 @@ docs/data-licences.md whitespace=cr-at-eol
 evaluation/reports/2026-10-v5/** -text whitespace=cr-at-eol
 evaluation/reports/2026-10-v5/check-*.txt -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
 evaluation/time_text_candidates.py -text
+
+# Host v1 frozen rule and technique manifest are referenced by their exact byte hashes.
+evaluation/reports/2026-11-host-v1/** -text
