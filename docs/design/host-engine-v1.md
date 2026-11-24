@@ -428,9 +428,14 @@ pinned Sigma package verify; health reports `rules_missing` or `sigma_backend_un
 
 ## 8. Test plan
 
-1. **Reader:** a tiny, team-made EVTX fixture recorded on a throwaway VM with invented
-   names (for example via `eventcreate`) parses into normalised records. Corrupt and
-   truncated files fail with reason codes. Limits are enforced.
+1. **Reader:** a tiny EVTX fixture with invented names parses into normalised records.
+   Corrupt and truncated files fail with reason codes. Limits are enforced.
+   *Implementation note (24 November 2026):* no team VM exists, so instead of recording
+   the fixture on one, a test-only writer (`backend/tests/evtx_writer.py`) builds valid
+   EVTX files (headers, chunks, template-free binary XML, CRC32s) from invented events at
+   test time; the pinned parser reads them with checksum validation on. No real machine's
+   log is recorded or committed. Template-based records, as Windows writes them, are first
+   exercised by the attack samples.
 2. **Normaliser:** invented event dictionaries for every §1.1 EventID give the expected
    flat fields; the in-memory table is gone after the import.
 3. **Native detections:** table-driven positives and negatives for H1–H13 at their exact
@@ -462,7 +467,7 @@ pinned Sigma package verify; health reports `rules_missing` or `sigma_backend_un
 Each commit runs pytest, database initialization, frontend build and lint. Downloads in
 steps 5 and 6 need the owner's explicit approval first.
 
-1. `feat: evtx reader and event normalisation` — pinned `evtx`, team-made fixture, limits (§8.1–8.2).
+1. `feat: evtx reader and event normalisation` — pinned `evtx`, generated invented fixture, limits (§8.1–8.2).
 2. `feat: host pseudonyms and coverage report` — HMAC key in initialize, locality rules (§8.7).
 3. `feat: native host detections H1-H13` — invented events (§8.3).
 4. `feat: sigma evaluation harness on in-memory sqlite` — pinned pySigma + sqlite backend,
