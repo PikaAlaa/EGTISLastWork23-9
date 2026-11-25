@@ -109,9 +109,15 @@ def test_committed_lock_pins_signature_base_only():
     assert fy.SB_LIST in {e['path'] for e in source['files']}
     assert lock['rule_tree_sha256'] == fy.tree_sha256((e['path'], e['sha256']) for e in source['files'])
     census = lock['census']
-    assert census['rules'] == (census['rules_without_license_field_so_drl_1_1']
-                               + census['rules_with_drl_1_1_license_field'] + census['rules_with_other_license'])
-    assert census['rules_with_other_license'] == len(census['other_license_rules'])
+    field = census['license_field']
+    assert census['rules'] == (field['rules_without_license_field'] + field['rules_with_drl_1_1_license_field']
+                               + field['rules_with_other_license_field'])
+    assert field['rules_with_other_license_field'] == len(field['other_license_rules'])
+    assert set(census['licence_classes']) == set(fy.CLASSES)
+    assert sum(census['licence_classes'].values()) == census['rules']
+    assert census['licence_classes']['non_commercial'] == len(census['non_commercial_rules'])
+    assert census['licence_classes']['unclear'] == len(census['unclear_rules'])
+    assert census['parser'] == fy.PARSER_NOTE and 'file header' in census['parser']
     assert census['external_variable_list']['listed_files_missing'] == []
     (dropped,) = lock['dropped_sources']
     assert dropped['repository'] == 'YARAHQ/yara-forge' and dropped['release'] == '20261108'
@@ -203,20 +209,120 @@ def test_main_reports_removed_files_with_exit_code_2(monkeypatch, capsys):
 def test_census_counts_on_invented_rules():
     census = fy.census_of({p: b.decode() for p, b in FILES.items()})
     assert census['rule_files'] == 2 and census['rules'] == 3
-    assert census['rules_without_license_field_so_drl_1_1'] == 1
-    assert census['rules_with_drl_1_1_license_field'] == 1
-    assert census['other_license_rules'] == [
+    assert census['licence_classes'] == {'drl_1_1': 1, 'other_permissive': 1, 'copyleft': 0, 'non_commercial': 1,
+                                         'unclear': 0}
+    assert census['drl_1_1_by_default'] == 0 and census['drl_1_1_stated'] == 1
+    assert census['non_commercial_rules'] == [{'file': 'yara/invented_a.yar', 'rule': 'Invented_No_Licence'}]
+    assert census['unclear_rules'] == []
+    assert census['comment_blocks_with_commented_out_rules'] == 2
+    field = census['license_field']
+    assert field['rules_without_license_field'] == 1 and field['rules_with_drl_1_1_license_field'] == 1
+    assert field['other_license_rules'] == [
         {'rule': 'Invented_Other_Licence', 'file': 'yara/invented_b.yar', 'license': 'CC BY 4.0'}]
-    assert census['other_license_counts'] == {'CC BY 4.0': 1}
     assert census['rules_with_author_field'] == 2 and census['rules_without_author_field'] == 1
     assert census['external_variable_list'] == {
         'file': fy.SB_LIST, 'entries': 2, 'entries_are': 'rule file names under yara/', 'listed_files_present': 1,
         'listed_files_missing': ['yara/missing_file.yar'], 'rules_in_listed_files': 2}
-    review = census['comment_licence_review']
-    assert review['by_file'] == [{'file': 'yara/invented_a.yar', 'comment_licences': ['CC BY-NC 4.0'], 'rules': 1,
-                                  'rules_without_license_field': 1}]
-    assert review['rules_without_license_field_in_files_with_non_drl_comment_licence'] == 1
     assert fy.census_of({p: b.decode() for p, b in FILES.items()}) == census
+
+
+NC_HEADER_FILE = """/*
+   Invented rule set
+   Author: invented author
+   License: CC BY-NC 4.0 https://creativecommons.org/licenses/by-nc/4.0/
+*/
+
+rule Invented_Header_Covered_One {
+    meta:
+        description = "no license field"
+    condition:
+        filesize < 1
+}
+
+rule Invented_Header_Covered_Two {
+    meta:
+        license = "Detection Rule License 1.1 https://example.com/LICENSE"
+    condition:
+        filesize < 2
+}
+"""
+
+
+def test_header_comment_with_non_commercial_licence_covers_every_rule_in_the_file():
+    rules = fy.rule_licences(NC_HEADER_FILE)
+    assert [(r['name'], r['class']) for r in rules] == [
+        ('Invented_Header_Covered_One', 'non_commercial'),
+        # header NC plus a DRL field on the rule: conflicting statements
+        ('Invented_Header_Covered_Two', 'unclear')]
+    census = fy.census_of({'yara/invented_nc.yar': NC_HEADER_FILE})
+    assert census['licence_classes']['non_commercial'] == 1 and census['licence_classes']['unclear'] == 1
+    assert census['non_commercial_rules'] == [{'file': 'yara/invented_nc.yar', 'rule': 'Invented_Header_Covered_One'}]
+    assert census['unclear_rules'] == [{'file': 'yara/invented_nc.yar', 'rule': 'Invented_Header_Covered_Two',
+                                        'stated': ['drl_1_1', 'non_commercial']}]
+    assert census['files_with_comment_licence_statements'] == 1
+
+
+LOCAL_COMMENTS_FILE = """rule Invented_Default {
+    condition:
+        filesize < 1
+}
+
+// Invented note for the next rule only.
+// License: MIT
+rule Invented_Just_Above {
+    condition:
+        filesize < 2
+}
+
+rule Invented_Inside {
+    // license = "GPL-3.0"
+    condition:
+        filesize < 3
+}
+
+/* licensed separately, see the invented vendor's terms */
+rule Invented_Unclassifiable {
+    condition:
+        filesize < 4
+}
+
+/* License: CC BY-NC 4.0
+rule Invented_Commented_Out { condition: true }
+*/
+rule Invented_After_Commented_Rule {
+    condition:
+        filesize < 5
+}
+"""
+
+
+def test_comments_inside_or_just_above_a_rule_cover_only_that_rule():
+    classes = {r['name']: (r['class'], r['default']) for r in fy.rule_licences(LOCAL_COMMENTS_FILE)}
+    assert classes == {
+        'Invented_Default': ('drl_1_1', True),
+        'Invented_Just_Above': ('other_permissive', False),
+        'Invented_Inside': ('copyleft', False),
+        'Invented_Unclassifiable': ('unclear', False),
+        # a commented-out rule is not a licence statement for its neighbour
+        'Invented_After_Commented_Rule': ('drl_1_1', True),
+    }
+
+
+@pytest.mark.parametrize('value, expected', [
+    ('Detection Rule License 1.1 https://example.com/LICENSE', 'drl_1_1'),
+    ('Detetction Rule License 1.1 (https://example.com/LICENSE)', 'drl_1_1'),
+    ('https://creativecommons.org/licenses/by-nc/4.0/', 'non_commercial'),
+    ('CC BY-NC-SA 4.0', 'non_commercial'),
+    ('GPL', 'copyleft'),
+    ('MIT', 'other_permissive'),
+    ('BSD 2-Clause', 'other_permissive'),
+    ('CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/', 'other_permissive'),
+    ('https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', 'other_permissive'),
+    ('See license at https://example.com/LICENSE.txt', 'unclear'),
+    ('https://example.com/Detection-Rule-License/LICENSE.md', 'unclear'),
+])
+def test_licence_values_are_classified(value, expected):
+    assert fy.classify_value(value) == expected
 
 
 def test_parser_ignores_comments_strings_and_regexes():

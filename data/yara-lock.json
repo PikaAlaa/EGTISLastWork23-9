@@ -4562,253 +4562,586 @@
   "census": {
     "rule_files": 753,
     "rules": 5906,
-    "rules_without_license_field_so_drl_1_1": 2982,
-    "rules_with_drl_1_1_license_field": 2881,
-    "rules_with_other_license": 43,
-    "other_license_counts": {
-      "https://creativecommons.org/licenses/by-nc/4.0/": 12,
-      "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/": 8,
-      "BSD 2-Clause": 6,
-      "See license at https://github.com/volexity/threat-intel/LICENSE.txt": 6,
-      "CC BY 4.0": 4,
-      "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE": 3,
-      "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/": 1,
-      "MIT": 1,
-      "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt": 1,
-      "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md": 1
+    "licence_classes": {
+      "drl_1_1": 5704,
+      "other_permissive": 144,
+      "copyleft": 1,
+      "non_commercial": 32,
+      "unclear": 25
     },
-    "other_license_rules": [
+    "drl_1_1_by_default": 2804,
+    "drl_1_1_stated": 2900,
+    "non_commercial_rules": [
       {
-        "rule": "HvS_APT27_HyperBro_Decrypted_Stage2",
         "file": "yara/apt_apt27_hyperbro.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HvS_APT27_HyperBro_Decrypted_Stage2"
       },
       {
-        "rule": "HvS_APT27_HyperBro_Encrypted_Stage2",
         "file": "yara/apt_apt27_hyperbro.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HvS_APT27_HyperBro_Stage3_C2"
       },
       {
-        "rule": "HvS_APT27_HyperBro_Stage3_C2",
         "file": "yara/apt_apt27_hyperbro.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HvS_APT27_HyperBro_Stage3_Persistence"
       },
       {
-        "rule": "HvS_APT27_HyperBro_Stage3_Persistence",
         "file": "yara/apt_apt27_hyperbro.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HvS_APT27_HyperBro_Encrypted_Stage2"
       },
       {
-        "rule": "APT_MAL_Win_BlueLight",
-        "file": "yara/apt_apt37_bluelight.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_POISONPLUG_3"
       },
       {
-        "rule": "APT_MAL_Win_BlueLight_B",
-        "file": "yara/apt_apt37_bluelight.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_POISONPLUG_SHADOW"
       },
       {
-        "rule": "carbon_metadata",
-        "file": "yara/apt_carbon_paper_turla.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_CRACKSHOT"
       },
       {
-        "rule": "generic_carbon",
-        "file": "yara/apt_carbon_paper_turla.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_POISONPLUG_2"
       },
       {
-        "rule": "MAL_Cisco_LINE_VIPER_AES_Enc_Tasking_Exfil",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_POISONPLUG"
       },
       {
-        "rule": "MAL_Cisco_LINE_VIPER_ICMP_Tasking_Shellcode_Payloads",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_HIGHNOON"
       },
       {
-        "rule": "MAL_Cisco_LINE_VIPER_RSA_Enc_Random_AES_Key_Gen",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_HIGHNOON_2"
       },
       {
-        "rule": "MAL_Cisco_LINE_VIPER_Shellcode_Deobfuscation_Routine",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_HIGHNOON_BIN"
       },
       {
-        "rule": "MAL_Cisco_LINE_VIPER_Shellcode_Initial_Execution",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_HIGHNOON_BIN_2"
       },
       {
-        "rule": "MAL_Cisco_RayInitiator_Stage_1",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_RevokedCert_Aug19_1"
       },
       {
-        "rule": "MAL_Cisco_RayInitiator_Stage_2",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        "file": "yara/apt_apt41.yar",
+        "rule": "APT_APT41_CN_ELF_Speculoos_Backdoor"
       },
       {
-        "rule": "MAL_Cisco_RayInitiator_Stage_3",
-        "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
-        "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-      },
-      {
-        "rule": "MAL_ExileRAT_Feb19_1",
         "file": "yara/apt_exile_rat.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "MAL_ExileRAT_Feb19_1"
       },
       {
-        "rule": "APT_MAL_LNX_Kobalos",
-        "file": "yara/apt_lnx_kobalos.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "MAL_XMR_Miner_May19_1"
       },
       {
-        "rule": "APT_MAL_LNX_Kobalos_SSH_Credential_Stealer",
-        "file": "yara/apt_lnx_kobalos.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "HKTL_CN_ProcHook_May19_1"
       },
       {
-        "rule": "APT_MAL_RU_WIN_Snake_Malware_May23_1",
-        "file": "yara/apt_mal_ru_snake_may23.yar",
-        "license": "MIT"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "SUSP_PDB_CN_Threat_Actor_May19_1"
       },
       {
-        "rule": "APT_MAL_Win_DecRok",
-        "file": "yara/apt_nk_inkysquid.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "MAL_Ramnit_May19_1"
       },
       {
-        "rule": "APT_MAL_Win_RokLoad_Loader",
-        "file": "yara/apt_nk_inkysquid.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "MAL_Parite_Malware_May19_1"
       },
       {
-        "rule": "APT_PY_BlueLight_Loader",
-        "file": "yara/apt_nk_inkysquid.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "MAL_Parite_Malware_May19_2"
       },
       {
-        "rule": "APT_RUBY_RokRat_Loader",
-        "file": "yara/apt_nk_inkysquid.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        "file": "yara/crime_nansh0u.yar",
+        "rule": "EXPL_Strings_CVE_POC_May19_1"
       },
       {
-        "rule": "Prikormka",
-        "file": "yara/apt_prikormka.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/crime_xbash.yar",
+        "rule": "MAL_Xbash_PY_Sep18"
       },
       {
-        "rule": "APT_SharpTongue_JS_SharpExt_Chrome_Extension",
-        "file": "yara/apt_sharptongue.yar",
-        "license": "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt"
+        "file": "yara/crime_xbash.yar",
+        "rule": "MAL_Xbash_SH_Sep18"
       },
       {
-        "rule": "MAL_LNX_SSHDOOR_Triton",
-        "file": "yara/apt_triton_mal_sshdoor.yar",
-        "license": "BSD 2-Clause"
+        "file": "yara/crime_xbash.yar",
+        "rule": "MAL_Xbash_JS_Sep18"
       },
       {
-        "rule": "gen_excel_auto_open_evasion",
         "file": "yara/gen_excel_auto_open_evasion.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "gen_excel_auto_open_evasion"
       },
       {
-        "rule": "gen_Excel_xll_addin_suspicious",
         "file": "yara/gen_excel_xll_addin_suspicious.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "gen_Excel_xll_addin_suspicious"
       },
       {
-        "rule": "gen_excel_xor_obfuscation_velvetsweatshop",
         "file": "yara/gen_excel_xor_obfuscation_velvetsweatshop.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "gen_excel_xor_obfuscation_velvetsweatshop"
       },
       {
-        "rule": "WEBSHELL_Cookie_Post_Obfuscation",
-        "file": "yara/gen_webshells.yar",
-        "license": "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md"
-      },
-      {
-        "rule": "Suspicious_Size_explorer_exe",
-        "file": "yara/generic_anomalies.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
-      },
-      {
-        "rule": "HKTL_NFS_Fuse_NFS",
         "file": "yara/hktl_HvS_nfs_security_tooling.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HKTL_NFS_Fuse_NFS"
       },
       {
-        "rule": "HKTL_NFS_NFS_Analyze",
         "file": "yara/hktl_HvS_nfs_security_tooling.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HKTL_NFS_NFS_Analyze"
       },
       {
-        "rule": "HKTL_AdaptixC2_Beacon_Apr26",
-        "file": "yara/hktl_adaptixc2.yar",
-        "license": "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/"
-      },
-      {
-        "rule": "mal_babbleloader_win_jan24",
-        "file": "yara/mal_babbleloader_win_jan24.yar",
-        "license": "CC BY 4.0"
-      },
-      {
-        "rule": "mal_lockbit4_hashing_alg_win_feb24",
-        "file": "yara/mal_lockbit4_hashing_alg_win_feb24.yar",
-        "license": "CC BY 4.0"
-      },
-      {
-        "rule": "mal_lockbit4_packed_feb24",
-        "file": "yara/mal_lockbit4_packed_win_feb24.yar",
-        "license": "CC BY 4.0"
-      },
-      {
-        "rule": "mal_lockbit4_rc4_win_feb24",
-        "file": "yara/mal_lockbit4_rc4_win_feb24.yar",
-        "license": "CC BY 4.0"
-      },
-      {
-        "rule": "MAL_QakBotAntiVM_AntiVM_Bypass_Feb23",
-        "file": "yara/mal_qbot_feb23.yar",
-        "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
-      },
-      {
-        "rule": "MAL_QakBotLoader_Export_Section_Feb23",
-        "file": "yara/mal_qbot_feb23.yar",
-        "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
-      },
-      {
-        "rule": "MAL_QakBot_ConfigExtraction_Feb23",
-        "file": "yara/mal_qbot_feb23.yar",
-        "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
-      },
-      {
-        "rule": "HKTL_Lazagne_Gen_18",
         "file": "yara/thor-hacktools.yar",
-        "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        "rule": "HKTL_Lazagne_Gen_18"
       }
     ],
-    "license_field_values": {
-      "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE": 2875,
-      "https://creativecommons.org/licenses/by-nc/4.0/": 12,
-      "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/": 8,
-      "BSD 2-Clause": 6,
-      "Detection Rule License 1.1 https://github.com/SigmaHQ/Detection-Rule-License": 6,
-      "See license at https://github.com/volexity/threat-intel/LICENSE.txt": 6,
-      "CC BY 4.0": 4,
-      "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE": 3,
-      "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/": 1,
-      "MIT": 1,
-      "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt": 1,
-      "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md": 1
+    "unclear_rules": [
+      {
+        "file": "yara/apt_apt37_bluelight.yar",
+        "rule": "APT_MAL_Win_BlueLight_B",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_apt37_bluelight.yar",
+        "rule": "APT_MAL_Win_BlueLight",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_nk_inkysquid.yar",
+        "rule": "APT_RUBY_RokRat_Loader",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_nk_inkysquid.yar",
+        "rule": "APT_PY_BlueLight_Loader",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_nk_inkysquid.yar",
+        "rule": "APT_MAL_Win_DecRok",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_nk_inkysquid.yar",
+        "rule": "APT_MAL_Win_RokLoad_Loader",
+        "stated": [
+          "other_permissive",
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_sharptongue.yar",
+        "rule": "APT_SharpTongue_JS_SharpExt_Chrome_Extension",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Backdoor_SUNBURST_1",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Backdoor_SUNBURST_2",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Webshell_SUPERNOVA_1",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Webshell_SUPERNOVA_2",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_HackTool_PS1_COSMICGALE_1",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Dropper_Raw64_TEARDROP_1",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/apt_solarwinds_sunburst.yar",
+        "rule": "APT_Dropper_Win64_TEARDROP_1",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/crime_malware_generic.yar",
+        "rule": "IsmDoor_Jul17_A2",
+        "stated": [
+          "drl_1_1",
+          "non_commercial"
+        ]
+      },
+      {
+        "file": "yara/gen_loaders.yar",
+        "rule": "Reflective_DLL_Loader_Aug17_1",
+        "stated": [
+          "copyleft",
+          "drl_1_1"
+        ]
+      },
+      {
+        "file": "yara/gen_loaders.yar",
+        "rule": "DLL_Injector_Lynx",
+        "stated": [
+          "copyleft",
+          "drl_1_1"
+        ]
+      },
+      {
+        "file": "yara/gen_loaders.yar",
+        "rule": "Reflective_DLL_Loader_Aug17_2",
+        "stated": [
+          "copyleft",
+          "drl_1_1"
+        ]
+      },
+      {
+        "file": "yara/gen_loaders.yar",
+        "rule": "Reflective_DLL_Loader_Aug17_3",
+        "stated": [
+          "copyleft",
+          "drl_1_1"
+        ]
+      },
+      {
+        "file": "yara/gen_loaders.yar",
+        "rule": "Reflective_DLL_Loader_Aug17_4",
+        "stated": [
+          "copyleft",
+          "drl_1_1"
+        ]
+      },
+      {
+        "file": "yara/gen_webshells.yar",
+        "rule": "WEBSHELL_Cookie_Post_Obfuscation",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/generic_anomalies.yar",
+        "rule": "Suspicious_Size_explorer_exe",
+        "stated": [
+          "drl_1_1",
+          "non_commercial"
+        ]
+      },
+      {
+        "file": "yara/mal_qbot_feb23.yar",
+        "rule": "MAL_QakBot_ConfigExtraction_Feb23",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/mal_qbot_feb23.yar",
+        "rule": "MAL_QakBotLoader_Export_Section_Feb23",
+        "stated": [
+          "unclear"
+        ]
+      },
+      {
+        "file": "yara/mal_qbot_feb23.yar",
+        "rule": "MAL_QakBotAntiVM_AntiVM_Bypass_Feb23",
+        "stated": [
+          "unclear"
+        ]
+      }
+    ],
+    "files_with_comment_licence_statements": 23,
+    "comment_blocks_with_commented_out_rules": 51,
+    "license_field": {
+      "rules_without_license_field": 2982,
+      "rules_with_drl_1_1_license_field": 2881,
+      "rules_with_other_license_field": 43,
+      "other_license_counts": {
+        "https://creativecommons.org/licenses/by-nc/4.0/": 12,
+        "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/": 8,
+        "BSD 2-Clause": 6,
+        "See license at https://github.com/volexity/threat-intel/LICENSE.txt": 6,
+        "CC BY 4.0": 4,
+        "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE": 3,
+        "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/": 1,
+        "MIT": 1,
+        "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt": 1,
+        "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md": 1
+      },
+      "other_license_rules": [
+        {
+          "rule": "HvS_APT27_HyperBro_Decrypted_Stage2",
+          "file": "yara/apt_apt27_hyperbro.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HvS_APT27_HyperBro_Encrypted_Stage2",
+          "file": "yara/apt_apt27_hyperbro.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HvS_APT27_HyperBro_Stage3_C2",
+          "file": "yara/apt_apt27_hyperbro.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HvS_APT27_HyperBro_Stage3_Persistence",
+          "file": "yara/apt_apt27_hyperbro.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "APT_MAL_Win_BlueLight",
+          "file": "yara/apt_apt37_bluelight.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "APT_MAL_Win_BlueLight_B",
+          "file": "yara/apt_apt37_bluelight.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "carbon_metadata",
+          "file": "yara/apt_carbon_paper_turla.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "generic_carbon",
+          "file": "yara/apt_carbon_paper_turla.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "MAL_Cisco_LINE_VIPER_AES_Enc_Tasking_Exfil",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_LINE_VIPER_ICMP_Tasking_Shellcode_Payloads",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_LINE_VIPER_RSA_Enc_Random_AES_Key_Gen",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_LINE_VIPER_Shellcode_Deobfuscation_Routine",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_LINE_VIPER_Shellcode_Initial_Execution",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_RayInitiator_Stage_1",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_RayInitiator_Stage_2",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_Cisco_RayInitiator_Stage_3",
+          "file": "yara/apt_cisco_asa_lineviper_rayinitiator_sep25.yar",
+          "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        },
+        {
+          "rule": "MAL_ExileRAT_Feb19_1",
+          "file": "yara/apt_exile_rat.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "APT_MAL_LNX_Kobalos",
+          "file": "yara/apt_lnx_kobalos.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "APT_MAL_LNX_Kobalos_SSH_Credential_Stealer",
+          "file": "yara/apt_lnx_kobalos.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "APT_MAL_RU_WIN_Snake_Malware_May23_1",
+          "file": "yara/apt_mal_ru_snake_may23.yar",
+          "license": "MIT"
+        },
+        {
+          "rule": "APT_MAL_Win_DecRok",
+          "file": "yara/apt_nk_inkysquid.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "APT_MAL_Win_RokLoad_Loader",
+          "file": "yara/apt_nk_inkysquid.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "APT_PY_BlueLight_Loader",
+          "file": "yara/apt_nk_inkysquid.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "APT_RUBY_RokRat_Loader",
+          "file": "yara/apt_nk_inkysquid.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/LICENSE.txt"
+        },
+        {
+          "rule": "Prikormka",
+          "file": "yara/apt_prikormka.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "APT_SharpTongue_JS_SharpExt_Chrome_Extension",
+          "file": "yara/apt_sharptongue.yar",
+          "license": "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt"
+        },
+        {
+          "rule": "MAL_LNX_SSHDOOR_Triton",
+          "file": "yara/apt_triton_mal_sshdoor.yar",
+          "license": "BSD 2-Clause"
+        },
+        {
+          "rule": "gen_excel_auto_open_evasion",
+          "file": "yara/gen_excel_auto_open_evasion.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "gen_Excel_xll_addin_suspicious",
+          "file": "yara/gen_excel_xll_addin_suspicious.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "gen_excel_xor_obfuscation_velvetsweatshop",
+          "file": "yara/gen_excel_xor_obfuscation_velvetsweatshop.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "WEBSHELL_Cookie_Post_Obfuscation",
+          "file": "yara/gen_webshells.yar",
+          "license": "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md"
+        },
+        {
+          "rule": "Suspicious_Size_explorer_exe",
+          "file": "yara/generic_anomalies.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HKTL_NFS_Fuse_NFS",
+          "file": "yara/hktl_HvS_nfs_security_tooling.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HKTL_NFS_NFS_Analyze",
+          "file": "yara/hktl_HvS_nfs_security_tooling.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        {
+          "rule": "HKTL_AdaptixC2_Beacon_Apr26",
+          "file": "yara/hktl_adaptixc2.yar",
+          "license": "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/"
+        },
+        {
+          "rule": "mal_babbleloader_win_jan24",
+          "file": "yara/mal_babbleloader_win_jan24.yar",
+          "license": "CC BY 4.0"
+        },
+        {
+          "rule": "mal_lockbit4_hashing_alg_win_feb24",
+          "file": "yara/mal_lockbit4_hashing_alg_win_feb24.yar",
+          "license": "CC BY 4.0"
+        },
+        {
+          "rule": "mal_lockbit4_packed_feb24",
+          "file": "yara/mal_lockbit4_packed_win_feb24.yar",
+          "license": "CC BY 4.0"
+        },
+        {
+          "rule": "mal_lockbit4_rc4_win_feb24",
+          "file": "yara/mal_lockbit4_rc4_win_feb24.yar",
+          "license": "CC BY 4.0"
+        },
+        {
+          "rule": "MAL_QakBotAntiVM_AntiVM_Bypass_Feb23",
+          "file": "yara/mal_qbot_feb23.yar",
+          "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
+        },
+        {
+          "rule": "MAL_QakBotLoader_Export_Section_Feb23",
+          "file": "yara/mal_qbot_feb23.yar",
+          "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
+        },
+        {
+          "rule": "MAL_QakBot_ConfigExtraction_Feb23",
+          "file": "yara/mal_qbot_feb23.yar",
+          "license": "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE"
+        },
+        {
+          "rule": "HKTL_Lazagne_Gen_18",
+          "file": "yara/thor-hacktools.yar",
+          "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+        }
+      ],
+      "values": {
+        "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE": 2875,
+        "https://creativecommons.org/licenses/by-nc/4.0/": 12,
+        "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/": 8,
+        "BSD 2-Clause": 6,
+        "Detection Rule License 1.1 https://github.com/SigmaHQ/Detection-Rule-License": 6,
+        "See license at https://github.com/volexity/threat-intel/LICENSE.txt": 6,
+        "CC BY 4.0": 4,
+        "https://github.com/kevoreilly/CAPEv2/blob/master/LICENSE": 3,
+        "CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/": 1,
+        "MIT": 1,
+        "See license at https://github.com/volexity/threat-intel/blob/main/LICENSE.txt": 1,
+        "https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md": 1
+      },
+      "rules_with_more_than_one_license_field": 0
     },
-    "rules_with_more_than_one_license_field": 0,
     "rules_with_author_field": 5864,
     "rules_without_author_field": 42,
     "external_variable_list": {
@@ -4819,260 +5152,6 @@
       "listed_files_missing": [],
       "rules_in_listed_files": 649
     },
-    "comment_licence_review": {
-      "note": "Licence wording found only in comments (for example a file header). Not applied to the counts above, which follow the rule \"no license field = DRL 1.1\"; listed for owner review.",
-      "files": 30,
-      "rules_without_license_field_in_files_with_non_drl_comment_licence": 154,
-      "by_file": [
-        {
-          "file": "yara/apt_apt10.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 1,
-          "rules_without_license_field": 1
-        },
-        {
-          "file": "yara/apt_apt30_backspace.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 55,
-          "rules_without_license_field": 2
-        },
-        {
-          "file": "yara/apt_apt37_bluelight.yar",
-          "comment_licences": [
-            "BSD 2-Clause",
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 2,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/apt_apt41.yar",
-          "comment_licences": [
-            "CC BY-NC 4.0"
-          ],
-          "rules": 11,
-          "rules_without_license_field": 11
-        },
-        {
-          "file": "yara/apt_backdoor_sunburst_fnv1a_experimental.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 1,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/apt_carbon_paper_turla.yar",
-          "comment_licences": [
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 2,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/apt_cobaltstrike.yar",
-          "comment_licences": [
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 5,
-          "rules_without_license_field": 5
-        },
-        {
-          "file": "yara/apt_greyenergy.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 5,
-          "rules_without_license_field": 5
-        },
-        {
-          "file": "yara/apt_lazarus_dec20.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 6,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/apt_lnx_kobalos.yar",
-          "comment_licences": [
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 2,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/apt_nk_inkysquid.yar",
-          "comment_licences": [
-            "BSD 2-Clause",
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 6,
-          "rules_without_license_field": 2
-        },
-        {
-          "file": "yara/apt_prikormka.yar",
-          "comment_licences": [
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 4,
-          "rules_without_license_field": 3
-        },
-        {
-          "file": "yara/apt_pulsesecure.yar",
-          "comment_licences": [
-            "BSD 2-Clause",
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 14,
-          "rules_without_license_field": 14
-        },
-        {
-          "file": "yara/apt_royalroad.yar",
-          "comment_licences": [
-            "MIT"
-          ],
-          "rules": 9,
-          "rules_without_license_field": 9
-        },
-        {
-          "file": "yara/apt_solarwinds_sunburst.yar",
-          "comment_licences": [
-            "FireEye licence (sunburst_countermeasures)"
-          ],
-          "rules": 7,
-          "rules_without_license_field": 7
-        },
-        {
-          "file": "yara/apt_triton_mal_sshdoor.yar",
-          "comment_licences": [
-            "BSD 2-Clause",
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 1,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/crime_malware_generic.yar",
-          "comment_licences": [
-            "CC BY-NC-SA 4.0"
-          ],
-          "rules": 4,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/crime_nansh0u.yar",
-          "comment_licences": [
-            "CC BY-NC 4.0"
-          ],
-          "rules": 7,
-          "rules_without_license_field": 7
-        },
-        {
-          "file": "yara/crime_xbash.yar",
-          "comment_licences": [
-            "CC BY-NC 4.0"
-          ],
-          "rules": 3,
-          "rules_without_license_field": 3
-        },
-        {
-          "file": "yara/gen_gcti_cobaltstrike.yar",
-          "comment_licences": [
-            "Apache-2.0"
-          ],
-          "rules": 88,
-          "rules_without_license_field": 88
-        },
-        {
-          "file": "yara/gen_gcti_sliver.yar",
-          "comment_licences": [
-            "Apache-2.0"
-          ],
-          "rules": 2,
-          "rules_without_license_field": 2
-        },
-        {
-          "file": "yara/gen_github_net_redteam_tools_guids.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 315,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/gen_github_net_redteam_tools_names.yar",
-          "comment_licences": [
-            "CC BY-NC 4.0",
-            "DRL 1.1"
-          ],
-          "rules": 51,
-          "rules_without_license_field": 1
-        },
-        {
-          "file": "yara/gen_loaders.yar",
-          "comment_licences": [
-            "GPL"
-          ],
-          "rules": 6,
-          "rules_without_license_field": 1
-        },
-        {
-          "file": "yara/gen_rtf_malver_objects.yar",
-          "comment_licences": [
-            "BSD 2-Clause",
-            "BSD-style (redistribution conditions)"
-          ],
-          "rules": 1,
-          "rules_without_license_field": 1
-        },
-        {
-          "file": "yara/general_cloaking.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 9,
-          "rules_without_license_field": 0
-        },
-        {
-          "file": "yara/generic_anomalies.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 24,
-          "rules_without_license_field": 8
-        },
-        {
-          "file": "yara/generic_dumps.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 3,
-          "rules_without_license_field": 1
-        },
-        {
-          "file": "yara/thor-hacktools.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 238,
-          "rules_without_license_field": 59
-        },
-        {
-          "file": "yara/thor_inverse_matches.yar",
-          "comment_licences": [
-            "DRL 1.1"
-          ],
-          "rules": 29,
-          "rules_without_license_field": 12
-        }
-      ]
-    },
-    "drl_classification": "a license value counts as DRL 1.1 if it contains 'DRL 1.1'/'DRL-1.1', or 'Detection Rule License' and '1.1' (case-insensitive)",
-    "parser": "meta key/value pairs read by data/scripts/fetch_yara.py parse_rules(); comments ignored; rules are not compiled"
+    "parser": "Rules and meta key/value pairs are read by data/scripts/fetch_yara.py parse_rules() without compiling. Licence statements come from each rule's license meta values and from comments. A comment covers: every rule in the file if it ends before the first rule (file header); the rule it sits inside; or the rule it sits just above (only whitespace or other comments between them). Comment lines or blocks separated only by whitespace form one comment, except that a comment containing a rule declaration is never merged. Comments that contain a rule declaration (commented-out rules) are not licence statements and stop the \"just above\" walk. In a comment, a \"License: X\" / \"license = X\" line is classified like a meta value, and free text is matched for NC, GNU GPL, BSD, Apache-2.0, MIT and DRL 1.1 wording; a comment that mentions a licence but matches nothing is unclear. Values are classified in this order: non_commercial (by-nc, NC, non-commercial), copyleft (GPL family), drl_1_1 (DRL 1.1 named with its version), other_permissive (MIT, BSD, Apache, CC BY, UK Open Government Licence), otherwise unclear (for example a bare link to a licence file, or DRL without a version). A rule with no statement is drl_1_1 by default; one class is that class; two or more classes are unclear (conflict)."
   }
 }

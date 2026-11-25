@@ -160,13 +160,15 @@ SECTION = re.compile(r'(?<![A-Za-z0-9_])(meta|strings|condition)\s*:')
 META_PAIR = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)\s*=\s*("(?:[^"\\\n]|\\.)*"|-?\d+|true|false)')
 
 
-def _skeleton(text: str) -> tuple[str, str]:
-    """Return (without comments, skeleton). The skeleton also blanks string and regex contents.
+def _skeleton(text: str) -> tuple[str, str, list[tuple[int, int]]]:
+    """Return (without comments, skeleton, comment spans).
 
-    YARA divides with a backslash, so a single '/' outside strings and comments starts a regex.
+    The skeleton also blanks string and regex contents. Comment spans are (start, end) offsets,
+    end exclusive, one per `//` line or `/* */` block. YARA divides with a backslash, so a single
+    '/' outside strings and comments starts a regex.
     """
-    clean, skeleton = list(text), list(text)
-    i, n, state = 0, len(text), 'code'
+    clean, skeleton, spans = list(text), list(text), []
+    i, n, state, start = 0, len(text), 'code', 0
     while i < n:
         c = text[i]
         nxt = text[i + 1] if i + 1 < n else ''
@@ -174,10 +176,10 @@ def _skeleton(text: str) -> tuple[str, str]:
             if c == '"':
                 state = 'string'
             elif c == '/' and nxt == '/':
-                state = 'line'
+                state, start = 'line', i
                 continue
             elif c == '/' and nxt == '*':
-                state = 'block'
+                state, start = 'block', i
                 clean[i] = skeleton[i] = clean[i + 1] = skeleton[i + 1] = ' '
                 i += 2
                 continue
@@ -199,6 +201,7 @@ def _skeleton(text: str) -> tuple[str, str]:
         elif state == 'line':
             if c == '\n':
                 state = 'code'
+                spans.append((start, i))
             else:
                 clean[i] = skeleton[i] = ' '
             i += 1
@@ -206,17 +209,20 @@ def _skeleton(text: str) -> tuple[str, str]:
             if c == '*' and nxt == '/':
                 clean[i] = skeleton[i] = clean[i + 1] = skeleton[i + 1] = ' '
                 state = 'code'
+                spans.append((start, i + 2))
                 i += 2
                 continue
             if c != '\n':
                 clean[i] = skeleton[i] = ' '
             i += 1
-    return ''.join(clean), ''.join(skeleton)
+    if state in ('line', 'block'):
+        spans.append((start, n))
+    return ''.join(clean), ''.join(skeleton), spans
 
 
 def parse_rules(text: str) -> list[dict]:
-    """Rule names and meta key/value pairs; nothing is compiled or evaluated."""
-    clean, skeleton = _skeleton(text)
+    """Rule names, offsets and meta key/value pairs; nothing is compiled or evaluated."""
+    clean, skeleton, _ = _skeleton(text)
     rules, position = [], 0
     while True:
         header = RULE_HEADER.search(skeleton, position)
@@ -239,33 +245,116 @@ def parse_rules(text: str) -> list[dict]:
             stop = sections[index + 1].start() if index + 1 < len(sections) else body_end
             for key, value in META_PAIR.findall(clean[section.end():stop]):
                 meta.append((key, value[1:-1] if value.startswith('"') else value))
-        rules.append({'name': header.group(2), 'meta': meta})
+        rules.append({'name': header.group(2), 'meta': meta, 'start': header.start(), 'end': body_end + 1})
         position = body_end + 1
     return rules
 
 
-COMMENT_LICENCES = (  # (label, pattern) for licence wording found inside comments
-    ('CC BY-NC-SA 4.0', re.compile(r'by-nc-sa', re.I)),
-    ('CC BY-NC 4.0', re.compile(r'by-nc(?!-sa)|CC BY-NC(?!-SA)', re.I)),
-    ('BSD 2-Clause', re.compile(r'2-Clause BSD|BSD 2-Clause', re.I)),
-    ('BSD-style (redistribution conditions)', re.compile(r'Redistributions of source code must retain', re.I)),
-    ('Apache-2.0', re.compile(r'Apache License,? Version 2\.0', re.I)),
-    ('MIT', re.compile(r'\bMIT License\b')),
-    ('GPL', re.compile(r'License:\s*GPL\b')),
-    ('FireEye licence (sunburst_countermeasures)', re.compile(r'sunburst_countermeasures/blob/main/LICENSE', re.I)),
-    ('DRL 1.1', re.compile(r'Det\w*ction Rule License 1\.1', re.I)),
+# ---------------------------------------------------------------- licence classification
+
+CLASSES = ('drl_1_1', 'other_permissive', 'copyleft', 'non_commercial', 'unclear')
+NON_COMMERCIAL = re.compile(r'by-nc|\bnc\b|non-?commercial', re.I)
+COPYLEFT = re.compile(r'\b[al]?gpl\b|gnu (?:lesser |affero )?general public licen[cs]e', re.I)
+DRL = re.compile(r'\bdrl[ -]?1\.1\b|det\w*ction rule licen[cs]e,?\s*(?:version\s*)?1\.1', re.I)
+PERMISSIVE = re.compile(r'\bmit\b|\bbsd\b|apache|creativecommons\.org/licenses/by/|\bcc[ -]by\b(?![ -](?:nc|sa|nd))'
+                        r'|open[- ]government[- ]licen[cs]e', re.I)
+# Free-text licence wording inside a comment (besides "License: ..." / "license = ..." lines).
+COMMENT_TEXT = (
+    ('non_commercial', re.compile(r'by-nc|non-?commercial', re.I)),
+    ('copyleft', re.compile(r'gnu (?:lesser |affero )?general public licen[cs]e', re.I)),
+    ('other_permissive', re.compile(r'2-Clause BSD|BSD 2-Clause|Redistributions of source code must retain'
+                                    r'|Apache License,? Version 2\.0|\bMIT License\b', re.I)),
+    ('drl_1_1', DRL),
+)
+COMMENT_STATEMENT = re.compile(r'(?im)^[\s/*#-]*licen[cs]e\s*[:=]\s*(.+?)\s*$')
+LICENCE_WORD = re.compile(r'\blicen[cs]e[ds]?\b', re.I)
+PARSER_NOTE = (
+    'Rules and meta key/value pairs are read by data/scripts/fetch_yara.py parse_rules() without compiling. '
+    'Licence statements come from each rule\'s license meta values and from comments. A comment covers: every '
+    'rule in the file if it ends before the first rule (file header); the rule it sits inside; or the rule it '
+    'sits just above (only whitespace or other comments between them). Comment lines or blocks separated only '
+    'by whitespace form one comment, except that a comment containing a rule declaration is never merged. Comments that contain a rule declaration '
+    '(commented-out rules) are not licence statements and stop the "just above" walk. In a comment, a '
+    '"License: X" / "license = X" line is classified like a meta value, and free text is matched for NC, GNU '
+    'GPL, BSD, Apache-2.0, MIT and DRL 1.1 wording; a comment that mentions a licence but matches nothing is '
+    'unclear. Values are classified in this order: non_commercial (by-nc, NC, non-commercial), copyleft (GPL '
+    'family), drl_1_1 (DRL 1.1 named with its version), other_permissive (MIT, BSD, Apache, CC BY, UK Open '
+    'Government Licence), otherwise unclear (for example a bare link to a licence file, or DRL without a '
+    'version). A rule with no statement is drl_1_1 by default; one class is that class; two or more classes '
+    'are unclear (conflict).'
 )
 
 
-def comment_text(text: str) -> str:
-    """Only the characters that are inside comments (newlines kept)."""
-    clean, _ = _skeleton(text)
-    return ''.join(a if a != b else ('\n' if a == '\n' else ' ') for a, b in zip(text, clean))
+def classify_value(value: str) -> str:
+    if NON_COMMERCIAL.search(value):
+        return 'non_commercial'
+    if COPYLEFT.search(value):
+        return 'copyleft'
+    if DRL.search(value):
+        return 'drl_1_1'
+    if PERMISSIVE.search(value):
+        return 'other_permissive'
+    return 'unclear'
 
 
-def comment_licences(text: str) -> list[str]:
-    comments = comment_text(text)
-    return [label for label, pattern in COMMENT_LICENCES if pattern.search(comments)]
+def comment_classes(comment: str) -> set[str]:
+    """Licence classes stated in one comment; empty when it says nothing about a licence."""
+    found = {classify_value(value) for value in COMMENT_STATEMENT.findall(comment)}
+    found |= {label for label, pattern in COMMENT_TEXT if pattern.search(comment)}
+    if not found and LICENCE_WORD.search(comment):
+        found.add('unclear')
+    return found
+
+
+def comment_blocks(text: str) -> list[tuple[int, int]]:
+    """Comment spans, with neighbours separated only by whitespace merged into one block.
+
+    A span that contains a rule declaration (a commented-out rule) is never merged.
+    """
+    blocks, previous_rule = [], True
+    for start, end in _skeleton(text)[2]:
+        is_rule = bool(RULE_HEADER.search(text[start:end]))
+        merge = blocks and not is_rule and not previous_rule and not text[blocks[-1][1]:start].strip()
+        previous_rule = is_rule
+        if merge:
+            blocks[-1] = (blocks[-1][0], end)
+        else:
+            blocks.append((start, end))
+    return blocks
+
+
+def rule_licences(text: str) -> list[dict]:
+    """Each rule with its licence class and the classes of the statements that cover it."""
+    rules = parse_rules(text)
+    if not rules:
+        return []
+    comments = []
+    for start, end in comment_blocks(text):
+        body = text[start:end]
+        commented_rule = bool(RULE_HEADER.search(body))
+        comments.append({'start': start, 'end': end, 'rule': commented_rule,
+                         'classes': set() if commented_rule else comment_classes(body)})
+    header = set().union(*(c['classes'] for c in comments if c['end'] <= rules[0]['start']))
+    out = []
+    for rule in rules:
+        stated = set(header)
+        stated |= {cls for value in _values(rule['meta'], 'license') for cls in [classify_value(value)]}
+        for c in comments:
+            if c['start'] >= rule['start'] and c['end'] <= rule['end']:
+                stated |= c['classes']
+        boundary = rule['start']
+        for c in reversed([c for c in comments if c['end'] <= rule['start']]):
+            if text[c['end']:boundary].strip() or c['rule']:
+                break
+            stated |= c['classes']
+            boundary = c['start']
+        if not stated:
+            cls, default = 'drl_1_1', True
+        else:
+            cls, default = (next(iter(stated)) if len(stated) == 1 else 'unclear'), False
+        out.append({'name': rule['name'], 'meta': rule['meta'], 'class': cls, 'default': default,
+                    'stated': sorted(stated)})
+    return out
 
 
 def _values(meta, key):
@@ -273,8 +362,7 @@ def _values(meta, key):
 
 
 def is_drl_11(value: str) -> bool:
-    text = value.lower()
-    return bool(re.search(r'\bdrl[ -]?1\.1\b', text)) or ('detection rule license' in text and '1.1' in text)
+    return bool(DRL.search(value))
 
 
 def _sorted_counts(counter: Counter) -> dict:
@@ -285,19 +373,26 @@ def census_of(files: dict[str, str]) -> dict:
     """Counts only. `files` maps relative path -> text (rule files and the external-variable list)."""
     licences, other, rules, with_author, multi = Counter(), [], 0, 0, 0
     without_licence = drl_field = 0
-    rules_per_file, comment_files = {}, []
+    classes, drl_default = Counter({name: 0 for name in CLASSES}), 0
+    non_commercial, unclear, files_with_comment_statements, commented_out = [], [], 0, 0
+    rules_per_file = {}
     for path in sorted(files):
         if not path.endswith(RULE_SUFFIXES):
             continue
-        parsed = parse_rules(files[path])
+        text = files[path]
+        parsed = rule_licences(text)
         rules_per_file[path] = len(parsed)
-        labels = comment_licences(files[path])
-        no_field = sum(1 for rule in parsed if not _values(rule['meta'], 'license'))
-        if labels:
-            comment_files.append({'file': path, 'comment_licences': labels, 'rules': len(parsed),
-                                  'rules_without_license_field': no_field})
+        bodies = [text[s:e] for s, e in comment_blocks(text)]
+        commented_out += sum(1 for body in bodies if RULE_HEADER.search(body))
+        files_with_comment_statements += any(comment_classes(b) for b in bodies if not RULE_HEADER.search(b))
         for rule in parsed:
             rules += 1
+            classes[rule['class']] += 1
+            drl_default += rule['default']
+            if rule['class'] == 'non_commercial':
+                non_commercial.append({'file': path, 'rule': rule['name']})
+            elif rule['class'] == 'unclear':
+                unclear.append({'file': path, 'rule': rule['name'], 'stated': rule['stated']})
             values = _values(rule['meta'], 'license')
             with_author += bool(_values(rule['meta'], 'author'))
             multi += len(values) > 1
@@ -317,13 +412,22 @@ def census_of(files: dict[str, str]) -> dict:
     return {
         'rule_files': len(rules_per_file),
         'rules': rules,
-        'rules_without_license_field_so_drl_1_1': without_licence,
-        'rules_with_drl_1_1_license_field': drl_field,
-        'rules_with_other_license': len(other),
-        'other_license_counts': _sorted_counts(other_licences),
-        'other_license_rules': sorted(other, key=lambda r: (r['file'], r['rule'])),
-        'license_field_values': _sorted_counts(licences),
-        'rules_with_more_than_one_license_field': multi,
+        'licence_classes': {name: classes[name] for name in CLASSES},
+        'drl_1_1_by_default': drl_default,
+        'drl_1_1_stated': classes['drl_1_1'] - drl_default,
+        'non_commercial_rules': non_commercial,
+        'unclear_rules': unclear,
+        'files_with_comment_licence_statements': files_with_comment_statements,
+        'comment_blocks_with_commented_out_rules': commented_out,
+        'license_field': {
+            'rules_without_license_field': without_licence,
+            'rules_with_drl_1_1_license_field': drl_field,
+            'rules_with_other_license_field': len(other),
+            'other_license_counts': _sorted_counts(other_licences),
+            'other_license_rules': sorted(other, key=lambda r: (r['file'], r['rule'])),
+            'values': _sorted_counts(licences),
+            'rules_with_more_than_one_license_field': multi,
+        },
         'rules_with_author_field': with_author,
         'rules_without_author_field': rules - with_author,
         'external_variable_list': {
@@ -334,19 +438,7 @@ def census_of(files: dict[str, str]) -> dict:
             'listed_files_missing': sorted(set(listed_paths) - set(present)),
             'rules_in_listed_files': sum(rules_per_file[p] for p in present),
         },
-        'comment_licence_review': {
-            'note': 'Licence wording found only in comments (for example a file header). Not applied to the counts '
-                    'above, which follow the rule "no license field = DRL 1.1"; listed for owner review.',
-            'files': len(comment_files),
-            'rules_without_license_field_in_files_with_non_drl_comment_licence': sum(
-                f['rules_without_license_field'] for f in comment_files
-                if any(label != 'DRL 1.1' for label in f['comment_licences'])),
-            'by_file': comment_files,
-        },
-        'drl_classification': "a license value counts as DRL 1.1 if it contains 'DRL 1.1'/'DRL-1.1', or "
-                              "'Detection Rule License' and '1.1' (case-insensitive)",
-        'parser': 'meta key/value pairs read by data/scripts/fetch_yara.py parse_rules(); comments ignored; '
-                  'rules are not compiled',
+        'parser': PARSER_NOTE,
     }
 
 
