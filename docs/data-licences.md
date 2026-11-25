@@ -131,9 +131,11 @@ Licence/terms: read from each package's PyPI metadata for the pinned version on 
 | httpx2 | 2.16.0 | 2026-10-21 | BSD-3-Clause | permissive |
 | kiwisolver | 1.5.1 | 2026-08-28 | BSD | permissive |
 | mscerts | 2026.10.27 | 2026-10-27 | MPL-2.0 | **weak copyleft (MPL-2.0, file-level)** |
-| oscrypto | 1.3.0 | 2022-03-18 | MIT | permissive |
+| oscrypto | git commit `1547f535001ba568b239b8797465536759c742a3` (package version 1.3.0) | commit 2023-08-23 | MIT (repository licence, GitHub API) | permissive |
 | pillow | 13.0.0 | 2026-10-16 | MIT-CMU | permissive |
 | truststore | 0.10.5 | 2026-10-12 | MIT | permissive |
+
+oscrypto is installed from upstream commit [wbond/oscrypto@1547f535](https://github.com/wbond/oscrypto/tree/1547f535001ba568b239b8797465536759c742a3) (2023-08-23) instead of PyPI 1.3.0. On Linux, oscrypto finds libcrypto's version with a regex, and 1.3.0's regex (`\b(\d\.\d\.\d[a-z]*)\b`) cannot parse a version with a two-digit part, such as OpenSSL 3.0.13 on GitHub's Ubuntu runners. Importing signify, and so thrember, then fails with `LibraryNotFoundError`. At that commit, `oscrypto/_openssl/_libcrypto_ctypes.py` and `_libcrypto_cffi.py` use `\b(\d+\.\d+\.\d+[a-z]*)\b`, which parses 3.0.13 and 3.5.9 (read on 2026-11-26). Windows is unaffected, because oscrypto uses CNG there.
 
 Flags: tqdm and mscerts are MPL-2.0. That is weak, file-level copyleft: using them unmodified as separate dependencies needs no change to ETIS's own licence, but anyone redistributing them must keep their source available under MPL-2.0 and keep the licence notices. Nothing in this set is GPL or non-commercial. signify is pinned below its newest release (0.9.3) because 0.9.0 removed the API this thrember commit calls.
 
