@@ -67,6 +67,9 @@ data/external/attack/
 # SigmaHQ rules (DRL 1.1): pinned by data/sigma-lock.json, fetched by data/scripts/fetch_sigma.py.
 data/external/sigma/
 
+# YARA rules (signature-base DRL 1.1, YARA-Forge per-rule licences): pinned by data/yara-lock.json, fetched by data/scripts/fetch_yara.py.
+data/external/yara/
+
 # EVTX-ATTACK-SAMPLES (GPL-3.0): pinned by data/evtx-attack-samples-lock.json, fetched by data/scripts/fetch_evtx_samples.py.
 data/external/evtx-attack-samples/
 
