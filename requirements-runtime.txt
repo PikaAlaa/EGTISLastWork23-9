@@ -20,6 +20,8 @@ pysigma==2.1.0
 pysigma-backend-sqlite==2.1.1
 pysigma-pipeline-windows==3.0.0
 pysigma-pipeline-sysmon==3.0.0
+# Malware engine YARA layer (design malware-engine-v1 §2.3): Apache-2.0, released 2025-05-27, pinned exactly.
+yara-python==4.5.4
 pytest>=8,<10
 
 lightgbm>=4.5,<5

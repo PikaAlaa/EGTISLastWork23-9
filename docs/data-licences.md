@@ -96,6 +96,14 @@ Licence/terms: `evtx` MIT (PyPI classifier). `pySigma`, `pySigma-pipeline-window
 
 Public redistribution: These are code libraries installed with pip, used unmodified as separate dependencies; ETIS does not copy or vendor their source. Anyone distributing a bundle that includes them must keep their licence texts and allow replacing the LGPL libraries. `LICENSE` remains the team's decision.
 
+### malware-engine-libraries
+
+Source: PyPI package pinned in requirements-runtime.txt and requirements-windows.lock.txt for the malware engine's YARA layer (docs/design/malware-engine-v1.md §1.3, §2.3): `yara-python` 4.5.4, released 2025-05-27, which bundles the YARA 4.5.4 library and has no Python dependencies.
+
+Licence/terms: Apache-2.0 (PyPI, verified by the reviewer on 2026-11-26).
+
+Public redistribution: A code library installed with pip and used unmodified as a separate dependency; ETIS does not copy or vendor its source. Anyone distributing a bundle that includes it must keep the Apache-2.0 licence text and any NOTICE file. ETIS compiles rules with it in memory only and never saves compiled rules to disk. `LICENSE` remains the team's decision.
+
 ### openphish
 
 Source: [OpenPhish community feed; original retrieval date not recorded](https://openphish.com/terms.html).
