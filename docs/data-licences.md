@@ -66,6 +66,18 @@ Public redistribution: Not performed. Project policy: do not commit rule files o
 
 Stored only under ignored data/external/sigma/. Download only the package pinned in data/sigma-lock.json with data/scripts/fetch_sigma.py, which verifies size and SHA-256 (equal to the digest GitHub publishes for the asset), extracts only `.yml` files and `version.txt`, refuses unsafe paths and oversized members, and keeps the extraction only when its tree hash matches the lock. Rule files are never modified. The app never downloads rules.
 
+### signature_base
+
+Source: [Neo23x0/signature-base, commit de3c7252c22b3376352b5a68defa46459a12a693 (2026-11-06)](https://github.com/Neo23x0/signature-base/tree/de3c7252c22b3376352b5a68defa46459a12a693), YARA rule text only: the 753 `.yar`/`.yara` files under `yara/` and `yara/external-variable-rules.txt`.
+
+Licence/terms: [Detection Rule License (DRL) 1.1](https://github.com/Neo23x0/signature-base/blob/de3c7252c22b3376352b5a68defa46459a12a693/LICENSE) since 13 August 2021, except rules that state another licence in their `license` metadata (repository README, read by the reviewer 2026-11-25). The DRL attribution terms are those quoted in the [sigmahq](#sigmahq) entry. Per-rule exceptions are counted in the census in data/yara-lock.json: rules whose `license` field names another licence are listed there by name and licence (including CC BY-NC 4.0, which forbids commercial use). The census also lists, for owner review, files whose comments (for example a file header) state another licence for rules that have no `license` field (CC BY-NC, BSD, MIT, Apache-2.0, GPL and a FireEye licence); those rules are not yet treated as DRL 1.1 for any shipping decision. A commercial signature-base rule feed exists and is not used.
+
+Public redistribution: Not performed. Project policy: do not commit rule files or rule text. Committed artifacts may name rule names, files, authors, licences and file hashes (the lock file and, later, the shipped-rule manifest). As for Sigma, every YARA-based finding will store the rule's name, author, source, licence and pinned commit and a link to the rule (docs/design/malware-engine-v1.md §6.6), and the console must show the author and source with it.
+
+Stored only under ignored data/external/yara/. Download only the files pinned in data/yara-lock.json with data/scripts/fetch_yara.py, which fetches each file from the pinned commit, verifies its size, SHA-256 and git blob SHA-1, writes through a `.part` file and stops with the file names if a file disappears after writing (for example removed by antivirus). Rule files are never modified; this step does not compile them. The app never downloads rules.
+
+YARA-Forge (`YARAHQ/yara-forge`, release 20261108, `yara-forge-rules-core.zip`) was attempted on 2026-11-25 and dropped for v1: Windows Defender removed the package on download. It was never opened, extracted or measured; the attempt is recorded under `dropped_sources` in data/yara-lock.json.
+
 ### evtx_attack_samples
 
 Source: [EVTX-ATTACK-SAMPLES by sbousseaden, commit 4ceed2f4706daf601c212a8f91c113dd85349a2c (2023-01-24)](https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/tree/4ceed2f4706daf601c212a8f91c113dd85349a2c).
