@@ -104,6 +104,41 @@ Licence/terms: Apache-2.0 (PyPI, verified by the reviewer on 2026-11-26).
 
 Public redistribution: A code library installed with pip and used unmodified as a separate dependency; ETIS does not copy or vendor its source. Anyone distributing a bundle that includes it must keep the Apache-2.0 licence text and any NOTICE file. ETIS compiles rules with it in memory only and never saves compiled rules to disk. `LICENSE` remains the team's decision.
 
+### malware-feature-libraries
+
+Source: `requirements-malware.txt` (docs/design/malware-engine-v1.md §1.3, §2.4; step 6). `thrember` 0.1.0 is installed from [EMBER2024 commit 0ef753e81d98bf209f71b03cd331dfc190b5b54d (2025-08-22)](https://github.com/FutureComputing4AI/EMBER2024/tree/0ef753e81d98bf209f71b03cd331dfc190b5b54d), because it is not on PyPI. Its dependencies were resolved on 2026-11-26 with nothing uploaded after 2026-11-12, holding every `requirements-windows.lock.txt` pin fixed. Already locked and unchanged: lightgbm 4.7.0, scikit-learn 1.9.0, numpy, scipy, joblib, threadpoolctl, narwhals, packaging, pyparsing, python-dateutil, six, pyyaml, typing-extensions, filelock, colorama, click, anyio, h11, idna, cloudpickle.
+
+Licence/terms: read from each package's PyPI metadata for the pinned version on 2026-11-26 (`license_expression`, else the `License ::` classifier, else the licence field).
+
+| Package | Version | Uploaded | Licence | Flag |
+| --- | --- | --- | --- | --- |
+| thrember (EMBER2024 repository) | 0.1.0 @ 0ef753e8 | commit 2025-08-22 | Apache-2.0 (repository LICENSE; the pyproject has no licence field) | permissive |
+| pefile | 2024.8.26 | 2024-08-26 | MIT | permissive |
+| signify | 0.8.1 | 2025-08-16 | MIT | permissive |
+| polars | 2.1.0 | 2026-10-25 | MIT | permissive |
+| polars-runtime-32 | 2.1.0 | 2026-10-25 | MIT | permissive |
+| tqdm | 4.70.1 | 2026-09-11 | MPL-2.0 AND MIT | **weak copyleft (MPL-2.0, file-level)** |
+| huggingface-hub | 2.4.0 | 2026-10-29 | Apache-2.0 | permissive |
+| matplotlib | 3.11.2 | 2026-09-11 | Matplotlib licence (PSF-based) | permissive (own licence text) |
+| asn1crypto | 1.5.1 | 2022-03-15 | MIT | permissive |
+| certvalidator | 0.11.1 | 2016-07-29 | MIT | permissive |
+| contourpy | 1.4.0 | 2026-09-11 | BSD-3-Clause | permissive |
+| cycler | 0.12.1 | 2023-10-07 | BSD | permissive |
+| fonttools | 4.68.0 | 2026-10-27 | MIT | permissive |
+| fsspec | 2026.9.0 | 2026-09-18 | BSD-3-Clause | permissive |
+| hf-xet | 1.8.0 | 2026-10-30 | Apache-2.0 | permissive |
+| httpcore2 | 2.16.0 | 2026-10-21 | BSD-3-Clause | permissive |
+| httpx2 | 2.16.0 | 2026-10-21 | BSD-3-Clause | permissive |
+| kiwisolver | 1.5.1 | 2026-08-28 | BSD | permissive |
+| mscerts | 2026.10.27 | 2026-10-27 | MPL-2.0 | **weak copyleft (MPL-2.0, file-level)** |
+| oscrypto | 1.3.0 | 2022-03-18 | MIT | permissive |
+| pillow | 13.0.0 | 2026-10-16 | MIT-CMU | permissive |
+| truststore | 0.10.5 | 2026-10-12 | MIT | permissive |
+
+Flags: tqdm and mscerts are MPL-2.0. That is weak, file-level copyleft: using them unmodified as separate dependencies needs no change to ETIS's own licence, but anyone redistributing them must keep their source available under MPL-2.0 and keep the licence notices. Nothing in this set is GPL or non-commercial. signify is pinned below its newest release (0.9.3) because 0.9.0 removed the API this thrember commit calls.
+
+Public redistribution: These are code libraries installed with pip, used unmodified as separate dependencies; ETIS does not copy or vendor their source. They are kept out of `requirements-runtime.txt`, so the phishing runtime, Docker image and installer do not include them. `LICENSE` remains the team's decision.
+
 ### openphish
 
 Source: [OpenPhish community feed; original retrieval date not recorded](https://openphish.com/terms.html).

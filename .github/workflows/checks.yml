@@ -8,6 +8,8 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: pip install -r requirements-runtime.txt
+      # Malware engine layer c (thrember from a pinned EMBER2024 commit); kept out of the phishing runtime.
+      - run: pip install -r requirements-malware.txt
       - run: pytest -q
       - run: python scripts/initialize.py
   frontend:
