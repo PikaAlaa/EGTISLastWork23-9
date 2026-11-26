@@ -268,6 +268,20 @@ class ProviderClaimEngine:
         # Persisted source refs must never contain a path, message, URL or phone.
         if not re.fullmatch(r'scan_requests:[1-9][0-9]*', observation.source_ref):
             raise ValueError('provider_import_retention_to_verify')
+        return self._evaluate(observation, 'scan')
+
+    def preview_sms(self, observation: Observation) -> list[Finding]:
+        """Transient dependency for one local SMS import. No scan/database writer."""
+        from uuid import UUID
+        try:
+            valid_ref = isinstance(observation.source_ref, str) and str(UUID(observation.source_ref)) == observation.source_ref
+        except ValueError:
+            valid_ref = False
+        if observation.kind != 'sms_preview' or observation.data.get('channel') != 'sms' or not valid_ref:
+            raise ValueError('provider_preview_invalid')
+        return self._evaluate(observation, 'import')
+
+    def _evaluate(self, observation: Observation, source_kind: str) -> list[Finding]:
         if observation.observed_at.tzinfo is None:
             raise ValueError('provider_observation_time_invalid')
         text = observation.data.get('text') or ''
@@ -300,7 +314,7 @@ class ProviderClaimEngine:
                            indicators=list(proof.indicators) if proof else [], attack=list(attack),
                            evidence=Evidence(reasons=[reason], details=details),
                            observed_at=observation.observed_at, created_at=observation.observed_at,
-                           source={'kind': 'scan', 'ref': observation.source_ref})
+                           source={'kind': source_kind, 'ref': observation.source_ref})
 
         try:
             loaded = self._load()
