@@ -22,6 +22,7 @@ import type {
   IncidentsResponse,
 } from './socTypes';
 import type { MalwareHealth, MalwareScanDetail, MalwareScansResponse } from './malwareTypes';
+import type { NetworkHealth, NetworkImportDetail, NetworkImportsResponse } from './networkTypes';
 
 const BASE_URL = '/api';
 
@@ -201,4 +202,18 @@ export function getMalwareScan(id: number): Promise<MalwareScanDetail> {
 
 export function getMalwareHealth(): Promise<MalwareHealth> {
   return request<MalwareHealth>('/malware/health');
+}
+
+// ---- network.windows imports (design network-windows-v1 §6.7): read-only; imports start only from the local command ----
+
+export function getNetworkImports(limit = 20, offset = 0): Promise<NetworkImportsResponse> {
+  return request<NetworkImportsResponse>(`/network/windows/imports${buildQueryString({ limit, offset })}`);
+}
+
+export function getNetworkImport(id: number): Promise<NetworkImportDetail> {
+  return request<NetworkImportDetail>(`/network/windows/imports/${id}`);
+}
+
+export function getNetworkHealth(): Promise<NetworkHealth> {
+  return request<NetworkHealth>('/network/windows/health');
 }

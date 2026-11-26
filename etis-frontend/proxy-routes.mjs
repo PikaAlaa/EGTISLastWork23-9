@@ -20,6 +20,10 @@ const ROUTES = [
   [/^\/api\/malware\/scans$/, ['GET']],
   [/^\/api\/malware\/scans\/\d{1,10}$/, ['GET']],
   [/^\/api\/malware\/health$/, ['GET']],
+  // network.windows imports (design network-windows-v1 §6.7): read-only; imports start only from the local command.
+  [/^\/api\/network\/windows\/imports$/, ['GET']],
+  [/^\/api\/network\/windows\/imports\/\d{1,10}$/, ['GET']],
+  [/^\/api\/network\/windows\/health$/, ['GET']],
 ];
 
 // Returns 'allowed', 'method_not_allowed' or 'not_found'.
@@ -31,4 +35,4 @@ export function routeDecision(pathname, method) {
 }
 
 export const BODY_METHODS = new Set(['POST', 'PATCH']);
-export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack', '/files']);
+export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack', '/files', '/network']);

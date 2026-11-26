@@ -23,8 +23,9 @@ import { IncidentsPage } from './pages/IncidentsPage';
 import { IndicatorsPage } from './pages/IndicatorsPage';
 import { AttackPage } from './pages/AttackPage';
 import { FileScansPage } from './pages/FileScansPage';
+import { NetworkWindowsPage } from './pages/NetworkWindowsPage';
 
-const PAGES = ['scan', 'threats', 'stats', 'incidents', 'files', 'indicators', 'attack'] as const;
+const PAGES = ['scan', 'threats', 'stats', 'incidents', 'files', 'network', 'indicators', 'attack'] as const;
 type PageKey = (typeof PAGES)[number];
 
 export default function App() {
@@ -80,6 +81,7 @@ export default function App() {
             <Tab value="stats" label={t('nav.stats')} />
             <Tab value="incidents" label={t('nav.incidents')} />
             <Tab value="files" label={t('nav.files')} />
+            <Tab value="network" label={t('nav.network')} />
             <Tab value="indicators" label={t('nav.indicators')} />
             <Tab value="attack" label={t('nav.attack')} />
           </Tabs>
@@ -90,6 +92,7 @@ export default function App() {
             {activePage === 'stats' && <StatsPage />}
             {activePage === 'incidents' && <IncidentsPage />}
             {activePage === 'files' && <FileScansPage />}
+            {activePage === 'network' && <NetworkWindowsPage />}
             {activePage === 'indicators' && <IndicatorsPage />}
             {activePage === 'attack' && <AttackPage />}
           </Box>

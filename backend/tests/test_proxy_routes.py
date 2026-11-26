@@ -90,6 +90,8 @@ def call(port, method, path, body=None, headers=None):
     ('GET', '/api/attack/techniques?matrix=mobile'), ('GET', '/api/attack/techniques/T1566.002'),
     ('GET', '/api/attack/coverage'), ('POST', '/api/analyze'), ('GET', '/api/threats'),
     ('GET', '/api/malware/scans?limit=10&offset=0'), ('GET', '/api/malware/scans/3'), ('GET', '/api/malware/health'),
+    ('GET', '/api/network/windows/imports?limit=10&offset=0'), ('GET', '/api/network/windows/imports/3'),
+    ('GET', '/api/network/windows/health'),
 ])
 def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     Stub.seen.clear()
@@ -108,6 +110,9 @@ def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     ('PATCH', '/api/indicators/1', 405), ('POST', '/api/attack/coverage', 405), ('GET', '/api/incidents/1/merge', 405),
     ('POST', '/api/malware/scans', 405), ('DELETE', '/api/malware/scans/1', 405), ('PUT', '/api/malware/health', 405),
     ('PATCH', '/api/malware/scans/1', 405), ('POST', '/api/malware/scan', 404), ('GET', '/api/malware/scans/x', 404),
+    ('POST', '/api/network/windows/imports', 405), ('DELETE', '/api/network/windows/imports/1', 405),
+    ('PUT', '/api/network/windows/health', 405), ('POST', '/api/network/windows/import', 404),
+    ('GET', '/api/network/windows/imports/x', 404), ('GET', '/api/network/flows', 404),
 ])
 def test_unlisted_paths_and_methods_are_refused_without_forwarding(proxy, method, path, expected):
     Stub.seen.clear()
@@ -126,6 +131,6 @@ def test_host_and_origin_checks_still_apply(proxy):
 def test_console_paths_serve_the_single_page_app(proxy):
     if not (ROOT / 'etis-frontend/dist/index.html').is_file():
         pytest.skip('frontend not built yet')
-    for path in ('/incidents', '/indicators', '/attack', '/scan', '/files'):
+    for path in ('/incidents', '/indicators', '/attack', '/scan', '/files', '/network'):
         status, text = call(proxy, 'GET', path)
         assert status == 200 and '<div id="root">' in text
