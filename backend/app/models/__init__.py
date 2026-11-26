@@ -27,3 +27,4 @@ from app.models.finding import (Campaign, Incident, FindingRecord, FindingIndica
 from app.models.attack import AttackTechnique
 
 from app.models.malware import MalwareScan
+from app.models.network_windows import NetworkWindowsImport

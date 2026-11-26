@@ -362,3 +362,11 @@ def test_split_name_skips_local_names():
     assert d.split_name('a.b.invented.example') == ('invented.example', 'invented')
     assert d.split_name('www.invented.co.uk') == ('invented.co.uk', 'invented')
     assert d.split_name('wpad') is None and d.split_name('printer.local') is None
+
+
+def test_query_events_fall_back_from_3006_to_3008_to_3020():
+    both = [q('a.invented.example', event_id=3006), q('a.invented.example', event_id=3008),
+            q('a.invented.example', event_id=3020), q('b.invented.example', source='sysmon22')]
+    assert [(r.source, r.event_id) for r in d.query_events(both)] == [('dns_client', 3006), ('sysmon22', 22)]
+    assert [r.event_id for r in d.query_events(both[1:3])] == [3008]
+    assert [r.event_id for r in d.query_events(both[2:3])] == [3020]

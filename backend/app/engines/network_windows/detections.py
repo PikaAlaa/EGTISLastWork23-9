@@ -143,10 +143,10 @@ def split_name(name: str) -> tuple[str, str] | None:
 
 
 def query_events(dns: list[DnsRecord]) -> list[DnsRecord]:
-    """One event per DNS lookup: DNS Client 3006 (query called) or, if the log has none, 3008;
-    plus every Sysmon 22 event."""
+    """One event per DNS lookup: DNS Client 3006 (query called) or, if the log has none, 3008,
+    else 3020; plus every Sysmon 22 event."""
     client_ids = {r.event_id for r in dns if r.source == 'dns_client'}
-    pick = 3006 if 3006 in client_ids else 3008
+    pick = next((e for e in (3006, 3008, 3020) if e in client_ids), None)
     return [r for r in dns if (r.source == 'dns_client' and r.event_id == pick) or r.source == 'sysmon22']
 
 
