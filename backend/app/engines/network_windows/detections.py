@@ -459,3 +459,23 @@ def run(result: ReadResult, *, ip_lists: Callable[[str], Iterable[str]] | None =
         for reason in alert.reasons:
             out.counts[(alert.detection, reason)] += 1
     return out
+
+
+N4_URL_CANDIDATE, N4_THRESHOLD = 'ee0ba9f0077c1fd140aa', 0.9870690448552604
+# The constants a shipped-item manifest must repeat exactly for each rule (design §4.7).
+RULE_CONSTANTS = {
+    'N1': {'match': 'exact_ip', 'local_excluded': True},
+    'N3': {'match': 'registered_domain_hash'},
+    'N4': {'url_candidate': N4_URL_CANDIDATE, 'threshold': N4_THRESHOLD, 'input': 'https://<query name>/'},
+    'N5': {'min_length': N5_MIN_LENGTH, 'min_entropy': N5_MIN_ENTROPY, 'min_consonant_run': N5_MIN_CONSONANT_RUN,
+           'min_digit_share': N5_MIN_DIGIT_SHARE, 'burst_domains': N5_BURST_DOMAINS, 'burst_window_s': 600,
+           'popular_top': POPULAR_TOP},
+    'N6': {'min_events': N6_MIN_EVENTS, 'min_span_s': 1800, 'min_median_gap_s': N6_MIN_MEDIAN_GAP,
+           'max_median_gap_s': N6_MAX_MEDIAN_GAP, 'max_dispersion': N6_MAX_DISPERSION, 'popular_top': POPULAR_TOP},
+    'N7': {'usual_ports': sorted(N7_USUAL_PORTS), 'baseline_hours': 24, 'min_span_hours': 48},
+    'N8': {'window_s': 600, 'min_labels': N8_MIN_LABELS, 'min_median_length': N8_MIN_MEDIAN_LENGTH,
+           'min_mean_entropy': N8_MIN_MEAN_ENTROPY, 'min_txt': N8_MIN_TXT, 'long_name': N8_LONG_NAME,
+           'popular_top': POPULAR_TOP},
+    'N9': {'rare_top': RARE_TOP, 'baseline_hours': 24, 'min_span_hours': 48},
+}
+SHIPPABLE = tuple(RULE_CONSTANTS)   # N2 is inactive in v1 (§4.2)
