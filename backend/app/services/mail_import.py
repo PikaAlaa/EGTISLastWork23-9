@@ -11,7 +11,11 @@ from app.core.findings import AttackRef, Evidence, Finding, IndicatorRef, utc_no
 from app.core.indicators import normalize_domain, normalize_url
 from app.core.provider_registry import RegistryUnavailable, load_bundled_registry
 from app.engines.email_headers import PROFILES, authentication
-from app.engines.provider_claims import claimed_providers, match_domain, suffix_snapshot_available
+from app.engines.provider_claims import (ProviderClaimEngine, claim_view, claimed_providers,
+                                         match_domain, suffix_snapshot_available)
+from app.engines.payment_rules import EMAIL, PROVIDER, _clauses, _content, apply_payment_rules
+from app.engines.registry import Observation
+from app.core.url_utils import MAX_TEXT_LENGTH
 from app.engines.url_model import score_url
 from app.services.eml_reader import ImportErrorCode, read_eml
 
@@ -24,6 +28,7 @@ class Review:
     findings: list[Finding] = field(default_factory=list)
     coverage: set[str] = field(default_factory=set)
     reported: dict = field(default_factory=dict)
+    versions: dict = field(default_factory=dict)
 
     def add(self, engine, version, kind, reason, severity, confidence, *, details=None, attack=(), indicators=()):
         now = utc_now()
@@ -73,6 +78,7 @@ def review_parts(parts, *, profile=None, attested=False, snapshot=None, scorer=s
         review.coverage.add('provider_registry_unavailable')
     version = 'email-v1+' + (profile.version if profile else 'no-profile') + '+' + (
         snapshot.pin.registry_sha256 if snapshot else 'no-registry')
+    review.versions[EMAIL] = version
 
     def add(kind, reason, severity, confidence, **kwargs):
         return review.add('phishing.email_headers', version, kind, reason, severity, confidence, **kwargs)
@@ -108,8 +114,11 @@ def review_parts(parts, *, profile=None, attested=False, snapshot=None, scorer=s
         elif state == 'outside_documented_set':
             complete = p.coverage.domains == 'documented_complete'
             # Action must occur in authored prose, independently of the display name.
-            action = any(re.match(r'^\s*(?:please\s+)?(?:click|open|visit|call|send|pay|اضغط|ابعت|حول|ادفع|eb3at)\b',
-                                  line, re.I) for line in authored_lines(parts.text))
+            authored = list(authored_lines(parts.text))
+            action = any(re.match(
+                r'^\s*(?:please\s+)?(?:click|open|visit|call|send|transfer|pay|buy|purchase|'
+                r'اضغط|افتح|ادخل|اتصل|ارسل|اشتر|اشتري|ابعت|حول|ادفع|eb3at|edfa3|eshtery)\b',
+                claim_view(clause), re.I) or bool(_content(clause, None)[0]) for clause in _clauses(authored))
             if action:
                 high = complete and report.independent
                 attack = [AttackRef(technique_id='T1684.001', matrix='enterprise', attack_version='20.0',
@@ -142,22 +151,59 @@ def authored_lines(parts):
             stripped = line.strip()
             if stripped == '--' or re.match(r'^(?:-+\s*(?:original|forwarded) message|begin forwarded message|on .+ wrote:)', stripped, re.I):
                 break
-            if stripped and not stripped.startswith(('>', '|', '"', '“', '«')):
-                yield stripped
+            if not stripped or stripped.startswith(('>', '|')):
+                continue
+            if stripped.startswith(('"', '“', '«')) and not (
+                    stripped.count('"') % 2 or stripped.count('“') != stripped.count('”')
+                    or stripped.count('«') != stripped.count('»')):
+                continue
+            yield stripped
 
 
-def import_eml(path, **options):
-    return review_parts(read_eml(Path(path)), **options)
+def import_eml(path, *, grammar=None, **options):
+    parts = read_eml(Path(path))
+    try:
+        review = review_parts(parts, **options)
+        versions = dict(review.versions)
+        subject = str(parts.headers.get('Subject', ''))
+        lines = list(authored_lines([subject, *parts.text]))
+        if re.match(r'^\s*(?:fw|fwd):', subject, re.I):
+            review.coverage.add('payment_context_ambiguous')
+            lines = []
+        return apply_payment_rules(review, lines, 'email', versions=versions, grammar=grammar)
+    except (ValueError, LookupError, RecursionError, IndexError) as exc:
+        raise ImportErrorCode('email_malformed_mime') from None
+
+
+def review_sms(text, *, sender_id=None, sender_display=None, snapshot=None, grammar=None):
+    if len(text) > MAX_TEXT_LENGTH:
+        raise ImportErrorCode('sms_import_limit_exceeded')
+    engine = ProviderClaimEngine(snapshot)
+    review = Review()
+    lines = list(authored_lines([text]))
+    observation = Observation('sms_preview', review.ref, utc_now(),
+                              {'text': '\n'.join(lines), 'channel': 'sms',
+                               'sender_id': sender_id, 'sender_display': sender_display})
+    # Transfer only rule metadata. Contact values can also be payment destinations.
+    for finding in engine.preview_sms(observation):
+        review.findings.append(finding.model_copy(update={'indicators': []}))
+    return apply_payment_rules(review, lines, 'sms', versions={PROVIDER: engine.version}, grammar=grammar)
 
 
 def main():
     parser = argparse.ArgumentParser(description='Review a selected local EML in memory.')
-    parser.add_argument('path')
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('path', nargs='?')
+    source.add_argument('--sms-stdin', action='store_true', help='Read a selected SMS from standard input.')
     parser.add_argument('--profile', choices=tuple(PROFILES))
     parser.add_argument('--attest-unmodified-export', action='store_true')
     args = parser.parse_args()
     try:
-        review = import_eml(args.path, profile=PROFILES.get(args.profile), attested=args.attest_unmodified_export)
+        if args.sms_stdin:
+            import sys
+            review = review_sms(sys.stdin.read(MAX_TEXT_LENGTH + 1))
+        else:
+            review = import_eml(args.path, profile=PROFILES.get(args.profile), attested=args.attest_unmodified_export)
     except ImportErrorCode as exc:
         parser.exit(2, str(exc) + '\n')
     print(json.dumps(review.public()))
