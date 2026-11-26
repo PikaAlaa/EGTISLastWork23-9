@@ -95,3 +95,6 @@ ml/models/*.joblib
 
 # Machine handover remains local; HANDOFF.md is committed with this follow-up.
 evaluation/reports/2026-10-v4/handoff.json
+
+# abuse.ch Feodo Tracker / SSL Blacklist IP lists (CC0): pinned by data/network-blocklists-lock.json once the owner approves a fetch.
+data/external/network-blocklists/

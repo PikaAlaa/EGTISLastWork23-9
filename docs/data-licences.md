@@ -98,6 +98,16 @@ Public redistribution: Not performed. The data and anything derived from it at r
 
 Stored only under ignored data/external/ember2024/ (or the folder named by `ETIS_EMBER_DIR`). Download only the three files pinned in data/ember2024-lock.json with data/scripts/fetch_ember2024.py. It requests them from the pinned revision over HTTPS, follows redirects only to Hugging Face hosts, resumes through a `.part` file, keeps at least 30 GB free, and gives a file its final name only after its size and SHA-256 equal Hugging Face's LFS metadata for that revision. The test zips, `challenge.zip` and the APK, ELF and PDF zips are not downloaded before the sealed test is approved (design §4.10), and thrember's `download_dataset` and `download_models` are never used. Before extraction, each zip's central directory is read without opening any member. The extraction rules are in the design §4.2: only expected feature and label file types, no pickle ever loaded, size limits, and unsafe paths refused.
 
+### abuse_ch_network_blocklists
+
+Source: abuse.ch [Feodo Tracker IP blocklist](https://feodotracker.abuse.ch/blocklist/) and [SSL Blacklist IP list](https://sslbl.abuse.ch/blacklist/), for network.windows N1 only (docs/design/network-windows-v1.md §2.2, §10 decision 1). URLhaus is not used in v1.
+
+Licence/terms: CC0. abuse.ch terms of use §3.4: "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)" (https://abuse.ch/terms-of-use/, read by the reviewer on 2026-11-25). No attribution is required, but ETIS attaches the list name, version, licence and link to every list Finding anyway.
+
+Status: **not acquired.** No list has been fetched and no lock is committed. The list formats, update cadence and whether the SSL Blacklist IP list is still published are still to verify (design §11 L1–L2). A fetch needs the owner's explicit approval and a separate command. That command will download only the published lists and send nothing about the PC.
+
+When acquired, the files are stored only under ignored data/external/network-blocklists/ and pinned by data/network-blocklists-lock.json (URL, fetch time, size, SHA-256, IP row count, declared format). `backend/app/engines/network_windows/blocklists.py` loads a list only when all three match. The lists are used only for exact IP matching, and never to train, tune or evaluate a model.
+
 ### host-engine-libraries
 
 Source: PyPI packages pinned in requirements-runtime.txt for the host engine (docs/design/host-engine-v1.md §1.3, §2.3): `evtx` 0.15.0, `pySigma` 2.1.0, `pySigma-backend-sqlite` 2.1.1, `pySigma-pipeline-windows` 3.0.0, `pySigma-pipeline-sysmon` 3.0.0 (resolved on 2026-11-24 with nothing newer than 2026-11-10).
