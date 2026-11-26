@@ -21,6 +21,7 @@ import type {
   IncidentsQueryParams,
   IncidentsResponse,
 } from './socTypes';
+import type { MalwareHealth, MalwareScanDetail, MalwareScansResponse } from './malwareTypes';
 
 const BASE_URL = '/api';
 
@@ -186,4 +187,18 @@ export function getAttackTechnique(techniqueId: string, matrix: AttackMatrix): P
 export function reviewCommunityReport(id: number, status: 'confirmed' | 'rejected', indicatorType?: IndicatorType): Promise<CommunityReport> {
   return sendJson<CommunityReport>(`/community-reports/${id}`, 'PATCH',
     status === 'confirmed' ? { status, indicator_type: indicatorType } : { status });
+}
+
+// ---- Malware file scans (design malware-engine-v1 §6.8): read-only; scans start only from the local command ----
+
+export function getMalwareScans(limit = 20, offset = 0): Promise<MalwareScansResponse> {
+  return request<MalwareScansResponse>(`/malware/scans${buildQueryString({ limit, offset })}`);
+}
+
+export function getMalwareScan(id: number): Promise<MalwareScanDetail> {
+  return request<MalwareScanDetail>(`/malware/scans/${id}`);
+}
+
+export function getMalwareHealth(): Promise<MalwareHealth> {
+  return request<MalwareHealth>('/malware/health');
 }

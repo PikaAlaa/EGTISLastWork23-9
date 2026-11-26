@@ -9,7 +9,8 @@
     "stats": "الإحصائيات",
     "incidents": "الحوادث",
     "indicators": "البحث عن مؤشر",
-    "attack": "تغطية ATT&CK"
+    "attack": "تغطية ATT&CK",
+    "files": "فحص الملفات"
   },
   "scan": {
     "urlLabel": "الرابط",
@@ -90,7 +91,7 @@
     "resolution": { "true_positive": "تهديد مؤكد", "false_positive": "إنذار كاذب", "benign": "غير ضارة", "duplicate": "مكررة" },
     "domain": { "phishing": "التصيد الاحتيالي", "malware": "البرمجيات الخبيثة", "network": "الشبكة", "host": "الأجهزة" },
     "confidence": { "confirmed": "مؤكدة", "corroborated": "مدعومة بدليل مستقل", "single_signal": "إشارة واحدة", "undetermined": "غير محددة" },
-    "kind": { "sms_phishing": "تصيد عبر رسالة", "url_phishing": "تصيد عبر رابط" },
+    "kind": { "sms_phishing": "تصيد عبر رسالة", "url_phishing": "تصيد عبر رابط", "known_bad_hash": "ملف ضار معروف", "yara_match": "تطابق قاعدة YARA", "ml_suspicious_pe": "برنامج مشبوه (النموذج)" },
     "type": { "domain": "نطاق", "url": "رابط", "ip": "عنوان IP", "hash": "بصمة ملف", "phone": "رقم هاتف", "email": "بريد إلكتروني" },
     "role": { "delivery_link": "الرابط المرسل", "link_host": "مضيف الرابط", "lookalike_domain": "نطاق مشابه", "contact_phone": "رقم للتواصل", "contact_email": "بريد للتواصل" },
     "sourceKind": { "scan": "فحص", "feed": "قائمة تهديدات", "analyst": "محلل", "community": "بلاغ مجتمعي", "sensor": "مستشعر", "import": "استيراد" },
@@ -320,5 +321,93 @@
     "manual": "السجل المراجع",
     "phishtank": "PhishTank",
     "openphish": "OpenPhish"
+  },
+  "files": {
+    "intro": "نتائج فحص الملفات المحلي على هذا الجهاز باستخدام data/scripts/scan_files.py. يقرأ ETIS الملفات فقط: لا يشغّلها ولا ينقلها ولا يحذفها، ولا يخزّن أو يعرض أي مسار أو اسم ملف.",
+    "findHelp": "لتحديد مكان ملف مُبلَّغ عنه على هذا الجهاز، انسخ قيمة path_ref وشغّل:",
+    "noScans": "لا توجد عمليات فحص للملفات بعد. يبدأ الفحص فقط من الأمر المحلي:",
+    "scans": "عمليات فحص الملفات",
+    "started": "البداية",
+    "finished": "النهاية",
+    "peFiles": "ملفات PE",
+    "findings": "النتائج",
+    "model": "النموذج",
+    "none": "لا شيء",
+    "previous": "السابق",
+    "next": "التالي",
+    "range": "{{from}}–{{to}} من {{total}}",
+    "scanTitle": "الفحص رقم {{id}}",
+    "engineVersion": "إصدار المحرك",
+    "noFindings": "لم تُبلّغ أي طبقة عن أي ملف في هذا الفحص.",
+    "conflict": "تعارض مع قائمة البرامج المعروفة",
+    "openIncident": "فتح الحادثة رقم {{id}}",
+    "noIncident": "لا توجد حادثة (خطورة منخفضة)",
+    "location": "الموقع",
+    "extension": "الامتداد",
+    "sizeBand": "الحجم",
+    "peType": "نوع PE",
+    "pathCount": "النسخ (المسارات)",
+    "signature": "التوقيع",
+    "signaturePresent": "موجود (غير متحقق منه)",
+    "signatureAbsent": "غير موجود",
+    "layer": {
+      "hash": "الطبقة أ — قوائم البصمات",
+      "yara": "الطبقة ب — قواعد YARA",
+      "model": "الطبقة ج — النموذج"
+    },
+    "match": "تطابق",
+    "noMatch": "لا تطابق",
+    "noRules": "لم تتطابق أي قاعدة.",
+    "role": {
+      "malicious": "قائمة ضارة",
+      "known_software": "برامج معروفة"
+    },
+    "modelLine": "{{id}}: {{status}}، الدرجة {{score}}، العتبة {{threshold}}، التكافؤ {{parity}}",
+    "ruleAuthor": "المؤلف",
+    "ruleSource": "المصدر",
+    "ruleLicence": "الترخيص",
+    "ruleLink": "القاعدة عند الإصدار المثبّت {{commit}}",
+    "health": {
+      "available": "محرك فحص الملفات متاح.",
+      "unavailable": "محرك فحص الملفات غير متاح: لا توجد قواعد أو قوائم بصمات مثبّتة.",
+      "rules_missing": "قواعد YARA غير موجودة",
+      "hashlists_missing": "قوائم البصمات غير موجودة",
+      "model_missing": "النموذج غير موجود",
+      "model_none": "النموذج: لا يوجد (قوائم البصمات وYARA فقط)",
+      "parity_unverified": "تكافؤ النموذج غير متحقق منه (استرشادي فقط)"
+    },
+    "count": {
+      "files_seen": "الملفات المفحوصة",
+      "pe": "ملفات PE",
+      "not_pe": "ليست PE",
+      "too_large": "كبيرة جدًا",
+      "unreadable": "تعذّرت قراءتها",
+      "reparse_point": "روابط تم تخطيها"
+    },
+    "locationClass": {
+      "system": "نظام ويندوز",
+      "program_files": "Program Files",
+      "user_programs": "برامج المستخدم",
+      "downloads": "التنزيلات",
+      "desktop": "سطح المكتب",
+      "documents": "المستندات",
+      "temp": "الملفات المؤقتة",
+      "appdata": "بيانات التطبيقات",
+      "removable": "وحدة تخزين قابلة للإزالة",
+      "network_share": "مجلد شبكة مشترك",
+      "other": "أخرى"
+    },
+    "size": {
+      "lt_100kb": "أقل من 100 كيلوبايت",
+      "100kb_to_1mb": "100 كيلوبايت – 1 ميجابايت",
+      "1mb_to_10mb": "1 – 10 ميجابايت",
+      "10mb_to_100mb": "10 – 100 ميجابايت",
+      "ge_100mb": "100 ميجابايت أو أكثر"
+    },
+    "pe": {
+      "pe32": "32 بت",
+      "pe64": "64 بت",
+      "dotnet": ".NET"
+    }
   }
 }

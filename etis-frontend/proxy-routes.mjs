@@ -16,6 +16,10 @@ const ROUTES = [
   [/^\/api\/attack\/techniques$/, ['GET']],
   [/^\/api\/attack\/techniques\/T\d{4}(?:\.\d{3})?$/, ['GET']],
   [/^\/api\/attack\/coverage$/, ['GET']],
+  // Malware file scans (design malware-engine-v1 §6.8): read-only; scans start only from the local command.
+  [/^\/api\/malware\/scans$/, ['GET']],
+  [/^\/api\/malware\/scans\/\d{1,10}$/, ['GET']],
+  [/^\/api\/malware\/health$/, ['GET']],
 ];
 
 // Returns 'allowed', 'method_not_allowed' or 'not_found'.
@@ -27,4 +31,4 @@ export function routeDecision(pathname, method) {
 }
 
 export const BODY_METHODS = new Set(['POST', 'PATCH']);
-export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack']);
+export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack', '/files']);

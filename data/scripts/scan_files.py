@@ -21,7 +21,6 @@ blocked in this process.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -42,7 +41,7 @@ from app.engines.malware.paths import MalwareKeyError, PathContext, PathPseudony
 from app.engines.malware.walker import WalkError, is_reparse_point, walk  # noqa: E402
 from app.engines.registry import Observation  # noqa: E402
 
-MODEL_DIR = ROOT / 'ml' / 'models' / 'malware'
+MODEL_DIR = malware_engine.MODEL_DIR
 PATH_REF = re.compile(r'^hmac:[0-9a-f]{32}$')
 EXIT_OK, EXIT_REFUSED, EXIT_NO_LAYER = 0, 2, 3
 
@@ -59,37 +58,7 @@ def block_network() -> None:
     socket.getaddrinfo = blocked
 
 
-def load_model(lock_dir: Path = MODEL_DIR, loader=None):
-    """(ModelLayer or None, expected model id or None).
-
-    No `*.lock.json` under the folder means no shipped model (`model: none`). A lock whose model file is
-    missing or differs in size or SHA-256, or a model with no loader, gives no model and the expected id,
-    so health reports `model_missing`. The loader for a real model format arrives with the shipped
-    manifest (design §9 step 11); `loader(lock, path)` returns a ModelLayer.
-    """
-    lock_dir = Path(lock_dir)
-    locks = sorted(lock_dir.glob('*.lock.json')) if lock_dir.is_dir() else []
-    if not locks:
-        return None, None
-    if len(locks) > 1:
-        return None, 'ambiguous'
-    try:
-        lock = json.loads(locks[0].read_text(encoding='utf-8'))
-        expected = str(lock['model_id'])
-        path = (lock_dir / lock['file']).resolve()
-        if lock_dir.resolve() not in path.parents:
-            return None, expected
-        body = path.read_bytes()
-        if len(body) != lock['size'] or hashlib.sha256(body).hexdigest() != lock['sha256']:
-            return None, expected
-    except (OSError, ValueError, KeyError, TypeError):
-        return None, 'unreadable_lock'
-    if loader is None:
-        return None, expected
-    try:
-        return loader(lock, path), expected
-    except Exception:
-        return None, expected
+load_model = malware_engine.load_model
 
 
 def build_engine(model_loader=None, hashes_lock: Path = malware_engine.HASHLISTS_LOCK,

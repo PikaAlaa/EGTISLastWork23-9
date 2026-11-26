@@ -84,7 +84,11 @@ export function IncidentsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
+  // `/incidents?id=N` opens that incident (links from the File scans page).
+  const [selected, setSelected] = useState<number | null>(() => {
+    const id = Number(new URLSearchParams(location.search).get('id'));
+    return Number.isInteger(id) && id > 0 ? id : null;
+  });
   const [suggestions, setSuggestions] = useState<CampaignSuggestion[]>([]);
 
   useEffect(() => {
