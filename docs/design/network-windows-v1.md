@@ -1,9 +1,11 @@
 # Network-lite engine v1 for Windows (`network.windows`) — design
 
-Status: **design only** (26 November 2026), branch `feat/network-windows-design`. No code, no
-download, no measurement and no system change accompany this document. Every fact about
-Windows, Sysmon, blocklists and sample data is marked **to verify**, with the page to read,
-and is listed again in §11. No number in this document comes from a measurement.
+Status: **design only** (26 November 2026), branch `feat/network-windows-design`, with the
+review answers of 26 November 2026 (§10). No code, no download, no measurement and no system
+change accompany this document. A fact is marked **verified** only when a reviewer read it on
+the cited page (Sources); every other fact about Windows, Sysmon, blocklists and sample data
+is marked **to verify**, with the page to read, and is listed again in §11. No number in this
+document comes from a measurement.
 
 `network.windows` gives ETIS network visibility on a single Windows PC **without Linux,
 WSL or Zeek**. It reads logs that the owner has already turned on and exported from their
@@ -126,7 +128,7 @@ safe in a Finding.
 | Id | Detection | Reason code(s) | Logic (fixed constants) | Sources |
 | --- | --- | --- | --- | --- |
 | N1 | Connection to, or DNS answer containing, an IP on a local offline **C2 blocklist** | `blocklist_ip_connection`, `blocklist_ip_dropped`, `blocklist_ip_dns_answer` | Exact match of a non-local remote IP against a loaded list (§2.2). An allowed outbound connection, a dropped one and an answer-only match are separate reason codes. | firewall, Sysmon 3, snapshot, DNS answers |
-| N2 | DNS query or connection hostname on a local offline **malicious-host list** | `blocklist_host_query` | Exact match of the query name or its registered domain against a loaded host list (§2.2), with the list's own matching unit (full host or registered domain) | DNS, Sysmon 3 `DestinationHostname` |
+| N2 | DNS query or connection hostname on a local offline **malicious-host list** | `blocklist_host_query` | Exact match of the query name or its registered domain against a loaded host list (§2.2), with the list's own matching unit (full host or registered domain). **Inactive in v1:** no v1 list provides hosts (§10 decision 1); defined here so a later amendment can activate it without changing the other rules. | DNS, Sysmon 3 `DestinationHostname` |
 | N3 | DNS query of a domain already in ETIS's **indicator store** | `indicator_store_domain_match` | The query's registered-domain hash equals the `registered_domain_hash` (or `value_hash`) of an active `domain` or `url` indicator from a phishing Finding or a feed (core v1 §2), after core exclusions (shared hosting, official brand domains, analyst stoplist) | DNS, Sysmon 22 |
 | N4 | **Phishing URL model** on the queried domain | `url_model_domain_high` | The existing frozen URL candidate `ee0ba9f0077c1fd140aa` scores the inert string `https://<query name>/` with its `host_path` input and its frozen threshold `0.9870690448552604`; at or above → reason. Out of its training distribution (a bare host), so it is **corroboration only** (§6.3). Nothing is fetched, the model is not retrained, the threshold is not changed. | DNS |
 | N5 | **DGA-like** domain | `dga_like_domain`, `dga_nxdomain_burst` | On the registered-domain label (left of the public suffix), not popular: length ≥ 10 **and** Shannon entropy ≥ 3.5 bits/character **and** (longest consonant run ≥ 5 **or** digit share ≥ 0.30). Burst: ≥ 10 distinct DGA-like registered domains answered "name does not exist" for one device within 10 minutes. | DNS |
@@ -142,9 +144,9 @@ packet capture, payload inspection, certificate check or online lookup is used b
 
 | List | Content used | Licence / terms | Status |
 | --- | --- | --- | --- |
-| abuse.ch **Feodo Tracker** IP blocklist | Botnet C2 IPs (N1) | **To verify (§11 L1):** the owner's brief states CC0 in the abuse.ch terms already cited in malware-engine-v1.md; the reading recorded in that design (§3.4) covers terms §3.1–3.2, §4.1 and §7.3 and does **not** record a CC0 statement, so CC0 must be read on the terms page and the Feodo page before acquisition. | Candidate for v1 |
-| abuse.ch **SSL Blacklist** (SSLBL) IP list | Botnet C2 IPs associated with malicious TLS certificates (N1). Certificate and JA3 lists are unusable: no source here sees TLS. | **To verify (§11 L2):** same as Feodo; also whether the IP list is still published. | Candidate for v1 |
-| abuse.ch **URLhaus** host list | Malware distribution hosts (N2) | **Verified in malware-engine-v1 §3.4 for abuse.ch generally:** free access is for not-for-profit use; §7.3 forbids using the data to train or improve AI models without written consent. URLhaus-specific terms and formats **to verify (§11 L3)**. ETIS would use it only as an exact-match lookup on the owner's PC for this not-for-profit project, never as a model feature or label. | Candidate, not-for-profit only |
+| abuse.ch **Feodo Tracker** IP blocklist | Botnet C2 IPs (N1) | **Verified (reviewer, 25 November 2026, abuse.ch terms of use §3.4):** "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)". List formats and update cadence **to verify (§11 L1)**. | **v1** (§10 decision 1) |
+| abuse.ch **SSL Blacklist** (SSLBL) IP list | Botnet C2 IPs associated with malicious TLS certificates (N1). Certificate and JA3 lists are unusable: no source here sees TLS. | **Verified (same reading, terms §3.4):** CC0 as for Feodo Tracker. Whether the IP list is still published, and its format, **to verify (§11 L2)**; if it is no longer published, v1 uses Feodo Tracker alone. | **v1** (§10 decision 1) |
+| abuse.ch **URLhaus** host list | Malware distribution hosts (N2) | **Verified in malware-engine-v1 §3.4 for abuse.ch generally:** free access is for not-for-profit use (terms §3.1–3.2); §7.3 forbids using the data to train or improve AI models without written consent. URLhaus-specific formats **to verify (§11 L3)** only if a later amendment proposes it. | **Not in v1** (§10 decision 1); later amendment only |
 | ThreatFox, other feeds | — | **To verify (§11 L4)** before any proposal | Not in v1 |
 | Existing ETIS indicator store | Phishing link domains and feed indicators (N3) | Existing core v1 data | Used as is |
 
@@ -154,7 +156,8 @@ size, SHA-256, row count, licence statement) and stored under ignored
 (`data/scripts/fetch_network_blocklists.py`) that downloads the published lists only and
 sends nothing about the PC; the import itself never downloads. A list older than 7 days is
 still used and reported as `blocklists_stale` in health (§6.8). Lists are never used to
-train, tune or evaluate a model. Every N1/N2 Finding carries the list name, version
+train, tune or evaluate a model. CC0 needs no attribution, but ETIS keeps it anyway: every
+N1/N2 Finding carries the list name, version
 (fetch time and SHA-256 prefix), licence and a link to the list's public page (attribution).
 
 ## 3. Evaluation data
@@ -197,9 +200,10 @@ uses the existing frozen phishing URL model read-only and only as corroboration.
 
 ### 4.2 Candidate pool (fixed)
 
-- **Rules:** N1–N9 with the §2.1 constants.
-- **Lists:** each list of §2.2 whose terms are confirmed at acquisition is a separate
-  candidate; the exact fetch (lock SHA-256) is named in the frozen copy.
+- **Rules:** N1 and N3–N9 with the §2.1 constants. N2 is inactive in v1 (no host list).
+- **Lists:** Feodo Tracker and SSL Blacklist (IP list, if still published), each a separate
+  candidate; the exact fetch (lock SHA-256) is named in the frozen copy. URLhaus is not a v1
+  candidate (§10 decision 1).
 
 ### 4.3 Units
 
@@ -502,7 +506,7 @@ owner's explicit approval first. All steps run on Windows; none needs Linux.
 | 2 | `feat: local connection snapshot command` (§8.2; standard library only) |
 | 3 | `feat: device pseudonyms and network coverage report` (reuses the host key) |
 | 4 | `feat: network-lite detections N1-N9` (§8.3; invented records) |
-| 5 | `chore: network blocklists fetch, lock and licence entries` (only lists whose terms §11 L1–L3 confirm) |
+| 5 | `chore: network blocklists fetch, lock and licence entries` (Feodo Tracker and SSL Blacklist only; formats per §11 L1–L2) |
 | 6 | `chore: network sample sources and expected-detection manifest` (only sources §11 S1–S3 confirm) |
 | 7 | `docs: freeze network-windows selection rule` (§4 with SHA-256, before any measurement) |
 | 8 | `chore: owner-PC benign network aggregates` (owner turns sources on, waits, exports; aggregates only) |
@@ -515,13 +519,16 @@ owner's explicit approval first. All steps run on Windows; none needs Linux.
 
 The sealed test (§4.9) is not a step of this plan.
 
-## 10. Open design choices for the owner
+## 10. Owner decisions (26 November 2026)
 
-- Whether to accept URLhaus (not-for-profit only) in v1 or start with Feodo/SSLBL only.
-- Whether the DNS Client log's size should be raised by the owner before the 14 device-days
-  (recommended; without it the log may cover only hours).
-- Whether a later amendment may keep a hashed cross-import destination baseline (privacy cost,
-  better N7/N9); v1 says no.
+1. **Lists:** v1 uses **Feodo Tracker and SSL Blacklist only** (CC0, abuse.ch terms §3.4).
+   URLhaus is free only for not-for-profit use under the abuse.ch terms §3.1–3.2 and is left
+   for a later amendment; until then N2 is inactive.
+2. **DNS Client log size:** raising the log's maximum size before the 14 device-days is
+   **recommended as an owner action** (with administrator rights), so the export covers the
+   whole period. ETIS never changes it; the import only reports the span actually covered.
+3. **No destination history:** v1 keeps **no destination history between imports**, hashed
+   or otherwise. The N7 and N9 baselines exist only in memory within one import (§7).
 
 ## 11. To verify (before the step that depends on it)
 
@@ -540,9 +547,9 @@ The sealed test (§4.9) is not a step of this plan.
 | W11 | `GetExtendedTcpTable` / `GetExtendedUdpTable`: table classes with owning PID, rights needed | learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getextendedtcptable (and ...udptable) | 2 |
 | W12 | `Get-NetTCPConnection` output fields (documentation equivalent for the owner) | learn.microsoft.com/powershell/module/nettcpip/get-nettcpconnection | 2 |
 | W13 | `app.core.url_utils.registered_domain` uses an offline public-suffix list and no network | The repository code and its dependency's documentation | 1 |
-| L1 | Feodo Tracker: CC0 statement (not recorded in malware-engine-v1 §3.4), list formats, update cadence | https://abuse.ch/terms-of-use/ and https://feodotracker.abuse.ch/blocklist/ | 5 |
-| L2 | SSL Blacklist: CC0 statement, whether the IP list is still published, format | https://abuse.ch/terms-of-use/ and https://sslbl.abuse.ch/blacklist/ | 5 |
-| L3 | URLhaus: terms (not-for-profit), host-list format and matching unit | https://abuse.ch/terms-of-use/ and https://urlhaus.abuse.ch/api/ | 5 |
+| L1 | Feodo Tracker: list formats and update cadence. (CC0 **verified** 25 November 2026, terms §3.4.) | https://feodotracker.abuse.ch/blocklist/ | 5 |
+| L2 | SSL Blacklist: whether the IP list is still published, and its format. (CC0 **verified** 25 November 2026, terms §3.4.) | https://sslbl.abuse.ch/blacklist/ | 5 |
+| L3 | URLhaus: host-list format and matching unit (terms: not-for-profit, §3.1–3.2) | https://urlhaus.abuse.ch/api/ | only if a later amendment proposes it |
 | L4 | ThreatFox and any other feed: terms | the feed's own terms page | only if proposed |
 | L5 | Local Tranco snapshot: list date and licence (recorded in `docs/data-licences.md` as not established) | https://tranco-list.eu/ and the repository entry | 4 |
 | S1 | EVTX-ATTACK-SAMPLES files containing Sysmon 3 or 22 events and what they show | https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES (already pinned for the host engine) | 6 |
@@ -553,10 +560,16 @@ The sealed test (§4.9) is not a step of this plan.
 
 Read for this design on 26 November 2026:
 
+Read by the reviewer on 25 November 2026 (the only source behind a **verified** fact here):
+
+- abuse.ch terms of use, https://abuse.ch/terms-of-use/ §3.4: "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)" (§2.2); §3.1–3.2 not-for-profit terms (URLhaus, §10).
+
+Repository material read for this design:
+
 - [Host engine v1 design](host-engine-v1.md) and [network engine v1 design](network-engine-v1.md) in this repository (structure, privacy, evaluation style, amendment 3).
 - [Malware engine v1 design](malware-engine-v1.md) §3.4 (abuse.ch terms reading of 25 November 2026).
 - `docs/data-licences.md` (Tranco, EVTX-ATTACK-SAMPLES entries).
 - The local, hash-verified `enterprise-attack-20.0.json` (ATT&CK ids in §5), read read-only.
 
-No external page was read for this design; every Windows, Sysmon, list and sample fact above
-is therefore **to verify** at the page named in §11.
+Apart from the abuse.ch terms above, no external page was read for this design; every other
+Windows, Sysmon, list and sample fact is therefore **to verify** at the page named in §11.
