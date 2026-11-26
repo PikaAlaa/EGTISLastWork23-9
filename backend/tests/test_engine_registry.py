@@ -39,7 +39,7 @@ class BrokenHealthEngine(DemoEngine):
 
 
 def test_builtin_phishing_engine_is_registered():
-    assert registry.names() == ['phishing.analyze']
+    assert registry.names() == ['phishing.analyze', 'phishing.provider_claim']
     engine = registry.get('phishing.analyze')
     assert engine.domain == 'phishing' and engine.version.startswith('decision-v2+url:ee0ba9f0077c1fd140aa')
 

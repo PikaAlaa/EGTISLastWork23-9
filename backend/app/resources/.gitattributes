@@ -1,0 +1,2 @@
+# Exact-byte SHA-256 release pins must survive Windows checkouts.
+provider-registry-v1.json text eol=lf

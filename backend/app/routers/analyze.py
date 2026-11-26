@@ -12,6 +12,7 @@ from app.engines.risk_scoring import calculate_final_risk_score
 from app.engines.phishing_findings import phishing_findings
 from app.models.scan import ScanRequest, ScanResult
 from app.services.findings import record_findings
+from app.services.provider_findings import record_provider_scan
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix='/analyze', tags=['analyze'])
@@ -53,6 +54,8 @@ def analyze(request: Request, payload: AnalyzeRequest, db: Session = Depends(get
         if settings.findings_enabled:
             # Built from the finished result only; same transaction as the scan record.
             record_findings(db, phishing_findings(result, payload, scan.id), scan_request_id=scan.id)
+            # Additive rule Findings only; result/verdict and deployed scorers are unchanged.
+            record_provider_scan(db, scan.id, text=payload.text, url=payload.url)
         db.commit()
         result.update(saved=True, save_error=None)
     except Exception:
