@@ -98,6 +98,7 @@ class DnsRecord:
     image_name: str | None = field(default=None, repr=False)   # file name only, lower-case
     process_guid: str | None = field(default=None, repr=False)
     computer: str | None = field(default=None, repr=False)
+    device_ref: str | None = None    # set by devices.pseudonymise, which also drops `computer`
 
 
 @dataclass(frozen=True)
@@ -118,6 +119,8 @@ class ConnRecord:
     process_guid: str | None = field(default=None, repr=False)
     user: str | None = field(default=None, repr=False)
     computer: str | None = field(default=None, repr=False)
+    device_ref: str | None = None    # set by devices.pseudonymise, which also drops `computer` and `user`
+    account_ref: str | None = None
 
 
 @dataclass(frozen=True)
