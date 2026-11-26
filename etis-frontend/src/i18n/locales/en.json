@@ -9,7 +9,8 @@
     "stats": "Statistics",
     "incidents": "Incidents",
     "indicators": "Indicator search",
-    "attack": "ATT&CK coverage"
+    "attack": "ATT&CK coverage",
+    "files": "File scans"
   },
   "scan": {
     "urlLabel": "URL",
@@ -90,7 +91,7 @@
     "resolution": { "true_positive": "Confirmed threat", "false_positive": "False alarm", "benign": "Benign", "duplicate": "Duplicate" },
     "domain": { "phishing": "Phishing", "malware": "Malware", "network": "Network", "host": "Host" },
     "confidence": { "confirmed": "Confirmed", "corroborated": "Corroborated", "single_signal": "Single signal", "undetermined": "Undetermined" },
-    "kind": { "sms_phishing": "SMS phishing", "url_phishing": "URL phishing" },
+    "kind": { "sms_phishing": "SMS phishing", "url_phishing": "URL phishing", "known_bad_hash": "Known malicious file", "yara_match": "YARA rule match", "ml_suspicious_pe": "Suspicious program (model)" },
     "type": { "domain": "Domain", "url": "URL", "ip": "IP address", "hash": "File hash", "phone": "Phone number", "email": "Email" },
     "role": { "delivery_link": "Delivery link", "link_host": "Link host", "lookalike_domain": "Lookalike domain", "contact_phone": "Contact phone", "contact_email": "Contact email" },
     "sourceKind": { "scan": "Scan", "feed": "Threat feed", "analyst": "Analyst", "community": "Community report", "sensor": "Sensor", "import": "Import" },
@@ -312,5 +313,93 @@
     "manual": "Reviewed registry",
     "phishtank": "PhishTank",
     "openphish": "OpenPhish"
+  },
+  "files": {
+    "intro": "Results of local file scans run on this PC with data/scripts/scan_files.py. ETIS only reads files: it never runs, moves or deletes them, and never stores or shows a path or file name.",
+    "findHelp": "To locate a flagged file on this PC, copy its path_ref and run:",
+    "noScans": "No file scans yet. Scans are started only from the local command:",
+    "scans": "File scans",
+    "started": "Started",
+    "finished": "Finished",
+    "peFiles": "PE files",
+    "findings": "Findings",
+    "model": "Model",
+    "none": "None",
+    "previous": "Previous",
+    "next": "Next",
+    "range": "{{from}}–{{to}} of {{total}}",
+    "scanTitle": "Scan #{{id}}",
+    "engineVersion": "Engine version",
+    "noFindings": "No layer flagged any file in this scan.",
+    "conflict": "Known-software conflict",
+    "openIncident": "Open incident #{{id}}",
+    "noIncident": "No incident (low severity)",
+    "location": "Location",
+    "extension": "Extension",
+    "sizeBand": "Size",
+    "peType": "PE type",
+    "pathCount": "Copies (paths)",
+    "signature": "Signature",
+    "signaturePresent": "Present (not verified)",
+    "signatureAbsent": "Absent",
+    "layer": {
+      "hash": "Layer a — hash lists",
+      "yara": "Layer b — YARA rules",
+      "model": "Layer c — model"
+    },
+    "match": "match",
+    "noMatch": "no match",
+    "noRules": "No rule matched.",
+    "role": {
+      "malicious": "malicious list",
+      "known_software": "known software"
+    },
+    "modelLine": "{{id}}: {{status}}, score {{score}}, threshold {{threshold}}, parity {{parity}}",
+    "ruleAuthor": "author",
+    "ruleSource": "source",
+    "ruleLicence": "licence",
+    "ruleLink": "rule at pinned commit {{commit}}",
+    "health": {
+      "available": "File scanning engine available.",
+      "unavailable": "File scanning engine unavailable: no rules or hash lists are installed.",
+      "rules_missing": "YARA rules missing",
+      "hashlists_missing": "Hash lists missing",
+      "model_missing": "Model missing",
+      "model_none": "Model: none (hash lists and YARA only)",
+      "parity_unverified": "Model parity unverified (advisory only)"
+    },
+    "count": {
+      "files_seen": "Files seen",
+      "pe": "PE files",
+      "not_pe": "Not PE",
+      "too_large": "Too large",
+      "unreadable": "Unreadable",
+      "reparse_point": "Links skipped"
+    },
+    "locationClass": {
+      "system": "Windows system",
+      "program_files": "Program Files",
+      "user_programs": "User programs",
+      "downloads": "Downloads",
+      "desktop": "Desktop",
+      "documents": "Documents",
+      "temp": "Temporary files",
+      "appdata": "App data",
+      "removable": "Removable drive",
+      "network_share": "Network share",
+      "other": "Other"
+    },
+    "size": {
+      "lt_100kb": "under 100 KB",
+      "100kb_to_1mb": "100 KB – 1 MB",
+      "1mb_to_10mb": "1 – 10 MB",
+      "10mb_to_100mb": "10 – 100 MB",
+      "ge_100mb": "100 MB or more"
+    },
+    "pe": {
+      "pe32": "32-bit",
+      "pe64": "64-bit",
+      "dotnet": ".NET"
+    }
   }
 }
