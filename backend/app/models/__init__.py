@@ -25,3 +25,5 @@ from app.models.indicator import Indicator, IndicatorSighting, CorrelationStopli
 from app.models.finding import (Campaign, Incident, FindingRecord, FindingIndicator, FindingAttack,
                                 IncidentIndicator, IncidentLink, IncidentEvent)
 from app.models.attack import AttackTechnique
+
+from app.models.malware import MalwareScan
