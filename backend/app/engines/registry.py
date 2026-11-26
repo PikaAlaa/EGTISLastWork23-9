@@ -18,6 +18,7 @@ from datetime import datetime
 from typing import Any, Literal, Mapping, Protocol, runtime_checkable
 
 from app.core.findings import Finding
+from app.engines.provider_claims import ProviderClaimEngine
 
 logger = logging.getLogger(__name__)
 EngineDomain = Literal['phishing', 'malware', 'network', 'host']
@@ -118,3 +119,4 @@ class PhishingAnalyzeEngine:
 
 registry = EngineRegistry()
 registry.register(PhishingAnalyzeEngine())
+registry.register(ProviderClaimEngine())
