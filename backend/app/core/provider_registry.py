@@ -33,7 +33,7 @@ MATCHING_TABLE = {
                 'دوس', 'خش', 'كلم', 'edghat', 'efta7', 'ed5ol', 'dos', 'kallem'],
     'callbacks': ['call', 'اتصل', 'كلم', 'kallem'],
     'secrets': ['send otp', 'send password', 'ارسل الكود', 'ابعت الكود', 'eb3at el code'],
-    'excluded_contexts': ['do not', "don't", 'beware', 'warning', 'example', 'quoted',
+    'excluded_contexts': ['do not', "don't", 'beware', 'warning', 'example:', 'quoted:',
                           'لا تضغط', 'لا تتصل', 'تحذير', 'احذر', 'ماتضغطش', 'matdossh'],
     'arabic_folds': {'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ى': 'ي'},
     'confusables': 'not_checked:to_verify_Unicode_UTS39_data_and_pin',
