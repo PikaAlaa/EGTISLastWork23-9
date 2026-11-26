@@ -1,0 +1,700 @@
+% ETIS Bibliography and External Source References
+% Compiled 2026-11-26 from docs/design/*.md, docs/data-licences.md, and repository citation docs.
+% Includes reviewer-verified facts of 2026-11-26. No sources added from memory.
+
+% ============================================================================
+% 1. Reviewer-Verified Legal, Incident, and ATT&CK Facts (2026-11-26)
+% ============================================================================
+
+@misc{egypt_pdpl_151_2020,
+  author       = {{Arab Republic of Egypt} and {Library of Congress Global Legal Monitor}},
+  title        = {Egypt: Personal Data Protection Law No. 151 of 2020},
+  year         = {2020},
+  date         = {2020-10-29},
+  url          = {https://www.loc.gov/item/global-legal-monitor/2020-10-29/egypt-data-protection-law-enters-into-force/},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: public legislation and Library of Congress legal report. Reviewer-verified (2026-11-26): ratified 13 July 2020, published 15 July 2020, entered into force 17 October 2020. Used as legal privacy context for hash-only indicator storage and retention.}
+}
+
+@misc{fawry_statement_20231126,
+  author       = {{Fawry for Banking Technology and Electronic Payments S.A.E.}},
+  title        = {Official Statement Regarding Security Incident (26 November 2023)},
+  year         = {2023},
+  date         = {2023-11-26},
+  url          = {https://www.fawry.com/},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: official company PDF disclosure. Reviewer-verified (2026-11-26): production environment was not breached; an isolated testing environment was breached, and it ``may have included the personal details of some customers''.}
+}
+
+@misc{groupib_fawry_lockbit_2023,
+  author       = {{Group-IB}},
+  title        = {Case Study on Fawry / LockBit Incident (Vendor Source)},
+  year         = {2023},
+  date         = {2023-11-08},
+  url          = {https://www.group-ib.com/},
+  urldate      = {2026-11-26},
+  note         = {Category: case study. Licence/terms: vendor publication. Reviewer-verified (2026-11-26): vendor source recording the LockBit post on 8 November 2023; contrasted with Fawry's primary statement of 26 November 2023.}
+}
+
+% ============================================================================
+% 2. Technical Standards and Taxonomies
+% ============================================================================
+
+@misc{mitre_attack_v20_2026,
+  author       = {{The MITRE Corporation}},
+  title        = {{MITRE ATT\&CK STIX 2.1 Data: Enterprise and Mobile Collections}},
+  version      = {20.0},
+  year         = {2026},
+  date         = {2026-10-13},
+  url          = {https://github.com/mitre-attack/attack-stix-data},
+  urldate      = {2026-11-26},
+  note         = {Category: technical standard. Licence/terms: MITRE ATT\&CK Terms of Use (Copyright 2015-2026, The MITRE Corporation). Pinned 2026-11-18 in data/attack-lock.json and checked 2026-11-24, 2026-11-25, 2026-11-26. Reviewer-verified (2026-11-26): T1566.004 is Spearphishing Voice; SMS phishing is Mobile T1660; T1656 is revoked by T1684.001; T1657 is not emitted in BEC v1.}
+}
+
+@misc{mitre_attack_terms,
+  author       = {{The MITRE Corporation}},
+  title        = {{MITRE ATT\&CK Terms of Use}},
+  year         = {2026},
+  url          = {https://attack.mitre.org/resources/legal-and-branding/terms-of-use/},
+  urldate      = {2026-11-18},
+  note         = {Category: technical standard. Licence/terms: MITRE attribution and trademark terms. Used in docs/data-licences.md to govern ATT\&CK copyright attribution.}
+}
+
+@misc{public_suffix_list,
+  author       = {{Mozilla Foundation}},
+  title        = {Public Suffix List ({PSL})},
+  year         = {2026},
+  url          = {https://publicsuffix.org/list/},
+  note         = {Category: technical standard. Licence/terms: MPL-2.0 (bundled offline tldextract snapshot SHA-256 b69315c085d53972724b8f2df111ffc329b0c84fe0a47d62c8c91655cc774a38; online URL unopened / to verify). Used for offline registrable-domain extraction.}
+}
+
+@techreport{unicode_uts46,
+  author       = {{Unicode Consortium}},
+  title        = {{Unicode Technical Standard \#46: Unicode IDNA Compatibility Processing}},
+  institution  = {Unicode Consortium},
+  number       = {UTS \#46},
+  url          = {https://www.unicode.org/reports/tr46/},
+  note         = {Category: technical standard. Licence/terms: Unicode License (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/provider-registry-v1.md).}
+}
+
+@techreport{unicode_uts39,
+  author       = {{Unicode Consortium}},
+  title        = {{Unicode Technical Standard \#39: Unicode Security Mechanisms}},
+  institution  = {Unicode Consortium},
+  number       = {UTS \#39},
+  url          = {https://www.unicode.org/reports/tr39/},
+  note         = {Category: technical standard. Licence/terms: Unicode License (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/provider-registry-v1.md).}
+}
+
+@techreport{itu_e164,
+  author       = {{International Telecommunication Union (ITU-T)}},
+  title        = {{Recommendation ITU-T E.164: The International Public Telecommunication Numbering Plan}},
+  institution  = {ITU-T},
+  number       = {E.164},
+  url          = {https://www.itu.int/rec/T-REC-E.164},
+  note         = {Category: technical standard. Licence/terms: ITU publication terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/provider-registry-v1.md).}
+}
+
+@techreport{rfc8601,
+  author       = {Kucherawy, Murray},
+  title        = {{Message Header Field for Indicating Message Authentication Status}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {8601},
+  url          = {https://www.rfc-editor.org/rfc/rfc8601},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc8617,
+  author       = {Andersen, Kurt and Long, Brandon and Blank, Seth and Kucherawy, Murray},
+  title        = {{The Authenticated Received Chain (ARC) Protocol}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {8617},
+  url          = {https://www.rfc-editor.org/rfc/rfc8617},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc7208,
+  author       = {Kitterman, Scott},
+  title        = {{Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {7208},
+  url          = {https://www.rfc-editor.org/rfc/rfc7208},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc6376,
+  author       = {Crocker, Dave and Hansen, Tony and Kucherawy, Murray},
+  title        = {{DomainKeys Identified Mail (DKIM) Signatures}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {6376},
+  url          = {https://www.rfc-editor.org/rfc/rfc6376},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc7489,
+  author       = {Kucherawy, Murray and Zwicky, Elizabeth},
+  title        = {{Domain-based Message Authentication, Reporting, and Conformance (DMARC)}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {7489},
+  url          = {https://www.rfc-editor.org/rfc/rfc7489},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc5322,
+  author       = {Resnick, Pete},
+  title        = {{Internet Message Format}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {5322},
+  url          = {https://www.rfc-editor.org/rfc/rfc5322},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc2045,
+  author       = {Freed, Ned and Borenstein, Nathaniel S.},
+  title        = {{Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {2045},
+  url          = {https://www.rfc-editor.org/rfc/rfc2045},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@techreport{rfc2047,
+  author       = {Moore, Keith},
+  title        = {{MIME (Multipurpose Internet Mail Extensions) Part Three: Message Header Extensions for Non-ASCII Text}},
+  institution  = {IETF / RFC Editor},
+  type         = {RFC},
+  number       = {2047},
+  url          = {https://www.rfc-editor.org/rfc/rfc2047},
+  note         = {Category: technical standard. Licence/terms: IETF Trust / RFC Editor terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/email-auth-check-v1.md).}
+}
+
+@misc{swift_iban_registry,
+  author       = {{SWIFT}},
+  title        = {{SWIFT IBAN Information and Registry}},
+  url          = {https://www.swift.com/standards/data-standards/iban},
+  note         = {Category: technical standard. Licence/terms: SWIFT publication terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/bec-payment-rules-v1.md).}
+}
+
+@misc{whatwg_fetch,
+  author       = {{WHATWG}},
+  title        = {{Fetch Standard}},
+  url          = {https://fetch.spec.whatwg.org/},
+  note         = {Category: technical standard. Licence/terms: CC BY 4.0 (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/browser-extension-v1.md).}
+}
+
+% ============================================================================
+% 3. Datasets, Feeds, and Detection Rule Repositories
+% ============================================================================
+
+@misc{dalton2025_phreshphish,
+  author       = {Dalton, A. and others},
+  title        = {{PhreshPhish: A Real-World, High-Quality, Large-Scale Phishing Website Dataset and Benchmark}},
+  version      = {1.0.1},
+  year         = {2025},
+  date         = {2026-02-07},
+  doi          = {10.48550/arxiv.2507.10854},
+  url          = {https://huggingface.co/datasets/phreshphish/phreshphish/blob/eabec4b7a66324b79cc8a0ad856d1731dc26fe1a/README.md},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: CC BY 4.0 plus dataset-card anti-phishing research-use statement. Five columns (url, label, target, date, lang) projected via HTTP Range without HTML for v3/v4 URL evaluation.}
+}
+
+@misc{prasad2024_phiusiil,
+  author       = {Prasad, Arvind and Chandra, Shalini},
+  title        = {{PhiUSIIL Phishing URL Dataset}},
+  year         = {2024},
+  doi          = {10.24432/C5C02Z},
+  url          = {https://archive.ics.uci.edu/dataset/967/phiusiil+phishing+url+dataset},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: CC BY 4.0. Audited in docs/data-licences.md; excluded from URL model training due to absence of legitimate non-root paths/queries.}
+}
+
+@article{salloum2023_bilingual,
+  author       = {Salloum, Said and Gaber, Tarek and Vadera, Sunil and Shaalan, Khaled},
+  title        = {A New {English/Arabic} Parallel Corpus for Phishing Emails},
+  journal      = {ACM Transactions on Asian and Low-Resource Language Information Processing},
+  volume       = {22},
+  number       = {4},
+  articleno    = {3606031},
+  year         = {2023},
+  doi          = {10.1145/3606031},
+  url          = {https://salford-repository.worktribe.com/output/1732444/a-new-englisharabic-parallel-corpus-for-phishing-emails},
+  urldate      = {2026-07-15},
+  note         = {Category: dataset. Licence/terms: not stated for local CSV subset (redistribution not established; audited 2026-10-13). 300-row bilingual subset used in text model training and LOSO evaluation.}
+}
+
+@misc{hosni_kaggle_fully,
+  author       = {Hosni, Ahmad},
+  title        = {{BERT for Arabic Phishing and Legitimate Emails}},
+  url          = {https://www.kaggle.com/code/ahmadhosni/bert-for-arabic-phishing-and-legitimate-emails},
+  urldate      = {2026-07-15},
+  note         = {Category: dataset. Licence/terms: not stated (redistribution not established; audited 2026-10-13). Linked to local 1,250-row translated fraud/ham spreadsheet used in text development and LOSO evaluation.}
+}
+
+@misc{nizar_kaggle_dialectal,
+  author       = {Nizar, Sultan},
+  title        = {{Arabic Phishing \& Social Engineering Dataset}},
+  url          = {https://www.kaggle.com/datasets/sultannizar/arabic-phishing-dataset},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: not stated (candidate page identity and collection method unverified; redistribution not established). 500-row mixed-regional dialectal CSV used for training only.}
+}
+
+@misc{mukhairez_github_spam,
+  author       = {Mukhairez, Hosam},
+  title        = {{Arabic-Text-Spam-Detection}},
+  url          = {https://github.com/HosamMukhairez/Arabic-Text-Spam-Detection},
+  urldate      = {2026-07-15},
+  note         = {Category: dataset. Licence/terms: not stated (no licence file; redistribution not established; audited 2026-10-13). 78 Arabic spam/non-spam text files (excluded from v2 phishing benchmark) and seed keyword list.}
+}
+
+@misc{openphish_feed,
+  author       = {{OpenPhish}},
+  title        = {{OpenPhish Community Feed and Terms of Use}},
+  url          = {https://openphish.com/terms.html},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: proprietary service terms (``Except as expressly permitted by OpenPhish in writing''); original snapshot date not recorded. Used for local feed blacklist lookup.}
+}
+
+@misc{phishtank_feed,
+  author       = {{PhishTank} and {Cisco}},
+  title        = {{PhishTank Online-Valid Feed and Terms of Use}},
+  url          = {https://phishtank.org/terms.php},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: current terms link to Cisco EULA; archived terms cite CC BY-SA 2.5 (redistribution not established); original snapshot date not recorded. Used for local feed blacklist lookup.}
+}
+
+@misc{tranco_list,
+  author       = {{Tranco}},
+  title        = {{Tranco Top-Sites Ranking List}},
+  url          = {https://tranco-list.eu/},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: not stated for local snapshots (original list ID and date absent; redistribution not established). Used for URL benign cohort and network.windows popularity exclusions.}
+}
+
+@misc{grambeddings_form,
+  author       = {{GramBeddings Authors}},
+  title        = {{GramBeddings Academic Dataset Request Form}},
+  url          = {https://docs.google.com/forms/d/e/1FAIpQLScuwosnH9JIJYKUeTeR26xxiG6bWXhxYoHjoNSketW5MrCUxQ/viewform},
+  urldate      = {2026-10-13},
+  note         = {Category: dataset. Licence/terms: ``free for academic purposes'' (dataset not present in repository).}
+}
+
+@misc{sigmahq_rules_2026,
+  author       = {{SigmaHQ}},
+  title        = {{SigmaHQ Detection Rules (sigma\_all\_rules.zip)}},
+  version      = {r2026-07-01},
+  year         = {2026},
+  date         = {2026-07-09},
+  url          = {https://github.com/SigmaHQ/sigma/releases/tag/r2026-07-01},
+  urldate      = {2026-11-24},
+  note         = {Category: dataset. Licence/terms: Detection Rule License (DRL) 1.1. Checked 2026-11-18 and pinned 2026-11-24 in data/sigma-lock.json for host.windows detections.}
+}
+
+@misc{roth_signature_base,
+  author       = {Roth, Florian},
+  title        = {{Neo23x0/signature-base YARA Rule Repository}},
+  version      = {de3c7252c22b3376352b5a68defa46459a12a693},
+  year         = {2026},
+  date         = {2026-11-06},
+  url          = {https://github.com/Neo23x0/signature-base/tree/de3c7252c22b3376352b5a68defa46459a12a693},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: DRL 1.1 since 2021-08-13, with per-rule metadata/comment exceptions censused in data/yara-lock.json. Used for malware.files layer-b YARA scanning.}
+}
+
+@misc{yarahq_yara_forge,
+  author       = {{YARAHQ}},
+  title        = {{YARA-Forge (yara-forge-rules-core.zip)}},
+  version      = {20261108},
+  year         = {2026},
+  url          = {https://github.com/YARAHQ/yara-forge},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: tool is GPL-3.0; per-rule licences to verify. Dropped from malware.files v1 on 2026-11-25 after Windows Defender removed the download archive.}
+}
+
+@misc{bousseaden_evtx_samples,
+  author       = {Bousseaden, Samir},
+  title        = {{EVTX-ATTACK-SAMPLES}},
+  version      = {4ceed2f4706daf601c212a8f91c113dd85349a2c},
+  year         = {2023},
+  date         = {2023-01-24},
+  url          = {https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/tree/4ceed2f4706daf601c212a8f91c113dd85349a2c},
+  urldate      = {2026-11-24},
+  note         = {Category: dataset. Licence/terms: GPL-3.0 (LICENSE.GPL). Checked 2026-11-18 and pinned 2026-11-24 in data/evtx-attack-samples-lock.json for host.windows rule evaluation.}
+}
+
+@misc{otrf_security_datasets,
+  author       = {{Open Threat Research Forge (OTRF)}},
+  title        = {{Security-Datasets}},
+  year         = {2026},
+  url          = {https://github.com/OTRF/Security-Datasets},
+  urldate      = {2026-11-18},
+  note         = {Category: dataset. Licence/terms: MIT (repository LICENSE file and securitydatasets.com/introduction.html; README mentions GPL-3.0). Compared in docs/design/host-engine-v1.md; not used in v1.}
+}
+
+@inproceedings{joyce2025_ember2024,
+  author       = {Joyce, Robert J. and others},
+  title        = {{EMBER2024 - A Benchmark Dataset for Holistic Evaluation of Malware Classifiers}},
+  booktitle    = {Proceedings of the ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)},
+  year         = {2025},
+  doi          = {10.1145/3711896.3737431},
+  url          = {https://huggingface.co/datasets/joyce8/EMBER2024/tree/3d23efef7c0f0b702c5024400cfff4c3744a3832},
+  urldate      = {2026-11-26},
+  note         = {Category: dataset. Licence/terms: Apache-2.0 (preprint https://arxiv.org/abs/2506.05074; dataset rev 3d23efef7c0f0b702c5024400cfff4c3744a3832 dated 2025-08-22; read 2026-11-25 and 2026-11-26). Pre-extracted Win32/Win64/Dot\_Net training feature vectors pinned in data/ember2024-lock.json.}
+}
+
+@misc{abusech_malwarebazaar,
+  author       = {{abuse.ch}},
+  title        = {{MalwareBazaar Hash Exports}},
+  year         = {2026},
+  url          = {https://bazaar.abuse.ch/export/},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: free Auth-Key for not-for-profit use only (abuse.ch Terms of Use \S3.1--3.2, \S4.1); \S7.3 prohibits AI model training/improvement without Spamhaus consent. Candidate layer-a hash lookup list in docs/design/malware-engine-v1.md.}
+}
+
+@misc{abusech_feodo_tracker,
+  author       = {{abuse.ch}},
+  title        = {{Feodo Tracker IP Blocklist}},
+  year         = {2026},
+  url          = {https://feodotracker.abuse.ch/blocklist/},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: CC0 1.0 Universal (verified 2026-11-25 via abuse.ch Terms of Use \S3.4; list format page to verify). Planned v1 C2 IP blocklist for network.windows detection N1.}
+}
+
+@misc{abusech_sslbl,
+  author       = {{abuse.ch}},
+  title        = {{SSL Blacklist (SSLBL) IP Blocklist}},
+  year         = {2026},
+  url          = {https://sslbl.abuse.ch/blacklist/},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: CC0 1.0 Universal (verified 2026-11-25 via abuse.ch Terms of Use \S3.4; publication status and format to verify). Planned v1 C2 IP blocklist for network.windows detection N1.}
+}
+
+@misc{abusech_urlhaus,
+  author       = {{abuse.ch}},
+  title        = {{URLhaus Host List}},
+  year         = {2026},
+  url          = {https://urlhaus.abuse.ch/api/},
+  urldate      = {2026-11-25},
+  note         = {Category: dataset. Licence/terms: not-for-profit free access under abuse.ch Terms of Use \S3.1--3.2 (\S7.3 forbids AI training); deferred from network.windows v1 per owner decision 1.}
+}
+
+@misc{unsw_nb15,
+  author       = {{UNSW Canberra Cyber Range Lab}},
+  title        = {{The UNSW-NB15 Dataset}},
+  year         = {2015},
+  url          = {https://research.unsw.edu.au/projects/unsw-nb15-dataset},
+  urldate      = {2026-11-18},
+  note         = {Category: dataset. Licence/terms: free use for academic research in perpetuity; commercial use requires authors' agreement (UNSWorks record https://unsworks.unsw.edu.au/items/4dc0e35c-6196-4c9d-945a-c50b981e5955; ReadMe https://www.scribd.com/document/504374180/UNSW-NB15-Datasets-ReadMe). Selected dataset for network.flows.}
+}
+
+@misc{unb_cicids2017,
+  author       = {{Canadian Institute for Cybersecurity (UNB)}},
+  title        = {{Intrusion Detection Evaluation Dataset (CIC-IDS2017)}},
+  year         = {2017},
+  url          = {https://www.unb.ca/cic/datasets/ids-2017.html},
+  urldate      = {2026-11-18},
+  note         = {Category: dataset. Licence/terms: publicly available for researchers with citation required. Compared and excluded from network.flows v1 in docs/design/network-engine-v1.md.}
+}
+
+% ============================================================================
+% 4. Primary Documentation, Licences, Software Libraries, and Brand Provenance
+% ============================================================================
+
+@misc{sigmahq_drl_1_1,
+  author       = {{SigmaHQ}},
+  title        = {{Detection Rule License (DRL), Version 1.1}},
+  version      = {1.1},
+  year         = {2021},
+  url          = {https://github.com/SigmaHQ/Detection-Rule-License/blob/main/LICENSE.Detection.Rules.md},
+  urldate      = {2026-11-24},
+  note         = {Category: primary. Licence/terms: DRL 1.1 text. Read 2026-11-18 and 2026-11-24 for SigmaHQ and signature-base attribution requirements in docs/data-licences.md.}
+}
+
+@misc{abusech_terms_2026,
+  author       = {{abuse.ch}},
+  title        = {{abuse.ch Terms of Use}},
+  year         = {2026},
+  url          = {https://abuse.ch/terms-of-use/},
+  urldate      = {2026-11-25},
+  note         = {Category: primary. Licence/terms: service terms (\S3.1--3.2 not-for-profit access, \S3.4 CC0 for Feodo Tracker, SSL Blacklist, and YARAify, \S4.1 commercial use, \S7.3 no AI training). Read 2026-11-25.}
+}
+
+@misc{futurecomputing_ember2024_code,
+  author       = {{FutureComputing4AI}},
+  title        = {{EMBER2024 Code Repository (thrember)}},
+  version      = {0.1.0 (commit 0ef753e81d98bf209f71b03cd331dfc190b5b54d)},
+  year         = {2025},
+  date         = {2025-08-22},
+  url          = {https://github.com/FutureComputing4AI/EMBER2024/tree/0ef753e81d98bf209f71b03cd331dfc190b5b54d},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Apache-2.0. Read 2026-11-25 and 2026-11-26; pinned PEFeatureExtractor (2,568 features) for malware.files.}
+}
+
+@misc{wbond_oscrypto_1547f535,
+  author       = {Bond, Will},
+  title        = {{oscrypto}},
+  version      = {1.3.0 (commit 1547f535001ba568b239b8797465536759c742a3)},
+  year         = {2023},
+  date         = {2023-08-23},
+  url          = {https://github.com/wbond/oscrypto/tree/1547f535001ba568b239b8797465536759c742a3},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: MIT. Pinned in requirements-malware.txt and documented in docs/data-licences.md.}
+}
+
+@misc{pypi_evtx_0150,
+  author       = {BenAmram, Omer},
+  title        = {{evtx: Fast Windows XML Event Log (EVTX) Parser}},
+  version      = {0.15.0},
+  year         = {2026},
+  date         = {2026-11-01},
+  url          = {https://pypi.org/project/evtx/},
+  urldate      = {2026-11-24},
+  note         = {Category: primary. Licence/terms: MIT. Checked 2026-11-18 and 2026-11-24; pinned EVTX parser for host.windows and network.windows.}
+}
+
+@misc{sigmahq_pysigma,
+  author       = {{SigmaHQ}},
+  title        = {{pySigma, pySigma-pipeline-windows, and pySigma-pipeline-sysmon}},
+  version      = {2.1.0 / 3.0.0},
+  year         = {2026},
+  url          = {https://raw.githubusercontent.com/SigmaHQ/pySigma/main/LICENSE},
+  urldate      = {2026-11-24},
+  note         = {Category: primary. Licence/terms: LGPL-2.1-only. Checked 2026-11-18 and 2026-11-24; used for offline Sigma rule parsing in host.windows.}
+}
+
+@misc{sigmahq_pysigma_sqlite,
+  author       = {{SigmaHQ}},
+  title        = {{pySigma-backend-sqlite}},
+  version      = {2.1.1},
+  year         = {2026},
+  url          = {https://github.com/SigmaHQ/pySigma-backend-sqlite},
+  urldate      = {2026-11-24},
+  note         = {Category: primary. Licence/terms: LGPL-3.0-only. Checked 2026-11-18 and 2026-11-24; used for SQLite query generation in host.windows.}
+}
+
+@misc{pypi_yara_python_454,
+  author       = {{VirusTotal}},
+  title        = {{yara-python}},
+  version      = {4.5.4},
+  year         = {2025},
+  date         = {2025-05-27},
+  url          = {https://pypi.org/project/yara-python/},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Apache-2.0. Verified 2026-11-26; used for in-memory YARA compilation and matching in malware.files.}
+}
+
+@misc{pypi_malware_deps_2026,
+  author       = {{PyPI Package Authors}},
+  title        = {{Pinned Python Dependencies for malware.files Feature Extraction (pefile 2024.8.26, signify 0.8.1, polars 2.1.0, tqdm 4.70.1, huggingface-hub 2.4.0, matplotlib 3.11.2, asn1crypto 1.5.1, certvalidator 0.11.1, contourpy 1.4.0, cycler 0.12.1, fonttools 4.68.0, fsspec 2026.9.0, hf-xet 1.8.0, httpcore2 2.16.0, httpx2 2.16.0, kiwisolver 1.5.1, mscerts 2026.10.27, pillow 13.0.0, truststore 0.10.5)}},
+  year         = {2026},
+  url          = {https://pypi.org/},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: MIT, Apache-2.0, BSD-3-Clause, BSD, MIT-CMU, PSF-based, and MPL-2.0 (tqdm, mscerts), audited in docs/data-licences.md on 2026-11-26.}
+}
+
+@misc{zeek_docs_2026,
+  author       = {{The Zeek Project}},
+  title        = {{Zeek Documentation: Quickstart, conn.log Reference, and Zeek on Windows}},
+  year         = {2022},
+  date         = {2022-11-01},
+  url          = {https://docs.zeek.org/logs/conn.html},
+  urldate      = {2026-11-18},
+  note         = {Category: primary. Licence/terms: BSD-style open-source licence (also https://docs.zeek.org/en/current/quickstart and https://zeek.org/2022/11/zeek-on-windows/). Used for network.flows feature specification.}
+}
+
+@misc{mslearn_wintrust_data,
+  author       = {{Microsoft}},
+  title        = {{WINTRUST\_DATA structure (wintrust.h) -- Microsoft Learn}},
+  year         = {2025},
+  url          = {https://learn.microsoft.com/en-us/windows/win32/api/wintrust/ns-wintrust-wintrust_data},
+  urldate      = {2026-11-25},
+  note         = {Category: primary. Licence/terms: Microsoft Learn documentation terms. Read 2026-11-25; documents WTD\_CACHE\_ONLY\_URL\_RETRIEVAL (0x1000) for offline signature checks.}
+}
+
+@misc{mslearn_dns_error_codes,
+  author       = {{Microsoft}},
+  title        = {{System Error Codes (9000-11999) -- Microsoft Learn}},
+  year         = {2025},
+  date         = {2025-07-16},
+  url          = {https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--9000-11999-},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Microsoft Learn documentation terms. Read 2026-11-26 for DNS Client NXDOMAIN status codes in network.windows.}
+}
+
+@misc{mslearn_wevtutil,
+  author       = {{Microsoft}},
+  title        = {{wevtutil -- Microsoft Learn}},
+  year         = {2026},
+  date         = {2026-05-15},
+  url          = {https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Microsoft Learn documentation terms. Read 2026-11-26 for owner log export instructions in network.windows.}
+}
+
+@misc{mslearn_firewall_logging,
+  author       = {{Microsoft}},
+  title        = {{Configure Windows Firewall Logging -- Microsoft Learn}},
+  year         = {2026},
+  date         = {2026-10-08},
+  url          = {https://learn.microsoft.com/en-us/windows/security/operating-system-security/network-security/windows-firewall/configure-logging},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Microsoft Learn documentation terms. Read 2026-11-26 for pfirewall.log defaults and limits in network.windows.}
+}
+
+@misc{mslearn_sysmon,
+  author       = {{Microsoft Sysinternals}},
+  title        = {{Sysmon v15+ Documentation and Sysinternals Software License Terms}},
+  year         = {2026},
+  date         = {2026-09-10},
+  url          = {https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon},
+  urldate      = {2026-11-26},
+  note         = {Category: primary. Licence/terms: Sysinternals Software License Terms (https://learn.microsoft.com/en-us/sysinternals/license-terms, updated 2023-05-24). Read 2026-11-26 for Sysmon events 1, 3, and 22.}
+}
+
+@misc{chrome_extensions_docs,
+  author       = {{Google}},
+  title        = {{Chrome Extensions Documentation: Overview, Declare Permissions, and Cross-Origin Network Requests}},
+  url          = {https://developer.chrome.com/docs/extensions/},
+  note         = {Category: primary. Licence/terms: Google Developers documentation terms (to verify; also https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions and https://developer.chrome.com/docs/extensions/develop/concepts/network-requests). Access date: unopened (to verify, cited 2026-11-26 in docs/design/browser-extension-v1.md).}
+}
+
+@misc{edge_extensions_docs,
+  author       = {{Microsoft}},
+  title        = {{Microsoft Edge Extensions Documentation}},
+  url          = {https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/},
+  note         = {Category: primary. Licence/terms: Microsoft Learn documentation terms (to verify). Access date: unopened (to verify, cited 2026-11-26 in docs/design/browser-extension-v1.md).}
+}
+
+@misc{egypt_bank_hotlines_2026,
+  author       = {{Commercial International Bank (CIB)} and {National Bank of Egypt (NBE)} and {Banque Misr} and {QNB Al Ahli}},
+  title        = {{Official Egyptian Retail Bank Contact Pages (CIB 19666, NBE 19623, Banque Misr 19888, QNB Al Ahli 19700)}},
+  year         = {2026},
+  date         = {2026-10-08},
+  url          = {https://www.nbe.com.eg/NBE/E/},
+  urldate      = {2026-10-08},
+  note         = {Category: primary. Licence/terms: organization-owned public contact pages (also https://www.cibeg.com/ar/complaint-form, https://www.banquemisr.com/ar-EG/Home/CONTACT-US/Call-Center?sc_lang=en, and https://www.qnb.com.eg/sites/qnb/qnbegypt/page/en/encontactus.html). Used in backend/app/core/brand_contacts.py and correlation\_stoplist.}
+}
+
+@misc{egypt_brand_domain_sources_2026,
+  author       = {{Paymob} and {InstaPay} and {Vodafone Egypt} and {Vodafone Group} and {ValU} and {Fawry} and {Bosta} and {Aramex} and {Egypt Post} and {Digital Egypt Portal} and {Egyptian Tax Authority} and {Amazon} and {Orange Group}},
+  title        = {{Official Organization and Government Brand-Domain Provenance Pages}},
+  year         = {2026},
+  date         = {2026-10-17},
+  url          = {https://www.instapay.eg/?lang=en},
+  urldate      = {2026-10-17},
+  note         = {Category: primary. Licence/terms: organization-owned corporate, developer, and government pages documented in docs/brand-sources.md. Used for manual brand-registry domain verification.}
+}
+
+@misc{hsbc_egypt_fraud_guide,
+  author       = {{HSBC Bank Egypt}},
+  title        = {{HSBC Egypt Fraud and Security Guide}},
+  year         = {2026},
+  url          = {https://www.hsbc.com.eg/ar-eg/help/security/fraud-guide/},
+  urldate      = {2026-07-19},
+  note         = {Category: primary. Licence/terms: public customer security guidance. Used in docs/synthetic_examples_grounding.md to ground OTP/PIN fraud warnings.}
+}
+
+% ============================================================================
+% 5. Case Studies, Dataset Audits, and Academic Literature
+% ============================================================================
+
+@inproceedings{engelen2021_cicids2017,
+  author       = {Engelen, Gints and Rimmer, Vera and Joosen, Wouter},
+  title        = {Troubleshooting an Intrusion Detection Dataset: the {CICIDS2017} Case Study},
+  booktitle    = {2021 IEEE Security and Privacy Workshops (SPW)},
+  year         = {2021},
+  url          = {https://researchportal.be/en/node/8038227},
+  urldate      = {2026-11-18},
+  note         = {Category: case study. Licence/terms: academic publication (PDF: https://lirias.kuleuven.be/retrieve/713070). Cited in docs/design/network-engine-v1.md.}
+}
+
+@misc{lanvin2022_cicids2017,
+  author       = {Lanvin, Maxime and Gimenez, Pierre-Fran{\c{c}}ois and Han, Yufei and Majorczyk, Fr{\'e}d{\'e}ric and M{\'e} , Ludovic and Totel, {\'E}ric},
+  title        = {Errors in the {CICIDS2017} Dataset and the Significant Differences in Model Performances It Makes},
+  year         = {2022},
+  url          = {https://hal.archives-ouvertes.fr/hal-03775466},
+  urldate      = {2026-11-18},
+  note         = {Category: case study. Licence/terms: HAL academic archive. Cited in docs/design/network-engine-v1.md.}
+}
+
+@inproceedings{liu2022_nids_errors,
+  author       = {Liu, Lisa and Engelen, Gints and Lynar, Timothy and Essam, Daryl and Joosen, Wouter},
+  title        = {Error Prevalence in {NIDS} Datasets: A Case Study on {CIC-IDS-2017} and {CSE-CIC-IDS-2018}},
+  booktitle    = {2022 IEEE Conference on Communications and Network Security (CNS)},
+  year         = {2022},
+  url          = {https://archive.cps-vo.org/node/97449},
+  urldate      = {2026-11-18},
+  note         = {Category: case study. Licence/terms: academic publication. Cited in docs/design/network-engine-v1.md.}
+}
+
+@misc{fkie_comidds_otrf,
+  author       = {{Fraunhofer FKIE (COMIDDS)}},
+  title        = {{OTRF Atomic Dataset Layout Summary}},
+  url          = {https://fkie-cad.github.io/COMIDDS/content/datasets/otfr_atomic},
+  urldate      = {2026-11-18},
+  note         = {Category: case study. Licence/terms: public documentation page. Secondary summary of OTRF Security-Datasets layout cited in docs/design/host-engine-v1.md.}
+}
+
+@article{zawari2025_arabic_sms,
+  author       = {Zawari, A. H. and Alsulami, B. S. and Alqurashi, F. A.},
+  title        = {Detecting {Arabic} {SMS} Scam Messages Using a Hybrid Ensemble Machine Learning Algorithms},
+  journal      = {Journal of Information Systems Engineering and Management},
+  volume       = {10},
+  number       = {55s},
+  pages        = {148--156},
+  year         = {2025},
+  url          = {https://jisem-journal.com/},
+  urldate      = {2026-07-15},
+  note         = {Category: case study. Licence/terms: journal publication. Cited in docs/arabic_sources_citations.md for literature review only.}
+}
+
+@article{alhayan2024_arabic_deception,
+  author       = {Alhayan, F. and Himdi, H. T. and Alharbi, B.},
+  title        = {Unveiling Deception in {Arabic}: Optimization of Deceptive Text Detection Across Formal and Informal Genres},
+  journal      = {IEEE Access},
+  volume       = {12},
+  pages        = {94216--94230},
+  year         = {2024},
+  url          = {https://ieeexplore.ieee.org/},
+  urldate      = {2026-07-15},
+  note         = {Category: case study. Licence/terms: IEEE Access open-access publication. Cited in docs/arabic_sources_citations.md for literature review only.}
+}
+
+@misc{egypt_fraud_news_grounding_2026,
+  author       = {{Bnok24} and {TechReviewEG} and {El Watan News} and {El-Dostor} and {Egypt State Information Service (SIS)} and {CNN Business Arabic}},
+  title        = {{Egyptian Fraud Awareness and Scam-Pattern Reports (Banque Misr, Vodafone Cash, InstaPay, Central Bank of Egypt)}},
+  year         = {2026},
+  url          = {https://www.dostor.org/5325790},
+  urldate      = {2026-07-19},
+  note         = {Category: case study. Licence/terms: public news and awareness articles (also https://www.bnok24.com/2025/05/, https://techrevieweg.com/, https://www.elwatannews.com/news/details/8262292, https://sis.gov.eg/ar/, https://cnnbusinessarabic.com/technology/1138603/). Used in docs/synthetic_examples_grounding.md.}
+}
+
+% ============================================================================
+% 6. Internal Repository and Local Verification Material
+% ============================================================================
+
+@misc{etis_local_dns_manifest_2026,
+  author       = {{ETIS Project Owner PC (Microsoft Windows 11)}},
+  title        = {{Local Microsoft-Windows-DNS-Client Event Provider Manifest (wevtutil gp Microsoft-Windows-DNS-Client /ge /gm:true)}},
+  year         = {2026},
+  date         = {2026-11-26},
+  url          = {file:///local/Microsoft-Windows-DNS-Client},
+  urldate      = {2026-11-26},
+  note         = {Category: internal material. Licence/terms: local read-only Windows event provider metadata inspected on 2026-11-26 in docs/design/network-windows-v1.md.}
+}
+
+@misc{etis_design_and_locks_2026,
+  author       = {{ETIS Six-Member AAST Graduation Team}},
+  title        = {{ETIS Internal Design Specifications, Lock Manifests, and Evaluation Reports}},
+  year         = {2026},
+  date         = {2026-11-26},
+  url          = {file:///repo/ETIS},
+  urldate      = {2026-11-26},
+  note         = {Category: internal material. Licence/terms: internal repository documentation (LICENSE placeholder pending team selection).}
+}
