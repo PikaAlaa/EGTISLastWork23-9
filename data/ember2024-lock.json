@@ -1,0 +1,47 @@
+{
+  "description": "Pinned EMBER2024 PE train zips for the malware engine (docs/design/malware-engine-v1.md §3.7, §4.2, §9 step 7). Fetched and verified by data/scripts/fetch_ember2024.py.",
+  "dataset": "joyce8/EMBER2024",
+  "dataset_url": "https://huggingface.co/datasets/joyce8/EMBER2024",
+  "revision": "3d23efef7c0f0b702c5024400cfff4c3744a3832",
+  "revision_date": "2025-08-22T20:14:18Z",
+  "pinned_on": "2026-11-26",
+  "pin_reason": "Newest dataset revision on 2026-11-26 (2025-08-22), more than two weeks old. Only the Win32, Win64 and Dot_Net train zips were approved by the owner on 2026-11-26.",
+  "license": "Apache-2.0",
+  "license_source": "dataset card metadata (license: apache-2.0) and the EMBER2024 code repository",
+  "citation": "Joyce et al., \"EMBER2024 - A Benchmark Dataset for Holistic Evaluation of Malware Classifiers\", KDD 2025, DOI 10.1145/3711896.3737431",
+  "destination": "data/external/ember2024/",
+  "sha256_source": "Hugging Face LFS oid (SHA-256) and size for each file at the pinned revision, from /api/datasets/joyce8/EMBER2024/tree/<revision>; each file is hashed locally on download and must match",
+  "not_downloaded": "Every other file of the repository, including the test zips, challenge.zip and the APK, ELF and PDF zips. thrember download_dataset and download_models are never used.",
+  "files": [
+    {
+      "file": "Dot_Net_train.zip",
+      "url": "https://huggingface.co/datasets/joyce8/EMBER2024/resolve/3d23efef7c0f0b702c5024400cfff4c3744a3832/Dot_Net_train.zip",
+      "size": 937108923,
+      "card_size_gb": 0.94,
+      "sha256": "b9f6e90ab75293a7ceb9339700586dd033a03d19766282755ee31dfa0836e625",
+      "downloaded_on": "2026-11-26",
+      "sha256_measured": "b9f6e90ab75293a7ceb9339700586dd033a03d19766282755ee31dfa0836e625",
+      "verified": true
+    },
+    {
+      "file": "Win64_train.zip",
+      "url": "https://huggingface.co/datasets/joyce8/EMBER2024/resolve/3d23efef7c0f0b702c5024400cfff4c3744a3832/Win64_train.zip",
+      "size": 5853142901,
+      "card_size_gb": 5.85,
+      "sha256": "7b050100ce7bd87149bbfca442de3e02d4bf97d51251566caec2581eebe799fd",
+      "downloaded_on": "2026-11-26",
+      "sha256_measured": "7b050100ce7bd87149bbfca442de3e02d4bf97d51251566caec2581eebe799fd",
+      "verified": true
+    },
+    {
+      "file": "Win32_train.zip",
+      "url": "https://huggingface.co/datasets/joyce8/EMBER2024/resolve/3d23efef7c0f0b702c5024400cfff4c3744a3832/Win32_train.zip",
+      "size": 12321281336,
+      "card_size_gb": 12.3,
+      "sha256": "6cf9dea847960115f65d405d38b6b09d38c87225c8288dafedf00fed2512b1d4",
+      "downloaded_on": "2026-11-26",
+      "sha256_measured": "6cf9dea847960115f65d405d38b6b09d38c87225c8288dafedf00fed2512b1d4",
+      "verified": true
+    }
+  ]
+}
