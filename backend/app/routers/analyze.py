@@ -54,8 +54,12 @@ def analyze(request: Request, payload: AnalyzeRequest, db: Session = Depends(get
         if settings.findings_enabled:
             # Built from the finished result only; same transaction as the scan record.
             record_findings(db, phishing_findings(result, payload, scan.id), scan_request_id=scan.id)
-            # Additive rule Findings only; result/verdict and deployed scorers are unchanged.
-            record_provider_scan(db, scan.id, text=payload.text, url=payload.url)
+            try:
+                with db.begin_nested():
+                    record_provider_scan(db, scan.id, text=payload.text, url=payload.url)
+            except Exception:
+                # The savepoint rolls back provider writes. Exception details can contain scan input.
+                logger.warning('provider_findings_failed')
         db.commit()
         result.update(saved=True, save_error=None)
     except Exception:
