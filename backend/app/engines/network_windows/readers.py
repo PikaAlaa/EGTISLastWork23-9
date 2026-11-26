@@ -1,4 +1,4 @@
-"""Readers for the DNS Client log, `pfirewall.log` and Sysmon 1/3/22 (design network-windows-v1 §1, §8.1).
+"""Readers for the DNS Client log, `pfirewall.log`, Sysmon 1/3/22 and connection snapshots (design network-windows-v1 §1, §8.1).
 
 Inputs are local files the owner exported; they are read in place and never copied. EVTX
 files go through the host engine's pinned reader (`app.engines.host.reader`); the firewall
@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import hashlib
 import ipaddress
+import json
 import logging
 import ntpath
 import os
@@ -52,6 +53,9 @@ MAX_BYTES = int(os.getenv('ETIS_NETWORK_WINDOWS_MAX_BYTES', str(1024 ** 3)))
 MAX_DNS_EVENTS = int(os.getenv('ETIS_NETWORK_WINDOWS_MAX_DNS_EVENTS', '2000000'))
 MAX_FIREWALL_LINES = int(os.getenv('ETIS_NETWORK_WINDOWS_MAX_FIREWALL_LINES', '2000000'))
 MAX_SYSMON_EVENTS = int(os.getenv('ETIS_NETWORK_WINDOWS_MAX_SYSMON_EVENTS', '1000000'))
+MAX_SNAPSHOT_ROWS = int(os.getenv('ETIS_NETWORK_WINDOWS_MAX_SNAPSHOT_ROWS', '2000000'))
+SNAPSHOT_KEYS = frozenset({'v', 'time', 'protocol', 'state', 'direction', 'local_ip', 'local_port', 'remote_ip',
+                           'remote_port', 'pid', 'image_name'})
 MAX_LINE_CHARS = 4096
 
 FIREWALL_FIELDS = ('date', 'time', 'action', 'protocol', 'src-ip', 'dst-ip', 'src-port', 'dst-port', 'size',
@@ -100,7 +104,7 @@ class DnsRecord:
 class ConnRecord:
     """One connection (firewall line or Sysmon 3), UTC."""
     time: str
-    source: str                      # firewall | sysmon3
+    source: str                      # firewall | sysmon3 | snapshot
     direction: str                   # outbound | inbound | unknown
     action: str                      # allowed | dropped | observed (Sysmon)
     protocol: str
@@ -118,7 +122,7 @@ class ConnRecord:
 
 @dataclass(frozen=True)
 class InputFile:
-    source: str                      # dns_client | firewall | sysmon
+    source: str                      # dns_client | firewall | sysmon | snapshot
     sha256: str
     size: int
     records: int
@@ -511,15 +515,62 @@ def read_firewall(paths: Iterable, result: ReadResult, limit: int, local_nets: t
         result.firewall_time_basis = bases.pop() if len(bases) == 1 else 'mixed'
 
 
+# ----------------------------------------------------------------- connection snapshots
+
+def _snapshot_record(line: str, local_nets: tuple) -> ConnRecord | str:
+    try:
+        row = json.loads(line)
+    except ValueError:
+        return 'malformed_row'
+    if not isinstance(row, dict) or set(row) != SNAPSHOT_KEYS or row.get('v') != 1 or row.get('protocol') != 'tcp':
+        return 'malformed_row'
+    if row.get('direction') not in ('outbound', 'inbound'):
+        return 'malformed_row'
+    when = host_reader._utc(row.get('time') if isinstance(row.get('time'), str) else None, None)
+    remote = normalise_ip(row['remote_ip'] if isinstance(row['remote_ip'], str) else None)
+    ports = [_port(row['remote_port']), _port(row['local_port'])]
+    if when is None or remote is None or None in ports:
+        return 'malformed_row'
+    image = row.get('image_name')
+    return ConnRecord(
+        time=when, source='snapshot', direction=row['direction'], action='observed', protocol='tcp',
+        remote_ip=remote, remote_local=locality(remote, local_nets) == 'local', remote_port=ports[0],
+        local_port=ports[1], pid=_int(row.get('pid')), image_name=_image_name(image if isinstance(image, str) else None))
+
+
+def read_snapshots(paths: Iterable, result: ReadResult, limit: int, local_nets: tuple = ()) -> None:
+    """JSON-lines files written by data/scripts/snapshot_connections.py; unknown row shapes are counted."""
+    rows_total = 0
+    for path in _local_files(paths, 'snapshot'):
+        kept = 0
+        for line in _decode(path):
+            if not line.strip():
+                continue
+            rows_total += 1
+            if rows_total > limit:
+                raise NetworkWindowsInputError('snapshot_too_many_rows')
+            record = _snapshot_record(line, local_nets) if len(line) <= MAX_LINE_CHARS else 'malformed_row'
+            if isinstance(record, str):
+                result.skipped[('snapshot', record)] += 1
+                continue
+            result.connections.append(record)
+            result.counts[('snapshot', record.direction)] += 1
+            _span(result, 'snapshot', record.time)
+            kept += 1
+        result.files.append(InputFile('snapshot', _sha256(path), path.stat().st_size, kept))
+
+
 # ----------------------------------------------------------------- one import
 
-def read_import(dns_evtx: Iterable = (), firewall_logs: Iterable = (), sysmon_evtx: Iterable = (), *,
-                local_nets: tuple = (), local_tz: tzinfo | None = None, max_bytes: int | None = None,
-                max_dns_events: int | None = None, max_firewall_lines: int | None = None,
-                max_sysmon_events: int | None = None) -> ReadResult:
+def read_import(dns_evtx: Iterable = (), firewall_logs: Iterable = (), sysmon_evtx: Iterable = (),
+                snapshots: Iterable = (), *, local_nets: tuple = (), local_tz: tzinfo | None = None,
+                max_bytes: int | None = None, max_dns_events: int | None = None,
+                max_firewall_lines: int | None = None, max_sysmon_events: int | None = None,
+                max_snapshot_rows: int | None = None) -> ReadResult:
     """Read every file of one import (design §1.3). Limits apply to the whole import."""
     dns_evtx, firewall_logs, sysmon_evtx = list(dns_evtx or ()), list(firewall_logs or ()), list(sysmon_evtx or ())
-    groups = (('dns_client', dns_evtx), ('firewall', firewall_logs), ('sysmon', sysmon_evtx))
+    snapshots = list(snapshots or ())
+    groups = (('dns_client', dns_evtx), ('firewall', firewall_logs), ('sysmon', sysmon_evtx), ('snapshot', snapshots))
     total = sum(p.stat().st_size for source, values in groups for p in _local_files(values, source))
     if total > (MAX_BYTES if max_bytes is None else max_bytes):
         raise NetworkWindowsInputError('import_too_large')
@@ -529,6 +580,8 @@ def read_import(dns_evtx: Iterable = (), firewall_logs: Iterable = (), sysmon_ev
                   local_nets, local_tz)
     read_sysmon(sysmon_evtx, result, MAX_SYSMON_EVENTS if max_sysmon_events is None else max_sysmon_events,
                 local_nets)
+    read_snapshots(snapshots, result, MAX_SNAPSHOT_ROWS if max_snapshot_rows is None else max_snapshot_rows,
+                   local_nets)
     if result.skipped:
         logger.info('network_windows_records_skipped', extra={'skipped': sum(result.skipped.values())})
     return result
