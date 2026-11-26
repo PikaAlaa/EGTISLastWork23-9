@@ -26,3 +26,9 @@ evaluation/time_text_candidates.py -text
 
 # Host v1 frozen rule and technique manifest are referenced by their exact byte hashes.
 evaluation/reports/2026-11-host-v1/** -text
+
+# Malware v1 frozen rule, split manifest and memory plan are referenced by their exact byte hashes.
+evaluation/reports/2026-11-malware-v1/selection_rule.md -text
+evaluation/reports/2026-11-malware-v1/FREEZE.json -text
+evaluation/reports/2026-11-malware-v1/split_manifest.json -text
+evaluation/reports/2026-11-malware-v1/memory_plan.json -text
