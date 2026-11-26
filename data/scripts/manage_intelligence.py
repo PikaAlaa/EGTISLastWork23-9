@@ -4,7 +4,7 @@ ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'backend'))
 from app.core.database import SessionLocal
 from app.services.feeds import fetch_feed,activate_snapshot,rollback_snapshot,expire_sources
 from app.services.indicators import sync_feed_indicators
-from retention import delete_expired
+from retention import delete_expired,delete_expired_malware
 from app.core.settings import settings
 
 def refresh():
@@ -18,6 +18,7 @@ def refresh():
         try:
             expire_sources(db)
             results.append({"retention_deleted":delete_expired(db,settings.retention_days)})
+            results.append({"malware_retention_deleted":delete_expired_malware(db)})
         except Exception as exc:db.rollback();results.append({"retention_error":type(exc).__name__})
     results.append(sync_indicators())
     return results

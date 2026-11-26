@@ -14,6 +14,8 @@ class Settings:
     model_backend: str = os.getenv('ETIS_TEXT_MODEL', 'char')
     model_path: str = str(PROJECT_ROOT / os.getenv('ETIS_CHAR_MODEL_PATH', 'ml/models/deployed_char.joblib'))
     retention_days: int = int(os.getenv('ETIS_RETENTION_DAYS', '30'))
+    # Malware scan-derived Findings and scan records (design malware-engine-v1 §7).
+    malware_retention_days: int = int(os.getenv('ETIS_MALWARE_RETENTION_DAYS', '30'))
     blacklist_max_age_days: int = int(os.getenv('ETIS_BLACKLIST_MAX_AGE_DAYS', '30'))
     required_feeds: tuple = tuple(filter(None, os.getenv('ETIS_REQUIRED_FEEDS','phishtank,openphish').split(',')))
     cors_origins: tuple = tuple(filter(None, os.getenv('ETIS_CORS_ORIGINS', '').split(',')))
