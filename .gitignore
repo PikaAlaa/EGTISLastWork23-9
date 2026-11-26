@@ -73,6 +73,9 @@ data/external/yara/
 # EVTX-ATTACK-SAMPLES (GPL-3.0): pinned by data/evtx-attack-samples-lock.json, fetched by data/scripts/fetch_evtx_samples.py.
 data/external/evtx-attack-samples/
 
+# EMBER2024 PE train zips (Apache-2.0): pinned by data/ember2024-lock.json, fetched by data/scripts/fetch_ember2024.py.
+data/external/ember2024/
+
 # Local release weights and candidate bundles
 release-artifacts/
 colab-bundle/
