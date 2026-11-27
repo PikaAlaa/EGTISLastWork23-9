@@ -95,3 +95,6 @@ ml/models/*.joblib
 
 # Machine handover remains local; HANDOFF.md is committed with this follow-up.
 evaluation/reports/2026-10-v4/handoff.json
+
+# Malware v1 candidate models (LightGBM text, JSON coefficients) and scores: never committed (design §4.12 amendment 1).
+data/models/malware-v1/
