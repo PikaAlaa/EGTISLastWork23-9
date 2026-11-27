@@ -318,6 +318,17 @@ no sealed final test ever runs as part of this protocol.
 
 ## 10. To verify
 
+Frozen pre-implementation parameters for steps 1–3 (27 November 2026,
+`backend/app/services/extension_config.py` and `browser-extension/manifest.json`):
+schema versions `extension-pair-v1` and `extension-check-v1`; literal backend
+`Host: 127.0.0.1:8000` (`http://127.0.0.1:8000`); routes `POST /extension/v1/pair`
+and `POST /extension/v1/check`; body limit 4,096 B; URL limit 2,048 characters;
+client timeout 5,000 ms; max 2 concurrent checks; 32-byte one-use pairing secret
+(TTL 300 s, max 5 failed attempts); 32-byte revocable bearer token stored as
+SHA-256 digest only; unchanged `decision-v2` policy and URL candidate
+`ee0ba9f0077c1fd140aa` (threshold `0.9870690448552604`). All Chrome/Edge runtime
+behaviors below remain **to verify** against official documentation.
+
 - **To verify:** Chrome/Edge Manifest V3 capabilities, worker lifetime, permission
   warnings, activeTab scope, scripting/document targeting, storage access,
   restricted pages/incognito, host-pattern port behavior and stable extension IDs;
