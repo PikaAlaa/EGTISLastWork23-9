@@ -1,6 +1,7 @@
 """Indicator search and community review API (design core-v1 §2, §6).
 
-Exact lookup only: the query value is normalized and hashed, then matched on
+Exact lookup only: the query value is refanged (design core-v2 §4.3, so a de-fanged value
+copied from the console finds the same indicator), normalized and hashed, then matched on
 (type, value_hash). There is no substring search over hashed values and no bulk
 export. The submitted query is never logged, stored or echoed in errors.
 """
@@ -11,6 +12,7 @@ from pydantic import Field
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db_session
+from app.core.defang import refang
 from app.core.indicators import normalize
 from app.core.security import verify_api_key
 from app.models import CommunityReport, FindingIndicator, FindingRecord, Incident, Indicator, IndicatorSighting
@@ -53,7 +55,7 @@ def lookup_indicator(type: IndicatorType, q: str = Query(min_length=1, max_lengt
                      hash_algo: Literal['sha256', 'sha1', 'md5'] | None = None,
                      db: Session = Depends(get_db_session)):
     try:
-        normalized = normalize(type, q, hash_algo if type == 'hash' else None)
+        normalized = normalize(type, refang(q), hash_algo if type == 'hash' else None)
     except ValueError:
         return error(400, 'invalid_input')
     indicator = db.query(Indicator).filter_by(type=normalized.type, value_hash=normalized.value_hash).one_or_none()
