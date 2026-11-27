@@ -20,6 +20,10 @@ class Settings:
     # (design network-windows-v1 §0.1, §7).
     network_retention_days: int = int(os.getenv('ETIS_NETWORK_RETENTION_DAYS', '30'))
     blacklist_max_age_days: int = int(os.getenv('ETIS_BLACKLIST_MAX_AGE_DAYS', '30'))
+    # LAN agent pairing bundle (design windows-agent-lan-v1 §4.1, §4.2, Q5): SHA-256 of the server's DER leaf
+    # certificate and an optional next one for rotation. Not secrets; empty means not configured.
+    agent_primary_cert_sha256: str = os.getenv('ETIS_AGENT_PRIMARY_CERT_SHA256', '').strip().lower()
+    agent_next_cert_sha256: str = os.getenv('ETIS_AGENT_NEXT_CERT_SHA256', '').strip().lower()
     required_feeds: tuple = tuple(filter(None, os.getenv('ETIS_REQUIRED_FEEDS','phishtank,openphish').split(',')))
     cors_origins: tuple = tuple(filter(None, os.getenv('ETIS_CORS_ORIGINS', '').split(',')))
     rate_limit: str = os.getenv('ETIS_RATE_LIMIT', '20/minute')

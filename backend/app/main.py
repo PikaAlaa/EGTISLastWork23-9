@@ -13,7 +13,7 @@ from app.core.exceptions import ETISException, InvalidScanInputError
 from app.core.security import AuthenticationError
 import app.models
 from app.routers import analyze, threats, stats, incidents, indicators, attack, malware, network_windows
-from app.routers import recommended_actions, extension, device_risk
+from app.routers import recommended_actions, extension, device_risk, agent, devices
 import logging
 
 app = FastAPI(title='ETIS', version='0.2.0')
@@ -38,6 +38,8 @@ app.include_router(network_windows.router)
 app.include_router(recommended_actions.router)
 app.include_router(extension.router)
 app.include_router(device_risk.router)
+app.include_router(agent.router)
+app.include_router(devices.router)
 
 @app.exception_handler(ETISException)
 async def etis_error(request, exc):
