@@ -4,6 +4,7 @@ import { Box,TextField,Button,Typography,CircularProgress,Alert,Stack,Paper,Chip
 import { analyzeScan,ApiError } from '../api/client';
 import type { AnalyzeResponse,SenderType } from '../api/types';
 import { VerdictCard } from '../components/VerdictCard';
+import { ExtensionPairingPanel } from '../components/ExtensionPairingPanel';
 
 export function ScanPage() {
  const {t}=useTranslation();
@@ -59,5 +60,6 @@ export function ScanPage() {
    </Paper>)}
    <Typography variant="caption" color="text.secondary">{t('scan.totalTime',{ms:result.timing_ms})}</Typography>
   </Stack>}
+  <ExtensionPairingPanel />
  </Box>;
 }

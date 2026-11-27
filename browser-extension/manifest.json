@@ -12,8 +12,13 @@
   "host_permissions": [
     "http://127.0.0.1/*"
   ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "action": {
-    "default_title": "Check current tab with local ETIS"
+    "default_title": "Check current tab with local ETIS",
+    "default_popup": "popup.html"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'none';"

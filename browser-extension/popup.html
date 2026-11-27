@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>ETIS Local Link Check</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup-root" id="popup-root">
+    <header class="popup-header">
+      <strong id="app-title">فحص الروابط المحلي — ETIS</strong>
+      <button type="button" id="lang-toggle" class="btn-secondary">English</button>
+    </header>
+
+    <section id="unpaired-panel" class="panel" hidden>
+      <p id="pair-notice" class="notice"></p>
+      <div class="field-group">
+        <label for="ext-id-display" id="ext-id-label">معرّف الإضافة (32 حرفاً a–p):</label>
+        <input type="text" id="ext-id-display" readonly dir="ltr">
+      </div>
+      <div class="field-group">
+        <label for="pair-secret-input" id="pair-secret-label">رمز الاقتران لمرة واحدة:</label>
+        <input type="password" id="pair-secret-input" autocomplete="off" spellcheck="false" dir="ltr">
+      </div>
+      <button type="button" id="pair-btn" class="btn-primary">اقتران محلي</button>
+    </section>
+
+    <section id="paired-panel" class="panel" hidden>
+      <div class="action-row">
+        <button type="button" id="check-btn" class="btn-primary">فحص التبويب الحالي</button>
+        <button type="button" id="unpair-btn" class="btn-secondary">إلغاء الاقتران</button>
+      </div>
+    </section>
+
+    <section id="result-panel" class="panel" hidden>
+      <div id="verdict-badge" class="verdict-badge"></div>
+      <p id="verdict-summary" class="verdict-summary"></p>
+      <ul id="reasons-list" class="reasons-list"></ul>
+      <div id="unavailable-section" hidden>
+        <strong id="unavailable-heading" class="subheading"></strong>
+        <ul id="unavailable-list" class="reasons-list"></ul>
+      </div>
+      <button type="button" id="retry-btn" class="btn-secondary" hidden>إعادة الفحص</button>
+      <p id="coverage-note" class="coverage-note" hidden></p>
+      <p id="trusted-ui-note" class="trusted-note"></p>
+    </section>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

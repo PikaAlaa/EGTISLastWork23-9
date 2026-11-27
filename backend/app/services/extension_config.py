@@ -29,8 +29,9 @@ ALLOWED_BACKEND_ORIGIN = f'http://{ALLOWED_BACKEND_HOST}'
 PAIR_PATH = '/extension/v1/pair'
 CHECK_PATH = '/extension/v1/check'
 
-# Chromium unpacked/packed extension Origin format: 32 base16 characters in [a-p]
-# (to verify across Chrome and Edge developer mode builds, design §2.3, §10).
+# Chromium unpacked/packed extension ID and Origin format: 32 base16 characters in [a-p]
+# (owner decision §9 #2; runtime behavior across Chrome/Edge marked to verify, §10).
+EXTENSION_ID_RE = re.compile(r'^[a-p]{32}$')
 EXTENSION_ORIGIN_RE = re.compile(r'^chrome-extension://[a-p]{32}$')
 IDENTIFIER_RE = re.compile(r'^[A-Za-z0-9_-]{16,64}$')
 
@@ -156,11 +157,27 @@ def validate_host_header(host: str | None) -> str:
     return host
 
 
+def validate_extension_id(extension_id: str | None) -> str:
+    """Validate an unpacked/packed extension ID pasted from chrome://extensions: exactly 32 letters a-p (§9 #2)."""
+    if not isinstance(extension_id, str) or not EXTENSION_ID_RE.fullmatch(extension_id):
+        raise ExtensionInputError(ERROR_PAIRING_INVALID)
+    return extension_id
+
+
 def validate_extension_origin(origin: str | None) -> str:
     """Validate exact Chromium extension Origin syntax before comparing with approved origin (§2.3)."""
     if not isinstance(origin, str) or not EXTENSION_ORIGIN_RE.fullmatch(origin):
         raise ExtensionInputError(ERROR_PAIRING_INVALID)
     return origin
+
+
+def normalize_approved_extension_origin(ext_id_or_origin: str | None) -> str:
+    """Accept either a bare 32-char [a-p] extension ID or chrome-extension://<32 a-p> and return the canonical Origin."""
+    if not isinstance(ext_id_or_origin, str):
+        raise ExtensionInputError(ERROR_PAIRING_INVALID)
+    if EXTENSION_ID_RE.fullmatch(ext_id_or_origin):
+        return f'chrome-extension://{ext_id_or_origin}'
+    return validate_extension_origin(ext_id_or_origin)
 
 
 def validate_identifier(value: str | None) -> str:
