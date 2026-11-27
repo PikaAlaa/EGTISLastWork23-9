@@ -299,6 +299,41 @@ previous `selection_rule.md` SHA-256, stating that no result it could be tuned t
 seen, and recorded in `FREEZE.json` (as host amendment 3). After the sealed test, no amendment
 can affect its reported result.
 
+### 4.11 Pre-measurement clarifications (27 November 2026)
+
+Written before any rule was run on any sample or on the owner's logs, and before this section
+was frozen, to remove choices that would otherwise be made after seeing results (as
+host-engine-v1 §4.7). They take precedence over §4.1–4.10 where those are silent or ambiguous.
+
+1. **Lists (§4.2).** The SSL Blacklist IP list is not a candidate: its file header says it was
+   deprecated on 2025-01-03 (§2.2 note of 27 November 2026). The only list candidate is
+   **Feodo Tracker**, the exact fetch pinned by `data/network-blocklists-lock.json` with
+   raw-byte SHA-256 `692d3197a7aadbeae5a7803dbc7578395d1d041244ee1b77fb6765a535260b6c` (1 IP
+   row; list header "Last updated: 2026-03-04 14:28:39 UTC"). N1 has very low practical
+   coverage; this is a stated limitation, not a tuning target.
+2. **Gate techniques in gate 2 (§4.6).** A development file matches a rule when one of the
+   rule's gate techniques equals one of the file's expected techniques **exactly**; a parent
+   technique never matches its sub-techniques or the reverse. Gate techniques are the §5 map
+   and nothing else: **N5 `T1568.002`, N7 `T1571`, N8 `T1071.004`**. N1, N2, N3, N4, N6 and N9
+   have no gate technique. "Alerts on a file" means at least one alert when that file is
+   imported on its own.
+3. **Expected-detection manifest.** It is
+   `evaluation/reports/2026-11-network-windows-v1/expected_detections.json` (built by
+   `evaluation/network_expected_detections.py` from the host engine's frozen path-only
+   technique manifest and the §5 map; no sample was parsed), frozen with this rule. **No rule
+   has an expected sample** in either half. Therefore every rule that ships passes gate 2 only
+   through its invented positive and negative tests and ships **`unvalidated_on_samples`, with
+   confidence capped at `single_signal`** (§6.3). The report half of the samples (§4.8, §4.9 a)
+   is still measured and reported, with no expected file.
+4. **Popular list.** "Popular" (§2.1) uses exactly the local Tranco snapshot
+   `data/raw/tranco_final_approved.csv` with SHA-256
+   `bd231a8e583dfd379b89a2b30396cdd1866ac1dc71684441f80a1069e1d78d9e` (378,795 bytes, as
+   recorded in `evaluation/reports/2026-10-v4/data_hygiene.json`). A measurement with a
+   different or missing file stops before any rule runs.
+5. **Code and inputs.** Measurement uses the readers, detections, blocklist loader, engine,
+   requirements and inputs at the SHA-256 values recorded in `FREEZE.json`. Any change to them
+   before a measurement is a dated pre-result amendment (§4.10).
+
 ## 5. ATT&CK v20.0
 
 Checked on 26 November 2026, read-only, against the pinned
@@ -528,7 +563,7 @@ owner's explicit approval first. All steps run on Windows; none needs Linux.
 | 4 | `feat: network-lite detections N1-N9` (§8.3; invented records) |
 | 5 | `chore: network blocklists fetch, lock and licence entries` (Feodo Tracker and SSL Blacklist only; formats per §11 L1–L2). **Done 27 November 2026 with Feodo Tracker alone** (§2.2 note) |
 | 6 | `chore: network sample sources and expected-detection manifest` (only sources §11 S1–S3 confirm). **Done 27 November 2026:** `evaluation/reports/2026-11-network-windows-v1/expected_detections.json`, no rule has an expected sample |
-| 7 | `docs: freeze network-windows selection rule` (§4 with SHA-256, before any measurement) |
+| 7 | `docs: freeze network-windows selection rule` (§4 with SHA-256, before any measurement). **Done 27 November 2026:** `evaluation/reports/2026-11-network-windows-v1/` |
 | 8 | `chore: owner-PC benign network aggregates` (owner turns sources on, waits, exports; aggregates only) |
 | 9 | `feat: network-windows gates and shipped-item manifest` |
 | 10 | `feat: network.windows engine` (grouping, severity, confidence, indicators, ATT&CK, registry, health) |
