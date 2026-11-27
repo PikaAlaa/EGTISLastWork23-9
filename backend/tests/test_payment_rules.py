@@ -1,6 +1,6 @@
 """INVENTED BEC and payment-change fixtures, minimal pairs and false-alarm gates.
 
-Every message, header, provider, domain (example.eg / example.com) and opaque
+Every message, header, provider, domain (example.com) and opaque
 payment placeholder in this file is INVENTED (`invented=True`). Nothing here is
 real Egyptian SMS/email data or estimates real population accuracy.
 """
@@ -34,9 +34,9 @@ SYNTHETIC_GRAMMAR = DestinationGrammar(
 )
 PROFILE = ReceiverProfile(
     profile_id='invented_receiver',
-    authserv_id='receiver.example.eg',
+    authserv_id='receiver.example.com',
     prefix=('received-spf', 'authentication-results'),
-    source='https://example.eg/invented-receiver-spec',
+    source='https://example.com/invented-receiver-spec',
     read_date='2026-11-26',
     verifier='invented_reviewer',
 )
@@ -65,7 +65,7 @@ class InventedFixture:
     trust_state: str = 'none'
     use_grammar: bool = True
     subject: str = 'invented-subject'
-    author: str = 'Tester <sender@example.eg>'
+    author: str = 'Tester <sender@example.com>'
     headers: str = ''
     attested: bool = False
     use_profile: bool = False
@@ -242,7 +242,7 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B2': 'low', 'B5': 'low', 'B6': 'medium'},
         {'B2': 'single_signal', 'B5': 'single_signal', 'B6': 'corroborated'},
         trust_state='user_attested_provider_report',
-        headers='Received-SPF: fail envelope-from=x@example.eg\nAuthentication-Results: receiver.example.eg; dmarc=fail\n',
+        headers='Received-SPF: fail envelope-from=x@example.com\nAuthentication-Results: receiver.example.com; dmarc=fail\n',
         attested=True, use_profile=True,
         expected_attack=(),
     ),
@@ -254,8 +254,8 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B1': 'low', 'B6': 'medium'},
         {'B1': 'single_signal', 'B6': 'corroborated'},
         trust_state='user_attested_provider_report_non_independent',
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: fail envelope-from=x@other.example.eg\nAuthentication-Results: receiver.example.eg; dmarc=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: fail envelope-from=x@other.example.com\nAuthentication-Results: receiver.example.com; dmarc=fail\n',
         attested=True, use_profile=True, use_registry=True,
         expected_attack=('T1684.001',),
     ),
@@ -267,8 +267,8 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B1': 'low', 'B6': 'medium', 'B7': 'high'},
         {'B1': 'single_signal', 'B6': 'corroborated', 'B7': 'corroborated'},
         trust_state='user_attested_independent_dkim_fail',
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
         expected_attack=('T1684.001',),
     ),
@@ -279,8 +279,8 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B1': 'low', 'B6': 'medium', 'B7': 'high'},
         {'B1': 'single_signal', 'B6': 'corroborated', 'B7': 'corroborated'},
         trust_state='user_attested_independent_dkim_fail',
-        author='بنك المثال المخترع <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='بنك المثال المخترع <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
         expected_attack=('T1684.001',),
     ),
@@ -291,8 +291,8 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B3': 'low', 'B6': 'medium', 'B7': 'high'},
         {'B3': 'single_signal', 'B6': 'corroborated', 'B7': 'corroborated'},
         trust_state='user_attested_independent_dkim_fail',
-        author='بنكنا المخترع <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='بنكنا المخترع <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
         expected_attack=('T1684.001',),
     ),
@@ -303,8 +303,8 @@ B6_B7_FIXTURES: tuple[InventedFixture, ...] = (
         {'B3': 'low', 'B6': 'medium', 'B7': 'high'},
         {'B3': 'single_signal', 'B6': 'corroborated', 'B7': 'corroborated'},
         trust_state='user_attested_independent_dkim_fail',
-        author='bank el methal el mo5tara3 <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='bank el methal el mo5tara3 <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
         expected_attack=('T1684.001',),
     ),
@@ -446,7 +446,7 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_legit_urgent_payment', 'ctrl_legit_urgent', 'en', 'email', 'benign_control',
         'Send payment, pay now.',
         ('B2',), {'B2': 'low'}, {'B2': 'single_signal'},
-        headers='Received-SPF: pass envelope-from=sender@example.eg\nAuthentication-Results: receiver.example.eg; dkim=pass; spf=pass; dmarc=pass\n',
+        headers='Received-SPF: pass envelope-from=sender@example.com\nAuthentication-Results: receiver.example.com; dkim=pass; spf=pass; dmarc=pass\n',
         attested=True, use_profile=True,
     ),
     # 9. Legitimate announced account change with matching official provider domain (low only; zero medium/high)
@@ -454,14 +454,14 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_legit_account_change', 'ctrl_legit_change', 'en', 'email', 'benign_control',
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         ('B1',), {'B1': 'low'}, {'B1': 'single_signal'},
-        author='Invented Example Bank <sender@bank.example.eg>',
-        headers='Received-SPF: pass envelope-from=sender@bank.example.eg\nAuthentication-Results: receiver.example.eg; dkim=pass; spf=pass; dmarc=pass\n',
+        author='Invented Example Bank <sender@bank.example.com>',
+        headers='Received-SPF: pass envelope-from=sender@bank.example.com\nAuthentication-Results: receiver.example.com; dkim=pass; spf=pass; dmarc=pass\n',
         attested=True, use_profile=True, use_registry=True,
     ),
     # 10. Approved wallet-recipient change with matching SMS provider (low only; zero medium/high)
     InventedFixture(
         'ctrl_approved_wallet_change', 'ctrl_legit_wallet', 'en', 'sms', 'benign_control',
-        'This is Invented Example Bank; click https://bank.example.eg/ok; send payment to new recipient, instapay: INVENTED-WALLET-0001.',
+        'This is Invented Example Bank; click https://bank.example.com/ok; send payment to new recipient, instapay: INVENTED-WALLET-0001.',
         ('B3',), {'B3': 'low'}, {'B3': 'single_signal'},
         use_registry=True, sender_id='INVENTEDBANK',
     ),
@@ -471,8 +471,8 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         ('B1',), {'B1': 'low'}, {'B1': 'undetermined'},
         use_grammar=False,
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
     ),
     # 12. Forged/untrusted headers without provider identity claim (cannot trigger B6/B7!)
@@ -480,7 +480,7 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_untrusted_headers_no_escalation', 'ctrl_untrusted_hdr', 'en', 'email', 'ambiguous_control',
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         ('B1',), {'B1': 'low'}, {'B1': 'single_signal'},
-        headers='Received-SPF: fail envelope-from=x@example.eg\nAuthentication-Results: receiver.example.eg; dkim=fail; dmarc=fail\n',
+        headers='Received-SPF: fail envelope-from=x@example.com\nAuthentication-Results: receiver.example.com; dkim=fail; dmarc=fail\n',
         attested=False, use_profile=True,
     ),
     # 13. Partial registry coverage on provider mismatch (cannot trigger B6/B7!)
@@ -488,7 +488,7 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_partial_registry_no_escalation', 'ctrl_partial_reg', 'en', 'email', 'ambiguous_control',
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         ('B1',), {'B1': 'low'}, {'B1': 'single_signal'},
-        author='Invented Example Bank <sender@other.example.eg>',
+        author='Invented Example Bank <sender@other.example.com>',
         use_registry=True, registry_coverage='documented_partial',
     ),
     # 14. Stale registry coverage on provider mismatch (cannot trigger B6/B7!)
@@ -496,7 +496,7 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_stale_registry_no_escalation', 'ctrl_stale_reg', 'en', 'email', 'ambiguous_control',
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         ('B1',), {'B1': 'low'}, {'B1': 'single_signal'},
-        author='Invented Example Bank <sender@other.example.eg>',
+        author='Invented Example Bank <sender@other.example.com>',
         use_registry=True, registry_stale=True,
     ),
     # 15. Ambiguous inline quote on request clause (prevents B6/B7 escalationeven with full source conflict)
@@ -504,8 +504,8 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'ctrl_ambiguous_inline_quote', 'ctrl_ambiguous_quote', 'en', 'email', 'ambiguous_control',
         'Send payment, replace the account, iban: INVENTED-IBAN-0001. Note: "send" confirmation.',
         ('B1',), {'B1': 'low'}, {'B1': 'undetermined'},
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
     ),
     # 16. Forwarded subject header sets payment_context_ambiguous and prevents active payment rule firing
@@ -514,8 +514,8 @@ BENIGN_AND_AMBIGUOUS_CONTROLS: tuple[InventedFixture, ...] = (
         'Send payment, replace the account, iban: INVENTED-IBAN-0001.',
         (), {}, {},
         subject='Fwd: Urgent invoice',
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
     ),
 )
@@ -528,7 +528,9 @@ def _build_snapshot(tmp_path: Path, case: InventedFixture):
     case_dir = tmp_path / f'reg_{case.fixture_id}'
     case_dir.mkdir(exist_ok=True)
     payload = invented_registry()
+    payload['entries'][0]['domains'][0]['host'] = 'bank.example.com'
     payload['entries'][0]['domains'][0]['channel'] = 'any'
+    payload['entries'][0]['sources'][0]['url'] = 'https://bank.example.com/invented-source'
     if case.registry_coverage != 'documented_complete':
         payload['entries'][0]['coverage']['domains'] = case.registry_coverage
     if case.registry_stale:
@@ -650,9 +652,9 @@ def test_false_alarm_gates_on_invented_benign_and_ambiguous_controls(tmp_path):
 def test_url_model_signal_never_satisfies_b6_or_b7(tmp_path):
     eml = tmp_path / 'model_signal.eml'
     eml.write_bytes(
-        b'From: Tester <sender@example.eg>\n'
+        b'From: Tester <sender@example.com>\n'
         b'Subject: Payment\n\n'
-        b'Send payment, replace the account, iban: INVENTED-IBAN-0001. https://example.eg/link\n'
+        b'Send payment, replace the account, iban: INVENTED-IBAN-0001. https://example.com/link\n'
     )
     review = import_eml(
         eml,
@@ -670,7 +672,7 @@ def test_destination_values_are_never_confusable_or_case_folded_and_url_punctuat
     upper_review = Review()
     apply_payment_rules(
         upper_review,
-        ['Send payment via https://example.eg/a.b;c?pay=now to sender.pay@example.eg, replace the account, IBAN: INVENTED-IBAN-0001'],
+        ['Send payment via https://example.com/a.b;c?pay=now to sender.pay@example.com, replace the account, IBAN: INVENTED-IBAN-0001'],
         'email',
         versions={},
         grammar=SYNTHETIC_GRAMMAR,
@@ -695,7 +697,7 @@ def test_destination_values_are_never_confusable_or_case_folded_and_url_punctuat
     inert_review = Review()
     apply_payment_rules(
         inert_review,
-        ['Check https://example.eg/send.payment;pay_now=1 or contact send.payment@example.eg'],
+        ['Check https://example.com/send.payment;pay_now=1 or contact send.payment@example.com'],
         'email',
         versions={},
         grammar=SYNTHETIC_GRAMMAR,
@@ -769,8 +771,8 @@ def test_no_payment_recipients_or_hashes_stored_anywhere_and_attack_validates(tm
         f'iban: {secret_iban}, bank account: {secret_account}, do not call to verify. '
         f'Buy gift card and send the redemption code {secret_code}.',
         ('B1', 'B4', 'B5', 'B6', 'B7'), {}, {},
-        author='Invented Example Bank <sender@other.example.eg>',
-        headers='Received-SPF: none\nAuthentication-Results: receiver.example.eg; dkim=fail; spf=fail\n',
+        author='Invented Example Bank <sender@other.example.com>',
+        headers='Received-SPF: none\nAuthentication-Results: receiver.example.com; dkim=fail; spf=fail\n',
         attested=True, use_profile=True, use_registry=True,
     )
     sms_case = InventedFixture(
