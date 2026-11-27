@@ -23,6 +23,7 @@ import { ApiError, getCommunityReports, lookupIndicator, reviewCommunityReport }
 import { shortHash } from '../api/inert';
 import type { CommunityReport, HashAlgo, IndicatorDetail, IndicatorType } from '../api/socTypes';
 import { InertValue } from '../components/InertValue';
+import { IndicatorValue } from '../components/IndicatorValue';
 import { SeverityChip, StatusChip, Timestamp } from '../components/SocChips';
 
 const TYPES: IndicatorType[] = ['url', 'domain', 'ip', 'phone', 'email', 'hash'];
@@ -106,13 +107,13 @@ function IndicatorDetailCard({ indicator }: { indicator: IndicatorDetail }) {
     <Paper variant="outlined" sx={{ mt: 8, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }} aria-live="polite">
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip size="small" label={t(`soc.type.${indicator.type}`)} />
-        {indicator.value ? <InertValue value={indicator.value} /> : (
+        {indicator.value ? <IndicatorValue type={indicator.type} value={indicator.value} copyable /> : (
           <Typography variant="body2" color="text.secondary">{t('indicators.hashOnly')}</Typography>
         )}
       </Stack>
       <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
         sha256 <InertValue value={shortHash(indicator.value_hash)} muted />
-        {indicator.registered_domain && <> · {t('indicators.registeredDomain')}: <InertValue value={indicator.registered_domain} /></>}
+        {indicator.registered_domain && <> · {t('indicators.registeredDomain')}: <IndicatorValue type="domain" value={indicator.registered_domain} /></>}
       </Typography>
       <Typography variant="body2" color="text.secondary">
         {t('indicators.firstSeen')}: <Timestamp value={indicator.first_seen} /> · {t('indicators.lastSeen')}: <Timestamp value={indicator.last_seen} />
@@ -255,7 +256,7 @@ function CommunityReview() {
             <TableBody>
               {reports.map((r) => (
                 <TableRow key={r.id}>
-                  <TableCell><InertValue value={r.reported_value} /></TableCell>
+                  <TableCell><IndicatorValue value={r.reported_value} copyable /></TableCell>
                   <TableCell sx={{ overflowWrap: 'anywhere' }}>{r.reporter_note ?? '—'}</TableCell>
                   <TableCell><Timestamp value={r.submitted_at} /></TableCell>
                   <TableCell>

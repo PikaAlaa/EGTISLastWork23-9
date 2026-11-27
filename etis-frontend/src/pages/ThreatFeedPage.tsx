@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 
 import { getThreats, ApiError } from '../api/client';
+import { IndicatorValue } from '../components/IndicatorValue';
 import type { ThreatEntry } from '../api/types';
 
 const PAGE_SIZE = 20;
@@ -135,7 +136,7 @@ export function ThreatFeedPage() {
               <TableBody>
                 {entries.map((entry) => (
                   <TableRow key={entry.id} hover>
-                    <TableCell dir="ltr" sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.domain}</TableCell>
+                    <TableCell><IndicatorValue type="domain" value={entry.domain} /></TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>{entry.brand_target ?? '—'}</TableCell>
                     <TableCell dir="ltr" sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.reputation_score}</TableCell>

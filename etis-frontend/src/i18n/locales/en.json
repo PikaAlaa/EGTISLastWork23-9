@@ -648,5 +648,10 @@
     "statusUnpaired": "Not paired",
     "invalidExtensionId": "Extension ID must be exactly 32 lowercase letters a–p.",
     "pairingFailed": "Could not update local extension pairing."
+  },
+  "indicatorValue": {
+    "copyReal": "Copy the real value (not de-fanged). Paste it only into a security tool, never into a browser.",
+    "copied": "Real value copied",
+    "failed": "Could not copy"
   }
 }

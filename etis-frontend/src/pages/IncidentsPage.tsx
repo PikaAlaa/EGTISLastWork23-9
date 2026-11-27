@@ -43,6 +43,7 @@ import type {
 } from '../api/socTypes';
 import { shortHash } from '../api/inert';
 import { InertValue } from '../components/InertValue';
+import { IndicatorValue } from '../components/IndicatorValue';
 import { SeverityChip, StatusChip, Timestamp } from '../components/SocChips';
 
 const PAGE_SIZE = 20;
@@ -457,7 +458,7 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
                 <TableRow key={i.id}>
                   <TableCell>{t(`soc.type.${i.type}`)}</TableCell>
                   <TableCell>
-                    {i.value ? <InertValue value={i.value} /> : <InertValue value={`sha256 ${shortHash(i.value_hash)}`} muted />}
+                    {i.value ? <IndicatorValue type={i.type} value={i.value} copyable /> : <InertValue value={`sha256 ${shortHash(i.value_hash)}`} muted />}
                   </TableCell>
                   <TableCell>{i.roles.map((r) => t(`soc.role.${r}`, { defaultValue: r })).join(', ')}</TableCell>
                   <TableCell>{i.sources.map((s) => t(`soc.sourceKind.${s}`, { defaultValue: s })).join(', ')}</TableCell>
