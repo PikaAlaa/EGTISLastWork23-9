@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Typography, CircularProgress, Alert, Grid, Paper, Stack, Chip } from '@mui/material';
+import { Box, Button, Typography, CircularProgress, Alert, Grid, Paper, Stack } from '@mui/material';
 import StorageOutlined from '@mui/icons-material/StorageOutlined';
 import CheckCircleOutlineOutlined from '@mui/icons-material/CheckCircleOutlineOutlined';
 import FactCheckOutlined from '@mui/icons-material/FactCheckOutlined';
@@ -9,7 +9,7 @@ import SpeedOutlined from '@mui/icons-material/SpeedOutlined';
 
 import { getStats, ApiError } from '../api/client';
 import type { StatsResponse, Verdict } from '../api/types';
-import { VERDICT_STYLE } from '../theme/verdictPalette';
+import { VerdictChip } from '../components/VerdictChip';
 
 export function StatsPage() {
   const { t } = useTranslation();
@@ -48,8 +48,8 @@ export function StatsPage() {
   }, [retry]);
 
   return (
-    <Box sx={{ py: 4, maxWidth: 900, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>
+    <Box>
+      <Typography variant="h1" component="h1" gutterBottom>
         {t('nav.stats')}
       </Typography>
 
@@ -57,7 +57,7 @@ export function StatsPage() {
       {error && <Alert severity="error" action={<Button color="inherit" onClick={() => setRetry(r => r + 1)}>{t('common.retry')}</Button>}>{t(`error.${error}`)}</Alert>}
 
       {stats && (
-        <Grid container spacing={2} sx={{ mt: 1 }}>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
           <Grid size={{ xs: 6, sm: 3 }}>
             <StatCard
               icon={<StorageOutlined fontSize="small" />}
@@ -88,15 +88,15 @@ export function StatsPage() {
           </Grid>
 
           <Grid size={{ xs: 12, sm: 6 }}>
-            <Paper variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
-              <Typography variant="subtitle2" gutterBottom>
+            <Paper variant="outlined" sx={{ p: 5, height: '100%' }}>
+              <Typography variant="h4" component="h2" gutterBottom>
                 {t('stats.bySourceHeading')}
               </Typography>
-              <Stack spacing={1} sx={{ mt: 1 }}>
+              <Stack spacing={3} sx={{ mt: 4 }}>
                 {Object.entries(stats.blacklist.by_source).map(([source, count]) => (
                   <Stack key={source} direction="row" sx={{ justifyContent: 'space-between' }}>
                     <Typography variant="body2">{t(`source.${source}`)}</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}>
+                    <Typography variant="body2" dir="ltr" sx={{ fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}>
                       {count.toLocaleString()}
                     </Typography>
                   </Stack>
@@ -106,20 +106,15 @@ export function StatsPage() {
           </Grid>
 
           <Grid size={{ xs: 12, sm: 6 }}>
-            <Paper variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
-              <Typography variant="subtitle2" gutterBottom>
+            <Paper variant="outlined" sx={{ p: 5, height: '100%' }}>
+              <Typography variant="h4" component="h2" gutterBottom>
                 {t('stats.byVerdictHeading')}
               </Typography>
-              <Stack spacing={1} sx={{ mt: 1 }}>
+              <Stack spacing={3} sx={{ mt: 4 }}>
                 {(Object.entries(stats.scans.by_verdict) as [Verdict, number][]).map(([verdict, count]) => (
-                  <Stack key={verdict} direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
-                    <Chip
-                      size="small"
-                      label={t(`verdict.${verdict}`)}
-                      color={VERDICT_STYLE[verdict].chipColor}
-                      sx={{ fontWeight: 600, minWidth: 72 }}
-                    />
-                    <Typography variant="body2" sx={{ fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}>
+                  <Stack key={verdict} direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+                    <VerdictChip verdict={verdict} />
+                    <Typography variant="body2" dir="ltr" sx={{ fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}>
                       {count.toLocaleString()}
                     </Typography>
                   </Stack>
@@ -135,15 +130,14 @@ export function StatsPage() {
 
 function StatCard({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
   return (
-    <Paper variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
-      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <Typography sx={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: '1.5rem' }}>
-          {value}
-        </Typography>
-        <Box sx={{ color: 'text.secondary' }}>{icon}</Box>
+    <Paper variant="outlined" className="etis-lift" sx={{ p: { xs: 4, sm: 5 }, height: '100%' }}>
+      <Stack direction="row" sx={{ justifyContent: 'space-between', gap: 2, alignItems: 'center' }}>
+        <Typography variant="body2" color="text.secondary">{label}</Typography>
+        <Box sx={{ display: 'flex', color: 'primary.main' }}>{icon}</Box>
       </Stack>
-      <Typography variant="caption" color="text.secondary">
-        {label}
+      <Typography variant="h2" component="div" dir="ltr"
+        sx={{ mt: 2, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, overflowWrap: 'anywhere' }}>
+        {value}
       </Typography>
     </Paper>
   );

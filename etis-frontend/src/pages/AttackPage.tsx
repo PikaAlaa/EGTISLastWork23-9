@@ -16,7 +16,6 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 
 import { getAttackCoverage, getAttackTechnique } from '../api/client';
 import type { AttackCoverage, AttackMatrix, AttackTechniqueDetail, CoverageCell } from '../api/socTypes';
@@ -24,12 +23,10 @@ import { InertValue } from '../components/InertValue';
 import { SeverityChip, StatusChip } from '../components/SocChips';
 
 const MONO_FONT = "'IBM Plex Mono', monospace";
-const HEAT = '#a52b20';
 
 function heat(count: number, max: number): string {
   if (count === 0 || max === 0) return 'transparent';
-  // Light tints only, so dark text stays readable; the count is always printed too.
-  return alpha(HEAT, 0.1 + 0.25 * (count / max));
+  return `color-mix(in srgb, var(--etis-accent) ${10 + 25 * count / max}%, var(--etis-surface))`;
 }
 
 export function AttackPage() {
@@ -72,11 +69,11 @@ export function AttackPage() {
     .filter((tactic) => tactic.techniques.length > 0);
 
   return (
-    <Box sx={{ py: 4, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>{t('nav.attack')}</Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>{t('attack.intro')}</Typography>
+    <Box>
+      <Typography variant="h1" component="h1" gutterBottom>{t('nav.attack')}</Typography>
+      <Typography color="text.secondary" sx={{ mb: 5 }}>{t('attack.intro')}</Typography>
 
-      <Stack direction="row" useFlexGap sx={{ my: 2, gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Paper variant="outlined" className="etis-filters">
         <ToggleButtonGroup exclusive size="small" value={matrix} aria-label={t('attack.matrix')}
           onChange={(_, value: AttackMatrix | null) => { if (value) { setMatrix(value); setSelected(null); } }}>
           <ToggleButton value="enterprise">{t('soc.matrix.enterprise')}</ToggleButton>
@@ -94,7 +91,7 @@ export function AttackPage() {
             {t('attack.mappedFindings')}
           </Typography>
         )}
-      </Stack>
+      </Paper>
 
       {loading && <CircularProgress size={24} aria-label={t('scan.loading')} />}
       {error && (
@@ -111,18 +108,18 @@ export function AttackPage() {
       )}
 
       {coverage && coverage.installed && !loading && columns.length === 0 && (
-        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ p: 6, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">{t('attack.noFindings')}</Typography>
         </Paper>
       )}
 
       {coverage && columns.length > 0 && (
-        <Paper variant="outlined" sx={{ borderRadius: 3, overflowX: 'auto' }}>
-          <Box sx={{ display: 'flex', gap: 1, p: 1, minWidth: 'min-content' }} role="region" aria-label={t('attack.gridLabel')}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
+          <Box sx={{ display: 'flex', gap: 4, p: 4, minWidth: 'min-content' }} role="region" aria-label={t('attack.gridLabel')}>
             {columns.map((column) => (
-              <Box key={column.tactic} sx={{ width: 190, flexShrink: 0 }}>
+              <Box key={column.tactic} sx={{ width: 216, flexShrink: 0 }}>
                 <Typography variant="caption" component="h3"
-                  sx={{ fontWeight: 600, p: 1, bgcolor: 'action.hover', borderRadius: 1, mb: 1 }}>
+                  sx={{ fontWeight: 600, p: 3, bgcolor: 'var(--etis-surface2)', borderRadius: 1, mb: 2 }}>
                   {t(`attack.tactic.${column.tactic}`, { defaultValue: column.tactic })}
                   <Box component="span" sx={{ color: 'text.secondary', fontWeight: 400 }}> ({column.techniques.length})</Box>
                 </Typography>
@@ -163,7 +160,7 @@ function TechniqueCell({ cell, max, selected, onSelect }: { cell: CoverageCell; 
     <ButtonBase onClick={onSelect} aria-pressed={selected}
       aria-label={t('attack.cellLabel', { id: cell.technique_id, name: cell.name, count: cell.findings })}
       sx={{
-        display: 'block', textAlign: 'start', width: '100%', p: 1, borderRadius: 1,
+        display: 'block', textAlign: 'start', width: '100%', p: 3, borderRadius: 1,
         border: 1, borderColor: selected ? 'primary.main' : 'divider', bgcolor: heat(cell.findings, max),
       }}>
       <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'baseline', gap: 1 }}>
@@ -195,7 +192,7 @@ function TechniquePanel({ techniqueId, matrix }: { techniqueId: string; matrix: 
   if (failed) return <Alert severity="error" sx={{ mt: 3 }}>{t('error.requestFailed')}</Alert>;
   if (!detail) return <CircularProgress size={24} sx={{ mt: 3 }} aria-label={t('scan.loading')} />;
   return (
-    <Paper variant="outlined" sx={{ mt: 3, p: { xs: 2, sm: 3 }, borderRadius: 3 }} aria-live="polite">
+    <Paper variant="outlined" sx={{ mt: 8, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }} aria-live="polite">
       <Typography variant="h6" component="h2" dir="ltr" sx={{ textAlign: 'start' }}>
         <Box component="span" sx={{ fontFamily: MONO_FONT }}>{detail.technique_id}</Box>
         {detail.technique && ` · ${detail.technique.name}`}

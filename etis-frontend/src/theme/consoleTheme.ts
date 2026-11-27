@@ -68,6 +68,14 @@ export function createConsoleTheme(mode: ColorMode, direction: Direction) {
           },
         },
       },
+      MuiTable: { styleOverrides: { root: { overflowWrap: 'normal' } } },
+      MuiTableCell: {
+        styleOverrides: {
+          head: { whiteSpace: 'nowrap', backgroundColor: t.surface2, color: t.textMuted, fontWeight: 600 },
+          sizeSmall: { paddingBlock: 12, paddingInline: 16 },
+        },
+      },
+      MuiAlert: { styleOverrides: { message: { minWidth: 0, overflowWrap: 'anywhere' } } },
       MuiButton: {
         defaultProps: { disableElevation: true },
         styleOverrides: { root: { borderRadius: RADIUS.sm, paddingInline: 16 } },

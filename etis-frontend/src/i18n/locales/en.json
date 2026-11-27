@@ -555,7 +555,7 @@
   "designPreview": {
     "badge": "Design preview · v1",
     "title": "A calm console for security work",
-    "intro": "Proposed look for the ETIS console: navy and slate base, one teal accent, verdict colours used only for meaning. Live pages are unchanged until the owner approves.",
+    "intro": "The console uses navy and slate surfaces, teal actions and distinct colours for scan results.",
     "sample": "Illustrative sample, not real data or a real SMS.",
     "controls": {
       "dark": "Switch to dark theme",
@@ -633,6 +633,6 @@
       "scanCycle": "One scan sweep",
       "reduced": "With reduced motion, sweeps, floating and blinking stop; states change with simple fades."
     },
-    "footer": "ETIS console redesign v1 · preview for owner review"
+    "footer": "ETIS console redesign v1"
   }
 }

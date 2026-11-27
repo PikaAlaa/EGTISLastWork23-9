@@ -30,8 +30,8 @@ const HASH_ALGOS: HashAlgo[] = ['sha256', 'sha1', 'md5'];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <Box sx={{ mt: 3 }}>
-      <Typography variant="subtitle1" component="h3" sx={{ fontWeight: 600, mb: 1 }}>{title}</Typography>
+    <Box sx={{ mt: 10 }}>
+      <Typography variant="h4" component="h3" sx={{ mb: 3 }}>{title}</Typography>
       {children}
     </Box>
   );
@@ -62,13 +62,13 @@ export function IndicatorsPage() {
   }
 
   return (
-    <Box sx={{ py: 4, maxWidth: 1000, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>{t('nav.indicators')}</Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>{t('indicators.intro')}</Typography>
+    <Box>
+      <Typography variant="h1" component="h1" gutterBottom>{t('nav.indicators')}</Typography>
+      <Typography color="text.secondary" sx={{ mb: 5 }}>{t('indicators.intro')}</Typography>
 
-      <Paper variant="outlined" component="form" onSubmit={search} sx={{ p: 2, borderRadius: 3 }}>
-        <Stack direction="row" useFlexGap sx={{ gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-          <TextField select size="small" label={t('soc.indicatorType')} value={type} sx={{ minWidth: 150 }}
+      <Paper variant="outlined" component="form" onSubmit={search} sx={{ p: { xs: 4, sm: 5 } }}>
+        <Stack direction="row" useFlexGap sx={{ gap: 4, flexWrap: 'wrap', alignItems: 'center' }}>
+          <TextField select size="small" label={t('soc.indicatorType')} value={type} sx={{ minWidth: { xs: '100%', sm: 150 } }}
             onChange={(e) => { setType(e.target.value as IndicatorType); setResult(null); }}>
             {TYPES.map((item) => <MenuItem key={item} value={item}>{t(`soc.type.${item}`)}</MenuItem>)}
           </TextField>
@@ -78,7 +78,7 @@ export function IndicatorsPage() {
               {HASH_ALGOS.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
             </TextField>
           )}
-          <TextField size="small" label={t('indicators.value')} value={value} sx={{ flex: 1, minWidth: 220 }}
+          <TextField size="small" label={t('indicators.value')} value={value} sx={{ flex: 1, minWidth: { xs: '100%', sm: 220 } }}
             autoComplete="off" slotProps={{ htmlInput: { dir: 'ltr', spellCheck: false, maxLength: 2048 } }}
             onChange={(e) => setValue(e.target.value)} />
           <Button type="submit" variant="contained" disabled={loading || !value.trim()}>{t('indicators.search')}</Button>
@@ -89,7 +89,7 @@ export function IndicatorsPage() {
       {loading && <CircularProgress size={24} sx={{ mt: 2 }} aria-label={t('scan.loading')} />}
       {error && <Alert severity="error" sx={{ mt: 2 }}>{t(error)}</Alert>}
       {result && !result.found && (
-        <Paper variant="outlined" sx={{ mt: 2, p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ mt: 2, p: 6, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">{t('indicators.notFound')}</Typography>
         </Paper>
       )}
@@ -103,7 +103,7 @@ export function IndicatorsPage() {
 function IndicatorDetailCard({ indicator }: { indicator: IndicatorDetail }) {
   const { t } = useTranslation();
   return (
-    <Paper variant="outlined" sx={{ mt: 3, p: { xs: 2, sm: 3 }, borderRadius: 3 }} aria-live="polite">
+    <Paper variant="outlined" sx={{ mt: 8, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }} aria-live="polite">
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip size="small" label={t(`soc.type.${indicator.type}`)} />
         {indicator.value ? <InertValue value={indicator.value} /> : (
@@ -119,10 +119,10 @@ function IndicatorDetailCard({ indicator }: { indicator: IndicatorDetail }) {
       </Typography>
 
       <Section title={t('indicators.sightings', { count: indicator.sightings.length })}>
-        <Paper variant="outlined" sx={{ borderRadius: 2, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small">
             <TableHead>
-              <TableRow sx={{ bgcolor: 'action.hover' }}>
+              <TableRow>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.sourceKind')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.sourceName')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.firstSeen')}</TableCell>
@@ -138,7 +138,7 @@ function IndicatorDetailCard({ indicator }: { indicator: IndicatorDetail }) {
                   <TableCell><Timestamp value={s.first_seen} /></TableCell>
                   <TableCell><Timestamp value={s.last_seen} /></TableCell>
                   <TableCell>
-                    <Chip size="small" color={s.active ? 'success' : 'default'} label={s.active ? t('threats.active') : t('threats.inactive')} />
+                    <Chip size="small" color={s.active ? 'primary' : 'default'} label={s.active ? t('threats.active') : t('threats.inactive')} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -151,10 +151,10 @@ function IndicatorDetailCard({ indicator }: { indicator: IndicatorDetail }) {
         {indicator.findings.length === 0 ? (
           <Typography variant="body2" color="text.secondary">—</Typography>
         ) : (
-          <Paper variant="outlined" sx={{ borderRadius: 2, overflowX: 'auto' }}>
+          <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
             <Table size="small">
               <TableHead>
-                <TableRow sx={{ bgcolor: 'action.hover' }}>
+                <TableRow>
                   <TableCell sx={{ fontWeight: 600 }}>{t('incidents.observed')}</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('incidents.kind')}</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('incidents.severity')}</TableCell>
@@ -242,10 +242,10 @@ function CommunityReview() {
       {reports.length === 0 ? (
         <Typography variant="body2" color="text.secondary">{t('indicators.noPending')}</Typography>
       ) : (
-        <Paper variant="outlined" sx={{ borderRadius: 2, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small">
             <TableHead>
-              <TableRow sx={{ bgcolor: 'action.hover' }}>
+              <TableRow>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.reported')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.reporterNote')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('indicators.submitted')}</TableCell>
