@@ -13,6 +13,13 @@ ETIS_MALWARE_RETENTION_DAYS are deleted with their Findings (source ref
 (source kind `import`, source `malware.files`) count as scan-derived, so a hash seen
 only by expired malware scans is removed; a hash also seen by another source (for
 example a host `executed_file` Finding or a feed) is kept.
+
+network.windows (design network-windows-v1 §7; step 12): network_windows_imports rows older than
+ETIS_NETWORK_RETENTION_DAYS are deleted with their Findings (source ref `network_windows_imports:<id>`),
+through the same clean-up and `findings_expired` events. Its own sightings (source kind `import`,
+source `network.windows`) count as import-derived, so a destination hash seen only by expired imports
+is removed; one also seen by a phishing Finding or a feed is kept (feed rows carry a plaintext value
+and are never removed here).
 """
 import sys
 from collections import Counter
@@ -23,11 +30,12 @@ from app.core.database import SessionLocal
 from app.core.settings import settings
 from sqlalchemy import and_, not_, or_
 from app.models import (ScanRequest, FindingRecord, FindingIndicator, FindingAttack, Indicator, IndicatorSighting,
-                        IncidentIndicator, IncidentEvent, MalwareScan)
+                        IncidentIndicator, IncidentEvent, MalwareScan, NetworkWindowsImport)
 
 MALWARE_ENGINE = 'malware.files'
+NETWORK_WINDOWS_ENGINE = 'network.windows'
 # (source kind, source name) of sightings that exist only because of a scan; None matches any name.
-SCAN_DERIVED_SIGHTINGS = (('scan', None), ('import', MALWARE_ENGINE))
+SCAN_DERIVED_SIGHTINGS = (('scan', None), ('import', MALWARE_ENGINE), ('import', NETWORK_WINDOWS_ENGINE))
 
 
 def _scan_derived():
@@ -91,6 +99,21 @@ def delete_expired_malware(db, days=None):
     return {'malware_scans': len(rows), 'findings': findings, 'indicators': indicators}
 
 
+def delete_expired_network_windows(db, days=None):
+    """Delete network.windows import records started before the cutoff, with their Findings and orphan indicators."""
+    cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(
+        days=settings.network_retention_days if days is None else days)
+    rows = db.query(NetworkWindowsImport).filter(NetworkWindowsImport.started_at < cutoff).all()
+    refs = [f'network_windows_imports:{row.id}' for row in rows]
+    findings, indicators = _expire_findings(db, finding_filter=and_(
+        FindingRecord.engine_name == NETWORK_WINDOWS_ENGINE, FindingRecord.source_ref.in_(refs))) if refs else (0, 0)
+    for row in rows:
+        db.delete(row)
+    db.commit()
+    return {'network_windows_imports': len(rows), 'findings': findings, 'indicators': indicators}
+
+
 if __name__=='__main__':
     with SessionLocal() as db:print({'deleted':delete_expired(db,details=True)})
     with SessionLocal() as db:print({'malware_deleted':delete_expired_malware(db)})
+    with SessionLocal() as db:print({'network_windows_deleted':delete_expired_network_windows(db)})

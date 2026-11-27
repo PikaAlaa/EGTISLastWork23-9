@@ -8,7 +8,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 LOCALES = ROOT / 'etis-frontend/src/i18n/locales'
 PAGES = ROOT / 'etis-frontend/src/pages'
-CONSOLE_SECTIONS = ['soc', 'incidents', 'indicators', 'attack']
+CONSOLE_SECTIONS = ['soc', 'incidents', 'indicators', 'attack', 'files', 'network']
 CONSOLE_PAGES = ['IncidentsPage.tsx', 'IndicatorsPage.tsx', 'AttackPage.tsx']
 PLURAL = re.compile(r'_(zero|one|two|few|many|other)$')
 

@@ -75,3 +75,36 @@ def firewall_line(date='2026-01-05', time='10:00:00', action='ALLOW', protocol='
 def write_firewall(path, lines, header=FIREWALL_HEADER, encoding='utf-8'):
     path.write_text(header + ''.join(lines), encoding=encoding, newline='')
     return path
+
+
+def write_shipped(root, rules=None, lists=(), validation='samples', rule_text='invented frozen rule\n', **override):
+    """An invented shipped-item manifest with its frozen rule and FREEZE.json, under `root` (tests only)."""
+    import hashlib
+    import json
+
+    from app.engines.network_windows import detections
+    report = root / 'evaluation' / 'reports' / '2026-01-01-network-windows-v1'
+    report.mkdir(parents=True, exist_ok=True)
+    (report / 'selection_rule.md').write_bytes(rule_text.encode('utf-8'))
+    digest = hashlib.sha256(rule_text.encode('utf-8')).hexdigest()
+    (report / 'FREEZE.json').write_text(json.dumps({'selection_rule_sha256': override.pop('freeze_sha', digest)}),
+                                        encoding='utf-8')
+    rules = list(detections.SHIPPABLE) if rules is None else rules
+    validations = validation if isinstance(validation, dict) else {r: validation for r in rules}
+    manifest = {
+        'schema': 'network-windows-shipped-v1',
+        'selection_rule': {'path': 'evaluation/reports/2026-01-01-network-windows-v1/selection_rule.md',
+                           'sha256': digest},
+        'freeze': {'path': 'evaluation/reports/2026-01-01-network-windows-v1/FREEZE.json'},
+        'rules': [{'id': r, 'constants': json.loads(json.dumps(detections.RULE_CONSTANTS[r])),
+                   'validation': validations[r]} for r in rules],
+        'lists': [{'name': name, 'lock_sha256': lock, 'licence': 'CC0 (abuse.ch terms of use §3.4)'}
+                  for name, lock in lists],
+    }
+    if 'raw_rules' in override:
+        manifest['rules'] = override.pop('raw_rules')
+    manifest.update(override)
+    path = root / 'data' / 'network-windows-shipped.json'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(manifest), encoding='utf-8')
+    return path

@@ -10,7 +10,8 @@
     "incidents": "Incidents",
     "indicators": "Indicator search",
     "attack": "ATT&CK coverage",
-    "files": "File scans"
+    "files": "File scans",
+    "network": "Network (Windows)"
   },
   "scan": {
     "urlLabel": "URL",
@@ -91,9 +92,9 @@
     "resolution": { "true_positive": "Confirmed threat", "false_positive": "False alarm", "benign": "Benign", "duplicate": "Duplicate" },
     "domain": { "phishing": "Phishing", "malware": "Malware", "network": "Network", "host": "Host" },
     "confidence": { "confirmed": "Confirmed", "corroborated": "Corroborated", "single_signal": "Single signal", "undetermined": "Undetermined" },
-    "kind": { "sms_phishing": "SMS phishing", "url_phishing": "URL phishing", "known_bad_hash": "Known malicious file", "yara_match": "YARA rule match", "ml_suspicious_pe": "Suspicious program (model)" },
+    "kind": { "sms_phishing": "SMS phishing", "url_phishing": "URL phishing", "known_bad_hash": "Known malicious file", "yara_match": "YARA rule match", "ml_suspicious_pe": "Suspicious program (model)", "known_bad_destination": "Known malicious destination", "phishing_domain_lookup": "Phishing domain lookup", "suspicious_domain": "Suspicious domain", "beaconing": "Beaconing", "unusual_port": "Unusual port", "dns_tunnelling_signs": "DNS tunnelling signs", "rare_destination": "Rare destination" },
     "type": { "domain": "Domain", "url": "URL", "ip": "IP address", "hash": "File hash", "phone": "Phone number", "email": "Email" },
-    "role": { "delivery_link": "Delivery link", "link_host": "Link host", "lookalike_domain": "Lookalike domain", "contact_phone": "Contact phone", "contact_email": "Contact email" },
+    "role": { "delivery_link": "Delivery link", "link_host": "Link host", "lookalike_domain": "Lookalike domain", "contact_phone": "Contact phone", "contact_email": "Contact email", "remote_endpoint": "Remote endpoint", "resolved_name": "Resolved name", "connecting_process": "Connecting process" },
     "sourceKind": { "scan": "Scan", "feed": "Threat feed", "analyst": "Analyst", "community": "Community report", "sensor": "Sensor", "import": "Import" },
     "matrix": { "enterprise": "Enterprise", "mobile": "Mobile" }
   },
@@ -400,6 +401,130 @@
       "pe32": "32-bit",
       "pe64": "64-bit",
       "dotnet": ".NET"
+    }
+  },
+  "network": {
+    "intro": "Results of network log imports from this Windows PC, run with data/scripts/import_network_windows.py. ETIS reads exported logs only: it never turns a log on, changes a setting or contacts any address, and never stores or shows a domain, address, process, user or computer name.",
+    "imports": "Network imports",
+    "started": "Imported",
+    "span": "Period covered",
+    "sources": "Sources",
+    "findings": "Findings",
+    "none": "None",
+    "previous": "Previous",
+    "next": "Next",
+    "range": "{{from}}–{{to}} of {{total}}",
+    "noImports": "No network imports yet. Imports are started only from the local command:",
+    "importTitle": "Import #{{id}}",
+    "engineVersion": "Engine version",
+    "files": "Input files",
+    "records": "{{n}} records kept",
+    "noFindings": "No shipped detection alerted in this import.",
+    "coverage": "Coverage",
+    "coverageNote": "A detection that is not visible could not run: it means \"unknown\", never \"nothing found\".",
+    "baseline": "Baseline: {{value}}",
+    "window": "Window",
+    "events": "Events",
+    "device": "Device (keyed reference)",
+    "process": "Process",
+    "combinedWith": "Combined with",
+    "lists": "Lists",
+    "listVersion": "version",
+    "listLicence": "licence",
+    "listPage": "list page",
+    "unvalidated": "Not validated on samples",
+    "openIncident": "Open incident #{{id}}",
+    "noIncident": "No incident (low or info severity)",
+    "processCategory": {
+      "known_process_hash": "Known process hash (indicator)",
+      "unknown": "Unknown"
+    },
+    "health": {
+      "available": "Network (Windows) engine available.",
+      "unavailable": "Network (Windows) engine unavailable: no verified shipped-item manifest. It will not import or emit findings.",
+      "rules_missing": "Shipped rules missing",
+      "blocklists_missing": "Blocklists missing",
+      "blocklists_stale": "Blocklists older than 7 days",
+      "indicator_store_empty": "Indicator store empty",
+      "url_model_unavailable": "URL model unavailable (N4 skipped)"
+    },
+    "rulesDetail": {
+      "shipped_manifest_missing": "No shipped-item manifest yet (the rule is not frozen and measured)",
+      "shipped_manifest_invalid": "Shipped-item manifest invalid",
+      "shipped_rule_constants_mismatch": "Shipped rule constants differ from the code",
+      "selection_rule_mismatch": "Frozen selection rule does not match",
+      "freeze_missing": "Freeze record missing",
+      "freeze_mismatch": "Freeze record does not match"
+    },
+    "detection": {
+      "N1": "C2 blocklist",
+      "N2": "Malicious-host list",
+      "N3": "Known indicator domain",
+      "N4": "Phishing URL model",
+      "N5": "Algorithm-like domains",
+      "N6": "Beaconing",
+      "N7": "Unusual port",
+      "N8": "DNS tunnelling signs",
+      "N9": "Rare destination"
+    },
+    "state": {
+      "visible": "visible",
+      "partial": "partly visible",
+      "not_visible": "not visible",
+      "no_baseline": "no baseline (under 48 h)",
+      "inactive": "inactive in v1"
+    },
+    "notRun": {
+      "inactive_in_v1": "inactive in v1",
+      "not_visible": "source missing",
+      "blocklists_missing": "no lists",
+      "indicator_store_unavailable": "indicator store unavailable",
+      "url_model_unavailable": "model unavailable",
+      "popular_list_missing": "popular-domain list missing",
+      "no_baseline": "no baseline",
+      "not_shipped": "not shipped"
+    },
+    "source": {
+      "dns_client": "DNS Client",
+      "sysmon22": "Sysmon 22",
+      "firewall": "Firewall log",
+      "sysmon3": "Sysmon 3",
+      "snapshot": "Snapshots"
+    },
+    "fileSource": {
+      "dns_client": "DNS Client log",
+      "firewall": "Firewall log",
+      "sysmon": "Sysmon log",
+      "snapshot": "Connection snapshot"
+    },
+    "reason": {
+      "blocklist_ip_connection": "Connection to a listed C2 address",
+      "blocklist_ip_dropped": "Blocked connection to a listed C2 address",
+      "blocklist_ip_dns_answer": "DNS answer with a listed C2 address",
+      "blocklist_host_query": "Query of a listed malicious host",
+      "indicator_store_domain_match": "Lookup of a domain already in ETIS indicators",
+      "url_model_domain_high": "Phishing URL model above its frozen threshold (bare domain)",
+      "dga_like_domain": "Algorithm-like domain name",
+      "dga_nxdomain_burst": "Burst of algorithm-like names that do not exist",
+      "periodic_beaconing": "Regular repeated contact (beaconing)",
+      "unusual_remote_port": "Unusual remote port",
+      "dns_long_labels": "Many long DNS labels",
+      "dns_high_entropy_labels": "Many random-looking DNS labels",
+      "dns_txt_burst": "Burst of TXT queries",
+      "dns_very_long_name": "Very long DNS name",
+      "rare_first_seen_destination": "Rare destination first seen after the baseline"
+    },
+    "help": {
+      "title": "How to supply logs (owner actions)",
+      "ownerOnly": "Turning a log on needs administrator rights and is always your own decision; ETIS never does it. Commands are shown as text only.",
+      "dns": "DNS Client log: enable Microsoft-Windows-DNS-Client/Operational in Event Viewer, or as administrator:",
+      "dnsSize": "Recommended: raise its maximum size so the export covers the whole period (bytes, at least 1048576):",
+      "dnsExport": "Export it before importing:",
+      "firewall": "Firewall log: in Windows Defender Firewall with Advanced Security, open Properties and, for each profile (Domain, Private, Public), set Logging → \"Log dropped packets\" and \"Log successful connections\" to Yes. The default file is %windir%\\system32\\logfiles\\firewall\\pfirewall.log (default size 4,096 KB, maximum 32,767 KB). Copy it as administrator before importing.",
+      "sysmon": "Sysmon (optional): only if you already installed it with network connection (event 3) and DNS query (event 22) logging. ETIS never installs or configures it.",
+      "snapshot": "Connection snapshots (optional, when firewall logging is off): run by hand, or from a scheduled task you create yourself:",
+      "import": "Then import the exported files:",
+      "privacy": "Exported DNS and firewall logs are personal data (browsing history). Keep them private and never share them."
     }
   }
 }

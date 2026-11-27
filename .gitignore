@@ -98,3 +98,5 @@ evaluation/reports/2026-10-v4/handoff.json
 
 # Malware v1 candidate models (LightGBM text, JSON coefficients) and scores: never committed (design §4.12 amendment 1).
 data/models/malware-v1/
+# abuse.ch Feodo Tracker / SSL Blacklist IP lists (CC0): pinned by data/network-blocklists-lock.json once the owner approves a fetch.
+data/external/network-blocklists/
