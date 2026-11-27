@@ -1,0 +1,33 @@
+{
+  "schema": "network-blocklists-lock-v1",
+  "destination": "data/external/network-blocklists",
+  "licence": "CC0: abuse.ch terms of use §3.4 \"Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)\"; re-read 2026-11-27 (page last updated 21 October 2026).",
+  "terms_url": "https://abuse.ch/terms-of-use/",
+  "terms_read": "2026-11-27",
+  "approval": "owner approval of 2026-11-27: Feodo Tracker IP list only (design §2.2)",
+  "not_fetched": {
+    "ssl_blacklist": "IP list deprecated on 2025-01-03 (its file header, seen 2026-11-27)"
+  },
+  "use": "network.windows N1 exact IP matching only; never to train, tune or evaluate a model",
+  "lists": [
+    {
+      "name": "feodo_tracker",
+      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt",
+      "page": "https://feodotracker.abuse.ch/blocklist/",
+      "fetched_at": "2026-11-27T12:37:23Z",
+      "file": "feodotracker_ipblocklist_recommended.txt",
+      "size": 503,
+      "sha256": "7c72fe807208617db78267d93ec45b2ef020c7cbcd2127b271d57a659f300bd8",
+      "rows": 1,
+      "format": "ip_lines",
+      "comment": "#",
+      "list_last_updated": "2026-03-04T14:28:39Z",
+      "ignored": {
+        "comment_or_blank": 10,
+        "not_ip": 0,
+        "range": 0,
+        "local": 0
+      }
+    }
+  ]
+}

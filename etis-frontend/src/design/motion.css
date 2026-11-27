@@ -1,0 +1,119 @@
+/*
+ * ETIS console motion (docs/design/console-redesign-v1.md §5–§7).
+ * Colours come from the --etis-* custom properties set by tokens.ts cssVars().
+ * Reduced motion: the OS setting OR an ancestor with data-motion="reduced"
+ * (preview toggle) turns every movement into a simple fade.
+ */
+
+/* ---------- Page and card transitions ---------- */
+.etis-page-in { animation: etis-page-in var(--etis-slow) var(--etis-ease) both; }
+@keyframes etis-page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.etis-lift { transition: transform var(--etis-base) var(--etis-ease), box-shadow var(--etis-base) var(--etis-ease), border-color var(--etis-base) var(--etis-ease); }
+.etis-lift:hover { transform: translateY(-2px); box-shadow: 0 6px 18px -10px rgba(15, 27, 45, 0.35); }
+
+/* ---------- ETIS bot (mascot) ---------- */
+.etis-bot { display: inline-flex; flex-direction: column; align-items: center; --bot-color: var(--etis-accent); }
+.etis-bot[data-state='safe'] { --bot-color: var(--etis-low); }
+.etis-bot[data-state='warning'] { --bot-color: var(--etis-medium); }
+.etis-bot[data-state='danger'] { --bot-color: var(--etis-high); }
+.etis-bot svg { overflow: visible; display: block; }
+
+.etis-bot__body { fill: var(--bot-color); transition: fill var(--etis-slow) var(--etis-ease); }
+.etis-bot__visor { fill: var(--etis-visor); }
+.etis-bot__eye { fill: var(--etis-eye); }
+.etis-bot__line { fill: none; stroke: var(--etis-eye); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.etis-bot__node { fill: var(--bot-color); transition: fill var(--etis-slow) var(--etis-ease); transform-box: fill-box; transform-origin: center; }
+.etis-bot__stem { stroke: var(--bot-color); stroke-width: 3; stroke-linecap: round; transition: stroke var(--etis-slow) var(--etis-ease); }
+.etis-bot__lock { fill: var(--etis-eye); fill-opacity: 0.6; }
+.etis-bot__shackle { fill: none; stroke: var(--etis-eye); stroke-opacity: 0.6; stroke-width: 2.5; }
+.etis-bot__cheek { fill: #FF9A9A; fill-opacity: 0.45; }
+.etis-bot__shadow { fill: var(--etis-text); fill-opacity: 0.12; transform-box: fill-box; transform-origin: center; }
+
+.etis-bot__float { animation: etis-bot-float 4s ease-in-out infinite alternate; }
+.etis-bot__shadow { animation: etis-bot-shadow 4s ease-in-out infinite alternate; }
+.etis-bot__blink { transform-box: fill-box; transform-origin: center; animation: etis-bot-blink 5.5s ease-in-out infinite; }
+.etis-bot__face { animation: etis-fade-in var(--etis-base) var(--etis-ease) both; }
+
+.etis-bot[data-state='scanning'] .etis-bot__look { animation: etis-bot-look var(--etis-scan) ease-in-out infinite alternate; }
+.etis-bot[data-state='scanning'] .etis-bot__node { animation: etis-bot-pulse 1.2s ease-in-out infinite; }
+.etis-bot[data-state='warning'] .etis-bot__node { animation: etis-bot-pulse 0.9s ease-in-out 3; }
+.etis-bot[data-state='danger'] .etis-bot__float { animation: etis-bot-shake 420ms ease-in-out 1; }
+.etis-bot[data-state='danger'] .etis-bot__shadow { animation: none; }
+.etis-bot[data-state='safe'] .etis-bot__float { animation: etis-bot-hop 600ms var(--etis-ease) 1, etis-bot-float 4s ease-in-out 600ms infinite alternate; }
+
+@keyframes etis-bot-float { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+@keyframes etis-bot-shadow { from { transform: scaleX(1); } to { transform: scaleX(0.86); } }
+@keyframes etis-bot-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes etis-bot-look { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
+@keyframes etis-bot-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.6; } }
+@keyframes etis-bot-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 50% { transform: translateX(3px); } 75% { transform: translateX(-2px); } }
+@keyframes etis-bot-hop { 0% { transform: translateY(0); } 40% { transform: translateY(-9px); } 100% { transform: translateY(0); } }
+@keyframes etis-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.etis-bot__tip { animation: etis-fade-in var(--etis-base) var(--etis-ease) both; }
+
+/* ---------- Scan surface (message / URL / file) ---------- */
+.etis-scan {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--scan-border);
+  background-color: var(--scan-tint);
+  border-radius: 12px;
+  --scan-border: var(--etis-border);
+  --scan-tint: var(--etis-surface);
+  --scan-color: var(--etis-accent);
+  transition: border-color var(--etis-slow) var(--etis-ease), background-color var(--etis-slow) var(--etis-ease);
+}
+.etis-scan[data-status='scanning'] { --scan-border: var(--etis-accent); --scan-tint: var(--etis-accent-soft); }
+.etis-scan[data-status='LOW'] { --scan-border: var(--etis-low-border); --scan-tint: var(--etis-low-tint); --scan-color: var(--etis-low); }
+.etis-scan[data-status='MEDIUM'] { --scan-border: var(--etis-medium-border); --scan-tint: var(--etis-medium-tint); --scan-color: var(--etis-medium); }
+.etis-scan[data-status='HIGH'] { --scan-border: var(--etis-high-border); --scan-tint: var(--etis-high-tint); --scan-color: var(--etis-high); }
+.etis-scan[data-status='LOW'], .etis-scan[data-status='MEDIUM'], .etis-scan[data-status='HIGH'] { animation: etis-scan-settle 700ms var(--etis-ease) 1; }
+
+.etis-scan__edge { position: absolute; inset-block: 0; inset-inline-start: 0; width: 4px; background: var(--scan-color); opacity: 0; transition: opacity var(--etis-slow) var(--etis-ease), background-color var(--etis-slow) var(--etis-ease); }
+.etis-scan:not([data-status='idle']) .etis-scan__edge { opacity: 1; }
+
+.etis-scan__sweep { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity var(--etis-base) var(--etis-ease); }
+.etis-scan__sweep::before { content: ''; position: absolute; inset-inline: 0; top: -28px; height: 56px; background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--etis-accent) 22%, transparent), transparent); }
+.etis-scan__sweep::after { content: ''; position: absolute; inset-inline: 0; top: -1px; height: 2px; background: var(--etis-accent); box-shadow: 0 0 10px 1px color-mix(in srgb, var(--etis-accent) 70%, transparent); }
+.etis-scan[data-status='scanning'] .etis-scan__sweep { opacity: 1; animation: etis-scan-y var(--etis-scan) ease-in-out infinite alternate; }
+
+@keyframes etis-scan-y { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes etis-scan-settle { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--scan-color) 45%, transparent); } 100% { box-shadow: 0 0 0 8px transparent; } }
+
+/* ---------- Radar (network) ---------- */
+.etis-radar {
+  position: relative; flex: none; width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center; color: var(--scan-color);
+  border: 1px solid var(--scan-border);
+  background: repeating-radial-gradient(circle, transparent 0 9px, color-mix(in srgb, var(--scan-color) 18%, transparent) 9px 10px), var(--etis-surface);
+  transition: border-color var(--etis-slow) var(--etis-ease), color var(--etis-slow) var(--etis-ease);
+}
+.etis-radar__sweep { position: absolute; inset: 0; border-radius: 50%; opacity: 0; transition: opacity var(--etis-base) var(--etis-ease);
+  background: conic-gradient(from 0deg, color-mix(in srgb, var(--etis-accent) 55%, transparent), transparent 80deg); }
+.etis-scan[data-status='scanning'] .etis-radar__sweep { opacity: 1; animation: etis-radar-spin var(--etis-scan) linear infinite; }
+.etis-radar > svg { position: relative; }
+@keyframes etis-radar-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Reduced motion: movement becomes fades ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .etis-page-in, .etis-bot__face, .etis-bot__tip { animation: etis-fade-in var(--etis-base) linear both !important; }
+  .etis-lift:hover { transform: none; }
+  .etis-bot__float, .etis-bot__shadow, .etis-bot__blink, .etis-bot__look { animation: none !important; }
+  .etis-bot__node { animation: none !important; }
+  .etis-bot[data-state='scanning'] .etis-bot__node { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; }
+  .etis-scan, .etis-scan[data-status] { animation: none !important; }
+  .etis-scan[data-status='scanning'] .etis-scan__sweep { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; background: color-mix(in srgb, var(--etis-accent) 12%, transparent); }
+  .etis-scan__sweep::before, .etis-scan__sweep::after { display: none; }
+  .etis-scan[data-status='scanning'] .etis-radar__sweep { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; }
+}
+[data-motion='reduced'] .etis-page-in, [data-motion='reduced'] .etis-bot__face, [data-motion='reduced'] .etis-bot__tip { animation: etis-fade-in var(--etis-base) linear both !important; }
+[data-motion='reduced'] .etis-lift:hover { transform: none; }
+[data-motion='reduced'] .etis-bot__float, [data-motion='reduced'] .etis-bot__shadow, [data-motion='reduced'] .etis-bot__blink, [data-motion='reduced'] .etis-bot__look, [data-motion='reduced'] .etis-bot__node { animation: none !important; }
+[data-motion='reduced'] .etis-bot[data-state='scanning'] .etis-bot__node { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; }
+[data-motion='reduced'] .etis-scan { animation: none !important; }
+[data-motion='reduced'] .etis-scan[data-status='scanning'] .etis-scan__sweep { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; background: color-mix(in srgb, var(--etis-accent) 12%, transparent); }
+[data-motion='reduced'] .etis-scan__sweep::before, [data-motion='reduced'] .etis-scan__sweep::after { display: none; }
+[data-motion='reduced'] .etis-scan[data-status='scanning'] .etis-radar__sweep { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; }
+@keyframes etis-fade-pulse { from { opacity: 0.35; } to { opacity: 1; } }
