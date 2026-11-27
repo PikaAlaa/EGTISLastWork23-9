@@ -135,7 +135,6 @@ output, and its value is never written.
 | Analyst-entered (`feed:manual` blacklist entries; `analyst:*` sightings) | `indicators.value` | ETIS team's own entries. | **Yes, unless restricted-feed check fails** (owner decision Q14, rule below). |
 | Community (`community:community_reports`, confirmed only) | `indicators.value` of the confirmed report | Values reported to this ETIS installation and confirmed by an analyst. | **Not yet; counted only** (owner decision Q15). A value becomes exportable only after the submission form states that values are shared under CC0 and the reporter has accepted that. The acceptance is recorded per report (rule below). No submission form exists today (core v1 §2.5). |
 | abuse.ch Feodo Tracker IP blocklist (`feodo_tracker`) | Local pinned list file under ignored `data/external/network-blocklists/` (§1.4.1) | **CC0**. abuse.ch terms of use §3.4: "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)". Recorded in `docs/data-licences.md` (`abuse_ch_network_blocklists`) as read by the reviewer on 2026-11-25; **not re-read for this document** (**to verify**, V10). | **Yes** |
-| abuse.ch SSL Blacklist IP list (`ssl_blacklist`) | as above | **CC0**, same source and the same note as Feodo Tracker (**to verify**, V10). `docs/data-licences.md` also records that whether the list is still published is to verify. | **Yes** |
 | OpenPhish (`feed:openphish`) | `blacklist_entries` / `indicators.value` | Proprietary. Recorded in `docs/data-licences.md`: "Except as expressly permitted by OpenPhish in writing"; redistribution "not permitted by current terms without written permission". Not re-read for this document (**to verify**, V11). | **Never**, count only |
 | PhishTank (`feed:phishtank`) | as above | Not established. Recorded in `docs/data-licences.md`: the current terms link to a Cisco EULA, and the CC BY-SA 2.5 statement exists only in archived terms. Not re-read for this document (**to verify**, V11). | **Never**, count only |
 | Scan-derived (phishing scans, provider checks, e-mail imports, host and network-windows destinations, agent `sensor` findings) | none: hash-only (`value` NULL) | n/a (the user's or employee's own data) | **Never**, count only |
@@ -187,7 +186,7 @@ output, and its value is never written.
 `network.windows` N1 Findings carry the remote IP **hash-only** (`value` NULL), even when
 the IP came from a public list (**verified** in `backend/app/engines/network_windows/engine.py`,
 `indicators()`). The exporter recovers the plaintext without storing it. It reads the
-locally pinned Feodo Tracker and SSL Blacklist files, accepting a file only when its
+locally pinned Feodo Tracker file, accepting the file only when its
 lock-file SHA-256 matches, as `blocklists.py` does. It hashes each listed IP with the core v1
 normalization, and it exports an indicator only when its `value_hash` is in that set. Three
 consequences follow:
@@ -755,7 +754,7 @@ made.
 | # | Decision | Where applied |
 | --- | --- | --- |
 | Q1 | Patterns hold real values so that machines can match them. De-fanging applies only in the console and in the bundle's human-readable `note`. | §1.5, §4.1 |
-| — | Licence filter: export only values from analyst, community and the CC0 abuse.ch lists (Feodo Tracker, SSL Blacklist). OpenPhish and PhishTank values are never exported, only counted. | §1.4 |
+| — | Licence filter: export only values from analyst, community and the CC0 abuse.ch Feodo Tracker list. OpenPhish and PhishTank values are never exported, only counted. | §1.4 |
 | — | `network.windows` is in scope: its N1–N9 codes go into the action catalogue, and its host pseudonym is used for device attribution. | §2.2, §3.2 |
 | — | The core v2 migration is `009_finding_devices`. | §3.2, §5, §6 |
 | Q9 | Device labels come from the agent's `display_label` (resolved by the agent design, not by a separate core v2 label). | §3.2 |
@@ -807,7 +806,7 @@ made.
 | V7 | `stix2-validator` licence and whether it runs fully offline | its PyPI page and repository | Q6 only |
 | V8 | `format-detection` meta behaviour in current mobile Safari / Chrome | browser documentation | 9 |
 | V9 | `node --experimental-strip-types --test` works on the installed Node 22.12 without extra packages | Node 22 documentation, local run | 9 |
-| V10 | abuse.ch terms of use §3.4 still grant CC0 for Feodo Tracker and SSL Blacklist. Recorded in `docs/data-licences.md` as read by the reviewer on 2026-11-25; not re-read for this document. | https://abuse.ch/terms-of-use/ | 4 |
+| V10 | abuse.ch terms of use §3.4 still grant CC0 for Feodo Tracker and SSL Blacklist. **Verified 2026-11-27** (re-read before the network-windows step 5 fetch, `docs/data-licences.md`). The SSL Blacklist IP list was found deprecated on 2025-01-03 (its file header), so it was removed from the export sources; only Feodo Tracker remains. | https://abuse.ch/terms-of-use/ | 4 |
 | V11 | OpenPhish and PhishTank current terms (both are excluded either way; re-read only to keep `docs/data-licences.md` current) | https://openphish.com/terms.html, https://phishtank.org/terms.php | — |
 | V12 | The Windows NetBIOS computer name (`COMPUTERNAME`) is limited to 15 characters and may differ from the DNS host name returned by `socket.gethostname()` | Microsoft documentation on computer naming | 7a (Q17 residual risk) |
 | V13 | Whether OASIS publishes a TLP 2.0 marking extension for STIX 2.1 (CLEAR, GREEN, AMBER, AMBER+STRICT, RED), and if so its extension-definition id, status and licence. This matters only if TLP 2.0 markings are wanted later; v2 uses TLP 1.0. | OASIS CTI common objects and extension repositories | later (Q3) |

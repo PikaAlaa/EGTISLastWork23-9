@@ -518,7 +518,7 @@ def test_licence_community_requires_cc0_acceptance_and_q18_overlap(db, tmp_path,
 
 
 def test_licence_exportable_sources_constant_is_pinned():
-    assert set(command.EXPORTABLE_SOURCES) == {'analyst', 'community', 'list:feodo_tracker', 'list:ssl_blacklist'}
+    assert set(command.EXPORTABLE_SOURCES) == {'analyst', 'community', 'list:feodo_tracker'}
     assert command.RESTRICTED_FEEDS == ('openphish', 'phishtank')
 
 

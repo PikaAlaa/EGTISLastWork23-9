@@ -50,7 +50,7 @@ FAMILIES = {'N1': 'lists', 'N2': 'lists', 'N3': 'lists', 'N4': 'model', 'N5': 'l
             'N6': 'behavioural', 'N7': 'behavioural', 'N9': 'behavioural'}
 VALIDATIONS = ('samples', 'unvalidated_on_samples')
 HEALTH_ORDER = ('rules_missing', 'blocklists_missing', 'blocklists_stale', 'indicator_store_empty',
-                'url_model_unavailable')
+                'url_model_unavailable', 'blocklist_source_stale')  # the last one is informational only
 CONNECTION_SOURCES = ('firewall', 'sysmon3', 'snapshot')
 
 
@@ -295,11 +295,12 @@ class NetworkWindowsEngine:
 
     def health(self, context: Mapping[str, Any] | None = None) -> dict:
         context = context or {}
-        problems = set()
+        problems, list_ages = set(), None
         if not self.registrable:
             problems.add('rules_missing')
         if self.shipped and 'N1' in self.shipped.rules:
             list_health = self.lists.health(context.get('now'))
+            list_ages = self.lists.ages(context.get('now')) if self.shipped_lists else None
             if not self.shipped_lists:
                 problems.add('blocklists_missing')
             elif list_health:
@@ -313,7 +314,8 @@ class NetworkWindowsEngine:
                 'reason': reasons[0] if reasons else None, 'reasons': reasons,
                 'rules_detail': None if self.registrable else self.manifest_error,
                 'shipped_rules': sorted(self.shipped.rules) if self.shipped else [],
-                'shipped_lists': list(self.shipped_lists)}
+                'shipped_lists': list(self.shipped_lists),
+                'blocklist_ages': list_ages}
 
     def analyze(self, observation) -> list[Finding]:
         return self.process(observation).findings

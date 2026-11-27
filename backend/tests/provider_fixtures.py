@@ -1,4 +1,4 @@
-"""INVENTED providers/messages/contacts only. example.eg names are inert strings.
+"""INVENTED providers/messages/contacts only. example.com names are inert strings.
 
 Nothing in this module is an authentic Egyptian observation or provider contact.
 The numeric contacts below are invented test tokens, never dialled or researched.
@@ -11,7 +11,7 @@ from app.core.provider_registry import MATCHING_TABLE, ProviderRegistry, Release
 
 NOW = datetime(2026, 11, 26, 12, tzinfo=timezone.utc)
 TODAY = NOW.date()
-INVENTED_URL = 'https://different.example.eg/invented-action'
+INVENTED_URL = 'https://different.example.com/invented-action'
 INVENTED_PHONE = '12345'
 
 
@@ -25,12 +25,12 @@ def invented_provider():
         aliases=[dict(value=value, language=language, claim_context='identity', source_ref='invented_source')
                  for value, language in [('بنك المثال المخترع', 'ar'), ('بنكنا المخترع', 'ar_EG'),
                                          ('bank el methal el mo5tara3', 'franco')]],
-        domains=[dict(host='bank.example.eg', match_scope='exact_host', channel='web',
+        domains=[dict(host='bank.example.com', match_scope='exact_host', channel='web',
                       purpose='invented', source_ref='invented_source')],
         sender_ids=[dict(value='INVENTEDBANK', channel='sms', comparison='literal', source_ref='invented_source')],
         sms_short_codes=[dict(value='54321', channel='sms', purpose='outbound_sender', source_ref='invented_source')],
         hotlines=[dict(value='65432', channel='phone', purpose='callback', source_ref='invented_source')],
-        sources=[dict(id='invented_source', url='https://bank.example.eg/invented-source', read_at='2026-11-24',
+        sources=[dict(id='invented_source', url='https://bank.example.com/invented-source', read_at='2026-11-24',
                       verifier='invented_verifier', reviewer='invented_reviewer', field_paths=fields,
                       note_digest=hashlib.sha256(b'invented-source-note').hexdigest())],
         coverage=dict(domains='documented_complete', sender_ids='documented_complete',

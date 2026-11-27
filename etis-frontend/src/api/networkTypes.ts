@@ -16,7 +16,8 @@ export type NetworkHealthReason =
   | 'blocklists_missing'
   | 'blocklists_stale'
   | 'indicator_store_empty'
-  | 'url_model_unavailable';
+  | 'url_model_unavailable'
+  | 'blocklist_source_stale';
 export type DetectionState = 'visible' | 'partial' | 'not_visible' | 'no_baseline' | 'inactive';
 export type SourceName = 'dns_client' | 'sysmon22' | 'firewall' | 'sysmon3' | 'snapshot';
 
@@ -114,6 +115,7 @@ export interface NetworkHealth {
   rules_detail: string | null;
   shipped_rules: string[];
   shipped_lists: string[];
+  blocklist_ages?: { fetch_age_days: number | null; source_age_days: number | null } | null;
   version: string;
   imports_start_from: string;
   last_import: { id: number; started_at: string; engine_version: string } | null;

@@ -168,11 +168,10 @@ def test_console_page_strings_exist_in_both_languages_and_cover_every_code():
         assert {f'soc.role.{r}' for r in ('remote_endpoint', 'resolved_name', 'connecting_process')} <= keys, name
 
 
-def test_console_page_links_only_to_the_two_list_pages_and_shows_commands_as_text():
+def test_console_page_links_only_to_the_list_page_and_shows_commands_as_text():
     import re
     page = (ROOT / 'etis-frontend/src/pages/NetworkWindowsPage.tsx').read_text(encoding='utf-8')
-    assert re.findall(r"https://[^'\s]+", page) == ['https://feodotracker.abuse.ch/blocklist/',
-                                                      'https://sslbl.abuse.ch/blacklist/']
+    assert re.findall(r"https://[^'\s]+", page) == ['https://feodotracker.abuse.ch/blocklist/']
     assert page.count('<Link') == 1 and 'LIST_LINKS.has(list.link)' in page
     for forbidden in ('window.open', 'dangerouslySetInnerHTML', 'fetch(', 'XMLHttpRequest', 'method:'):
         assert forbidden not in page, forbidden

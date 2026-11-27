@@ -71,17 +71,17 @@ def test_claim_from_sender_id_or_sender_display(tmp_path):
 
 
 @pytest.mark.parametrize('scope,url,expected', [
-    ('exact_host', 'https://BANK.example.eg/', 'match'),
-    ('exact_host', 'https://bank.example.eg./', 'match'),
-    ('exact_host', 'https://service.bank.example.eg/', 'outside_documented_set'),
-    ('subdomains', 'https://service.bank.example.eg/', 'match'),
-    ('subdomains', 'https://notbank.example.eg/', 'outside_documented_set'),
-    ('subdomains', 'https://bank.example.eg.other.example.eg/', 'outside_documented_set'),
-    ('registrable_domain', 'https://other.example.eg/', 'match'),
-    ('exact_host', 'https://bank.example.eg@other.example.eg/', 'invalid'),
+    ('exact_host', 'https://BANK.example.com/', 'match'),
+    ('exact_host', 'https://bank.example.com./', 'match'),
+    ('exact_host', 'https://service.bank.example.com/', 'outside_documented_set'),
+    ('subdomains', 'https://service.bank.example.com/', 'match'),
+    ('subdomains', 'https://notbank.example.com/', 'outside_documented_set'),
+    ('subdomains', 'https://bank.example.com.other.example.com/', 'outside_documented_set'),
+    ('registrable_domain', 'https://other.example.com/', 'match'),
+    ('exact_host', 'https://bank.example.com@other.example.com/', 'invalid'),
     ('exact_host', 'data:invented', 'invalid'),
     ('exact_host', 'http://127.0.0.1/', 'invalid'),
-    ('exact_host', 'https://bank.example.eg:bad/', 'invalid'),
+    ('exact_host', 'https://bank.example.com:bad/', 'invalid'),
 ])
 def test_domain_scopes_are_offline_and_label_bounded(tmp_path, scope, url, expected):
     provider = engine(tmp_path).snapshot.registry.entries[0]
@@ -92,14 +92,14 @@ def test_domain_scopes_are_offline_and_label_bounded(tmp_path, scope, url, expec
 def test_idna_and_punycode_are_literal_not_confusable(tmp_path):
     from app.core.url_utils import parse_url
     payload = invented_registry()
-    unicode_host = 'مثال.example.eg'  # INVENTED Unicode name; never resolved
+    unicode_host = 'مثال.example.com'  # INVENTED Unicode name; never resolved
     ascii_host = parse_url(unicode_host).host
     payload['entries'][0]['domains'][0]['host'] = ascii_host
     instance = ProviderClaimEngine(write_invented_registry(tmp_path, payload))
     provider = instance.snapshot.registry.entries[0]
     assert match_domain('https://' + unicode_host, provider, 'sms', suffix_available=True) == 'match'
     assert match_domain('https://' + ascii_host, provider, 'sms', suffix_available=True) == 'match'
-    assert rules.confusable_match('invented-lookalike.example.eg', provider) == 'not_checked'
+    assert rules.confusable_match('invented-lookalike.example.com', provider) == 'not_checked'
     assert not any('provider_lookalike_host' in f.evidence.reasons for f in instance.analyze(invented_observation()))
 
 
@@ -110,7 +110,7 @@ def test_suffix_unavailable_is_incomplete_not_mismatch(tmp_path, monkeypatch):
     assert (finding.severity, finding.confidence, finding.attack, finding.indicators) == ('info', 'undetermined', [], [])
     assert finding.evidence.reasons == ['provider_suffix_unavailable']
     # Literal identity remains usable even if a suffix check is not available.
-    assert instance.analyze(invented_observation(url='https://bank.example.eg/', text='This is Invented Example Bank; click here')) == []
+    assert instance.analyze(invented_observation(url='https://bank.example.com/', text='This is Invented Example Bank; click here')) == []
 
 
 def test_partial_unknown_stale_ambiguity_and_unavailable_table_rows(tmp_path, monkeypatch):
@@ -175,7 +175,7 @@ def test_partial_contact_cannot_escalate_complete_domain(tmp_path):
 
 def test_deduplication_preserves_full_url_identity_and_no_double_counting(tmp_path):
     instance = engine(tmp_path)
-    url = 'https://different.example.eg/PrivatePath?Token=InventedValue'  # INVENTED
+    url = 'https://different.example.com/PrivatePath?Token=InventedValue'  # INVENTED
     results = instance.analyze(invented_observation(f'This is Invented Example Bank; click {url} {url}', url=url))
     assert len(results) == 1 and results[0].severity == 'medium'
     ref = rules._indicator('url', url, 'delivery_link')
@@ -225,16 +225,16 @@ def test_missing_fields_are_unknown_and_never_mismatches(tmp_path):
 def test_raw_urls_cannot_supply_action_or_negation_words(tmp_path):
     instance = engine(tmp_path)
     assert instance.analyze(invented_observation(
-        'This is Invented Example Bank; https://different.example.eg/click')) == []
+        'This is Invented Example Bank; https://different.example.com/click')) == []
     result, = instance.analyze(invented_observation(
-        'This is Invented Example Bank; click https://warning.example.eg/Warning?example=Private'))
+        'This is Invented Example Bank; click https://warning.example.com/Warning?example=Private'))
     assert result.severity == 'medium'
 
 
 def test_multiple_distinct_proofs_group_by_hash_even_when_public_pivots_withheld(tmp_path):
     instance = engine(tmp_path)
     results = instance.analyze(invented_observation(
-        'This is Invented Example Bank; click https://different.example.eg/one https://different.example.eg/two'))
+        'This is Invented Example Bank; click https://different.example.com/one https://different.example.com/two'))
     assert len(results) == 2
     assert all(not f.indicators for f in results)  # same official registrable parent excluded
     assert all(f.severity == 'medium' for f in results)  # two links are still one family
