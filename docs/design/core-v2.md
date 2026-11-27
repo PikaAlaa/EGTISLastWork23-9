@@ -129,8 +129,8 @@ output, and its value is never written.
 
 | Source (`indicator_sightings.source_kind:source_name`, or list) | Where the plaintext comes from | Licence status | Export |
 | --- | --- | --- | --- |
-| Analyst-entered (`feed:manual` blacklist entries; `analyst:*` sightings) | `indicators.value` | ETIS team's own entries. Analysts must not paste values copied from a restricted feed into `manual` (Q14). | **Yes** |
-| Community (`community:community_reports`, confirmed only) | `indicators.value` of the confirmed report | Values reported to this ETIS installation and confirmed by an analyst. The terms under which reporters submit are the team's to set (Q15). | **Yes** |
+| Analyst-entered (`feed:manual` blacklist entries; `analyst:*` sightings) | `indicators.value` | ETIS team's own entries. | **Yes, unless restricted-feed check fails** (owner decision Q14, rule below). |
+| Community (`community:community_reports`, confirmed only) | `indicators.value` of the confirmed report | Values reported to this ETIS installation and confirmed by an analyst. | **Not yet; counted only** (owner decision Q15). A value becomes exportable only after the submission form states that values are shared under CC0 and the reporter has accepted that. The acceptance is recorded per report (rule below). No submission form exists today (core v1 §2.5). |
 | abuse.ch Feodo Tracker IP blocklist (`feodo_tracker`) | Local pinned list file under ignored `data/external/network-blocklists/` (§1.4.1) | **CC0**. abuse.ch terms of use §3.4: "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)". Recorded in `docs/data-licences.md` (`abuse_ch_network_blocklists`) as read by the reviewer on 2026-11-25; **not re-read for this document** (**to verify**, V10). | **Yes** |
 | abuse.ch SSL Blacklist IP list (`ssl_blacklist`) | as above | **CC0**, same source and the same note as Feodo Tracker (**to verify**, V10). `docs/data-licences.md` also records that whether the list is still published is to verify. | **Yes** |
 | OpenPhish (`feed:openphish`) | `blacklist_entries` / `indicators.value` | Proprietary. Recorded in `docs/data-licences.md`: "Except as expressly permitted by OpenPhish in writing"; redistribution "not permitted by current terms without written permission". Not re-read for this document (**to verify**, V11). | **Never**, count only |
@@ -144,9 +144,33 @@ output, and its value is never written.
 - **Allowlist.** The allowlist is a fixed constant, `EXPORTABLE_SOURCES`, in
   `stix_export.py`. Each entry cites its `docs/data-licences.md` entry, and the tests pin
   the list (§6, step 4).
-- **Mixed sources.** A value sighted by both an allowed and a restricted source is exported,
-  because the allowed source gives it independently. `x_etis_sources` lists only the allowed
-  sources, so the bundle never says that a value also appears in OpenPhish or PhishTank.
+- **Restricted-feed check for analyst values (Q14).** An analyst-entered value is **not
+  exported**, and is counted as `restricted_feed_overlap`, when either of these holds:
+  1. its **declared source** is OpenPhish or PhishTank. For `analyst:*` sightings the
+     declared source is `indicator_sightings.source_name`. The analyst entry form offers a
+     fixed list, `own_investigation | openphish | phishtank | other`, so no new column is
+     needed. `feed:manual` blacklist entries carry no declared source and are checked by
+     rule 2 only.
+  2. the value **also appears in any stored OpenPhish or PhishTank record**, active or
+     inactive, past or current:
+     - `url`: the `url_hash` in `feed_observations` or `blacklist_entries` with source
+       `openphish` / `phishtank`, or in an accepted or rejected `feed_snapshots` payload of
+       those sources;
+     - `domain`: equal to the `domain` of such a `blacklist_entries` row or the host of such
+       a snapshot URL;
+     - any type: an `indicator_sightings` row `feed:openphish` / `feed:phishtank`.
+
+  The check only reads the feed tables, as the feed path requires (core v1 §2.1). A later
+  expiry or rollback of the feed row does not make the value exportable again, because the
+  check covers every stored record.
+- **Community values (Q15).** Exported only when the report row carries
+  `licence_accepted = 'CC0-1.0'` and `licence_notice_version`. Both are recorded when the
+  reporter accepts the CC0 statement on the future submission form. Until that form exists,
+  every community value is counted as `community_licence_not_accepted`. The two columns
+  belong to the migration of the submission feature, not to core v2's `009`. Whether the
+  restricted-feed check also applies to community values is Q18.
+- **CC0 list values** are exported on the strength of their own licence (§1.4.1).
+- **`x_etis_sources`** lists only the allowed sources a value was exported from.
 - **Counted values stay out.** A value that is only counted never appears in any form:
   pattern, `note`, object id or hash. ETIS also does not export the unkeyed SHA-256 of a
   scan-derived value: anyone who guesses the value can confirm it (core v1 §2.2), so
@@ -344,37 +368,74 @@ and it is not trained, calibrated or tuned on data. Its version is `device-risk-
 
 ### 3.2 What a device is
 
-A device is identified by `device_ref`. This is the host pseudonym:
-`Pseudonymizer(ETIS_HOST_PSEUDONYM_KEY).host_ref(computer name)`, which is
-`'hmac:' + HMAC-SHA-256(key, 'host\0' + name.casefold().split('.')[0])[:32 hex]`
-(**verified** in `backend/app/engines/host/pseudonyms.py`). `network.windows` uses the same
-function, so its `device_ref` equals the host engine's `host_ref` for the same name
-(**verified** in `backend/app/engines/network_windows/devices.py`).
+A device has two references. Only the second is ever stored.
 
-| Engine | Device attribution |
+1. **Endpoint ref (`hmac:`), computed where the logs or files are read.** This is the
+   existing host pseudonym, `Pseudonymizer(ETIS_HOST_PSEUDONYM_KEY).host_ref(name)` =
+   `'hmac:' + HMAC-SHA-256(key, 'host\0' + name.casefold().split('.')[0])[:32 hex]`
+   (**verified** in `backend/app/engines/host/pseudonyms.py`). `network.windows` already
+   uses the same function (**verified** in `backend/app/engines/network_windows/devices.py`).
+   The agent sends this form, and the agent's batch check validates it.
+2. **Stored ref (`srv:`), computed on the server before any storage** (owner decision Q13,
+   27 November 2026): `'srv:' + HMAC-SHA-256(ETIS_SERVER_REF_KEY, 'device\0' + endpoint_ref)[:32 hex]`.
+   That is 36 characters, which fits `String(37)`. `ETIS_SERVER_REF_KEY` is 32 random bytes,
+   generated by `scripts/initialize.py` into the ignored `.env` of the machine that holds
+   the database. It is never sent to an agent. A stolen company host key alone no longer
+   lets anyone confirm a guessed computer name against the server's stored refs.
+
+**One name, one ref (owner decision Q17).** A shared helper,
+`app/core/device_names.py::local_device_name(raw) -> str | None`, returns the text before
+the first dot, stripped and lower-cased, or `None` when that is empty. It is applied alike to
+`socket.gethostname()`, `COMPUTERNAME`, `--device-name` and the EVTX `Computer` field, in
+the agent, `scan_files.py`, `import_network_windows.py` and the host import. `host_ref`
+still applies `casefold()` afterwards, which leaves an ASCII lower-case name unchanged. The
+helper makes case and domain suffix consistent. It cannot repair a NetBIOS name that
+Windows truncated (V12), so the design also fixes one source order for "this PC": first
+`socket.gethostname()`, then `COMPUTERNAME`, then `platform.node()`. This reverses
+`network.windows`'s current default (`COMPUTERNAME` first, **verified** in
+`devices.py::default_device_name`). It is a naming change only; no detection rule changes.
+
+| Engine | Endpoint ref in `evidence.details` |
 | --- | --- |
-| `network.windows` | `evidence.details.device_ref`, set by the engine with the host pseudonym (**verified**, `engine.py` details). The firewall log and snapshots have no computer name, so they use `--device-name`, which defaults to `COMPUTERNAME` or `platform.node()` (**verified**, `devices.py::default_device_name`). |
-| `host.windows` | `evidence.details.host_ref`, set by the engine from the EVTX `Computer` field once it emits Findings. |
-| `malware.files` | Two paths with the same result. **Agent:** the agent wrapper injects `device_ref` into `evidence.details` (windows-agent-lan-v1 §1.1, step 5). **Standalone** `scan_files.py`: the command computes `device_ref` from the local computer name with the host key and passes it to `record_findings` as an argument. In both cases the malware engine and its frozen rule stay unchanged. If the host key is missing, the standalone scan still runs and its findings have no device. |
-| `network.flows` (Zeek, paused) | Not attributed. Its `local_host_ref` is an HMAC of a local IP under a different key (`ETIS_NETWORK_PSEUDONYM_KEY`), so it cannot be joined. |
+| `network.windows` | `device_ref`, set by the engine (**verified**, `engine.py` details). The name comes through `local_device_name()`. |
+| `host.windows` | `host_ref`, set by the engine from the EVTX `Computer` field once it emits Findings, through `local_device_name()`. |
+| `malware.files` | `device_ref`, injected after the engine runs, by the agent wrapper (windows-agent-lan-v1 §1.1, step 5) and **also by standalone `scan_files.py`** (owner decision Q16). Both use the same helper, `app/core/device_names.py::attach_device_ref(finding, host_key)`, so there is one path. The malware engine and its frozen rule stay unchanged. If the host key is missing, the scan still runs and its findings have no device. |
+| `network.flows` (Zeek, paused) | Not attributed. Its `local_host_ref` uses a different key (`ETIS_NETWORK_PSEUDONYM_KEY`), so it cannot be joined. |
 | `phishing.analyze`, provider, e-mail and BEC rules | Not attributed. A submitted message describes a person's inbox, not a device. These findings are listed on the console as "not tied to a device". |
 
-`record_findings` reads, in this order: `details.device_ref`, then `details.host_ref`, then
-the explicit argument. When two of them are present and differ, it records no device and
-logs `device_ref_conflict` without the values.
+**Wrapping happens in one place.** `record_findings` is the single choke point for every
+ingestion path: agent batches, standalone imports and scans on the server, and any future
+path. As its first step it calls `wrap_device_refs(finding)`:
+
+- it reads `details.device_ref` and `details.host_ref`, accepting only `^hmac:[0-9a-f]{32}$`;
+- it rejects a Finding that already carries `srv:`, because only the server makes that form,
+  with `device_ref_prefix_invalid`;
+- if both fields are present and differ, it rejects the Finding with `device_ref_conflict`,
+  logged without the values;
+- it replaces both fields with the `srv:` form. The Finding is frozen, so it builds a copy
+  with `model_copy`;
+- if `ETIS_SERVER_REF_KEY` is missing, it removes both fields instead, so the Finding is
+  stored without a device, and logs `server_ref_key_missing` once per call. An `hmac:` ref is
+  never stored as a fallback.
+
+Only then are the Finding and `finding_devices` written. No `hmac:` device ref is ever
+stored, so one PC has one ref whatever path its findings took. Malware `path_ref` is not
+wrapped: it is a file pseudonym, not a device ref. Whether `account_ref` is wrapped too is
+Q19.
 
 **Storage.** A new table, `finding_devices(finding_id PK/FK → findings ON DELETE CASCADE,
-device_ref String(37), attributed_by String(32))`, where `attributed_by` is one of
-`engine_details`, `agent`, `scan_command`, is filled by `record_findings` (migration
-**`009_finding_devices`**; `008` is `008_network_windows_imports`). The Finding schema
-(`finding-v1`) does not change. Findings recorded before v2 have no device (open question
-Q8). Device pseudonyms still never pivot incidents (host-engine-v1 §6.6,
+device_ref String(37) always 'srv:…', attributed_by String(32))`, where `attributed_by` is
+`engine_details` or `agent`, is filled by `record_findings` (migration
+**`009_finding_devices`**; `008` is `008_network_windows_imports`). Findings already stored
+with an `hmac:` ref, such as earlier `network.windows` imports, are handled by Q20. The Finding schema
+(`finding-v1`) does not change. Malware findings recorded before v2 carry no device ref at
+all and stay unattributed (open question Q8). Device pseudonyms still never pivot incidents (host-engine-v1 §6.6,
 windows-agent-lan-v1 §6).
 
 **Label.** For an agent-paired device, the console shows the agent's operator-set
 `devices.display_label` (pattern `^[A-Za-z0-9_.-]{1,64}$`, windows-agent-lan-v1 §5.3).
 This answers the former Q9. A device seen only through standalone imports has no label and
-is shown by its short ref (`hmac:3f9a…`).
+is shown by its short stored ref (`srv:3f9a…`).
 
 ### 3.3 Inputs
 
@@ -469,10 +530,10 @@ a **Risk** panel:
    findings about itself."
 
 The API endpoints are `GET /device-risk` (all devices with attributed findings: `device_ref`,
-band, points, last finding) and `GET /device-risk/detail?device_ref=hmac:…` (the panel
+band, points, last finding) and `GET /device-risk/detail?device_ref=srv:…` (the panel
 above). They are kept apart from the agent's `/devices/{id}`, which is keyed by the agent's
 integer device id and covers pairing state. Both are read-only, require `verify_api_key`,
-appear in the proxy allowlist, validate `device_ref` against `^hmac:[0-9a-f]{32}$`, and
+appear in the proxy allowlist, accept **only** `^srv:[0-9a-f]{32}$` (an `hmac:` value is rejected with `invalid_input`), and
 return `database_unavailable` without echoing input.
 
 ### 3.6 Fit with the Windows agent's `device_ref` (FR-11)
@@ -482,16 +543,37 @@ Read from [windows-agent-lan-v1](windows-agent-lan-v1.md), merged into `origin/m
 
 | Point | Agent design | Core v2 | Fit |
 | --- | --- | --- | --- |
-| Value and format | Endpoint computes `device_ref = Pseudonymizer(host_key).host_ref(socket.gethostname())` with the company key received at pairing; `hmac:<32 hex>`, `String(37)` (§1.3, §7.1). | Same function and format (§3.2). | Fits. |
-| Binding | Server rejects a batch whose Finding `details.device_ref` / `host_ref` differs from the token-bound `devices.device_ref` (`422 device_ref_mismatch`, §5.2). | `record_findings` reads the same two fields (§3.2). | Fits. Agent findings have already been checked by the time they reach `record_findings`. |
-| Malware | Agent injects `device_ref` into malware `evidence.details`. | Accepted (`attributed_by = agent`). The standalone command passes an argument instead. | Fits. Q16 asks whether the standalone command should inject it too, so there is one path. |
-| Server-side re-wrap | **Not decided.** Agent §11 question 1 asks whether the server should re-key `device_ref` and `account_ref` as `HMAC(server_key, endpoint_hmac)` on ingestion. | Not assumed. | **Open (Q13).** If re-wrap is adopted, core v2 needs: (a) the wrap applied **after** the mismatch check and **before** `record_findings`, to `devices.device_ref`, `details.device_ref`, `details.host_ref` and `details.account_ref` alike, so that `finding_devices` and the agent's device table hold the same value; (b) the same wrap applied to findings from standalone imports run on the server (`import_network_windows.py`, `scan_files.py`), otherwise the server PC appears under two refs; (c) a distinct prefix for wrapped refs, so that an unwrapped ref is never compared with a wrapped one by mistake. `srv:<32 hex>` (36 characters) still fits `String(37)`, but it breaks the agent's `^hmac:[0-9a-f]{32}$` evidence check, which would then have to accept both forms. |
-| Host name source | Agent uses `socket.gethostname()`. | `network.windows` standalone defaults to `COMPUTERNAME` / `platform.node()`; the host engine uses the EVTX `Computer` field (often a fully qualified name; `split('.')[0]` keeps the first label). | **Possible mismatch (Q17).** `COMPUTERNAME` is the NetBIOS name (to verify, V12: limited to 15 characters), while the DNS host name can be longer. On a PC with a longer name, the agent's ref and a standalone import's ref would differ. Proposal: one helper, `local_device_name()`, used by the agent and by every standalone command. |
+| Value and format | Endpoint computes `device_ref = Pseudonymizer(host_key).host_ref(socket.gethostname())` with the company key received at pairing; `hmac:<32 hex>`, `String(37)` (§1.3, §7.1). | The endpoint sends `hmac:`; the server stores only `srv:<32 hex>` (36 characters, fits `String(37)`) (§3.2). | Fits after the agent changes below. |
+| Binding | Server rejects a batch whose Finding `details.device_ref` / `host_ref` differs from the token-bound `devices.device_ref` (`422 device_ref_mismatch`, §5.2). | Unchanged in meaning. The check validates the incoming `hmac:` format, computes its `srv:` wrap, and compares that with the stored `devices.device_ref` (`srv:`) using `hmac.compare_digest`. The batch is accepted or rejected **before** anything is stored, and no `hmac:` value is kept. | Fits, with the agent change below. |
+| Malware | Agent injects `device_ref` into malware `evidence.details`. | Standalone `scan_files.py` does the same through the shared `attach_device_ref` helper (Q16). `attributed_by = agent` when the Finding's `source_ref` starts with `agent_devices:`, else `engine_details`. | Fits. One path. |
+| Server-side re-wrap | Agent §11 question 1 (open there). | **Adopted** (owner decision Q13): `srv:HMAC(ETIS_SERVER_REF_KEY, endpoint_ref)`, applied in `record_findings` (and at pairing) before any storage, on every ingestion path including standalone imports on the server. Stored refs are always `srv:`, and `/device-risk` accepts `srv:` only. | Fits after the agent changes below. |
+| Host name source | Agent uses `socket.gethostname()`. | One shared helper, `local_device_name()` (owner decision Q17), applied to `gethostname()`, `COMPUTERNAME`, `--device-name` and the EVTX `Computer` field. Source order for "this PC": `gethostname()`, then `COMPUTERNAME`, then `platform.node()` (§3.2). | Fits. Residual risk: an EVTX `Computer` value or an operator-typed `--device-name` that is a truncated NetBIOS name still differs (V12). |
 | Migration number | Agent plans `009_agent_devices` "or next free number" (§7.1). | `009_finding_devices` (owner decision). | **Conflict, resolved by the owner's numbering:** the agent migration moves to `010` (or the next free number when it lands), and its "upgrade from `008`" test becomes "from `009`". |
 | Console | `/devices` tab and `/devices/{id}` detail. | Risk panel inside that tab; separate `/device-risk` API (§3.5). | Fits, once the tab ownership in §3.5 is followed. |
 | Retention | Agent findings expire after `ETIS_AGENT_RETENTION_DAYS` (default 30). | 30-day score window. | Fits. A shorter retention silently shortens the window, so the Risk panel states the effective window ("findings of the last N days still held"). |
 | Revoked device | Agent §11 question 3: whether findings from a revoked device stay. | The score is computed from whatever findings remain. A revoked device shows a "revoked" badge beside its band. | Depends on the agent's answer. No change is needed in core v2. |
 | Compromised endpoint | It can fabricate findings for its own `device_ref` (§2 A4). | Its own score can be raised or padded; no other device's score is affected, because scores are per device and repeats do not add (§3.4 step 3). | Fits. Stated as a limit in the "What this score is" text. |
+
+**Changes the agent design needs in its step 1** (migration and models). They are recorded
+here; `windows-agent-lan-v1.md` itself is not edited in this branch.
+
+1. The migration is `010_agent_devices`, or the next free number, and its upgrade test
+   starts from `009`.
+2. `devices.device_ref` stores the `srv:` form. Pairing receives the endpoint's `hmac:` ref,
+   validates `^hmac:[0-9a-f]{32}$`, wraps it with the same `wrap_device_ref()` that
+   `record_findings` uses, and stores only the result. The pairing response should not
+   echo a `device_ref`, because the endpoint has no use for the `srv:` form.
+3. The batch check (§5.2 rule 3) compares `wrap(incoming hmac:)` with the stored `srv:` value
+   (a step 2 test). The evidence allowlist keeps accepting only `hmac:` on the wire.
+4. `ETIS_SERVER_REF_KEY` is generated by `scripts/initialize.py` on the server, never sent
+   to an agent, and listed in its threat model (§2 A5): with the server key separate, a
+   leaked company host key alone does not let anyone confirm guessed names against stored
+   refs.
+5. The agent's runner uses `local_device_name()` and `attach_device_ref()` from
+   `app/core/device_names.py` (step 5).
+6. Console and API show and accept `srv:` refs only (§7.2 table, `GET /devices`).
+7. Agent §11 question 1 is answered for `device_ref` and `host_ref`. The `account_ref` part
+   remains open (Q19).
 
 ## 4. De-fanged indicators everywhere in the console
 
@@ -551,7 +633,8 @@ instead of using `IndicatorValue`.
 | Change | Kind |
 | --- | --- |
 | `finding_devices` table | Migration **`009_finding_devices`**, after `008_network_windows_imports` (explicit `op.create_table`, fresh-vs-upgrade comparison as in core v1 §7.2). Downgrade drops it, and attributions can be rebuilt only for engines that keep the ref in details. The agent's `devices` migration takes the next free number (§3.6). |
-| `ETIS_STIX_NAMESPACE`, `ETIS_SHOW_DRAFT_ACTIONS` | Settings. The namespace is generated by `scripts/initialize.py` into ignored `.env`. |
+| `ETIS_STIX_NAMESPACE`, `ETIS_SERVER_REF_KEY`, `ETIS_SHOW_DRAFT_ACTIONS` | Settings. The namespace and the server ref key are generated by `scripts/initialize.py` into ignored `.env`. The server ref key is never sent to an agent. |
+| `app/core/device_names.py` (`local_device_name`, `attach_device_ref`, `wrap_device_ref`) | Shared helpers for the agent, the standalone commands and `record_findings` (§3.2). `network_windows/devices.py::default_device_name` switches to them; the source order becomes `gethostname()` first. |
 | `GET /device-risk`, `GET /device-risk/detail`, `GET /recommended-actions`; `recommended_actions` added inside `GET /incidents/{id}` finding rows | API additions documented in `docs/api-v2.md`. `/analyze` unchanged. `/devices/*` belongs to the agent design. |
 | `recommended-actions-v1.json`, `defang-cases.json`, STIX schema subset, `EXPORTABLE_SOURCES` | Committed, reviewed files and constants. |
 | `REASON_CODES` constant per engine module that lacks one | Declaration only. `network.windows` already has `detections.REASONS`. |
@@ -570,11 +653,12 @@ proposed for merge. No sealed final test is run.
 | 1 | `feat: defang-v1 rules for backend display` | `app/core/defang.py`, `docs/design/defang-cases.json` | `pytest backend/tests/test_defang.py`: every case in the JSON; idempotence; IDNA shown as ASCII; IPv6; userinfo `@`; path dots unchanged; refang(defang(x)) == x for url/domain/ip/email. |
 | 2 | `feat: indicator lookup accepts de-fanged input` | Refang before `normalize` in `routers/indicators.py` | `pytest backend/tests/test_soc_api.py -k lookup`: both forms give the same hash and result; invalid input still returns `invalid_input` without echo. |
 | 3 | `feat: STIX 2.1 pattern and object builders` | `app/services/stix_export.py` (pure: `pattern_for`, object builders, id derivation), committed schema subset | `pytest backend/tests/test_stix_export.py -k "pattern or objects or ids"`: pattern per type and escaping; phone gives no pattern; ids stable across runs and different across namespaces; required properties per schema subset; no `confidence` property; TLP marking on every object. |
-| 4 | `feat: offline STIX export command` | `data/scripts/export_stix.py`, `ETIS_STIX_NAMESPACE` in initialize, default `var/exports/` | `pytest backend/tests/test_stix_export.py -k "command or privacy or scope or licence"`: invented incidents with indicators from every source of §1.4. Analyst, confirmed-community and invented CC0-list values are exported with **real** values in their patterns. OpenPhish-, PhishTank-, scan-derived and malware-hash values are counted and never appear: a marker-string test covers patterns, ids, `note` and `x_etis_*`. A value sighted by both `manual` and `openphish` is exported, and its `x_etis_sources` omits `openphish`. A list file whose lock hash does not match is not used, and its IPs are counted as `list_not_installed`. `EXPORTABLE_SOURCES` is pinned. No hash-only `value_hash` appears in the output. No notes, pseudonyms or details appear. The `note` lists the exported values de-fanged, and patterns are never de-fanged. Resolved-benign incidents are excluded by default. The command refuses to overwrite and prints no values. With `socket.socket` patched to raise, the export still succeeds. Bytes are deterministic apart from the bundle id and timestamp. The ATT&CK notice is present when an attack pattern is exported. |
+| 4 | `feat: offline STIX export command` | `data/scripts/export_stix.py`, `ETIS_STIX_NAMESPACE` in initialize, default `var/exports/` | `pytest backend/tests/test_stix_export.py -k "command or privacy or scope or licence"`: invented incidents with indicators from every source of §1.4. Analyst, confirmed-community and invented CC0-list values are exported with **real** values in their patterns. OpenPhish-, PhishTank-, scan-derived and malware-hash values are counted and never appear: a marker-string test covers patterns, ids, `note` and `x_etis_*`. Q14: a `manual` value whose `url_hash` is in `feed_observations`, `blacklist_entries` or a snapshot payload for `openphish` / `phishtank` (including an expired or rolled-back record), or whose domain equals such an entry's domain, is counted as `restricted_feed_overlap`. So is an `analyst` sighting with declared source `openphish` or `phishtank`; with `own_investigation` and no overlap it is exported. Feed tables are byte-identical before and after export. Q15: a confirmed community value without `licence_accepted = 'CC0-1.0'` is counted as `community_licence_not_accepted`, and with it, it is exported. A list file whose lock hash does not match is not used, and its IPs are counted as `list_not_installed`. `EXPORTABLE_SOURCES` is pinned. No hash-only `value_hash` appears in the output. No notes, pseudonyms or details appear. The `note` lists the exported values de-fanged, and patterns are never de-fanged. Resolved-benign incidents are excluded by default. The command refuses to overwrite and prints no values. With `socket.socket` patched to raise, the export still succeeds. Bytes are deterministic apart from the bundle id and timestamp. The ATT&CK notice is present when an attack pattern is exported. |
 | 5 | `feat: recommended-actions-v1 catalogue and schema` | JSON catalogue with `rank`, including the 15 `network.windows` codes (§2.2); loader with strict schema; `REASON_CODES` declarations where missing | `pytest backend/tests/test_recommended_actions.py -k "schema or coverage"`: extra field rejected; URL/e-mail/phone regex rejects a text; both languages present; coverage for every registered engine's codes, using `network_windows.detections.REASONS` directly; phishing replay-fixture reasons ⊆ declared set. |
 | 6 | `feat: recommended action selection per finding` | Pure `recommended_actions(finding)`, `recommended_actions` in incident detail, `GET /recommended-actions` | `pytest backend/tests/test_recommended_actions.py -k selection` and `pytest backend/tests/test_soc_api.py -k incident`: phishing decisive reason first; `rank` order for an alphabetically sorted `network.windows` reason list (e.g. N1 `blocklist_ip_connection` with `blocklist_ip_dns_answer`); at most 3 actions, de-duplicated; kind default; fallback, so every Finding gets an action (FR-14); draft hidden unless the flag is set; no endpoint with a write method under `/recommended-actions`. |
-| 7 | `feat: device attribution for findings` | Migration **009**, `finding_devices`, `record_findings` reads `device_ref` / `host_ref` / argument, standalone malware scan command passes `device_ref` | `pytest backend/tests/test_core_migrations.py -k 009`: fresh-vs-upgrade schema equality from `008`. `pytest backend/tests/test_correlation.py -k device`: a `network.windows` finding is attributed from `details.device_ref`; a malware finding with an injected `details.device_ref` (agent shape) is attributed as `agent`; two differing refs → no device and `device_ref_conflict` logged without values; device refs never create or join incidents. `pytest backend/tests/test_malware_scan_command.py -k device`: the standalone scan gets the local device ref, and a missing host key → no device while the scan still succeeds. `/analyze` gate: `test_findings_parity.py`, targeted. |
-| 8 | `feat: device-risk-v1 score and device-risk API` | Pure `device_risk(findings, now)`, `/device-risk` routers | `pytest backend/tests/test_device_risk.py`: every cell of the points table; recency boundaries at 7/8 and 30/31 days; repeat rule; cross-engine +3 and +6 cap, not given for a domain below 3 points or older than 7 days; resolved benign/false positive excluded and listed; the worked example of §3.4 gives 13 → high; band edges 0/1/4/5/9/10; N9 `info` scores 0. `pytest backend/tests/test_soc_api.py -k device_risk`: auth, `device_ref` format validation, no echo, read-only. |
+| 7a | `feat: shared device names and server-side ref wrap` | `app/core/device_names.py`; `ETIS_SERVER_REF_KEY` in initialize; `network_windows/devices.py` uses `local_device_name()` | `pytest backend/tests/test_device_names.py`: `local_device_name` gives the same result for `PC-01`, `pc-01.corp.example`, `PC-01.` and ` pc-01 ` (EVTX `Computer`, `COMPUTERNAME` and `gethostname()` shapes); empty → `None`; source order `gethostname()` → `COMPUTERNAME` → `platform.node()`; `wrap_device_ref` is deterministic, gives `srv:` + 32 hex (36 characters), differs under another server key, rejects input that is not `hmac:`; a missing or short `ETIS_SERVER_REF_KEY` raises a fixed reason code. `pytest backend/tests/test_network_windows_devices.py` for the default-name change. |
+| 7b | `feat: device attribution for findings` | Migration **009**, `finding_devices`, `record_findings` wraps then attributes, `scan_files.py` attaches `device_ref` through `attach_device_ref` | `pytest backend/tests/test_core_migrations.py -k 009`: fresh-vs-upgrade schema equality from `008`. `pytest backend/tests/test_correlation.py -k device`: a `network.windows` finding is stored with `srv:` in both `details.device_ref` and `finding_devices`; no `hmac:` ref appears in any stored row (marker test over `findings.evidence` and `finding_devices`); a Finding arriving with `srv:` is rejected (`device_ref_prefix_invalid`); differing `device_ref`/`host_ref` → `device_ref_conflict` logged without values; an agent-shaped malware finding (`source_ref` `agent_devices:…`) is attributed as `agent`; the same PC through a standalone import and an agent-shaped batch gets **one** `srv:` ref; device refs never create or join incidents. `pytest backend/tests/test_malware_scan_command.py -k device`: the standalone scan attaches the endpoint ref, stored as `srv:`; a missing host key → no device while the scan still succeeds. `/analyze` gate: `test_findings_parity.py`, targeted. |
+| 8 | `feat: device-risk-v1 score and device-risk API` | Pure `device_risk(findings, now)`, `/device-risk` routers | `pytest backend/tests/test_device_risk.py`: every cell of the points table; recency boundaries at 7/8 and 30/31 days; repeat rule; cross-engine +3 and +6 cap, not given for a domain below 3 points or older than 7 days; resolved benign/false positive excluded and listed; the worked example of §3.4 gives 13 → high; band edges 0/1/4/5/9/10; N9 `info` scores 0. `pytest backend/tests/test_soc_api.py -k device_risk`: auth; `srv:` accepted, `hmac:` and other forms rejected with `invalid_input`; no echo; read-only. |
 | 9 | `feat: de-fanged indicator display in the console` | `defang.ts`, `IndicatorValue`, pages of §4.4, `format-detection` meta, copy button | `node --experimental-strip-types --test etis-frontend/tests/defang.test.mts` over `defang-cases.json` (Node 22.12 is installed; the flag is **to verify**, V9); static check script for raw indicator rendering; frontend build and `oxlint` on changed files. |
 | 10 | `feat: recommended actions and device risk in the console` | Incident detail actions; Devices tab with Risk panel (created here, or added to the agent's tab if that has landed, §3.5); i18n keys AR/EN; proxy allowlist for `/api/device-risk*` and `/api/recommended-actions` | Frontend build, `oxlint`, an i18n key parity check (every new key in both `ar.json` and `en.json`), `pytest backend/tests/test_proxy_routes.py` for the allowlist; manual RTL and 390-pixel check as recorded today. |
 | 11 | `docs: core v2 implementation notes` | README / LOCAL-IMPLEMENTATION status, `docs/api-v2.md`, `docs/engine-authors.md` (declare `REASON_CODES`, add catalogue entries, set device ref) | none (docs only) |
@@ -601,6 +685,12 @@ made.
 | Q10 | The device-risk weights are accepted for v1 and labelled as design choices, not fitted. | §3.4, §3.5 |
 | Q11 | FR-11 to FR-14 wording recorded. | Header |
 | Q12 | The reviewer is a team member named by the owner before release. Draft actions stay hidden until then. | §2.1, §6 |
+| Q13 | Server-side re-wrap adopted: the server stores `srv:HMAC(server_key, endpoint_ref)`. The agent sends `hmac:` and the batch check validates `hmac:`. The wrap happens after the mismatch check and before any storage, on every ingestion path including standalone imports on the server. Stored refs are always `srv:`, and `/device-risk` accepts `srv:` only. The agent design needs this in its step 1 (§3.6 list). | §3.2, §3.5, §3.6, §6 step 7 |
+| Q14 | An analyst-entered value is not exported if it also appears in any stored OpenPhish or PhishTank feed record, or if its declared source is one of them. | §1.4 rules |
+| Q15 | Community values are not exported until the submission form states that they are shared under CC0 and the reporter accepts that. Until then they are counted only. | §1.4 table and rules |
+| Q16 | `scan_files.py` attaches `device_ref` too, through the same helper as the agent. | §3.2, §3.6 |
+| Q17 | One shared helper, `local_device_name()`: lower-case short name (text before the first dot), applied alike to `gethostname()`, `COMPUTERNAME` and the EVTX `Computer` field. V12 stays to verify. | §3.2, §3.6, §6 step 7a |
+| — | The agent migration moves to `010`. | §3.6 |
 
 ### 7.2 Open questions
 
@@ -613,11 +703,9 @@ made.
 | Q6 | May `stix2-validator` be a development-only dependency if it is offline and its licence fits? | No. Use the committed schema subset only. |
 | Q7 | Show the recommended action on the scan page, through a separate lookup by decisive reason (the `/analyze` response stays unchanged)? | Not in v2. |
 | Q8 | Back-attribute existing malware findings to this PC's device? Scans may have read files copied from elsewhere. | No. Only new scans are attributed. |
-| Q13 | **Agent re-wrap of `device_ref`** (agent §11 question 1, still open there). If the server re-keys refs as `HMAC(server_key, endpoint_hmac)`: is the wrap applied to every ingestion path, including standalone imports on the server, and does it use a distinct prefix such as `srv:`? The agent's `^hmac:[0-9a-f]{32}$` evidence check and the `/device-risk` format check would then accept both forms (§3.6). | No re-wrap. Both designs use the endpoint `hmac:` value unchanged. |
-| Q14 | Should the `manual` blacklist source record whether an analyst copied a value from a restricted feed? Otherwise such a value would pass the licence filter as analyst-entered. | A written rule for analysts only; no extra field. |
-| Q15 | Under what terms do community reporters submit values, so that confirmed reports may be shared? No public submission endpoint exists today (core v1 §2.5). | Exported, per the owner's decision. The terms are to be written before any public reporting opens. |
-| Q16 | Should the standalone `scan_files.py` also inject `device_ref` into `evidence.details`, as the agent does, so that malware attribution has one path? | No. Pass it as an argument to `record_findings`. |
-| Q17 | **Host name source mismatch.** The agent uses `socket.gethostname()`, standalone `network.windows` uses `COMPUTERNAME` / `platform.node()`, and the host engine uses the EVTX `Computer` field. On PCs whose names exceed the NetBIOS limit these can give different `device_ref`s for one PC. Should both designs share one `local_device_name()` helper? | Yes, proposed for the first step of either design that touches it. |
+| Q18 | Should the Q14 restricted-feed check also apply to confirmed community values once Q15's CC0 acceptance exists? A reporter could submit a value copied from OpenPhish. | Yes, apply the same check (conservative). |
+| Q19 | Wrap `account_ref` with the server key as well? Agent §11 question 1 covered it, but the Q13 decision names device refs only. `account_ref` is not used by any core v2 feature. | Not wrapped in core v2. Left to the agent design. |
+| Q20 | Findings already stored with an `hmac:` ref (for example `network.windows` imports made before v2) break "stored refs are always `srv:`". Should a one-off, idempotent command (`data/scripts/rewrap_device_refs.py`) rewrite their `details.device_ref` / `host_ref` to `srv:` and fill `finding_devices`, run once after initialize generates the server key? Migration `009` cannot do it, because migrations must not need a secret. | Yes, as part of step 7b, with a test that a second run changes nothing. |
 
 ## 8. To verify (before the step that depends on it)
 
@@ -634,7 +722,7 @@ made.
 | V9 | `node --experimental-strip-types --test` works on the installed Node 22.12 without extra packages | Node 22 documentation, local run | 9 |
 | V10 | abuse.ch terms of use §3.4 still grant CC0 for Feodo Tracker and SSL Blacklist. Recorded in `docs/data-licences.md` as read by the reviewer on 2026-11-25; not re-read for this document. | https://abuse.ch/terms-of-use/ | 4 |
 | V11 | OpenPhish and PhishTank current terms (both are excluded either way; re-read only to keep `docs/data-licences.md` current) | https://openphish.com/terms.html, https://phishtank.org/terms.php | — |
-| V12 | The Windows NetBIOS computer name (`COMPUTERNAME`) is limited to 15 characters and may differ from the DNS host name returned by `socket.gethostname()` | Microsoft documentation on computer naming | Q17 |
+| V12 | The Windows NetBIOS computer name (`COMPUTERNAME`) is limited to 15 characters and may differ from the DNS host name returned by `socket.gethostname()` | Microsoft documentation on computer naming | 7a (Q17 residual risk) |
 
 ## Sources
 
