@@ -184,3 +184,145 @@ def test_coverage_phishing_replay_with_high_text_path(client, realistic, monkeyp
     reasons = _replay_reasons(client, realistic, api)
     assert 'text_high_corroborated' in reasons or 'text_model_high_uncorroborated' in reasons
     assert reasons <= phishing_findings.REASON_CODES, sorted(reasons - phishing_findings.REASON_CODES)
+
+
+# ---------------------------------------------------------------- selection (step 6)
+
+from dataclasses import replace as _replace  # noqa: E402
+from datetime import datetime, timezone  # noqa: E402
+
+from app.core.findings import Finding  # noqa: E402
+from app.models import FindingRecord  # noqa: E402
+
+
+def reviewed_catalogue(drafts=()):
+    """The shipped texts, marked reviewed for these tests (except the codes in `drafts`)."""
+    def review(text):
+        text.update(status='reviewed', reviewed_by='Arabic-speaking team member', reviewed_on='2026-11-28')
+    raw = copy.deepcopy(RAW)
+    for code, entry in raw['entries'].items():
+        if code not in drafts:
+            review(entry)
+    for entry in raw['kind_defaults'].values():
+        review(entry)
+    review(raw['fallback'])
+    return ra.parse_catalogue(raw)
+
+
+CAT = reviewed_catalogue()
+
+
+def pick(engine, kind, reasons, **kw):
+    return ra.recommended_actions({'engine_name': engine, 'kind': kind, 'evidence': {'reasons': reasons}},
+                                  catalogue=kw.pop('catalogue', CAT), show_drafts=kw.pop('show_drafts', False))
+
+
+def codes(actions):
+    return [a['reason_code'] for a in actions]
+
+
+def test_selection_phishing_decisive_reason_first():
+    # blacklist_exact ranks above brand_label_reuse, but the decisive reason leads for phishing.analyze.
+    actions = pick('phishing.analyze', 'url_phishing', ['brand_label_reuse', 'blacklist_exact', 'url_patterns'])
+    assert codes(actions) == ['brand_label_reuse', 'blacklist_exact', 'url_patterns']
+
+
+def test_selection_rank_orders_alphabetical_network_reasons():
+    # network.windows sorts evidence.reasons alphabetically; rank decides the primary action.
+    actions = pick('network.windows', 'known_bad_destination', ['blocklist_ip_connection', 'blocklist_ip_dns_answer'])
+    assert codes(actions) == ['blocklist_ip_connection', 'blocklist_ip_dns_answer']
+    actions = pick('network.windows', 'known_bad_destination', ['blocklist_ip_dns_answer', 'blocklist_ip_dropped'])
+    assert codes(actions) == ['blocklist_ip_dropped', 'blocklist_ip_dns_answer']
+
+
+def test_selection_non_phishing_ignores_decisive_position():
+    actions = pick('malware.files', 'known_bad_hash', ['model_above_threshold', 'hash_list_malicious'])
+    assert codes(actions) == ['hash_list_malicious', 'model_above_threshold']
+
+
+def test_selection_at_most_three_and_deduplicated():
+    actions = pick('network.windows', 'dns_tunnelling_signs',
+                   ['dns_high_entropy_labels', 'dns_long_labels', 'dns_txt_burst', 'dns_very_long_name'])
+    assert len(actions) == 1 and actions[0]['reason_code'] == 'dns_high_entropy_labels'
+    many = pick('phishing.analyze', 'sms_phishing', ['text_high_corroborated', 'blacklist_domain', 'url_patterns',
+                                                     'url_model', 'text_keywords', 'brand_resemblance'])
+    assert len(many) == 3 and codes(many)[0] == 'text_high_corroborated'
+    assert len({(a['en'], a['ar']) for a in many}) == 3
+
+
+def test_selection_no_action_and_unknown_codes_skipped():
+    actions = pick('malware.files', 'yara_match', ['hash_list_known_software', 'yara_rule_match', 'invented_code'])
+    assert codes(actions) == ['yara_rule_match']
+
+
+def test_selection_kind_default_then_fallback():
+    actions = pick('phishing.analyze', 'sms_phishing', ['invented_code'])
+    assert actions[0]['source'] == 'kind_default' and actions[0]['reason_code'] is None
+    actions = pick('host.windows', 'invented_kind', [])
+    assert actions[0]['source'] == 'fallback' and actions[0]['en'] == CAT.fallback.en
+
+
+def test_selection_every_engine_code_and_kind_gets_an_action():
+    """FR-14: once texts are reviewed, no Finding is left without an action."""
+    for engine, reason_codes in ra.engine_reason_codes().items():
+        for code in reason_codes:
+            assert pick(engine, 'any_kind', [code]), (engine, code)
+    assert pick('host.windows', 'any_kind', [])
+
+
+def test_selection_drafts_hidden_unless_flag():
+    shipped = ra.load_catalogue()
+    assert all(t.status == 'draft' for t in shipped.entries.values())
+    assert pick('phishing.analyze', 'url_phishing', ['blacklist_exact'], catalogue=shipped) == []
+    shown = pick('phishing.analyze', 'url_phishing', ['blacklist_exact'], catalogue=shipped, show_drafts=True)
+    assert codes(shown) == ['blacklist_exact'] and shown[0]['status'] == 'draft'
+
+
+def test_selection_draft_entry_replaced_by_next_reviewed_match():
+    partial = reviewed_catalogue(drafts={'blacklist_exact'})
+    actions = pick('phishing.analyze', 'url_phishing', ['blacklist_exact', 'url_patterns'], catalogue=partial)
+    assert codes(actions) == ['url_patterns'] and all(a['status'] == 'reviewed' for a in actions)
+
+
+def test_selection_default_setting_is_off(monkeypatch):
+    from app.core.settings import Settings
+    monkeypatch.delenv('ETIS_SHOW_DRAFT_ACTIONS', raising=False)
+    assert Settings().show_draft_actions is False
+
+
+def test_selection_accepts_finding_record_and_finding_model():
+    now = datetime(2026, 11, 28, tzinfo=timezone.utc)
+    model = Finding(engine={'name': 'network.windows', 'version': 'v'}, domain='network', kind='beaconing',
+                    severity='high', confidence='corroborated', evidence={'reasons': ['periodic_beaconing']},
+                    observed_at=now, created_at=now, source={'kind': 'import', 'ref': 'test:1'})
+    record = FindingRecord(engine_name='malware.files', kind='known_bad_hash',
+                           evidence={'reasons': ['hash_list_malicious'], 'details': {}})
+    assert codes(ra.recommended_actions(model, catalogue=CAT, show_drafts=False)) == ['periodic_beaconing']
+    assert codes(ra.recommended_actions(record, catalogue=CAT, show_drafts=False)) == ['hash_list_malicious']
+
+
+def test_selection_result_shape_carries_version_and_both_languages():
+    action = pick('phishing.analyze', 'url_phishing', ['blacklist_exact'])[0]
+    assert set(action) == {'reason_code', 'source', 'audience', 'status', 'en', 'ar', 'catalogue_version'}
+    assert action['catalogue_version'] == 'recommended-actions-v1' and action['ar'] and action['en']
+
+
+def test_selection_endpoint_is_read_only(client):
+    from app.main import app
+    schema = app.openapi()['paths']
+    paths = {path: set(ops) for path, ops in schema.items() if path.startswith('/recommended-actions')}
+    assert paths == {'/recommended-actions': {'get'}}
+    for method in ('post', 'put', 'patch', 'delete'):
+        assert getattr(client, method)('/recommended-actions').status_code == 405
+
+
+def test_selection_endpoint_hides_drafts_and_requires_key(client, monkeypatch):
+    body = client.get('/recommended-actions').json()
+    assert body['version'] == 'recommended-actions-v1' and body['entries'] == {} and body['fallback'] is None
+    assert body['reviewed_texts'] == 0 and body['total_texts'] > 60
+    monkeypatch.setattr(ra, 'load_catalogue', lambda *a, **k: CAT)
+    body = client.get('/recommended-actions').json()
+    assert body['entries']['blacklist_exact']['status'] == 'reviewed' and body['fallback']
+    from app.core import security
+    monkeypatch.setattr(security, 'settings', _replace(security.settings, api_key='server-only-test-key'))
+    assert client.get('/recommended-actions').status_code == 401

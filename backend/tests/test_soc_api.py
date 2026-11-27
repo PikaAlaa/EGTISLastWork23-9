@@ -156,6 +156,25 @@ def test_indicator_exact_lookup_shows_value_only_for_exact_match(soc, db):
     assert soc.get('/indicators/99999').status_code == 404
 
 
+def test_incident_detail_carries_recommended_actions(soc, monkeypatch):
+    """Design core-v2 §2.4: read-only action text per finding and for the incident header."""
+    import copy
+    from app.services import recommended_actions as ra
+    scan(soc, url='https://known-phish.example/login')
+    detail = soc.get(f"/incidents/{first_incident(soc)['id']}").json()
+    # Shipped texts are all draft: hidden until the named reviewer has checked them.
+    assert detail['recommended_actions'] == [] and detail['findings'][0]['recommended_actions'] == []
+    raw = json.loads(ra.CATALOGUE_PATH.read_text(encoding='utf-8'))
+    for text in [*raw['entries'].values(), *raw['kind_defaults'].values(), raw['fallback']]:
+        text.update(status='reviewed', reviewed_by='Arabic-speaking team member', reviewed_on='2026-11-28')
+    monkeypatch.setattr(ra, 'load_catalogue', lambda *a, **k: ra.parse_catalogue(copy.deepcopy(raw)))
+    detail = soc.get(f"/incidents/{first_incident(soc)['id']}").json()
+    primary = detail['findings'][0]['recommended_actions'][0]
+    assert primary['reason_code'] == 'blacklist_exact' and primary['en'] and primary['ar']
+    assert detail['recommended_actions'] == [primary]
+    assert 'known-phish' not in json.dumps(detail['recommended_actions'])
+
+
 @pytest.mark.parametrize('kind,plain,defanged', [
     ('url', 'https://known-phish.example/login', 'hxxps://known-phish[.]example/login'),
     ('url', 'https://known-phish.example/login', 'HXXPS://Known-Phish[.]EXAMPLE:443/login'),

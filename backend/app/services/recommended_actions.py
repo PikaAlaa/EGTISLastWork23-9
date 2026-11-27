@@ -150,6 +150,94 @@ def engine_reason_codes() -> dict[str, frozenset[str]]:
     }
 
 
+MAX_ACTIONS = 3
+DECISIVE_FIRST_ENGINES = frozenset({'phishing.analyze'})
+
+
+def _finding_parts(finding) -> tuple[str, str, list[str]]:
+    """(engine name, kind, reasons) from a `Finding`, a `FindingRecord` or a plain dict."""
+    if isinstance(finding, dict):
+        evidence = finding.get('evidence') or {}
+        engine = finding.get('engine_name') or (finding.get('engine') or {}).get('name', '')
+        return engine, finding.get('kind', ''), list(evidence.get('reasons') or [])
+    engine = getattr(finding, 'engine', None)
+    if engine is not None and hasattr(engine, 'name'):
+        return engine.name, finding.kind, list(finding.evidence.reasons)
+    evidence = getattr(finding, 'evidence', None) or {}
+    return getattr(finding, 'engine_name', ''), getattr(finding, 'kind', ''), list(evidence.get('reasons') or [])
+
+
+def _shown(text: ActionText | None, show_drafts: bool) -> bool:
+    return text is not None and (text.status == 'reviewed' or show_drafts)
+
+
+def _action(text: ActionText, catalogue: Catalogue, *, source: str, reason_code: str | None) -> dict:
+    return {'reason_code': reason_code, 'source': source, 'audience': text.audience, 'status': text.status,
+            'en': text.en, 'ar': text.ar, 'catalogue_version': catalogue.version}
+
+
+def recommended_actions(finding, *, catalogue: Catalogue | None = None, show_drafts: bool | None = None) -> list[dict]:
+    """The actions to show for one Finding (§2.3): a primary action, then up to two more.
+
+    Reasons are ordered by catalogue `rank` (lower is more urgent), ties keeping their
+    `evidence.reasons` order; for `phishing.analyze` the decisive reason (`reasons[0]`) comes
+    first. Without any shown reason entry the kind default applies, then the fallback. Draft
+    texts are hidden unless `show_drafts` (`ETIS_SHOW_DRAFT_ACTIONS`) is set, so the result is
+    empty while every text is still draft. Computed when read; never stored, never executed.
+    """
+    if catalogue is None:
+        catalogue = load_catalogue()
+    if show_drafts is None:
+        from app.core.settings import settings
+        show_drafts = settings.show_draft_actions
+    engine, kind, reasons = _finding_parts(finding)
+    reasons = list(dict.fromkeys(r for r in reasons if isinstance(r, str)))
+    usable = [(i, r) for i, r in enumerate(reasons) if _shown(catalogue.entries.get(r), show_drafts)]
+    usable.sort(key=lambda item: (catalogue.entries[item[1]].rank, item[0]))
+    ordered = [r for _, r in usable]
+    if engine in DECISIVE_FIRST_ENGINES and reasons and reasons[0] in ordered:
+        ordered.remove(reasons[0])
+        ordered.insert(0, reasons[0])
+    actions, seen = [], set()
+    for code in ordered:
+        text = catalogue.entries[code]
+        if (text.en, text.ar) in seen:
+            continue
+        seen.add((text.en, text.ar))
+        actions.append(_action(text, catalogue, source='reason', reason_code=code))
+        if len(actions) == MAX_ACTIONS:
+            break
+    if actions:
+        return actions
+    default = catalogue.kind_defaults.get(kind)
+    if _shown(default, show_drafts):
+        return [_action(default, catalogue, source='kind_default', reason_code=None)]
+    if _shown(catalogue.fallback, show_drafts):
+        return [_action(catalogue.fallback, catalogue, source='fallback', reason_code=None)]
+    return []
+
+
+def displayable_catalogue(catalogue: Catalogue | None = None, *, show_drafts: bool | None = None) -> dict:
+    """The catalogue as the console may show it: reviewed texts, plus drafts only when enabled."""
+    if catalogue is None:
+        catalogue = load_catalogue()
+    if show_drafts is None:
+        from app.core.settings import settings
+        show_drafts = settings.show_draft_actions
+
+    def view(text: ActionText) -> dict:
+        return {'audience': text.audience, 'status': text.status, 'en': text.en, 'ar': text.ar}
+    entries = {code: {**view(t), 'rank': t.rank} for code, t in sorted(catalogue.entries.items())
+               if _shown(t, show_drafts)}
+    kinds = {kind: view(t) for kind, t in sorted(catalogue.kind_defaults.items()) if _shown(t, show_drafts)}
+    total = len(catalogue.entries) + len(catalogue.kind_defaults) + 1
+    reviewed = sum(t.status == 'reviewed' for t in
+                   [*catalogue.entries.values(), *catalogue.kind_defaults.values(), catalogue.fallback])
+    return {'version': catalogue.version, 'show_drafts': show_drafts, 'entries': entries, 'kind_defaults': kinds,
+            'fallback': view(catalogue.fallback) if _shown(catalogue.fallback, show_drafts) else None,
+            'reviewed_texts': reviewed, 'total_texts': total}
+
+
 def uncovered(catalogue: Catalogue) -> dict[str, list[str]]:
     """Codes of each engine with neither an entry nor a `no_action` reason ({} when complete)."""
     covered = set(catalogue.entries) | set(catalogue.no_action)

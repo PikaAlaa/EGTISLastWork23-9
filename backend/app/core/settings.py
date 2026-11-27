@@ -31,5 +31,8 @@ class Settings:
     # because the verdict parity gate (tests/test_findings_parity.py) passes; set 0 to
     # reproduce pre-core behaviour exactly.
     findings_enabled: bool = os.getenv('ETIS_FINDINGS_ENABLED', '1') == '1'
+    # Show draft recommended-action texts, marked "Draft — not reviewed", for team review only
+    # (design core-v2 §2.3). Off by default: unreviewed texts stay hidden.
+    show_draft_actions: bool = os.getenv('ETIS_SHOW_DRAFT_ACTIONS', '0') == '1'
 
 settings = Settings()
