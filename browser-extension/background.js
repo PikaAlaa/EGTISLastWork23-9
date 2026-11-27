@@ -1,8 +1,11 @@
 /**
- * Manifest V3 background service worker for ETIS local link check (design §1, §2, §6, §7, §9 step 4).
+ * Manifest V3 background service worker for ETIS local link check
+ * (design docs/design/browser-extension-v1.md §1, §2, §6, §7, §9 steps 4–5).
  *
  * Exposes NO externally_connectable listener and NO content-script analysis bridge.
- * Accepts commands strictly from the extension's own popup.html page.
+ * Accepts commands strictly from the extension's own popup.html page, enforces
+ * top-level tab/document navigation race guards before rendering or injecting a
+ * warning banner, and clears all pending in-memory state after completion or failure.
  */
 import {
   CHECK_ENDPOINT,
@@ -10,12 +13,18 @@ import {
   LocalSettingsStore,
   PAIR_ENDPOINT,
   PAIR_SCHEMA_VERSION,
-  prepareTabUrlForCheck,
   sendLocalRequest,
   validateCheckResponse,
   validateExtensionId,
   validatePairResponse,
 } from './protocol.mjs';
+import {
+  PendingCheckTracker,
+  captureTabSnapshot,
+} from './navigation_guard.mjs';
+import { injectWarningBanner } from './banner.mjs';
+
+const defaultTracker = new PendingCheckTracker();
 
 function randomTokenHex(byteCount = 16) {
   const bytes = new Uint8Array(byteCount);
@@ -46,8 +55,11 @@ export async function handlePopupMessage(message, sender, env) {
     popupUrlPrefix,
     settingsStore,
     queryActiveTab,
+    queryTopFrame = async () => null,
+    scriptingApi = null,
     fetchImpl,
-    onWarningResult,
+    pendingTracker = defaultTracker,
+    nowFn = () => Date.now(),
   } = env;
 
   if (!isTrustedPopupSender(sender, runtimeId, popupUrlPrefix)) {
@@ -77,6 +89,7 @@ export async function handlePopupMessage(message, sender, env) {
   }
 
   if (message.action === 'UNPAIR') {
+    pendingTracker.clear();
     await settingsStore.clearPairing();
     return { ok: true, paired: false };
   }
@@ -119,51 +132,84 @@ export async function handlePopupMessage(message, sender, env) {
     if (!settings.pairingToken || !settings.serverInstanceId) {
       return { ok: false, error: 'pairing_required' };
     }
-    const tab = await queryActiveTab();
-    if (!tab || tab.incognito || typeof tab.url !== 'string') {
-      return { ok: false, error: 'input_invalid' };
-    }
-    const urlCheck = prepareTabUrlForCheck(tab.url);
-    if (!urlCheck.ok) {
-      return { ok: false, error: urlCheck.error };
-    }
+    const initialTab = await queryActiveTab();
+    const initialTopFrame = initialTab ? await queryTopFrame(initialTab.id) : null;
     const nonce = `req_${randomTokenHex(16)}`;
-    const netResp = await sendLocalRequest(
-      CHECK_ENDPOINT,
-      {
-        schema_version: CHECK_SCHEMA_VERSION,
-        url: urlCheck.cleanUrl,
-        request_ref: nonce,
-      },
-      { token: settings.pairingToken, fetchImpl },
-    );
-    if (!netResp.ok) {
-      if (netResp.error === 'pairing_invalid' || netResp.error === 'pairing_required') {
-        await settingsStore.clearPairing();
-      }
-      return { ok: false, error: netResp.error || 'service_unavailable' };
+    const snapRes = captureTabSnapshot(initialTab, {
+      topFrame: initialTopFrame,
+      requestRef: nonce,
+      nowMs: nowFn(),
+    });
+    if (!snapRes.ok) {
+      pendingTracker.clear();
+      return { ok: false, error: snapRes.error };
     }
-    const validated = validateCheckResponse(netResp.payload, nonce, settings.serverInstanceId);
-    if (!validated.ok) {
-      if (validated.error === 'server_instance_mismatch') {
-        await settingsStore.clearPairing();
+    const snapshot = pendingTracker.begin(snapRes.snapshot);
+
+    try {
+      const netResp = await sendLocalRequest(
+        CHECK_ENDPOINT,
+        {
+          schema_version: CHECK_SCHEMA_VERSION,
+          url: snapshot.cleanUrl,
+          request_ref: nonce,
+        },
+        { token: settings.pairingToken, fetchImpl },
+      );
+      if (!netResp.ok) {
+        if (netResp.error === 'pairing_invalid' || netResp.error === 'pairing_required') {
+          await settingsStore.clearPairing();
+        }
+        return { ok: false, error: netResp.error || 'service_unavailable' };
       }
-      return { ok: false, error: validated.error };
-    }
-    let bannerCoverage = 'not_applicable';
-    if (typeof onWarningResult === 'function' && (validated.result.verdict === 'HIGH' || validated.result.verdict === 'MEDIUM')) {
-      bannerCoverage = await onWarningResult({
-        tab,
-        cleanUrl: urlCheck.cleanUrl,
-        result: validated.result,
-        language: settings.language,
+
+      const validated = validateCheckResponse(netResp.payload, nonce, settings.serverInstanceId);
+      if (!validated.ok) {
+        if (validated.error === 'server_instance_mismatch') {
+          await settingsStore.clearPairing();
+        }
+        return { ok: false, error: validated.error };
+      }
+
+      // §2 item 4: Before injection or displaying result, verify active tab/document and URL are still the same.
+      const currentTab = await queryActiveTab();
+      const currentTopFrame = currentTab ? await queryTopFrame(currentTab.id) : null;
+      const checkTimeMs = nowFn();
+      const raceCheck = pendingTracker.verifyAndConsume(nonce, currentTab, {
+        currentTopFrame,
+        nowMs: checkTimeMs,
       });
+      if (!raceCheck.same) {
+        // Discard stale response; no automatic recheck of the new page.
+        return {
+          ok: false,
+          error: 'stale_navigation_cancelled',
+          reason: raceCheck.reason,
+        };
+      }
+
+      let bannerCoverage = 'not_applicable';
+      if (validated.result.verdict === 'HIGH' || validated.result.verdict === 'MEDIUM') {
+        const injection = await injectWarningBanner({
+          scriptingApi,
+          snapshot,
+          currentTab,
+          currentTopFrame,
+          result: validated.result,
+          language: settings.language,
+          nowMs: checkTimeMs,
+        });
+        bannerCoverage = injection.coverage;
+      }
+
+      return {
+        ok: true,
+        ...validated.result,
+        bannerCoverage,
+      };
+    } finally {
+      pendingTracker.clear();
     }
-    return {
-      ok: true,
-      ...validated.result,
-      bannerCoverage,
-    };
   }
 
   return { ok: false, error: 'input_invalid' };
@@ -183,6 +229,7 @@ if (globalThis.chrome?.runtime?.onMessage && globalThis.chrome?.storage?.local) 
       popupUrlPrefix,
       settingsStore: store,
       queryActiveTab,
+      scriptingApi: globalThis.chrome.scripting || null,
       fetchImpl: globalThis.fetch.bind(globalThis),
     })
       .then((res) => sendResponse(res))
