@@ -146,7 +146,7 @@ packet capture, payload inspection, certificate check or online lookup is used b
 | List | Content used | Licence / terms | Status |
 | --- | --- | --- | --- |
 | abuse.ch **Feodo Tracker** IP blocklist | Botnet C2 IPs (N1) | **Verified (reviewer, 25 November 2026, abuse.ch terms of use §3.4):** "Feodo Tracker, SSL Blacklist, and YARAify are free to use without limitations according to Creative Commons principles (CC0)". List formats and update cadence **to verify (§11 L1)**. | **v1** (§10 decision 1) |
-| abuse.ch **SSL Blacklist** (SSLBL) IP list | Botnet C2 IPs associated with malicious TLS certificates (N1). Certificate and JA3 lists are unusable: no source here sees TLS. | **Verified (same reading, terms §3.4):** CC0 as for Feodo Tracker. Whether the IP list is still published, and its format, **to verify (§11 L2)**; if it is no longer published, v1 uses Feodo Tracker alone. | **v1** (§10 decision 1) |
+| abuse.ch **SSL Blacklist** (SSLBL) IP list | Botnet C2 IPs associated with malicious TLS certificates (N1). Certificate and JA3 lists are unusable: no source here sees TLS. | **Verified (same reading, terms §3.4):** CC0 as for Feodo Tracker. Whether the IP list is still published, and its format, **to verify (§11 L2)**; if it is no longer published, v1 uses Feodo Tracker alone. | **Not used** (note of 27 November 2026 below: deprecated on 2025-01-03) |
 | abuse.ch **URLhaus** host list | Malware distribution hosts (N2) | **Verified in malware-engine-v1 §3.4 for abuse.ch generally:** free access is for not-for-profit use (terms §3.1–3.2); §7.3 forbids using the data to train or improve AI models without written consent. URLhaus-specific formats **to verify (§11 L3)** only if a later amendment proposes it. | **Not in v1** (§10 decision 1); later amendment only |
 | ThreatFox, other feeds | — | **To verify (§11 L4)** before any proposal | Not in v1 |
 | Existing ETIS indicator store | Phishing link domains and feed indicators (N3) | Existing core v1 data | Used as is |
@@ -160,6 +160,23 @@ still used and reported as `blocklists_stale` in health (§6.8). Lists are never
 train, tune or evaluate a model. CC0 needs no attribution, but ETIS keeps it anyway: every
 N1/N2 Finding carries the list name, version
 (fetch time and SHA-256 prefix), licence and a link to the list's public page (attribution).
+
+**Note (27 November 2026, owner decisions of that day, step 5).** The abuse.ch terms were re-read
+before the fetch (page "Last Updated: 21st October 2026"); §3.4 still gives CC0 for Feodo Tracker
+and SSL Blacklist (`docs/data-licences.md`).
+
+- **SSL Blacklist is not used.** Its IP list file (`sslipblacklist.txt`) says in its own header
+  "This list has been deprecated on 2025-01-03" (last updated 2025-01-02, 0 IP rows), although
+  the list page shows no notice. As foreseen above, **v1 uses Feodo Tracker alone**: the
+  recommended plain-text list `https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt`.
+- **Limitation: N1 has very low practical coverage.** At fetch time Feodo Tracker held **1
+  entry**, and its own header said "Last updated: 2026-03-04 14:28:39 UTC" (the list page also
+  said "Our Feodo Tracker datasets are currently empty."). This is a stated limitation, **not a
+  tuning target**: no list, rule or constant is added or changed because of it.
+- **Source age.** The lock records the list's own "Last updated" header as `list_last_updated`.
+  Health reports two ages: our fetch age (`blocklists_stale` after 7 days, as before) and the
+  source's own age (`blocklist_source_stale` when the newest source header is older than 30
+  days). `blocklist_source_stale` is informational only; it changes no detection rule (§6.8).
 
 ## 3. Evaluation data
 
@@ -430,7 +447,9 @@ Findings go through the unchanged `record_findings`:
 
 Health reports `rules_missing` (shipped-item manifest absent or not matching), `blocklists_missing`,
 `blocklists_stale` (newest list older than 7 days; rules still run), `indicator_store_empty`,
-`url_model_unavailable` (N4 skipped), or `available`. The engine registers when the shipped-item
+`url_model_unavailable` (N4 skipped), `blocklist_source_stale` (informational: the list's own
+"Last updated" header is older than 30 days; §2.2 note of 27 November 2026), or `available`, with
+`blocklist_ages` (fetch age and source age in days). The engine registers when the shipped-item
 manifest verifies; the list and model parts are optional.
 
 ## 7. Privacy
@@ -507,7 +526,7 @@ owner's explicit approval first. All steps run on Windows; none needs Linux.
 | 2 | `feat: local connection snapshot command` (§8.2; standard library only) |
 | 3 | `feat: device pseudonyms and network coverage report` (reuses the host key) |
 | 4 | `feat: network-lite detections N1-N9` (§8.3; invented records) |
-| 5 | `chore: network blocklists fetch, lock and licence entries` (Feodo Tracker and SSL Blacklist only; formats per §11 L1–L2) |
+| 5 | `chore: network blocklists fetch, lock and licence entries` (Feodo Tracker and SSL Blacklist only; formats per §11 L1–L2). **Done 27 November 2026 with Feodo Tracker alone** (§2.2 note) |
 | 6 | `chore: network sample sources and expected-detection manifest` (only sources §11 S1–S3 confirm) |
 | 7 | `docs: freeze network-windows selection rule` (§4 with SHA-256, before any measurement) |
 | 8 | `chore: owner-PC benign network aggregates` (owner turns sources on, waits, exports; aggregates only) |
@@ -548,8 +567,8 @@ The sealed test (§4.9) is not a step of this plan.
 | W11 | **Verified (26 November 2026):** `GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserved)` returns `ERROR_INSUFFICIENT_BUFFER` with the needed size in `pdwSize`; Iphlpapi.dll. `MIB_TCPROW_OWNER_PID` = `dwState, dwLocalAddr, dwLocalPort, dwRemoteAddr, dwRemotePort, dwOwningPid`, ports "in network byte order"; `MIB_TCP6ROW_OWNER_PID` = `ucLocalAddr[16], dwLocalScopeId, dwLocalPort, ucRemoteAddr[16], dwRemoteScopeId, dwRemotePort, dwState, dwOwningPid`; states 1 (CLOSED) … 12 (DELETE_TCB). **Still to verify:** the numeric value of `TCP_TABLE_OWNER_PID_ALL` (5 assumed; the `TCP_TABLE_CLASS` page returned 404, so the parser refuses rows that do not match the documented layout) and whether rights are needed (the pages do not say). UDP endpoints are not read in v1: they have no remote address. | https://learn.microsoft.com/en-us/windows/win32/api/iphlpapi/nf-iphlpapi-getextendedtcptable, .../api/tcpmib/ns-tcpmib-mib_tcprow_owner_pid, .../api/tcpmib/ns-tcpmib-mib_tcp6row_owner_pid (updated 22 February 2024) | 2 |
 | W12 | **Page read, fields not listed:** the `Get-NetTCPConnection` page lists only `CimInstance` as output; `LocalAddress`, `LocalPort`, `RemoteAddress`, `RemotePort`, `State`, `OwningProcess` appear only as filter parameters. Owner documentation only; the snapshot command does not use it. | https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection (updated 14 May 2025) | 2 |
 | W13 | **Verified (repository code, 26 November 2026):** `app.core.url_utils` builds `tldextract.TLDExtract(cache_dir=None, suffix_list_urls=(), include_psl_private_domains=False)`: no suffix-list URL and no cache, so only the bundled snapshot is used. The step 1 readers do not call it; they normalise names with `idna` only. | `backend/app/core/url_utils.py` | 1 |
-| L1 | Feodo Tracker: list formats and update cadence. (CC0 **verified** 25 November 2026, terms §3.4.) | https://feodotracker.abuse.ch/blocklist/ | 5 |
-| L2 | SSL Blacklist: whether the IP list is still published, and its format. (CC0 **verified** 25 November 2026, terms §3.4.) | https://sslbl.abuse.ch/blacklist/ | 5 |
+| L1 | **Verified (27 November 2026, list page and file):** recommended list as plain text, JSON, McAfee and Palo Alto formats, "generated every 5 minutes"; 30-day CSV/JSON/txt, aggressive and Suricata/Snort variants; v1 uses the recommended plain text (one IP per line, `#` comments). At fetch time: 1 entry, own header "Last updated: 2026-03-04 14:28:39 UTC" (§2.2 note). CC0 re-read 27 November 2026, terms §3.4. | https://feodotracker.abuse.ch/blocklist/ | 5 |
+| L2 | **Verified (27 November 2026):** the page still links the IP list (CSV and IPs only), but the file header says "This list has been deprecated on 2025-01-03" (last updated 2025-01-02, 0 rows). **Not used in v1** (§2.2 note). | https://sslbl.abuse.ch/blacklist/ | 5 |
 | L3 | URLhaus: host-list format and matching unit (terms: not-for-profit, §3.1–3.2) | https://urlhaus.abuse.ch/api/ | only if a later amendment proposes it |
 | L4 | ThreatFox and any other feed: terms | the feed's own terms page | only if proposed |
 | L5 | Local Tranco snapshot: list date and licence (recorded in `docs/data-licences.md` as not established) | https://tranco-list.eu/ and the repository entry | 4 |
