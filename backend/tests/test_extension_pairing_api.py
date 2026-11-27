@@ -375,3 +375,54 @@ def test_check_endpoint_suppresses_errors_and_rejects_bad_inputs_without_echo(cl
     assert secret_payload not in res_data.text
     assert secret_payload not in caplog.text
     assert caplog.records == []
+
+
+def test_pairing_accepts_32_letter_a_to_p_extension_id_and_rejects_other_ids(client):
+    ext_id = 'a' * 32
+    approve = client.post(
+        '/extension/v1/pairing-secret',
+        headers={'Host': ALLOWED_BACKEND_HOST},
+        json={'extension_id': ext_id},
+    )
+    assert approve.status_code == 200
+    assert approve.json()['extension_origin'] == f'chrome-extension://{ext_id}'
+
+    for invalid_id in ('short', 'q' * 32, 'A' * 32, 'a' * 31 + '1', 'a' * 33):
+        bad = client.post(
+            '/extension/v1/pairing-secret',
+            headers={'Host': ALLOWED_BACKEND_HOST},
+            json={'extension_id': invalid_id},
+        )
+        assert bad.status_code == 401
+        assert bad.json()['detail'] == ERROR_PAIRING_INVALID
+
+
+def test_uvicorn_access_log_filter_drops_all_extension_v1_lines():
+    import logging
+    from app.routers.extension import install_extension_log_filter
+
+    install_extension_log_filter()
+    access_logger = logging.getLogger('uvicorn.access')
+
+    captured: list[str] = []
+
+    class _ListHandler(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            captured.append(record.getMessage())
+
+    handler = _ListHandler()
+    old_level = access_logger.level
+    access_logger.setLevel(logging.INFO)
+    access_logger.addHandler(handler)
+    try:
+        access_logger.info('%s - "%s %s HTTP/%s" %d', '127.0.0.1:51000', 'POST', '/extension/v1/check', '1.1', 200)
+        access_logger.info('%s - "%s %s HTTP/%s" %d', '127.0.0.1:51000', 'POST', '/extension/v1/pair', '1.1', 200)
+        access_logger.info('%s - "%s %s HTTP/%s" %d', '127.0.0.1:51000', 'POST', '/extension/v1/pairing-secret', '1.1', 200)
+        access_logger.info('%s - "%s %s HTTP/%s" %d', '127.0.0.1:51000', 'GET', '/health/live', '1.1', 200)
+    finally:
+        access_logger.removeHandler(handler)
+        access_logger.setLevel(old_level)
+
+    assert len(captured) == 1
+    assert '/health/live' in captured[0]
+    assert all('/extension/v1' not in line for line in captured)

@@ -9,6 +9,8 @@ Design: docs/design/browser-extension-v1.md (§2.2, §2.3, §2.4, §6, §7, §9 
 """
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
@@ -32,6 +34,47 @@ from app.services.extension_scoring import evaluate_extension_url, parse_check_r
 
 router = APIRouter(prefix='/extension/v1', tags=['extension'])
 NO_STORE_HEADERS = {'Cache-Control': 'no-store'}
+_EXTENSION_LOG_MARKERS = ('/extension/v1', 'extension/v1')
+
+
+class ExtensionAccessLogFilter(logging.Filter):
+    """Drop uvicorn access-log and app log records touching /extension/v1/* (design §7, §9 #4)."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        try:
+            raw_msg = str(record.msg or '')
+            if any(marker in raw_msg for marker in _EXTENSION_LOG_MARKERS):
+                return False
+            args = record.args
+            if isinstance(args, tuple):
+                for item in args:
+                    if isinstance(item, str) and any(marker in item for marker in _EXTENSION_LOG_MARKERS):
+                        return False
+            elif isinstance(args, dict):
+                for item in args.values():
+                    if isinstance(item, str) and any(marker in item for marker in _EXTENSION_LOG_MARKERS):
+                        return False
+            rendered = record.getMessage()
+            if any(marker in rendered for marker in _EXTENSION_LOG_MARKERS):
+                return False
+        except Exception:
+            return False
+        return True
+
+
+_LOG_FILTER = ExtensionAccessLogFilter()
+
+
+def install_extension_log_filter() -> ExtensionAccessLogFilter:
+    """Attach ExtensionAccessLogFilter idempotently to uvicorn and root loggers."""
+    for name in ('uvicorn.access', 'uvicorn.error', 'uvicorn', 'fastapi', ''):
+        target_logger = logging.getLogger(name)
+        if not any(isinstance(f, ExtensionAccessLogFilter) for f in target_logger.filters):
+            target_logger.addFilter(_LOG_FILTER)
+    return _LOG_FILTER
+
+
+install_extension_log_filter()
 
 
 def _json_response(status_code: int, content: dict[str, object]) -> JSONResponse:

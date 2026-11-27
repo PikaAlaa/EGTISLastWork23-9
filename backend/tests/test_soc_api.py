@@ -273,3 +273,87 @@ def test_attack_endpoints_report_not_installed(client):
     response = client.get('/attack/techniques').json()
     assert response['installed'] is False and response['techniques'] == []
     assert response['copyright']
+
+
+# ---------------------------------------------------------------- device risk API (design core-v2 §3.5, step 8)
+
+def _device_findings(db, *, now=None):
+    """Two invented devices: one with malware + network findings (13 points), one with an info finding."""
+    import uuid as _uuid
+    from datetime import timedelta, timezone as _tz
+    from app.core import device_names as dn
+    from app.core.findings import Finding
+    from app.engines.host.pseudonyms import Pseudonymizer
+    from app.services.findings import record_findings
+    now = now or datetime.now(_tz.utc)
+    pseudo = Pseudonymizer(bytes(range(32)))
+    busy, quiet = pseudo.host_ref('invented-busy-pc'), pseudo.host_ref('invented-quiet-pc')
+
+    def make(engine, domain, kind, severity, confidence, device, days, reasons, refs=()):
+        return Finding.model_validate(dict(
+            engine={'name': engine, 'version': 'test'}, domain=domain, kind=kind, severity=severity,
+            confidence=confidence, indicators=list(refs), evidence={'reasons': reasons, 'details': {'device_ref': device}},
+            observed_at=now - timedelta(days=days), created_at=now, source={'kind': 'import', 'ref': f'test:{_uuid.uuid4()}'}))
+    record_findings(db, [
+        make('malware.files', 'malware', 'known_bad_hash', 'high', 'corroborated', busy, 2, ['hash_list_malicious']),
+        make('malware.files', 'malware', 'known_bad_hash', 'high', 'corroborated', busy, 3, ['hash_list_malicious']),
+        make('network.windows', 'network', 'beaconing', 'high', 'corroborated', busy, 1, ['periodic_beaconing']),
+        make('network.windows', 'network', 'rare_destination', 'info', 'single_signal', quiet, 1,
+             ['rare_first_seen_destination']),
+    ])
+    db.commit()
+    key = dn.load_server_key()
+    return dn.wrap_ref(busy, 'device', key), dn.wrap_ref(quiet, 'device', key), busy
+
+
+def test_device_risk_list_and_detail(soc, db):
+    busy, quiet, _ = _device_findings(db)
+    listing = soc.get('/device-risk').json()
+    assert listing['version'] == 'device-risk-v1' and listing['total'] == 2
+    assert [(d['device_ref'], d['points'], d['band']) for d in listing['results']] == [(busy, 13, 'high'), (quiet, 0, 'none')]
+    assert listing['results'][0]['engines'] == ['malware.files', 'network.windows']
+    assert listing['results'][0]['device_status'] is None
+    detail = soc.get('/device-risk/detail', params={'device_ref': busy}).json()
+    assert (detail['points'], detail['band'], detail['cross_engine']['points']) == (13, 'high', 3)
+    assert [r['reason'] for r in detail['not_counted']] == ['repeat']
+    assert set(detail['windows']) == {'malware.files', 'network.windows'}
+    assert all(r['recommended_action'] is None for r in detail['counted'])   # texts are still draft
+    assert all(r['from_revoked_device'] is None for r in detail['counted'])  # no devices table before 010
+
+
+def test_device_risk_paging_and_unknown_device(soc, db):
+    busy, quiet, _ = _device_findings(db)
+    page = soc.get('/device-risk', params={'limit': 1, 'offset': 1}).json()
+    assert [d['device_ref'] for d in page['results']] == [quiet]
+    unknown = soc.get('/device-risk/detail', params={'device_ref': 'srv:' + 'f' * 32})
+    assert unknown.status_code == 404 and unknown.json()['detail'] == 'not_found'
+    assert soc.get('/device-risk', params={'limit': 0}).status_code == 400
+
+
+@pytest.mark.parametrize('value', ['hmac:' + 'a' * 32, 'srv:' + 'A' * 32, 'srv:' + 'a' * 31, f'srv:{MARKER}',
+                                   MARKER, ''])
+def test_device_risk_rejects_anything_but_srv_without_echo(soc, db, value, caplog):
+    response = soc.get('/device-risk/detail', params={'device_ref': value})
+    assert response.status_code == 400 and response.json()['detail'] == 'invalid_input'
+    assert MARKER not in response.text and MARKER not in caplog.text
+
+
+def test_device_risk_endpoint_hmac_form_of_a_real_device_is_rejected(soc, db):
+    _, _, endpoint = _device_findings(db)
+    response = soc.get('/device-risk/detail', params={'device_ref': endpoint})
+    assert response.status_code == 400 and endpoint not in response.text
+
+
+def test_device_risk_requires_the_api_key(client, monkeypatch):
+    from app.core import security
+    monkeypatch.setattr(security, 'settings', replace(security.settings, api_key='server-only-test-key'))
+    assert client.get('/device-risk').status_code == 401
+    assert client.get('/device-risk/detail', params={'device_ref': 'srv:' + '0' * 32}).status_code == 401
+
+
+def test_device_risk_is_read_only(soc):
+    from app.main import app
+    paths = {p: set(ops) for p, ops in app.openapi()['paths'].items() if p.startswith('/device-risk')}
+    assert paths == {'/device-risk': {'get'}, '/device-risk/detail': {'get'}}
+    for method in ('post', 'put', 'patch', 'delete'):
+        assert getattr(soc, method)('/device-risk').status_code == 405

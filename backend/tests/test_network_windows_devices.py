@@ -70,8 +70,21 @@ def test_sources_without_a_computer_name_need_a_device_name(tmp_path):
 
 
 def test_default_device_name_reads_the_environment(monkeypatch):
+    # Design core-v2 §3.2 (owner decision Q17): gethostname() first, then COMPUTERNAME, then
+    # platform.node(), all through local_device_name (lower-case short name).
+    import socket
+    monkeypatch.setattr(socket, 'gethostname', lambda: '')
     monkeypatch.setenv('COMPUTERNAME', 'INVENTED-PC')
-    assert default_device_name() == 'INVENTED-PC'
+    assert default_device_name() == 'invented-pc'
+    monkeypatch.setattr(socket, 'gethostname', lambda: 'Invented-Host.corp.example')
+    assert default_device_name() == 'invented-host'
+
+
+def test_device_ref_is_the_same_for_every_name_shape(tmp_path):
+    # EVTX Computer, COMPUTERNAME and gethostname() shapes of one PC give one endpoint ref.
+    from app.core.device_names import endpoint_device_ref
+    refs = {endpoint_device_ref(Pseudonymizer(KEY), name) for name in ('PC-01', 'pc-01.corp.example', 'PC-01.', ' pc-01 ')}
+    assert len(refs) == 1 and refs == {Pseudonymizer(KEY).host_ref('pc-01')}
 
 
 def _states(report):

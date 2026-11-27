@@ -34,6 +34,8 @@ from app.services.extension_config import (
     PAIR_SECRET_TTL_SECONDS,
     RATE_LIMIT_PER_MINUTE,
     ExtensionInputError,
+    normalize_approved_extension_origin,
+    validate_extension_id,
     validate_extension_origin,
     validate_identifier,
 )
@@ -53,7 +55,8 @@ class _StrictModel(BaseModel):
 
 
 class OperatorPairingApproveRequest(_StrictModel):
-    extension_origin: str
+    extension_id: str | None = None
+    extension_origin: str | None = None
 
 
 class ExtensionPairRequest(_StrictModel):
@@ -126,13 +129,24 @@ class ExtensionPairingStore:
             }
 
     def issue_pairing_secret(self, raw_body: bytes, *, now: float | None = None) -> dict[str, object]:
-        """Operator action: approve an exact extension Origin and mint a one-use secret."""
+        """Operator action: approve an exact 32-char [a-p] extension ID (or Origin) and mint a one-use secret."""
         data = parse_json_body(raw_body)
         try:
             req = OperatorPairingApproveRequest.model_validate(data)
         except ValidationError:
             raise ExtensionInputError(ERROR_INPUT_INVALID) from None
-        approved_origin = validate_extension_origin(req.extension_origin)
+        if req.extension_id is not None and req.extension_origin is not None:
+            ext_id = validate_extension_id(req.extension_id)
+            approved_origin = validate_extension_origin(req.extension_origin)
+            if approved_origin != f'chrome-extension://{ext_id}':
+                raise ExtensionInputError(ERROR_PAIRING_INVALID)
+        elif req.extension_id is not None:
+            ext_id = validate_extension_id(req.extension_id)
+            approved_origin = f'chrome-extension://{ext_id}'
+        elif req.extension_origin is not None:
+            approved_origin = normalize_approved_extension_origin(req.extension_origin)
+        else:
+            raise ExtensionInputError(ERROR_INPUT_INVALID)
         current_time = time.monotonic() if now is None else float(now)
         secret = secrets.token_urlsafe(PAIR_SECRET_BYTES)
         secret_digest = _sha256_hex(secret)

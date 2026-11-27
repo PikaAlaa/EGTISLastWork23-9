@@ -307,14 +307,14 @@ no sealed final test ever runs as part of this protocol.
 8. Distribution/signing is separate future work after official policy verification;
    this design authorizes no browser-store publishing or external uploads.
 
-### Open questions
+### Owner decisions (27 November 2026)
 
-- Does the proposed minimal permission set support exact document targeting and loopback requests in both browsers?
-- How will the operator verify installed extension IDs/origins during local pairing, especially for development builds?
-- Which verified token entropy/lifetime/rate/resource limits suit the local threat model and project PC?
-- Can all middleware, tracing and browser debugging surfaces guarantee no retained URL or hash history?
-- Is user-initiated checking sufficient for v1? Automatic navigation checking requires a separate permission/privacy design.
-- Is a different local transport needed to strengthen server authentication against local process impersonation?
+1. **Browser verification:** Keep Chrome and Edge runtime details marked **to verify**; Chrome and Edge are tested by hand at step 4.
+2. **Extension ID verification during pairing:** The local pairing surface has a field where the operator pastes the extension ID from `chrome://extensions`; it is validated as **exactly 32 lowercase letters `a–p`** (`^[a-p]{32}$`, deriving `chrome-extension://<id>`).
+3. **Frozen resource and pairing defaults:** The Step 1 frozen defaults (300 s one-use pairing secret TTL, 5 max failed pairing attempts, 30 checks/minute, 2 concurrent checks, 4,096 B max body, 2,048-character URL limit, 5,000 ms timeout) are approved.
+4. **Access-log suppression in the app:** Do not rely on `Start-ETIS.ps1`; the FastAPI application installs an in-process logging filter (`ExtensionLogFilter`) on `uvicorn.access` and application loggers that drops any log record for `/extension/v1/*`, verified by unit tests.
+5. **Trigger scope:** An explicit user click on the extension action is the sole trigger in v1.
+6. **Local transport:** Plain HTTP on `127.0.0.1:8000` with the origin- and instance-bound bearer token is confirmed for v1.
 
 ## 10. To verify
 

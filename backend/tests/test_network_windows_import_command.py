@@ -131,7 +131,7 @@ def test_migration_upgrades_and_downgrades_on_a_scratch_database(tmp_path):
     columns = {c[0] for c in shape(metadata)}
     assert not columns & {'path', 'file_name', 'computer', 'user', 'domain', 'ip', 'query', 'destination'}
     migrate(db_path, 'upgrade', 'head')   # idempotent
-    migrate(db_path, 'downgrade', '-1')
+    migrate(db_path, 'downgrade', '007_malware_scans')   # explicit: 009 now sits above 008
     tables = table_names(db_path)
     assert 'network_windows_imports' not in tables and 'malware_scans' in tables
     migrate(db_path, 'upgrade', 'head')
@@ -217,7 +217,11 @@ def test_the_database_holds_no_names_addresses_or_paths(db, tmp_path):
     joined = '\n'.join(dump)
     for marker in MARKERS:
         assert marker not in joined, marker
-    assert Pseudonymizer(bytes.fromhex(KEY_HEX)).host_ref('MARKER-PC-4410') in joined   # device_ref only
+    # Design core-v2 §3.2: only the server-wrapped srv: device_ref is stored, never the endpoint hmac: ref.
+    from app.core.device_names import load_server_key, local_device_name, wrap_ref
+    endpoint = Pseudonymizer(bytes.fromhex(KEY_HEX)).host_ref(local_device_name('MARKER-PC-4410'))
+    assert endpoint not in joined and 'hmac:' not in joined
+    assert wrap_ref(endpoint, 'device', load_server_key()) in joined
 
 
 def test_indicator_store_view_excludes_own_output_and_exclusions(db, tmp_path):

@@ -75,6 +75,17 @@ class FindingAttack(Base):
     basis: Mapped[str] = mapped_column(String(100), nullable=False)
 
 
+class FindingDevice(Base):
+    """Stored device of a finding (design core-v2 §3.2): always the server-wrapped `srv:` ref.
+
+    Written only by record_findings after wrap_refs; device refs never pivot incidents.
+    """
+    __tablename__ = 'finding_devices'
+    finding_id: Mapped[str] = mapped_column(ForeignKey('findings.id', ondelete='CASCADE'), primary_key=True)
+    device_ref: Mapped[str] = mapped_column(String(37), index=True, nullable=False)
+    attributed_by: Mapped[str] = mapped_column(String(32), nullable=False)
+
+
 class IncidentIndicator(Base):
     __tablename__ = 'incident_indicators'
     incident_id: Mapped[int] = mapped_column(ForeignKey('incidents.id', ondelete='CASCADE'), primary_key=True)

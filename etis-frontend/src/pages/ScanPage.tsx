@@ -13,6 +13,7 @@ import { VerdictChip } from '../components/VerdictChip';
 import { EngineBreakdownCard } from '../components/EngineBreakdownCard';
 import { InertValue } from '../components/InertValue';
 import { VerdictCard } from '../components/VerdictCard';
+import { ExtensionPairingPanel } from '../components/ExtensionPairingPanel';
 
 export function ScanPage() {
  const {t}=useTranslation();
@@ -77,5 +78,6 @@ export function ScanPage() {
    </Paper>)}
    <Typography variant="caption" color="text.secondary">{t('scan.totalTime',{ms:result.timing_ms})}</Typography>
   </Stack>}
+  <ExtensionPairingPanel />
  </Box>;
 }
