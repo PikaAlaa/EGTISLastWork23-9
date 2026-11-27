@@ -295,6 +295,12 @@ def _load(name, relative):
 command = _load('etis_export_stix', 'data/scripts/export_stix.py')
 initialize = _load('etis_initialize_stix', 'scripts/initialize.py')
 
+
+@pytest.fixture(autouse=True)
+def no_namespace_in_environment(monkeypatch):
+    """app.core.settings loads the project .env into os.environ; these tests pass their own env file."""
+    monkeypatch.delenv('ETIS_STIX_NAMESPACE', raising=False)
+
 CMD_NS = '7d3c1b2a-4e5f-4a6b-8c7d-9e0f1a2b3c4d'
 NOW = datetime(2026, 11, 28, 12, 0, 0)
 CMD_T0 = datetime(2026, 11, 20, 9, 0, 0)
