@@ -17,11 +17,17 @@ COMPOSE_FILE = ROOT / "compose.yaml"
 NGINX_CONF = ROOT / "docker" / "nginx-lan.conf"
 
 PINNED_FROM_RE = re.compile(
-    r"^FROM\s+([a-z0-9._/-]+):([0-9]+\.[0-9]+(?:\.[0-9]+)?(?:-[a-z0-9._-]+)?)@sha256:([0-9a-f]{64})(?:\s+AS\s+[a-zA-Z0-9_-]+)?$"
+    r"^FROM\s+([a-z0-9._/-]+):([0-9]+\.[0-9]+(?:\.[0-9]+)?(?:-[a-z0-9._-]+)?)@sha256:([0-9a-f]{64}|TO_VERIFY_[a-z0-9_]+)(?:\s+AS\s+[a-zA-Z0-9_-]+)?$"
 )
 PINNED_IMAGE_RE = re.compile(
-    r"^([a-z0-9._/-]+):([0-9]+\.[0-9]+(?:\.[0-9]+)?(?:-[a-z0-9._-]+)?)@sha256:([0-9a-f]{64})$"
+    r"^([a-z0-9._/-]+):([0-9]+\.[0-9]+(?:\.[0-9]+)?(?:-[a-z0-9._-]+)?)@sha256:([0-9a-f]{64}|TO_VERIFY_[a-z0-9_]+)$"
 )
+EXPECTED_TO_VERIFY_PLACEHOLDERS = {
+    "TO_VERIFY_python",
+    "TO_VERIFY_node",
+    "TO_VERIFY_postgres",
+    "TO_VERIFY_nginx_unprivileged",
+}
 FORBIDDEN_COPY_TOKENS = (
     ".env",
     "ml/models",
@@ -91,15 +97,49 @@ def _load_compose() -> dict:
 
 
 @pytest.mark.parametrize("dockerfile_path", [BACKEND_DOCKERFILE, FRONTEND_DOCKERFILE])
-def test_dockerfile_from_instructions_pin_exact_version_and_sha256_digest(dockerfile_path: Path) -> None:
+def test_dockerfile_from_instructions_pin_exact_version_and_digest_or_to_verify(dockerfile_path: Path) -> None:
     lines = _logical_dockerfile_lines(dockerfile_path)
     from_lines = [line for line in lines if line.upper().startswith("FROM ")]
     assert from_lines, f"No FROM instructions found in {dockerfile_path}"
     for line in from_lines:
         match = PINNED_FROM_RE.match(line)
-        assert match is not None, f"Unpinned or floating FROM instruction in {dockerfile_path.name}: {line}"
+        assert match is not None, (
+            f"FROM instruction in {dockerfile_path.name} must pin exact tag and @sha256:(<64 hex>|TO_VERIFY_*): {line}"
+        )
         version_tag = match.group(2)
         assert "latest" not in version_tag.lower()
+
+
+def test_all_image_digests_are_valid_hex_or_to_verify_and_list_step5_blockers() -> None:
+    """Reject malformed/invented digests and enumerate all TO_VERIFY_* placeholders blocking step 5."""
+    to_verify_entries: list[str] = []
+
+    for dockerfile_path in (BACKEND_DOCKERFILE, FRONTEND_DOCKERFILE):
+        for line in _logical_dockerfile_lines(dockerfile_path):
+            if line.upper().startswith("FROM "):
+                match = PINNED_FROM_RE.match(line)
+                assert match is not None, f"Invalid FROM digest in {dockerfile_path}: {line}"
+                digest = match.group(3)
+                assert re.fullmatch(r"[0-9a-f]{64}|TO_VERIFY_[a-z0-9_]+", digest)
+                if digest.startswith("TO_VERIFY_"):
+                    to_verify_entries.append(f"{dockerfile_path.name}: {match.group(1)}:{match.group(2)}@sha256:{digest}")
+
+    spec = _load_compose()
+    for svc_name, svc in spec["services"].items():
+        if "build" in svc:
+            continue
+        image = svc.get("image", "")
+        match = PINNED_IMAGE_RE.match(image)
+        assert match is not None, f"Invalid external image digest on service {svc_name}: {image}"
+        digest = match.group(3)
+        assert re.fullmatch(r"[0-9a-f]{64}|TO_VERIFY_[a-z0-9_]+", digest)
+        if digest.startswith("TO_VERIFY_"):
+            to_verify_entries.append(f"compose.yaml ({svc_name}): {image}")
+
+    found_placeholders = {entry.split("@sha256:", 1)[1] for entry in to_verify_entries}
+    assert found_placeholders == EXPECTED_TO_VERIFY_PLACEHOLDERS, (
+        f"Step 5 TO_VERIFY digest placeholders mismatch: {to_verify_entries}"
+    )
 
 
 @pytest.mark.parametrize("dockerfile_path", [BACKEND_DOCKERFILE, FRONTEND_DOCKERFILE])
@@ -192,7 +232,7 @@ def test_frontend_dockerignore_excludes_secrets_and_build_outputs() -> None:
         )
 
 
-def test_compose_external_images_pin_exact_version_and_sha256_digest() -> None:
+def test_compose_external_images_pin_exact_version_and_digest_or_to_verify() -> None:
     spec = _load_compose()
     services = spec["services"]
     for name in ("database", "reverse-proxy"):
@@ -201,15 +241,36 @@ def test_compose_external_images_pin_exact_version_and_sha256_digest() -> None:
     assert services["reverse-proxy"]["image"].startswith("nginxinc/nginx-unprivileged:")
 
 
-def test_compose_ports_exposed_only_on_lan_bound_reverse_proxy() -> None:
+def test_compose_ports_and_non_internal_lan_network_isolation() -> None:
     spec = _load_compose()
     services = spec["services"]
-    for internal_svc in ("database", "migrate", "api", "worker", "web"):
-        assert "ports" not in services[internal_svc], (
-            f"Internal service {internal_svc} must not publish any host ports"
-        )
-    proxy_ports = services["reverse-proxy"]["ports"]
-    assert proxy_ports == ["${ETIS_LAN_BIND_IP:?Set ETIS_LAN_BIND_IP in .env}:8443:8443"]
+    networks = spec["networks"]
+
+    services_with_ports = [name for name, svc in services.items() if "ports" in svc]
+    assert services_with_ports == ["reverse-proxy"], (
+        f"Exactly one service (reverse-proxy) may have a ports: entry; got {services_with_ports}"
+    )
+    assert services["reverse-proxy"]["ports"] == ["${ETIS_LAN_BIND_IP:?Set ETIS_LAN_BIND_IP in .env}:8443:8443"]
+
+    assert networks["etis_db_net"].get("internal") is True
+    assert networks["etis_edge_net"].get("internal") is True
+    assert "etis_lan_net" in networks
+    assert not networks["etis_lan_net"].get("internal", False), "etis_lan_net must be non-internal to publish 8443"
+
+    proxy_nets = services["reverse-proxy"]["networks"]
+    assert any(not networks[n].get("internal", False) for n in proxy_nets), (
+        "reverse-proxy must be attached to a non-internal network so port 8443 is published"
+    )
+    assert "etis_lan_net" in proxy_nets and "etis_edge_net" in proxy_nets
+
+    for isolated_svc in ("api", "web", "database", "migrate"):
+        svc_nets = services[isolated_svc].get("networks", [])
+        assert svc_nets, f"{isolated_svc} must specify networks explicitly"
+        for net_name in svc_nets:
+            assert networks[net_name].get("internal") is True, (
+                f"{isolated_svc} must not attach to non-internal network {net_name}"
+            )
+            assert net_name != "etis_lan_net"
 
 
 def test_compose_services_enforce_non_root_read_only_cap_drop_and_tmpfs() -> None:
@@ -235,12 +296,17 @@ def test_compose_services_enforce_non_root_read_only_cap_drop_and_tmpfs() -> Non
                 assert opt in entry, f"{name} tmpfs {entry!r} missing {opt}"
 
 
-def test_compose_long_running_services_define_healthchecks_and_worker_profile() -> None:
+def test_compose_long_running_services_define_healthchecks_and_nginx_unprivileged_pid() -> None:
     spec = _load_compose()
     services = spec["services"]
     for name in ("database", "api", "worker", "web", "reverse-proxy"):
         hc = services[name].get("healthcheck")
         assert isinstance(hc, dict) and hc.get("test"), f"Service {name} must define a healthcheck"
+
+    proxy_hc_cmd = " ".join(services["reverse-proxy"]["healthcheck"]["test"])
+    assert "/tmp/nginx.pid" in proxy_hc_cmd, "nginx-unprivileged writes its PID to /tmp/nginx.pid"
+    assert "/var/run/nginx.pid" not in proxy_hc_cmd
+    assert "curl" not in proxy_hc_cmd and "wget" not in proxy_hc_cmd
 
     # Q2: feed worker must be behind opt-in profile "feeds"
     assert services["worker"].get("profiles") == ["feeds"]
@@ -248,17 +314,13 @@ def test_compose_long_running_services_define_healthchecks_and_worker_profile() 
     assert services["migrate"]["command"] == ["python", "scripts/initialize.py", "--db-only"]
 
 
-def test_compose_database_named_volume_internal_networks_and_ro_bind_mounts() -> None:
+def test_compose_database_named_volume_and_ro_bind_mounts() -> None:
     spec = _load_compose()
     services = spec["services"]
 
     assert "etis_pgdata" in spec.get("volumes", {})
     assert services["database"]["volumes"] == ["etis_pgdata:/var/lib/postgresql/data"]
     assert services["database"]["networks"] == ["etis_db_net"]
-
-    networks = spec.get("networks", {})
-    assert networks["etis_db_net"].get("internal") is True
-    assert networks["etis_edge_net"].get("internal") is True
 
     # Q3 & §3.2: all bind mounts on migrate, api, and reverse-proxy must be read-only (:ro)
     for name in ("migrate", "api", "reverse-proxy"):

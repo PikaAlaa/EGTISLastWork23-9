@@ -1,8 +1,8 @@
 # ETIS LAN server Docker Compose specification (docs/design/docker-lan-v1.md)
-# Pinned image tags + SHA-256 digests are marked "to verify" via `docker buildx imagetools inspect` before step 5 (§10 D1).
+# Pinned image tags + SHA-256 digest placeholders (TO_VERIFY_*) must be replaced via `docker buildx imagetools inspect` before step 5 (§10 D1).
 services:
   database:
-    image: postgres:16.8-bookworm@sha256:4a5d2e9b3f8c1d0e7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f
+    image: postgres:16.8-bookworm@sha256:TO_VERIFY_postgres
     user: "999:999"
     read_only: true
     security_opt:
@@ -170,7 +170,7 @@ services:
     restart: unless-stopped
 
   reverse-proxy:
-    image: nginxinc/nginx-unprivileged:1.27.4-bookworm@sha256:9f7c8b6a5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a
+    image: nginxinc/nginx-unprivileged:1.27.4-bookworm@sha256:TO_VERIFY_nginx_unprivileged
     user: "101:101"
     read_only: true
     security_opt:
@@ -193,9 +193,10 @@ services:
       web:
         condition: service_healthy
     networks:
+      - etis_lan_net
       - etis_edge_net
     healthcheck:
-      test: ["CMD-SHELL", "test -f /var/run/nginx.pid && kill -0 $(cat /var/run/nginx.pid)"]
+      test: ["CMD-SHELL", "test -s /tmp/nginx.pid && kill -0 $(cat /tmp/nginx.pid)"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -206,6 +207,8 @@ volumes:
   etis_pgdata:
 
 networks:
+  etis_lan_net:
+    driver: bridge
   etis_db_net:
     driver: bridge
     internal: true
