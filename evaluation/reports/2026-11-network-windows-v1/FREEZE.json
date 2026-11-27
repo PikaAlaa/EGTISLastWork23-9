@@ -1,0 +1,106 @@
+{
+ "frozen_on": "2026-11-27",
+ "rule_source": "docs/design/network-windows-v1.md section 4 (with the 4.11 pre-measurement clarifications of 27 November 2026), copied unchanged",
+ "design_doc_sha256_lf": "aba0560de2325ba0894bdf89b061dd4d55b145599522f4c84e592508091dd33f",
+ "files": {
+  "selection_rule.md": {
+   "sha256": "16cd3669f84b151754f2118db3e5dc82db4253ca74040868684242f3c70e8c78"
+  },
+  "expected_detections.json": {
+   "sha256": "521dffa13c9df0919eeb6795fe5814cccb1e85fd324fab30b04364d008fe0836"
+  }
+ },
+ "inputs": {
+  "data/network-blocklists-lock.json": {
+   "sha256_lf": "add2a0cdb940d098a44615b110a3aff4366400d163e942b7a49d261818a22e14"
+  },
+  "data/evtx-attack-samples-lock.json": {
+   "sha256_lf": "52f72bb1fe3e7df7f67b4435c1db79d593935ed243f7bfbbc36b73491d1c4d4e"
+  },
+  "evaluation/reports/2026-11-host-v1/technique_manifest.json": {
+   "sha256_lf": "c712a26d7944c201fbcef0028d234acfad712b89bcebc6c45783d535311f4c74"
+  },
+  "evaluation/network_expected_detections.py": {
+   "sha256_lf": "d797cbcd619f82a9ccb40c346f6002f57e0f925d30d4d446d1292b2740c12114"
+  },
+  "backend/app/engines/network_windows/readers.py": {
+   "sha256_lf": "075dc3b4a6edcc8b9e829a99563ea8e8c830712fde81b17e797f02652814aa6e"
+  },
+  "backend/app/engines/network_windows/detections.py": {
+   "sha256_lf": "eb3017e69bc5085767461c6404c4da7e9bce82043e582c612b8c6df4f06e2a79"
+  },
+  "backend/app/engines/network_windows/blocklists.py": {
+   "sha256_lf": "816f97bc3972afb7a6124721c538ae8c69c242b77f1b081c990eaae87c212f8e"
+  },
+  "backend/app/engines/network_windows/engine.py": {
+   "sha256_lf": "0f072d566cda6b0f387b65a06bf49666752c98932c5d89197fa3bdac8face3bd"
+  },
+  "backend/app/engines/network_windows/devices.py": {
+   "sha256_lf": "abf2463c010279764738e15ab0b75b166b72d346190b8fa559b6f6f66a9fa4bd"
+  },
+  "requirements-runtime.txt": {
+   "sha256_lf": "8dda373a02a8d782031d768ff14691a2ccf5d2f9afe1313d9d81052e79d3836b"
+  },
+  "requirements-windows.lock.txt": {
+   "sha256_lf": "ab7b107dfbae5317e30221afe232feac35ee1ced6535d7a2a64d21a6f8a50015"
+  }
+ },
+ "blocklist_lock": {
+  "path": "data/network-blocklists-lock.json",
+  "sha256": "692d3197a7aadbeae5a7803dbc7578395d1d041244ee1b77fb6765a535260b6c",
+  "note": "raw-byte SHA-256, the value the engine compares with the shipped-item manifest",
+  "lists": [
+   "feodo_tracker"
+  ],
+  "not_candidates": [
+   "ssl_blacklist (deprecated 2025-01-03)"
+  ]
+ },
+ "gate_techniques": {
+  "N5": [
+   "T1568.002"
+  ],
+  "N7": [
+   "T1571"
+  ],
+  "N8": [
+   "T1071.004"
+  ],
+  "match": "exact; a parent never matches a sub-technique or the reverse",
+  "others": "N1, N2, N3, N4, N6, N9: none"
+ },
+ "expected_samples": {
+  "development": 0,
+  "report": 0,
+  "consequence": "every shipped rule passes gate 2 only through invented tests and ships unvalidated_on_samples, confidence capped at single_signal"
+ },
+ "popular_list": {
+  "path": "data/raw/tranco_final_approved.csv",
+  "sha256": "bd231a8e583dfd379b89a2b30396cdd1866ac1dc71684441f80a1069e1d78d9e",
+  "bytes": 378795,
+  "hash_source": "evaluation/reports/2026-10-v4/data_hygiene.json (not read for this freeze)"
+ },
+ "url_model": {
+  "candidate": "ee0ba9f0077c1fd140aa",
+  "input": "host_path",
+  "threshold": 0.9870690448552604
+ },
+ "attack_catalogue": {
+  "file": "enterprise-attack-20.0.json",
+  "sha256": "2339a3c36353d5ee2c07e98af3fafbf00761e0e3979ede06402657445b7b4278",
+  "hash_source": "data/attack-lock.json"
+ },
+ "measurements_before_freeze": "none",
+ "seen_before_freeze": [
+  "Feodo Tracker list header and row count (1 IP row, last updated 2026-03-04) at fetch",
+  "SSL Blacklist IP list header (deprecated 2025-01-03, 0 rows); file deleted, not used",
+  "EVTX-ATTACK-SAMPLES paths and file hashes only (size and SHA-256 verified read-only; no event parsed)"
+ ],
+ "not_yet_done": [
+  "owner-PC benign network aggregates (step 8, needs the owner)",
+  "gates, development-half measurement and shipped-item manifest (step 9)",
+  "report-half measurement"
+ ],
+ "amendment_rule": "Later changes are dated pre-result amendments citing selection_rule.md sha256 above.",
+ "amendments": []
+}

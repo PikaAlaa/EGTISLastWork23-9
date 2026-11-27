@@ -1,12 +1,21 @@
 # network.windows v1 — sample sources and expected-detection manifest
 
-Written 27 November 2026 (design `docs/design/network-windows-v1.md` §9 step 6), **before any
-measurement**: no network.windows rule has been run on any sample or on the owner's logs. The
-selection rule is not frozen yet (step 7); `expected_detections.json` is to be frozen with it.
+Written 27 November 2026 (design `docs/design/network-windows-v1.md` §9 steps 6 and 7), **before
+any measurement**: no network.windows rule has been run on any sample or on the owner's logs.
+Frozen the same day (step 7) together with `expected_detections.json`.
 
 | File | What it is |
 | --- | --- |
+| `selection_rule.md` | §4 of the design, with the §4.11 pre-measurement clarifications of 27 November 2026, copied unchanged |
 | `expected_detections.json` | Per rule: gate techniques, expected development- and report-half samples, and the gate 2 obligation |
+| `FREEZE.json` | SHA-256 of both files and of the pinned inputs (blocklist lock, samples lock, host technique manifest, builder, readers, detections, blocklist loader, engine, requirements), the popular-list and ATT&CK hashes, the URL model pin |
+
+Frozen facts (§4.11): the only list candidate is Feodo Tracker (lock raw SHA-256
+`692d3197…260b6c`; SSL Blacklist deprecated 2025-01-03). Gate techniques: N5 `T1568.002`, N7
+`T1571`, N8 `T1071.004`, exact match only. No rule has an expected sample, so every shipped
+rule ships `unvalidated_on_samples` with confidence capped at `single_signal`. Later changes
+are dated pre-result amendments citing the `selection_rule.md` SHA-256
+(`backend/tests/test_network_windows_freeze.py` checks the hashes and that the rule equals §4).
 
 ## Method (as the host engine, unchanged)
 
