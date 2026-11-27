@@ -58,7 +58,7 @@ a copy button.
 
 ```
 python data/scripts/export_stix.py [--incident ID ... | --since YYYY-MM-DD | --open]
-                                   [--include-resolved-benign] [--tlp amber|green|clear]
+                                   [--include-resolved-benign] [--tlp amber|green|white]
                                    [--out PATH]
 ```
 
@@ -78,7 +78,10 @@ python data/scripts/export_stix.py [--incident ID ... | --since YYYY-MM-DD | --o
 ### 1.2 Object mapping
 
 STIX object types and properties named here follow the STIX 2.1 specification (**to verify**
-against the OASIS 2.1 specification text, §8 V1–V6, before step 3).
+against the OASIS 2.1 specification text, §8 V1–V6, before step 3). Checked on 27 November
+2026 (§8) against the specification text up to §4.16, the OASIS `cti-stix2-json-schemas` and
+the OASIS `cti-python-stix2` library. The rules the exporter relies on, with these sources,
+are committed as `backend/app/resources/stix21-subset-v1.json`.
 
 | ETIS source | STIX 2.1 object | Mapping |
 | --- | --- | --- |
@@ -86,9 +89,9 @@ against the OASIS 2.1 specification text, §8 V1–V6, before step 3).
 | `incidents` row | `incident` | `name` = `title`; `description` = fixed text "Exported from ETIS. Status and severity are ETIS categories."; `created` = `opened_at`; `modified` = `last_activity_at`; custom `x_etis_status`, `x_etis_severity`, `x_etis_resolution`, `x_etis_domain`, `x_etis_finding_counts` (counts by kind, engine and severity, including findings whose indicators were counted but not exported). Analyst notes (`incident_events.note`) are **not** exported. |
 | `indicators` row linked to an exported incident that passes the licence filter (§1.4) | `indicator` | `pattern` per §1.3, with the **real** value; `pattern_type: "stix"`; `valid_from` = `first_seen`; `indicator_types: ["malicious-activity"]`; custom `x_etis_type` and `x_etis_sources`. `x_etis_sources` lists only the redistributable sources the value was taken from (e.g. `analyst:manual`, `community:community_reports`, `list:feodo_tracker`), never a restricted feed. |
 | `findings` row ↔ exported indicator (`finding_indicators`) | `sighting` | `sighting_of_ref` = the indicator; `first_seen` = `last_seen` = `observed_at`; `count: 1`; `where_sighted_refs` = ETIS identity; custom `x_etis_finding_id`, `x_etis_engine` (name and version), `x_etis_kind`, `x_etis_severity`, `x_etis_confidence`, `x_etis_reasons` (reason codes only). `evidence.details` is not exported. |
-| `finding_attack` technique used by an exported finding | `attack-pattern` | `id` = the MITRE `stix_id` stored in `attack_techniques`, so consumers deduplicate against their own ATT&CK copy; `name` from the local v20.0 catalogue; `external_references: [{source_name: "mitre-attack", external_id, url}]`. A technique that is not in the catalogue is exported as an `x_etis_attack_ids` value on the incident, not as an object. |
+| `finding_attack` technique used by an exported finding | `attack-pattern` | `id` = an ETIS-namespace UUIDv5 over matrix, ATT&CK version and technique id (owner decision, 28 November 2026, §7.1.1 D1). MITRE's `stix_id` is **not** reused: ETIS does not store MITRE's `created`/`modified`, and re-publishing MITRE's id with ETIS timestamps and markings would be a conflicting version of MITRE's object. Consumers match the technique by `external_references: [{source_name: "mitre-attack", external_id, url}]`; MITRE's id is kept in `x_etis_mitre_stix_id`. `name` from the local v20.0 catalogue. A technique that is not in the catalogue is exported as an `x_etis_attack_ids` value on the incident, not as an object. |
 | Incident ↔ indicator / attack pattern | `relationship` | `incident related-to indicator`; `incident related-to attack-pattern` (with custom `x_etis_basis`, the mapping basis codes); `indicator indicates attack-pattern` when the indicator's finding carries that technique. |
-| Export-wide | `marking-definition` (TLP) | All objects carry `object_marking_refs` to the TLP marking chosen by `--tlp` (default AMBER, open question Q3). |
+| Export-wide | `marking-definition` (TLP) | All objects carry `object_marking_refs` to the TLP marking chosen by `--tlp` (default AMBER, open question Q3). STIX 2.1 has only the four built-in TLP 1.0 markings (WHITE, GREEN, AMBER, RED), so the option offers `white`, with the help text "TLP:WHITE (STIX 2.1 built-in TLP 1.0 marking; TLP 2.0 calls it CLEAR)" (owner decision, §7.1.1 D2). |
 | Export-wide | `note` | The human-readable summary (§1.5): the required ATT&CK notice ("Copyright 2015-2026, The MITRE Corporation. MITRE ATT&CK and ATT&CK are registered trademarks of The MITRE Corporation.", `docs/data-licences.md`), the licence of each source used (CC0 for abuse.ch lists), a **de-fanged** list of the exported indicator values, and the counts of values not exported, by reason. `object_refs` is set to the incidents. |
 
 Not exported: campaigns (analyst-created groupings, often still in progress; listed as open
@@ -218,17 +221,26 @@ The command still prints no values to the terminal (§1.1).
   derived from a per-installation `ETIS_STIX_NAMESPACE` UUID, which `scripts/initialize.py`
   generates into ignored `.env` as it does the pseudonym keys. Re-exports keep ids stable,
   and two ETIS installations never collide.
-- **Attack patterns:** MITRE's own `stix_id` (§1.2).
-- **Marking definitions:** the fixed TLP ids published with the specification (**to verify**,
-  V6).
+- **Attack patterns:** ETIS-namespace UUIDv5 over `attack:<matrix>:<version>:<technique>`,
+  with MITRE's id in `x_etis_mitre_stix_id` (§1.2).
+- **Marking definitions:** the fixed TLP 1.0 ids built into STIX 2.1 (**verified**, V6), for
+  example TLP:AMBER `marking-definition--f88d31f6-486f-44da-b317-01333bde0b82`, all with
+  `created` `2017-01-20T00:00:00.000Z`.
+- **UUID version:** the specification says SDOs and SROs SHOULD use UUIDv4. Producers using
+  another version must avoid collisions and must not use the SCO UUIDv5 namespace (§2.9,
+  **verified**). The per-installation namespace does that, and the SCO namespace is refused.
+  The schema's id pattern accepts UUID versions 1–5 (**verified**). Bundle ids are UUIDv4.
 - **Timestamps:** RFC 3339 UTC with a `Z` suffix and millisecond precision; `spec_version:
   "2.1"` on every object.
 
 ### 1.7 Validation without network
 
-Unit tests check the output against a small **committed JSON schema subset**, written by the
-team from the specification text. It covers the required properties of the eight object
-types used, the id format and the timestamp format. The OASIS `stix2-validator` could be
+Unit tests check the output against a small **committed rules subset**,
+`backend/app/resources/stix21-subset-v1.json`, written by the team from the sources in §8.
+It covers the required properties of the eight object types used, the id format, the
+timestamp format, the vocabularies used, the reserved property names and the TLP 1.0
+markings. `app.services.stix_export.validate_object` and `validate_bundle` check it. No
+JSON Schema library is installed, and none is added. The OASIS `stix2-validator` could be
 added as an optional development dependency only if it works fully offline and its licence
 allows this (**to verify**, V7). Its use is open question Q6, and it is not a runtime
 dependency.
@@ -628,7 +640,7 @@ e-mail clients when the text is copied, and against accidental clicks or pastes.
 
 | Type | Canonical | Displayed |
 | --- | --- | --- |
-| `url` | `https://evil.example/a.php?x=1` | `hxxps://evil[.]example/a.php?x=1`. The scheme becomes `http`→`hxxp`, `https`→`hxxps`, `ftp`→`fxp`. Every `.` in the **host** becomes `[.]`; path, query and fragment are unchanged. A `@` in userinfo becomes `[@]`, and `:` before a port stays. |
+| `url` | `https://evil.example/a.php?x=1` | `hxxps://evil[.]example/a.php?x=1`. The scheme becomes `http`→`hxxp`, `https`→`hxxps`, `ftp`→`fxp`. Every `.` in the **host** becomes `[.]`; path, query and fragment are unchanged. A `@` in userinfo becomes `[@]`, and `:` before a port stays. Also (owner decision, §7.1.1 D4): dots in userinfo are de-fanged too (`https://bank.example@evil.example/` → `hxxps://bank[.]example[@]evil[.]example/`); an IPv4 host in a URL gets **every** dot de-fanged, like any host (`hxxp://203[.]0[.]113[.]7:8080/x`); the colons inside an IPv6 host become `[:]` (`hxxp://[2001[:]db8[:][:]1]/x`). |
 | `domain` | `evil.example` | `evil[.]example`. IDN hosts are shown in their stored IDNA ASCII (`xn--…`) form, never as Unicode, so lookalike characters are visible. |
 | `ip` | `203.0.113.7` / `2001:db8::1` | `203.0.113[.]7` (last dot only, the common convention) / `2001[:]db8[:][:]1` |
 | `email` | `payroll@evil.example` | `payroll[@]evil[.]example` |
@@ -649,8 +661,11 @@ displayed) and used by both implementations below.
   remains for non-indicator text (commands, model ids, the MITRE reference URL, `path_ref`).
 - **Copy:** the copy button next to an indicator copies the de-fanged form.
 - **Search input:** the Indicators page accepts both forms. The backend lookup refangs input
-  with the same rule as `extract_links` before `normalize`, so `hxxps://evil[.]example`
-  and `https://evil.example` hit the same `value_hash`.
+  with `app.core.defang.refang` before `normalize`, so `hxxps://evil[.]example` and
+  `https://evil.example` hit the same `value_hash`. `refang` is a superset of the
+  `extract_links` rule, which handles only `hxxp` and `[.]`: it also undoes `fxp`, `[@]` and
+  `[:]`, so de-fanged e-mail and IPv6 values match too (owner decision, §7.1.1 D3).
+  `extract_links` itself is unchanged.
 
 ### 4.4 Places changed
 
@@ -735,12 +750,21 @@ made.
 | Q20 | A one-off, idempotent `rewrap_device_refs.py` in step 7b converts refs stored before v2, with a test that a second run changes nothing. | §3.2, §6 step 7b |
 | — | Rotating or losing `ETIS_SERVER_REF_KEY` changes every stored ref, and old and new refs cannot be joined. Rotation is out of scope for v2, and `initialize.py` never overwrites an existing key. | §3.2 (key lifetime), §3.6, §5 |
 
+### 7.1.1 Owner decisions on implementation departures (28 November 2026)
+
+| # | Decision | Where applied |
+| --- | --- | --- |
+| D1 | ATT&CK techniques are exported with an ETIS-namespace id, a `mitre-attack` external reference and MITRE's id in `x_etis_mitre_stix_id`. | §1.2, §1.6 |
+| D2 | `--tlp` offers `white` instead of `clear`, with the help text "TLP:WHITE (STIX 2.1 built-in TLP 1.0 marking; TLP 2.0 calls it CLEAR)". The default stays AMBER. A TLP 2.0 extension is to verify later (V13). | §1.1, §1.2, Q3 |
+| D3 | The indicator lookup uses the fuller `refang`, which also undoes `fxp`, `[@]` and `[:]`. | §4.3 |
+| D4 | The extra de-fang cases are kept: userinfo dots, every dot of an IPv4 URL host, and IPv6 URL host colons. | §4.2, `defang-cases.json` |
+
 ### 7.2 Open questions
 
 | # | Question | Default if unanswered |
 | --- | --- | --- |
 | Q2 | Should malware hash-list matches store and export the file's SHA-256? Such a hash is already public in the list, but the change touches the frozen malware engine and needs separate approval. | Not exported. |
-| Q3 | Default TLP marking: AMBER (owner shares deliberately), GREEN, or CLEAR? TLP 1.0 markings are predefined in 2.1, and TLP 2.0 needs the OASIS common objects (**to verify**, V6). | TLP:AMBER (1.0 predefined). |
+| Q3 | Default TLP marking: AMBER (owner shares deliberately), GREEN or WHITE? Only the TLP 1.0 markings are built into STIX 2.1 (**verified**, V6). TLP 2.0 (CLEAR, AMBER+STRICT) would need an OASIS extension (V13). | TLP:AMBER (1.0, built in). |
 | Q4 | Use the OASIS incident core extension instead of `x_etis_*` properties? | `x_etis_*`. |
 | Q5 | Export campaigns (`campaign` SDO + `attributed-to`/`related-to`)? | Not in v2. |
 | Q6 | May `stix2-validator` be a development-only dependency if it is offline and its licence fits? | No. Use the committed schema subset only. |
@@ -751,18 +775,19 @@ made.
 
 | # | Fact | Where to read | Step |
 | --- | --- | --- | --- |
-| V1 | Required common properties per object type (`type`, `spec_version`, `id`, `created`, `modified`) and the bundle shape (no `spec_version` on the bundle in 2.1) | OASIS STIX 2.1 specification | 3 |
-| V2 | The `defanged` common property exists on SCOs only (kept for reference; v2 exports no SCOs) | same | — |
-| V3 | No telephone-number SCO in 2.1 | same | 3 |
-| V4 | `confidence` is an optional integer 0–100 on SDOs | same | 3 |
+| V1 | **Verified 27 November 2026.** Required common properties `type`, `spec_version`, `id`, `created`, `modified` on SDOs and SROs; the bundle has no `spec_version` (spec §3.2 table, `core.json`). Required per type: identity `name`; incident `name`; indicator `pattern`, `pattern_type`, `valid_from`; sighting `sighting_of_ref`; relationship `relationship_type`, `source_ref`, `target_ref`; attack-pattern `name`; note `content`, `object_refs`. | Spec §3.2, §4.1–§4.13; `cti-stix2-json-schemas` | 3 |
+| V2 | **Verified.** `defanged` exists on SCOs only (spec §3.2 table). Kept for reference; v2 exports no SCOs. | Spec §3.2 | — |
+| V3 | **Verified.** There is no telephone observable. The 2.1 observable schemas are artifact, autonomous-system, directory, domain-name, email-addr, email-message, file, ipv4-addr, ipv6-addr, mac-addr, mutex, network-traffic, process, software, url, user-account, windows-registry-key and x509-certificate. `phone_number` and `phone_numbers` are reserved property names. | `cti-stix2-json-schemas/schemas/observables`, spec §3.8, `core.json` | 3 |
+| V4 | **Verified.** `confidence` is an optional integer 0–100 (spec §3.2). | Spec §3.2 | 3 |
 | V5 | Incident core extension: status, identifier and properties | OASIS CTI extension repository | Q4 only |
-| V6 | Fixed ids of the predefined TLP 1.0 marking definitions; how TLP 2.0 markings are published | STIX 2.1 specification §7.2 and the OASIS common objects | 3 |
+| V6 | **Verified** (schema and OASIS library; the spec §7.2 text was not reached). TLP 1.0 marking definitions: WHITE `613f2e26-407d-48c7-9eca-b8e91df99dc9`, GREEN `34098fce-860f-48ae-8e50-ebd3cc5e41da`, AMBER `f88d31f6-486f-44da-b317-01333bde0b82`, RED `5e57c739-391a-4eb3-b6be-7d15ca92d5ed` (each `marking-definition--…`), `created` `2017-01-20T00:00:00.000Z`, `definition_type` `tlp`. Vocabularies: `identity-class-ov` includes `system`, `indicator-type-ov` includes `malicious-activity`, and `pattern-type-ov` includes `stix`. Pattern string escaping doubles the backslash first, then turns `'` into `\'` (`escape_quotes_and_backslashes` in `cti-python-stix2`). The patterning grammar file itself was not found in the OASIS validator repository. | `cti-stix2-json-schemas/schemas/common/marking-definition.json`, `sdos/identity.json`, `sdos/indicator.json`; `cti-python-stix2` `stix2/v21/common.py`, `stix2/patterns.py` | 3 |
 | V7 | `stix2-validator` licence and whether it runs fully offline | its PyPI page and repository | Q6 only |
 | V8 | `format-detection` meta behaviour in current mobile Safari / Chrome | browser documentation | 9 |
 | V9 | `node --experimental-strip-types --test` works on the installed Node 22.12 without extra packages | Node 22 documentation, local run | 9 |
 | V10 | abuse.ch terms of use §3.4 still grant CC0 for Feodo Tracker and SSL Blacklist. Recorded in `docs/data-licences.md` as read by the reviewer on 2026-11-25; not re-read for this document. | https://abuse.ch/terms-of-use/ | 4 |
 | V11 | OpenPhish and PhishTank current terms (both are excluded either way; re-read only to keep `docs/data-licences.md` current) | https://openphish.com/terms.html, https://phishtank.org/terms.php | — |
 | V12 | The Windows NetBIOS computer name (`COMPUTERNAME`) is limited to 15 characters and may differ from the DNS host name returned by `socket.gethostname()` | Microsoft documentation on computer naming | 7a (Q17 residual risk) |
+| V13 | Whether OASIS publishes a TLP 2.0 marking extension for STIX 2.1 (CLEAR, GREEN, AMBER, AMBER+STRICT, RED), and if so its extension-definition id, status and licence. This matters only if TLP 2.0 markings are wanted later; v2 uses TLP 1.0. | OASIS CTI common objects and extension repositories | later (Q3) |
 
 ## Sources
 
