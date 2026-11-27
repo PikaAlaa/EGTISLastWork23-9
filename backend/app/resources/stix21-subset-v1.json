@@ -1,0 +1,45 @@
+{
+  "version": "stix21-subset-v1",
+  "purpose": "The subset of STIX 2.1 rules the ETIS exporter relies on (design core-v2 section 1.7). Written by the team; checked by app.services.stix_export.validate_object. Not a replacement for the OASIS schemas.",
+  "sources_read_2026_11_27": [
+    "OASIS STIX Version 2.1, OASIS Standard, 10 June 2021, https://docs.oasis-open.org/cti/stix/v2.1/os/stix-v2.1-os.html (sections 2.9, 2.16.1, 3.1, 3.2, 3.6, 4.1, 4.5, 4.6, 4.7, 4.13)",
+    "https://github.com/oasis-open/cti-stix2-json-schemas (master): schemas/common/core.json, identifier.json, properties.json, marking-definition.json; schemas/sros/sighting.json, relationship.json; schemas/sdos/identity.json, indicator.json, incident.json; schemas/observables/ listing",
+    "https://github.com/oasis-open/cti-python-stix2 (master): stix2/v21/common.py (TLP objects), stix2/patterns.py (escape_quotes_and_backslashes, quote_if_needed)"
+  ],
+  "spec_version": "2.1",
+  "id_pattern": "^[a-z][a-z0-9-]+[a-z0-9]--[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+  "sco_uuid5_namespace_forbidden_for_sdos": "00abedb4-aa42-466c-9c01-fed23315a9b7",
+  "timestamp_pattern_ms": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3,}Z$",
+  "oasis_property_name_pattern": "^([a-z][a-z0-9_]{2,249})|id$",
+  "etis_custom_property_pattern": "^x_etis_[a-z0-9_]{1,242}$",
+  "reserved_property_names": ["severity", "action", "username", "phone_numbers", "phone_number"],
+  "common_required": ["type", "spec_version", "id", "created", "modified"],
+  "types": {
+    "identity": {"required": ["name"], "timestamps": ["created", "modified"]},
+    "incident": {"required": ["name"], "timestamps": ["created", "modified"]},
+    "indicator": {"required": ["pattern", "pattern_type", "valid_from"], "timestamps": ["created", "modified", "valid_from"]},
+    "sighting": {"required": ["sighting_of_ref"], "timestamps": ["created", "modified", "first_seen", "last_seen"]},
+    "attack-pattern": {"required": ["name"], "timestamps": ["created", "modified"]},
+    "relationship": {"required": ["relationship_type", "source_ref", "target_ref"], "timestamps": ["created", "modified"]},
+    "note": {"required": ["content", "object_refs"], "timestamps": ["created", "modified"]},
+    "marking-definition": {"required": ["id", "type", "spec_version", "created", "name", "definition", "definition_type"], "timestamps": ["created"], "no_common_required": true}
+  },
+  "bundle": {"required": ["type", "id", "objects"], "forbidden": ["spec_version"]},
+  "vocabularies": {
+    "identity_class": ["individual", "group", "system", "organization", "class", "unknown"],
+    "indicator_types": ["anomalous-activity", "anonymization", "benign", "compromised", "malicious-activity", "attribution", "unknown"],
+    "pattern_type": ["stix", "pcre", "sigma", "snort", "suricata", "yara"]
+  },
+  "sighting_where_sighted_ref_pattern": "^(identity|location)--",
+  "sighting_count_range": [0, 999999999],
+  "tlp_1_0": {
+    "created": "2017-01-20T00:00:00.000Z",
+    "white": "marking-definition--613f2e26-407d-48c7-9eca-b8e91df99dc9",
+    "green": "marking-definition--34098fce-860f-48ae-8e50-ebd3cc5e41da",
+    "amber": "marking-definition--f88d31f6-486f-44da-b317-01333bde0b82",
+    "red": "marking-definition--5e57c739-391a-4eb3-b6be-7d15ca92d5ed"
+  },
+  "observable_types_2_1": ["artifact", "autonomous-system", "directory", "domain-name", "email-addr", "email-message", "file", "ipv4-addr", "ipv6-addr", "mac-addr", "mutex", "network-traffic", "process", "software", "url", "user-account", "windows-registry-key", "x509-certificate"],
+  "pattern_string_escaping": "backslash doubled first, then single quote becomes backslash-quote (cti-python-stix2 escape_quotes_and_backslashes); an object-path name containing '-' is single-quoted (quote_if_needed)",
+  "general_rules": ["no empty lists or dictionaries (spec 2.3, 2.12)", "modified later than or equal to created (spec 3.2)", "created and modified equal on the first version (spec 3.6)", "defanged only on SCOs (spec 3.2); ETIS exports no SCOs"]
+}
