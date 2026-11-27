@@ -32,6 +32,9 @@ RULES = {
     'B7': ('payment_diversion_suspected', 'payment_diversion_corroborated'),
 }
 MANIFEST = digest_json([PHRASES, LABELS, RULES, 'payment-clauses-v1'])
+# Every code payment-rules Findings can carry (design core-v2 §2.2).
+REASON_CODES = frozenset({reason for _, reason in RULES.values()} | {'payment_context_ambiguous',
+                                                                      'payment_verification_bypass'})
 PROVIDER = 'phishing.provider_claim'
 EMAIL = 'phishing.email_headers'
 

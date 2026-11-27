@@ -156,6 +156,62 @@ def test_indicator_exact_lookup_shows_value_only_for_exact_match(soc, db):
     assert soc.get('/indicators/99999').status_code == 404
 
 
+def test_incident_detail_carries_recommended_actions(soc, monkeypatch):
+    """Design core-v2 §2.4: read-only action text per finding and for the incident header."""
+    import copy
+    from app.services import recommended_actions as ra
+    scan(soc, url='https://known-phish.example/login')
+    detail = soc.get(f"/incidents/{first_incident(soc)['id']}").json()
+    # Shipped texts are all draft: hidden until the named reviewer has checked them.
+    assert detail['recommended_actions'] == [] and detail['findings'][0]['recommended_actions'] == []
+    raw = json.loads(ra.CATALOGUE_PATH.read_text(encoding='utf-8'))
+    for text in [*raw['entries'].values(), *raw['kind_defaults'].values(), raw['fallback']]:
+        text.update(status='reviewed', reviewed_by='Arabic-speaking team member', reviewed_on='2026-11-28')
+    monkeypatch.setattr(ra, 'load_catalogue', lambda *a, **k: ra.parse_catalogue(copy.deepcopy(raw)))
+    detail = soc.get(f"/incidents/{first_incident(soc)['id']}").json()
+    primary = detail['findings'][0]['recommended_actions'][0]
+    assert primary['reason_code'] == 'blacklist_exact' and primary['en'] and primary['ar']
+    assert detail['recommended_actions'] == [primary]
+    assert 'known-phish' not in json.dumps(detail['recommended_actions'])
+
+
+@pytest.mark.parametrize('kind,plain,defanged', [
+    ('url', 'https://known-phish.example/login', 'hxxps://known-phish[.]example/login'),
+    ('url', 'https://known-phish.example/login', 'HXXPS://Known-Phish[.]EXAMPLE:443/login'),
+    ('domain', 'known-phish.example', 'known-phish[.]example'),
+])
+def test_defanged_lookup_finds_the_same_indicator(soc, db, kind, plain, defanged):
+    sync_feed_indicators(db)
+    expected = soc.get('/indicators', params={'type': kind, 'q': plain}).json()
+    found = soc.get('/indicators', params={'type': kind, 'q': defanged}).json()
+    assert expected['found'] and found == expected
+
+
+def test_defanged_lookup_for_email_and_ipv6_values(soc, db):
+    from app.core.indicators import normalize
+    from app.models import Indicator
+    now = datetime(2026, 11, 27)
+    for kind, value in (('email', 'payroll@evil.example'), ('ip', '2001:db8::1')):
+        n = normalize(kind, value)
+        db.add(Indicator(type=n.type, value_hash=n.value_hash, value=n.value, first_seen=now, last_seen=now))
+    db.commit()
+    for kind, plain, defanged in (('email', 'payroll@evil.example', 'payroll[@]evil[.]example'),
+                                  ('ip', '2001:db8::1', '2001[:]db8[:][:]1'),
+                                  ('ip', '2001:db8::1', '[2001[:]db8[:][:]1]')):
+        expected = soc.get('/indicators', params={'type': kind, 'q': plain}).json()
+        found = soc.get('/indicators', params={'type': kind, 'q': defanged}).json()
+        assert expected['found'] and found == expected
+
+
+@pytest.mark.parametrize('params', [{'type': 'url', 'q': f'hxxps://{MARKER}[.]'},
+                                    {'type': 'domain', 'q': f'{MARKER}[.]'},
+                                    {'type': 'email', 'q': f'{MARKER}[@]'}])
+def test_invalid_defanged_lookup_never_echoes_input(soc, params, caplog):
+    response = soc.get('/indicators', params=params)
+    assert response.status_code == 400 and response.json()['detail'] == 'invalid_input'
+    assert MARKER not in response.text and MARKER not in caplog.text
+
+
 def test_scan_derived_indicator_has_no_plaintext(soc):
     result = scan(soc, url=f'https://cibeg.com:443@{MARKER}.example/login')
     assert result['verdict'] == 'HIGH'  # userinfo brand disguise is decisive

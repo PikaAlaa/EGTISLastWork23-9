@@ -34,6 +34,15 @@ RESULTS = {
     'dmarc': {'pass', 'fail', 'none', 'temperror', 'permerror'},
 }
 METHOD = re.compile(r'([a-z][a-z0-9_-]*)=([a-z]+)((?:\s+[\w.-]+=[\w.@+-]+)*)', re.I)
+# Every code `phishing.email_headers` Findings (built in app/services/mail_import.py) can carry in
+# evidence.reasons, including the email_check_incomplete coverage codes (design core-v2 §2.2).
+REASON_CODES = frozenset({
+    'email_provider_auth_failure_reported', 'email_reply_to_domain_differs', 'email_return_path_domain_differs',
+    'email_provider_display_claim_conflict', 'email_link_model_signal',
+    'email_auth_not_visible', 'email_auth_report_conflict', 'email_auth_report_untrusted',
+    'email_from_not_visible', 'email_identity_ambiguous', 'email_url_model_unavailable',
+    'provider_registry_unavailable', 'provider_claim_ambiguous', 'provider_registry_stale',
+    'provider_suffix_unavailable', 'payment_context_ambiguous'})
 
 
 @dataclass(frozen=True)

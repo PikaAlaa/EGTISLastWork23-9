@@ -27,6 +27,14 @@ BRAND_DECISIVE = frozenset({'userinfo_brand', 'homoglyph_confusable', 'domain_em
 LOOKALIKE = frozenset({'homoglyph_confusable', 'domain_embedding', 'brand_label_reuse'})
 URL_SIDE_REASONS = BRAND_DECISIVE | {'blacklist_exact', 'blacklist_domain', 'brand_resemblance', 'url_patterns',
                                      'url_model', 'url_model_corroborated'}
+# Every code this emitter can put in evidence.reasons: decision-v2 decisive reasons and supporting
+# signals, and the INCOMPLETE reasons (design core-v2 §2.2). LOW (`no_warning_signs`) emits no finding.
+REASON_CODES = frozenset(BRAND_DECISIVE | {
+    'blacklist_exact', 'url_model_corroborated', 'text_high_corroborated',
+    'brand_claim_from_mobile_number', 'blacklist_domain', 'brand_resemblance', 'url_patterns', 'url_model',
+    'text_medium', 'text_keywords', 'text_model_high_uncorroborated',
+    'links_truncated', 'blacklist_empty', 'blacklist_missing_source', 'blacklist_stale', 'database_unavailable',
+    'text_model_unavailable'})
 EMAIL_PATTERN = re.compile(r'(?<![\w.+-])[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,63}(?![\w-])')
 
 

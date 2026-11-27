@@ -1,0 +1,26 @@
+{
+  "version": "defang-v1",
+  "design": "docs/design/core-v2.md section 4.2",
+  "note": "Contract for backend/app/core/defang.py and the console implementation. Values use reserved documentation names and addresses (RFC 2606, RFC 5737, RFC 3849). Every case is invented.",
+  "cases": [
+    {"type": "url", "canonical": "https://evil.example/login", "displayed": "hxxps://evil[.]example/login"},
+    {"type": "url", "canonical": "https://evil.example/a.php?x=1.2#top.section", "displayed": "hxxps://evil[.]example/a.php?x=1.2#top.section"},
+    {"type": "url", "canonical": "http://login.evil.example/", "displayed": "hxxp://login[.]evil[.]example/"},
+    {"type": "url", "canonical": "ftp://files.evil.example/a.zip", "displayed": "fxp://files[.]evil[.]example/a.zip"},
+    {"type": "url", "canonical": "https://evil.example:8443/verify", "displayed": "hxxps://evil[.]example:8443/verify"},
+    {"type": "url", "canonical": "https://bank.example@evil.example/", "displayed": "hxxps://bank[.]example[@]evil[.]example/"},
+    {"type": "url", "canonical": "http://203.0.113.7:8080/x", "displayed": "hxxp://203[.]0[.]113[.]7:8080/x"},
+    {"type": "url", "canonical": "http://[2001:db8::1]/x", "displayed": "hxxp://[2001[:]db8[:][:]1]/x"},
+    {"type": "url", "canonical": "https://xn--bnk-sna.example/", "displayed": "hxxps://xn--bnk-sna[.]example/"},
+    {"type": "domain", "canonical": "evil.example", "displayed": "evil[.]example"},
+    {"type": "domain", "canonical": "login.secure.evil.example", "displayed": "login[.]secure[.]evil[.]example"},
+    {"type": "domain", "canonical": "xn--bnk-sna.example", "displayed": "xn--bnk-sna[.]example"},
+    {"type": "ip", "canonical": "203.0.113.7", "displayed": "203.0.113[.]7"},
+    {"type": "ip", "canonical": "2001:db8::1", "displayed": "2001[:]db8[:][:]1"},
+    {"type": "email", "canonical": "payroll@evil.example", "displayed": "payroll[@]evil[.]example"},
+    {"type": "email", "canonical": "first.last@mail.evil.example", "displayed": "first.last[@]mail[.]evil[.]example"},
+    {"type": "phone", "canonical": "+201000000000", "displayed": "+201000000000"},
+    {"type": "phone", "canonical": "19623", "displayed": "19623"},
+    {"type": "hash", "canonical": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "displayed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+  ]
+}

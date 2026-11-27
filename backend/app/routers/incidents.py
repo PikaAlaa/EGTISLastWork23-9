@@ -19,6 +19,8 @@ from app.models import (AttackTechnique, Campaign, FindingAttack, FindingIndicat
                         IncidentEvent, IncidentIndicator, IncidentLink, Indicator, IndicatorSighting)
 from app.routers.soc_common import StrictBody, day_end, day_start, error, iso
 from app.services import findings as service
+from app.core.findings import SEVERITY_ORDER
+from app.services.recommended_actions import CatalogueError, recommended_actions
 
 router = APIRouter(tags=['incidents'], dependencies=[Depends(verify_api_key)])
 Status = Literal['open', 'investigating', 'resolved']
@@ -63,6 +65,30 @@ def indicator_brief(indicator: Indicator, sources: list[str], roles: list[str]) 
             'sources': sources, 'roles': roles}
 
 
+def _finding_actions(findings) -> dict[str, list]:
+    """Recommended actions per finding (design core-v2 §2.3); read-only text, never executed."""
+    try:
+        return {f.id: recommended_actions(f) for f in findings}
+    except CatalogueError:
+        return {}
+
+
+def _incident_actions(findings, actions: dict[str, list]) -> list:
+    """Primary actions of the highest-severity findings, de-duplicated (§2.4)."""
+    ranked = [f for f in findings if actions.get(f.id)]
+    if not ranked:
+        return []
+    top = max((SEVERITY_ORDER.index(f.severity) for f in ranked if f.severity in SEVERITY_ORDER), default=-1)
+    out, seen = [], set()
+    for f in ranked:
+        if f.severity in SEVERITY_ORDER and SEVERITY_ORDER.index(f.severity) == top:
+            primary = actions[f.id][0]
+            if (primary['en'], primary['ar']) not in seen:
+                seen.add((primary['en'], primary['ar']))
+                out.append(primary)
+    return out
+
+
 def incident_detail(db: Session, incident: Incident) -> dict:
     findings = db.query(FindingRecord).filter_by(incident_id=incident.id).order_by(FindingRecord.observed_at).all()
     finding_ids = [f.id for f in findings]
@@ -92,6 +118,7 @@ def incident_detail(db: Session, incident: Incident) -> dict:
                                           (IncidentLink.related_incident_id == incident.id)).all()
     campaign = db.get(Campaign, incident.campaign_id) if incident.campaign_id else None
     brands = service.incident_brands(db, [incident.id]).get(incident.id, [])
+    actions = _finding_actions(findings)
     return {
         **incident_summary(incident, len(findings), brands),
         'campaign': {'id': campaign.id, 'name': campaign.name} if campaign else None,
@@ -101,7 +128,9 @@ def incident_detail(db: Session, incident: Incident) -> dict:
                       'observed_at': iso(f.observed_at), 'source_kind': f.source_kind,
                       'reasons': (f.evidence or {}).get('reasons', []),
                       'verdict': ((f.evidence or {}).get('details') or {}).get('verdict'),
-                      'attack': per_finding.get(f.id, [])} for f in findings],
+                      'attack': per_finding.get(f.id, []),
+                      'recommended_actions': actions.get(f.id, [])} for f in findings],
+        'recommended_actions': _incident_actions(findings, actions),
         'indicators': [indicator_brief(i, sorted(sources.get(i.id, [])), sorted(roles.get(i.id, [])))
                        for i in indicator_rows],
         'techniques': sorted(techniques.values(), key=lambda t: (t['matrix'], t['technique_id'])),
