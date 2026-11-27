@@ -38,8 +38,8 @@ const MONO_FONT = "'IBM Plex Mono', monospace";
 const PAGE_SIZE = 20;
 const DETECTIONS = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9'] as const;
 const SOURCES = ['dns_client', 'sysmon22', 'firewall', 'sysmon3', 'snapshot'] as const;
-// Attribution links are shown only for the two v1 list pages (design §2.2, §10 decision 1).
-const LIST_LINKS = new Set(['https://feodotracker.abuse.ch/blocklist/', 'https://sslbl.abuse.ch/blacklist/']);
+// Attribution links are shown only for the v1 list page (design §2.2 and its note of 27 November 2026).
+const LIST_LINKS = new Set(['https://feodotracker.abuse.ch/blocklist/']);
 const IMPORT_COMMAND =
   'python data/scripts/import_network_windows.py --dns-evtx C:\\exports\\dns.evtx [--firewall-log C:\\exports\\pfirewall.log] [--sysmon-evtx C:\\exports\\sysmon.evtx] [--snapshots var\\network-snapshots\\<file>.jsonl] [--local-net 192.168.1.0/24]';
 const HELP_COMMANDS: { key: string; command?: string }[] = [

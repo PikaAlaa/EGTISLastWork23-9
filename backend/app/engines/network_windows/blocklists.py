@@ -1,9 +1,9 @@
 """Offline IP blocklists for N1 (design network-windows-v1 §2.2, §6.8, §10 decision 1).
 
-The loader accepts only abuse.ch **Feodo Tracker** and **SSL Blacklist** IP lists (CC0, abuse.ch
-terms of use §3.4, re-read 27 November 2026). v1 fetches and pins Feodo Tracker alone: the SSL
-Blacklist IP list was found deprecated on 2025-01-03 (its file header), so it is not fetched (§2.2
-note of 27 November 2026). URLhaus and any other list are refused. This module
+The loader accepts only the abuse.ch **Feodo Tracker** IP list (CC0, abuse.ch terms of use §3.4,
+re-read 27 November 2026). The SSL Blacklist IP list was found deprecated on 2025-01-03 (its file
+header), so v1 uses Feodo Tracker alone (§2.2 note of 27 November 2026) and refuses SSL Blacklist,
+URLhaus and any other list. This module
 only loads files already on disk; nothing here downloads anything, and the import never
 fetches. The fetch command is a later step that needs the owner's approval, and the list
 formats are still to verify (§11 L1-L2). The loader therefore accepts two simple, declared
@@ -12,7 +12,7 @@ formats and refuses everything else.
 Lock `data/network-blocklists-lock.json` (absent until the owner approves a fetch):
 
     {"destination": "data/external/network-blocklists",
-     "lists": [{"name": "feodo_tracker" | "ssl_blacklist", "url": "https://...", "fetched_at": "<UTC ISO>",
+     "lists": [{"name": "feodo_tracker", "url": "https://...", "fetched_at": "<UTC ISO>",
                 "file": "<name inside destination>", "size": <bytes>, "sha256": "<hex>", "rows": <IP rows>,
                 "format": "ip_lines" | "csv", optional "column": <0-based>, "delimiter": ",",
                 "comment": "#", optional "list_last_updated": "<UTC ISO>" (the list's own header)}]}
@@ -48,7 +48,6 @@ _LAST_UPDATED = re.compile(r'^#\s*Last updated:\s*(\d{4}-\d{2}-\d{2}) (\d{2}:\d{
 LICENCE = 'CC0 (abuse.ch terms of use §3.4)'
 ALLOWED = {
     'feodo_tracker': {'title': 'abuse.ch Feodo Tracker IP blocklist', 'link': 'https://feodotracker.abuse.ch/blocklist/'},
-    'ssl_blacklist': {'title': 'abuse.ch SSL Blacklist IP list', 'link': 'https://sslbl.abuse.ch/blacklist/'},
 }
 FORMATS = ('ip_lines', 'csv')
 MAX_LIST_BYTES = 64 * 1024 * 1024

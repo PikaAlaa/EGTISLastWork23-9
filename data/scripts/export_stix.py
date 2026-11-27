@@ -11,7 +11,7 @@ owner's own decision.
 
 Licence filter (§1.4): only values from redistributable sources are exported, namely
 analyst-entered values, confirmed community values whose reporter accepted CC0, and IPs in
-the CC0 abuse.ch Feodo Tracker / SSL Blacklist lists. OpenPhish and PhishTank values,
+the CC0 abuse.ch Feodo Tracker list (SSL Blacklist is deprecated and not used). OpenPhish and PhishTank values,
 scan-derived hash-only values and malware file hashes are counted, never written. Patterns
 hold real values (§1.5); only the bundle note's human-readable list is de-fanged. The
 terminal output holds counts only, never a value.
@@ -41,13 +41,12 @@ TLP_HELP = ('TLP marking for every object (default: amber). '
             'white = TLP:WHITE (STIX 2.1 built-in TLP 1.0 marking; TLP 2.0 calls it CLEAR)')
 RESTRICTED_FEEDS = ('openphish', 'phishtank')
 RESOLVED_EXCLUDED = ('false_positive', 'benign')
-CC0_LISTS = ('feodo_tracker', 'ssl_blacklist')
+CC0_LISTS = ('feodo_tracker',)
 # §1.4: the only sources whose values may be written, each with its docs/data-licences.md entry.
 EXPORTABLE_SOURCES = {
     'analyst': 'ETIS analyst-entered values (feed:manual, analyst:*), subject to the restricted-feed check (Q14)',
     'community': 'Confirmed community reports whose reporter accepted CC0 (Q15), subject to the restricted-feed check (Q18)',
     'list:feodo_tracker': 'abuse.ch Feodo Tracker IP blocklist, CC0 (docs/data-licences.md abuse_ch_network_blocklists)',
-    'list:ssl_blacklist': 'abuse.ch SSL Blacklist IP list, CC0 (docs/data-licences.md abuse_ch_network_blocklists)',
 }
 COMMUNITY_LICENCE = 'CC0-1.0'
 N1_REASONS = frozenset({'blocklist_ip_connection', 'blocklist_ip_dropped', 'blocklist_ip_dns_answer'})

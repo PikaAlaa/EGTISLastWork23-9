@@ -63,7 +63,7 @@ def alerts(res, detection):
 # ----------------------------------------------------------------- N1
 
 def test_n1_reason_codes_by_action_and_answer_only():
-    lists = {C2: ('feodo_tracker',), '198.51.100.66': ('ssl_blacklist',)}
+    lists = {C2: ('feodo_tracker',), '198.51.100.66': ('feodo_tracker',)}
     res = d.run(result(dns=[q('c2.invented.example', at=7200, event_id=3008, status=0,
                               answers=['198.51.100.66', '192.168.1.1'])],
                        conns=[c(C2, at=0), c(C2, at=10, action='dropped'), c('192.168.1.50', local=True),
@@ -74,7 +74,7 @@ def test_n1_reason_codes_by_action_and_answer_only():
         (C2, ['blocklist_ip_connection', 'blocklist_ip_dropped']),
         ('198.51.100.66', ['blocklist_ip_dns_answer'])]
     assert n1[0].details['lists'] == ['feodo_tracker'] and n1[0].events == 2 and n1[0].hour == '2026-01-05T00'
-    assert n1[1].details['lists'] == ['ssl_blacklist'] and n1[1].dest_type == 'ip'
+    assert n1[1].details['lists'] == ['feodo_tracker'] and n1[1].dest_type == 'ip'
 
 
 def test_n1_does_not_run_without_lists_and_n2_is_inactive():

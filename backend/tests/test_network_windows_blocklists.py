@@ -16,8 +16,6 @@ from app.engines.network_windows.readers import ConnRecord, ReadResult
 
 ROOT = Path(__file__).resolve().parents[2]
 FEODO = '# invented Feodo-style list\n203.0.113.66\n203.0.113.67\n\n198.51.100.0/24\n192.168.1.1\nnot-an-ip\n'
-SSLBL = '# invented SSLBL-style csv\n# Firstseen,DstIP,DstPort\n2026-01-01 00:00:00,203.0.113.67,443\n' \
-        '2026-01-01 00:00:00,198.51.100.9,8443\n'
 
 
 @pytest.fixture(autouse=True)
@@ -28,18 +26,15 @@ def no_network(monkeypatch):
         monkeypatch.setattr(socket, name, blocked)
 
 
-def write_lists(root, feodo=FEODO, sslbl=SSLBL, **overrides):
+def write_lists(root, feodo=FEODO, extra=(), **overrides):
     folder = root / 'data' / 'external' / 'network-blocklists'
     folder.mkdir(parents=True, exist_ok=True)
     (folder / 'feodo.txt').write_bytes(feodo.encode())
-    (folder / 'sslbl.csv').write_bytes(sslbl.encode())
     entries = [
         {'name': 'feodo_tracker', 'url': 'https://feodotracker.abuse.ch/invented.txt',
          'fetched_at': '2026-01-05T00:00:00Z', 'file': 'feodo.txt', 'size': len(feodo.encode()),
          'sha256': hashlib.sha256(feodo.encode()).hexdigest(), 'rows': 2, 'format': 'ip_lines'},
-        {'name': 'ssl_blacklist', 'url': 'https://sslbl.abuse.ch/invented.csv',
-         'fetched_at': '2026-01-03T00:00:00Z', 'file': 'sslbl.csv', 'size': len(sslbl.encode()),
-         'sha256': hashlib.sha256(sslbl.encode()).hexdigest(), 'rows': 2, 'format': 'csv', 'column': 1},
+        *[dict(entry) for entry in extra],
     ]
     for index, changes in overrides.items():
         entries[int(index[1:])].update(changes)
@@ -52,13 +47,11 @@ def write_lists(root, feodo=FEODO, sslbl=SSLBL, **overrides):
 def test_lists_load_with_exact_ip_matching_and_attribution(tmp_path):
     lock = write_lists(tmp_path)
     lists = load(lock, tmp_path)
-    assert sorted(lists.lists) == ['feodo_tracker', 'ssl_blacklist'] and lists.errors == {}
+    assert list(lists.lists) == ['feodo_tracker'] and lists.errors == {}
     assert lists.lookup('203.0.113.66') == ('feodo_tracker',)
-    assert lists.lookup('203.0.113.67') == ('feodo_tracker', 'ssl_blacklist')
-    assert lists.lookup('::ffff:198.51.100.9') == ('ssl_blacklist',)
+    assert lists.lookup('::ffff:203.0.113.67') == ('feodo_tracker',)
     assert lists.lookup('198.51.100.10') == () and lists.lookup('192.168.1.1') == () and lists.lookup('x') == ()
     assert lists.ignored['feodo_tracker'] == {'comment_or_blank': 2, 'not_ip': 1, 'range': 1, 'local': 1}
-    assert lists.ignored['ssl_blacklist']['comment_or_blank'] == 2
     sha = hashlib.sha256(FEODO.encode()).hexdigest()
     assert lists.attribution('feodo_tracker') == {
         'list': 'feodo_tracker', 'title': 'abuse.ch Feodo Tracker IP blocklist',
@@ -73,15 +66,15 @@ def test_lists_load_with_exact_ip_matching_and_attribution(tmp_path):
     ({'rows': 3}, 'blocklist_row_count_mismatch'),
     ({'file': 'absent.txt'}, 'blocklist_missing'),
 ])
-def test_a_list_that_does_not_match_its_pin_is_refused_alone(tmp_path, change, code):
+def test_a_list_that_does_not_match_its_pin_is_refused(tmp_path, change, code):
     lists = load(write_lists(tmp_path, e0=change), tmp_path)
-    assert lists.errors == {'feodo_tracker': code} and list(lists.lists) == ['ssl_blacklist']
-    assert lists.lookup('203.0.113.66') == ()
+    assert lists.errors == {'feodo_tracker': code} and lists.lists == {}
+    assert lists.lookup('203.0.113.66') == () and lists.health() == ['blocklists_missing']
 
 
 @pytest.mark.parametrize('change, code', [
     ({'name': 'urlhaus'}, 'blocklist_not_allowed'),
-    ({'name': 'ssl_blacklist'}, 'blocklist_invalid_lock'),          # duplicate
+    ({'name': 'ssl_blacklist'}, 'blocklist_not_allowed'),           # deprecated 2025-01-03, removed
     ({'file': '../../escape.txt'}, 'blocklist_invalid_lock'),
     ({'format': 'json'}, 'blocklist_invalid_lock'),
     ({'url': 'http://feodotracker.abuse.ch/x'}, 'blocklist_invalid_lock'),
@@ -92,6 +85,13 @@ def test_bad_locks_are_refused(tmp_path, change, code):
     with pytest.raises(BlocklistError) as caught:
         read_lock(write_lists(tmp_path, e0=change), tmp_path)
     assert str(caught.value) == code
+
+
+def test_a_duplicate_list_entry_is_refused(tmp_path):
+    first = json.loads(write_lists(tmp_path).read_text(encoding='utf-8'))['lists'][0]
+    with pytest.raises(BlocklistError) as caught:
+        read_lock(write_lists(tmp_path, extra=[first]), tmp_path)
+    assert str(caught.value) == 'blocklist_invalid_lock'
 
 
 def test_missing_lock_means_no_lists_and_health_reports_it(tmp_path):
@@ -113,7 +113,7 @@ def test_n1_uses_the_loaded_lists(tmp_path):
                                      action='allowed', protocol='tcp', remote_ip='203.0.113.67', remote_local=False,
                                      remote_port=443, local_port=50000, device_ref='hmac:' + '1' * 32)]
     (alert,) = detections.run(result, ip_lists=lists.lookup).alerts
-    assert alert.details['lists'] == ['feodo_tracker', 'ssl_blacklist']
+    assert alert.details['lists'] == ['feodo_tracker']
     assert alert.reasons == {'blocklist_ip_connection'}
 
 
