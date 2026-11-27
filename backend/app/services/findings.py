@@ -19,8 +19,10 @@ from app.core.settings import settings
 from app.core.url_utils import registered_domain
 from app.engines.threat_intel.blacklist_lookup import SHARED_HOSTING_DOMAINS
 from app.services.attack import AttackValidator
-from app.models import (BrandDomain, Campaign, CorrelationStoplist, FindingAttack, FindingIndicator, FindingRecord,
-                        Incident, IncidentEvent, IncidentIndicator, IncidentLink, Indicator, IndicatorSighting)
+from app.core.device_names import RefError, server_key_or_none, wrap_refs
+from app.models import (BrandDomain, Campaign, CorrelationStoplist, FindingAttack, FindingDevice, FindingIndicator,
+                        FindingRecord, Incident, IncidentEvent, IncidentIndicator, IncidentLink, Indicator,
+                        IndicatorSighting)
 from app.models.finding import INCIDENT_RESOLUTIONS
 
 logger = logging.getLogger(__name__)
@@ -124,11 +126,34 @@ def _record_sighting(db, indicator: Indicator, finding: Finding, observed: datet
         row.active = True
 
 
+AGENT_SOURCE_PREFIX = 'agent_devices:'
+
+
+def _wrap_all(findings: list[Finding]) -> list[tuple[Finding, str | None]]:
+    """Design core-v2 §3.2: replace every endpoint `hmac:` device/account ref with its stored
+    `srv:` form before anything is written; refuse the whole call on a bad ref."""
+    ref_fields = {'device_ref', 'host_ref', 'account_ref'}
+    if not any(ref_fields & set(f.evidence.details) for f in findings):
+        return [(f, None) for f in findings]
+    key = server_key_or_none()
+    if key is None:
+        # Fail safe: refs are dropped, never stored as hmac:. Logged once per call, without values.
+        logger.warning('server_ref_key_missing')
+    wrapped = []
+    for finding in findings:
+        try:
+            wrapped.append(wrap_refs(finding, key))
+        except RefError as exc:
+            logger.warning('finding_ref_rejected', extra={'reason': str(exc)})
+            raise
+    return wrapped
+
+
 def record_findings(db, findings: list[Finding], scan_request_id: int | None = None) -> list[FindingRecord]:
     exclusions = _exclusions(db)
     validator = AttackValidator(db)
     records = []
-    for finding in findings:
+    for finding, stored_device in _wrap_all(list(findings)):
         observed = _naive_utc(finding.observed_at)
         record = FindingRecord(
             id=finding.id, schema_version=finding.schema_version, engine_name=finding.engine.name,
@@ -139,6 +164,9 @@ def record_findings(db, findings: list[Finding], scan_request_id: int | None = N
             source_ref=finding.source.ref, scan_request_id=scan_request_id)
         db.add(record)
         db.flush()
+        if stored_device is not None:
+            attributed = 'agent' if finding.source.ref.startswith(AGENT_SOURCE_PREFIX) else 'engine_details'
+            db.add(FindingDevice(finding_id=record.id, device_ref=stored_device, attributed_by=attributed))
         indicators, seen_roles = [], set()
         for ref in finding.indicators:
             indicator = _upsert_indicator(db, ref, observed)

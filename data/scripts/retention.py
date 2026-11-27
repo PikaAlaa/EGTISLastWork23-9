@@ -29,7 +29,7 @@ ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'backend'))
 from app.core.database import SessionLocal
 from app.core.settings import settings
 from sqlalchemy import and_, not_, or_
-from app.models import (ScanRequest, FindingRecord, FindingIndicator, FindingAttack, Indicator, IndicatorSighting,
+from app.models import (ScanRequest, FindingRecord, FindingIndicator, FindingAttack, FindingDevice, Indicator, IndicatorSighting,
                         IncidentIndicator, IncidentEvent, MalwareScan, NetworkWindowsImport)
 
 MALWARE_ENGINE = 'malware.files'
@@ -58,6 +58,7 @@ def _expire_findings(db, scan_ids=None, finding_filter=None):
         db.add(IncidentEvent(incident_id=incident_id, actor='etis', from_status=None, to_status=None,
                              action='findings_expired', note=str(count), at=now))
     db.query(FindingAttack).filter(FindingAttack.finding_id.in_(finding_ids)).delete(synchronize_session=False)
+    db.query(FindingDevice).filter(FindingDevice.finding_id.in_(finding_ids)).delete(synchronize_session=False)
     db.query(FindingIndicator).filter(FindingIndicator.finding_id.in_(finding_ids)).delete(synchronize_session=False)
     db.query(FindingRecord).filter(FindingRecord.id.in_(finding_ids)).delete(synchronize_session=False)
     db.flush()

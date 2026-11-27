@@ -37,6 +37,7 @@ from app.core.indicators import sha256_hex  # noqa: E402
 from app.engines.malware import engine as malware_engine  # noqa: E402
 from app.engines.malware.engine import ENGINE_NAME, OBSERVATION_KIND, SOURCE_PREFIX  # noqa: E402
 from app.engines.malware.hashlists import HashListError, specs_from_lock  # noqa: E402
+from app.core.device_names import load_host_key_optional  # noqa: E402
 from app.engines.malware.paths import MalwareKeyError, PathContext, PathPseudonymizer, load_key  # noqa: E402
 from app.engines.malware.walker import WalkError, is_reparse_point, walk  # noqa: E402
 from app.engines.registry import Observation  # noqa: E402
@@ -75,7 +76,8 @@ def _utc_naive(value: datetime) -> datetime:
     return value.astimezone(timezone.utc).replace(tzinfo=None)
 
 
-def run_scan(target, recursive: bool, *, db, engine, pseudonymizer, context, out) -> dict:
+def run_scan(target, recursive: bool, *, db, engine, pseudonymizer, context, out, host_key=None) -> dict:
+    from app.core.device_names import attach_device_ref
     from app.models import MalwareScan
     from app.services.findings import record_findings
 
@@ -90,7 +92,9 @@ def run_scan(target, recursive: bool, *, db, engine, pseudonymizer, context, out
                                           observed_at=started, data={'files': walked.files,
                                                                      'pseudonymizer': pseudonymizer,
                                                                      'path_context': context}))
-        record_findings(db, outcome.findings)
+        # Design core-v2 §3.2 (Q16): the endpoint device ref of this PC, attached after the engine ran
+        # (the frozen engine is unchanged) and wrapped to srv: by record_findings. No host key, no device.
+        record_findings(db, [attach_device_ref(f, host_key) for f in outcome.findings])
         by_kind = dict(sorted(Counter(f.kind for f in outcome.findings).items()))
         row.finished_at = _utc_naive(datetime.now(timezone.utc))
         row.counts = {'walk': walked.counts, 'engine': outcome.counts}
@@ -196,7 +200,7 @@ def main(argv=None, *, session_factory=None, engine=None, target_registry=None, 
     try:
         with session_factory() as db:
             run_scan(args.path, args.recursive, db=db, engine=engine, pseudonymizer=pseudonymizer,
-                     context=context, out=out)
+                     context=context, out=out, host_key=load_host_key_optional(env_file))
     except WalkError as exc:
         print(f'refused: {exc}', file=sys.stderr)
         return EXIT_REFUSED

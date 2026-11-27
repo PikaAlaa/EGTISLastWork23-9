@@ -3,6 +3,8 @@ os.environ['ETIS_RATE_LIMIT']='10000/minute'
 os.environ['DATABASE_URL']='sqlite://'
 os.environ['ETIS_API_KEY']=''
 os.environ['ETIS_REQUIRED_FEEDS']=''
+# Fixed, invented server key so record_findings never reads a developer's .env (core-v2 §3.2).
+os.environ['ETIS_SERVER_REF_KEY']='5a'*32
 import pytest
 from datetime import date
 from sqlalchemy import create_engine
