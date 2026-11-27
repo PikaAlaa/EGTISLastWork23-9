@@ -36,6 +36,10 @@ OFFLINE_SUFFIX_SHA256 = 'b69315c085d53972724b8f2df111ffc329b0c84fe0a47d62c8c9165
 TO_VERIFY = ('Unicode UTS #39 confusable data/licence/pin; import retention owner; '
              'reviewed shared-contact delegation and language coverage')
 State = Literal['match', 'outside_documented_set', 'unknown', 'invalid', 'stale', 'not_checked']
+# Every code provider-claim Findings can carry in evidence.reasons (design core-v2 §2.2).
+REASON_CODES = frozenset({'provider_sender_outside_set', 'provider_callback_outside_set', 'provider_domain_outside_set',
+                          'provider_registry_unavailable', 'provider_claim_ambiguous', 'provider_registry_stale',
+                          'provider_suffix_unavailable'})
 
 
 def confusable_match(_host: str, _provider: Provider) -> Literal['not_checked']:
