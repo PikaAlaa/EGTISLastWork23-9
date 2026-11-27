@@ -10,7 +10,8 @@
     "incidents": "الحوادث",
     "indicators": "البحث عن مؤشر",
     "attack": "تغطية ATT&CK",
-    "files": "فحص الملفات"
+    "files": "فحص الملفات",
+    "network": "الشبكة (ويندوز)"
   },
   "scan": {
     "urlLabel": "الرابط",
@@ -91,9 +92,9 @@
     "resolution": { "true_positive": "تهديد مؤكد", "false_positive": "إنذار كاذب", "benign": "غير ضارة", "duplicate": "مكررة" },
     "domain": { "phishing": "التصيد الاحتيالي", "malware": "البرمجيات الخبيثة", "network": "الشبكة", "host": "الأجهزة" },
     "confidence": { "confirmed": "مؤكدة", "corroborated": "مدعومة بدليل مستقل", "single_signal": "إشارة واحدة", "undetermined": "غير محددة" },
-    "kind": { "sms_phishing": "تصيد عبر رسالة", "url_phishing": "تصيد عبر رابط", "known_bad_hash": "ملف ضار معروف", "yara_match": "تطابق قاعدة YARA", "ml_suspicious_pe": "برنامج مشبوه (النموذج)" },
+    "kind": { "sms_phishing": "تصيد عبر رسالة", "url_phishing": "تصيد عبر رابط", "known_bad_hash": "ملف ضار معروف", "yara_match": "تطابق قاعدة YARA", "ml_suspicious_pe": "برنامج مشبوه (النموذج)", "known_bad_destination": "وجهة ضارة معروفة", "phishing_domain_lookup": "استعلام عن نطاق تصيد", "suspicious_domain": "نطاق مشبوه", "beaconing": "إرسال نبضات", "unusual_port": "منفذ غير معتاد", "dns_tunnelling_signs": "علامات أنفاق DNS", "rare_destination": "وجهة نادرة" },
     "type": { "domain": "نطاق", "url": "رابط", "ip": "عنوان IP", "hash": "بصمة ملف", "phone": "رقم هاتف", "email": "بريد إلكتروني" },
-    "role": { "delivery_link": "الرابط المرسل", "link_host": "مضيف الرابط", "lookalike_domain": "نطاق مشابه", "contact_phone": "رقم للتواصل", "contact_email": "بريد للتواصل" },
+    "role": { "delivery_link": "الرابط المرسل", "link_host": "مضيف الرابط", "lookalike_domain": "نطاق مشابه", "contact_phone": "رقم للتواصل", "contact_email": "بريد للتواصل", "remote_endpoint": "الطرف البعيد", "resolved_name": "الاسم المستعلم عنه", "connecting_process": "العملية المتصلة" },
     "sourceKind": { "scan": "فحص", "feed": "قائمة تهديدات", "analyst": "محلل", "community": "بلاغ مجتمعي", "sensor": "مستشعر", "import": "استيراد" },
     "matrix": { "enterprise": "المؤسسات", "mobile": "الأجهزة المحمولة" }
   },
@@ -408,6 +409,130 @@
       "pe32": "32 بت",
       "pe64": "64 بت",
       "dotnet": ".NET"
+    }
+  },
+  "network": {
+    "intro": "نتائج استيراد سجلات الشبكة من جهاز ويندوز هذا باستخدام data/scripts/import_network_windows.py. يقرأ ETIS السجلات المصدَّرة فقط: لا يشغّل أي سجل ولا يغيّر أي إعداد ولا يتصل بأي عنوان، ولا يخزّن أو يعرض أي نطاق أو عنوان أو اسم عملية أو مستخدم أو جهاز.",
+    "imports": "عمليات استيراد الشبكة",
+    "started": "وقت الاستيراد",
+    "span": "الفترة المغطاة",
+    "sources": "المصادر",
+    "findings": "النتائج",
+    "none": "لا شيء",
+    "previous": "السابق",
+    "next": "التالي",
+    "range": "{{from}}–{{to}} من {{total}}",
+    "noImports": "لا توجد عمليات استيراد للشبكة بعد. يبدأ الاستيراد فقط من الأمر المحلي:",
+    "importTitle": "الاستيراد رقم {{id}}",
+    "engineVersion": "إصدار المحرك",
+    "files": "ملفات الإدخال",
+    "records": "السجلات المحتفظ بها: {{n}}",
+    "noFindings": "لم تُنبّه أي قاعدة مُعتمدة في هذا الاستيراد.",
+    "coverage": "التغطية",
+    "coverageNote": "القاعدة غير المرئية لم يكن ممكنًا تشغيلها: معناها \"غير معروف\" وليس \"لم يُعثر على شيء\".",
+    "baseline": "فترة الأساس: {{value}}",
+    "window": "الفترة",
+    "events": "الأحداث",
+    "device": "الجهاز (مرجع مُشفّر)",
+    "process": "العملية",
+    "combinedWith": "مقترنة مع",
+    "lists": "القوائم",
+    "listVersion": "الإصدار",
+    "listLicence": "الترخيص",
+    "listPage": "صفحة القائمة",
+    "unvalidated": "غير متحقق منها على العينات",
+    "openIncident": "فتح الحادثة رقم {{id}}",
+    "noIncident": "لا توجد حادثة (خطورة منخفضة أو معلوماتية)",
+    "processCategory": {
+      "known_process_hash": "بصمة عملية معروفة (مؤشر)",
+      "unknown": "غير معروفة"
+    },
+    "health": {
+      "available": "محرك الشبكة (ويندوز) متاح.",
+      "unavailable": "محرك الشبكة (ويندوز) غير متاح: لا يوجد بيان قواعد مُعتمدة متحقق منه. لن يستورد أو يُصدر نتائج.",
+      "rules_missing": "القواعد المعتمدة غير موجودة",
+      "blocklists_missing": "قوائم الحظر غير موجودة",
+      "blocklists_stale": "قوائم الحظر أقدم من 7 أيام",
+      "indicator_store_empty": "مخزن المؤشرات فارغ",
+      "url_model_unavailable": "نموذج الروابط غير متاح (تم تخطي N4)"
+    },
+    "rulesDetail": {
+      "shipped_manifest_missing": "لا يوجد بيان قواعد معتمدة بعد (القاعدة لم تُجمَّد ولم تُقَس)",
+      "shipped_manifest_invalid": "بيان القواعد المعتمدة غير صالح",
+      "shipped_rule_constants_mismatch": "ثوابت القواعد المعتمدة تختلف عن الكود",
+      "selection_rule_mismatch": "قاعدة الاختيار المجمّدة غير مطابقة",
+      "freeze_missing": "سجل التجميد غير موجود",
+      "freeze_mismatch": "سجل التجميد غير مطابق"
+    },
+    "detection": {
+      "N1": "قائمة عناوين التحكم",
+      "N2": "قائمة المضيفين الضارين",
+      "N3": "نطاق مؤشر معروف",
+      "N4": "نموذج روابط التصيد",
+      "N5": "نطاقات مولَّدة آليًا",
+      "N6": "إرسال نبضات",
+      "N7": "منفذ غير معتاد",
+      "N8": "علامات أنفاق DNS",
+      "N9": "وجهة نادرة"
+    },
+    "state": {
+      "visible": "مرئية",
+      "partial": "مرئية جزئيًا",
+      "not_visible": "غير مرئية",
+      "no_baseline": "لا توجد فترة أساس (أقل من 48 ساعة)",
+      "inactive": "غير مفعّلة في الإصدار 1"
+    },
+    "notRun": {
+      "inactive_in_v1": "غير مفعّلة في الإصدار 1",
+      "not_visible": "المصدر غير موجود",
+      "blocklists_missing": "لا توجد قوائم",
+      "indicator_store_unavailable": "مخزن المؤشرات غير متاح",
+      "url_model_unavailable": "النموذج غير متاح",
+      "popular_list_missing": "قائمة النطاقات الشائعة غير موجودة",
+      "no_baseline": "لا توجد فترة أساس",
+      "not_shipped": "غير معتمدة"
+    },
+    "source": {
+      "dns_client": "عميل DNS",
+      "sysmon22": "Sysmon 22",
+      "firewall": "سجل الجدار الناري",
+      "sysmon3": "Sysmon 3",
+      "snapshot": "لقطات الاتصالات"
+    },
+    "fileSource": {
+      "dns_client": "سجل عميل DNS",
+      "firewall": "سجل الجدار الناري",
+      "sysmon": "سجل Sysmon",
+      "snapshot": "لقطة الاتصالات"
+    },
+    "reason": {
+      "blocklist_ip_connection": "اتصال بعنوان تحكم مُدرج",
+      "blocklist_ip_dropped": "اتصال محظور بعنوان تحكم مُدرج",
+      "blocklist_ip_dns_answer": "إجابة DNS تحتوي عنوان تحكم مُدرج",
+      "blocklist_host_query": "استعلام عن مضيف ضار مُدرج",
+      "indicator_store_domain_match": "استعلام عن نطاق موجود في مؤشرات ETIS",
+      "url_model_domain_high": "نموذج روابط التصيد فوق عتبته المجمّدة (نطاق فقط)",
+      "dga_like_domain": "اسم نطاق يشبه المولَّد آليًا",
+      "dga_nxdomain_burst": "دفعة من أسماء مولَّدة آليًا غير موجودة",
+      "periodic_beaconing": "اتصال متكرر منتظم (إرسال نبضات)",
+      "unusual_remote_port": "منفذ بعيد غير معتاد",
+      "dns_long_labels": "تسميات DNS طويلة كثيرة",
+      "dns_high_entropy_labels": "تسميات DNS عشوائية المظهر كثيرة",
+      "dns_txt_burst": "دفعة من استعلامات TXT",
+      "dns_very_long_name": "اسم DNS طويل جدًا",
+      "rare_first_seen_destination": "وجهة نادرة ظهرت لأول مرة بعد فترة الأساس"
+    },
+    "help": {
+      "title": "كيفية توفير السجلات (إجراءات المالك)",
+      "ownerOnly": "تشغيل أي سجل يحتاج صلاحيات المسؤول وهو دائمًا قرارك أنت؛ ETIS لا يقوم به أبدًا. الأوامر معروضة كنص فقط.",
+      "dns": "سجل عميل DNS: فعّل Microsoft-Windows-DNS-Client/Operational من عارض الأحداث، أو بصلاحيات المسؤول:",
+      "dnsSize": "يُنصح بزيادة حجمه الأقصى ليغطي التصدير الفترة كاملة (بالبايت، 1048576 على الأقل):",
+      "dnsExport": "صدّره قبل الاستيراد:",
+      "firewall": "سجل الجدار الناري: في جدار حماية Windows Defender مع الأمان المتقدم افتح الخصائص، ولكل ملف تعريف (المجال، الخاص، العام) اضبط التسجيل ← \"تسجيل الحزم المرفوضة\" و\"تسجيل الاتصالات الناجحة\" على نعم. الملف الافتراضي هو %windir%\\system32\\logfiles\\firewall\\pfirewall.log (الحجم الافتراضي 4,096 كيلوبايت والأقصى 32,767 كيلوبايت). انسخه بصلاحيات المسؤول قبل الاستيراد.",
+      "sysmon": "Sysmon (اختياري): فقط إذا كنت قد ثبّته بالفعل مع تسجيل اتصالات الشبكة (الحدث 3) واستعلامات DNS (الحدث 22). ETIS لا يثبّته ولا يضبطه أبدًا.",
+      "snapshot": "لقطات الاتصالات (اختيارية، عند إيقاف سجل الجدار الناري): شغّلها يدويًا أو من مهمة مجدولة تنشئها بنفسك:",
+      "import": "ثم استورد الملفات المصدَّرة:",
+      "privacy": "سجلات DNS والجدار الناري المصدَّرة بيانات شخصية (سجل تصفح). احتفظ بها لنفسك ولا تشاركها أبدًا."
     }
   }
 }
