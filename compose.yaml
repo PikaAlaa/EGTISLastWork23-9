@@ -1,46 +1,216 @@
+# ETIS LAN server Docker Compose specification (docs/design/docker-lan-v1.md)
+# Pinned image tags + SHA-256 digests are marked "to verify" via `docker buildx imagetools inspect` before step 5 (§10 D1).
 services:
   database:
-    image: postgres:16
+    image: postgres:16.8-bookworm@sha256:4a5d2e9b3f8c1d0e7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f
+    user: "999:999"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
+      - /var/run/postgresql:rw,noexec,nosuid,nodev,size=16m
     environment:
       POSTGRES_DB: etis
       POSTGRES_USER: etis
       POSTGRES_PASSWORD: ${ETIS_DB_PASSWORD:?Set ETIS_DB_PASSWORD in .env}
-    volumes: ["database:/var/lib/postgresql/data"]
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - etis_pgdata:/var/lib/postgresql/data
+    networks:
+      - etis_db_net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U etis -d etis"]
+      test: ["CMD-SHELL", "pg_isready -U etis -d etis -h 127.0.0.1"]
       interval: 10s
+      timeout: 5s
       retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
   migrate:
     build: .
-    environment: &api_environment
-      DATABASE_URL: postgresql://etis:${ETIS_DB_PASSWORD}@database:5432/etis
+    image: etis-backend:lan-v1
+    user: "10001:10001"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
+    environment:
+      DATABASE_URL: postgresql://etis:${ETIS_DB_PASSWORD:?Set ETIS_DB_PASSWORD in .env}@database:5432/etis
       ETIS_API_KEY: ${ETIS_API_KEY:?Initialize the ignored .env first}
+      ETIS_SERVER_REF_KEY: ${ETIS_SERVER_REF_KEY:?Set ETIS_SERVER_REF_KEY in .env}
       ETIS_TEXT_MODEL: ${ETIS_TEXT_MODEL:-char}
-    command: ["python", "scripts/initialize.py"]
+    volumes:
+      - ./data/attack-lock.json:/app/data/attack-lock.json:ro
+      - ./data/external/attack:/app/data/external/attack:ro
+    command: ["python", "scripts/initialize.py", "--db-only"]
     depends_on:
-      database: {condition: service_healthy}
+      database:
+        condition: service_healthy
+    networks:
+      - etis_db_net
+
   api:
     build: .
-    environment: *api_environment
+    image: etis-backend:lan-v1
+    user: "10001:10001"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
+    environment:
+      DATABASE_URL: postgresql://etis:${ETIS_DB_PASSWORD:?Set ETIS_DB_PASSWORD in .env}@database:5432/etis
+      ETIS_API_KEY: ${ETIS_API_KEY:?Initialize the ignored .env first}
+      ETIS_HOST_PSEUDONYM_KEY: ${ETIS_HOST_PSEUDONYM_KEY:?Set ETIS_HOST_PSEUDONYM_KEY in .env}
+      ETIS_MALWARE_PSEUDONYM_KEY: ${ETIS_MALWARE_PSEUDONYM_KEY:?Set ETIS_MALWARE_PSEUDONYM_KEY in .env}
+      ETIS_SERVER_REF_KEY: ${ETIS_SERVER_REF_KEY:?Set ETIS_SERVER_REF_KEY in .env}
+      ETIS_STIX_NAMESPACE: ${ETIS_STIX_NAMESPACE:?Set ETIS_STIX_NAMESPACE in .env}
+      ETIS_TEXT_MODEL: ${ETIS_TEXT_MODEL:-char}
+      ETIS_CHAR_MODEL_PATH: ${ETIS_CHAR_MODEL_PATH:-ml/models/deployed_char.joblib}
+      ETIS_RETENTION_DAYS: ${ETIS_RETENTION_DAYS:-30}
+      ETIS_BLACKLIST_MAX_AGE_DAYS: ${ETIS_BLACKLIST_MAX_AGE_DAYS:-30}
+      ETIS_TEXT_LOW_THRESHOLD: ${ETIS_TEXT_LOW_THRESHOLD:-0.2}
+      ETIS_TEXT_HIGH_THRESHOLD: ${ETIS_TEXT_HIGH_THRESHOLD:-0.8}
+      ETIS_RATE_LIMIT: ${ETIS_RATE_LIMIT:-20/minute}
+      ETIS_FINDINGS_ENABLED: ${ETIS_FINDINGS_ENABLED:-1}
+      ETIS_CORRELATION_WINDOW_DAYS: ${ETIS_CORRELATION_WINDOW_DAYS:-14}
+      ETIS_MALWARE_RETENTION_DAYS: ${ETIS_MALWARE_RETENTION_DAYS:-30}
+      ETIS_NETWORK_RETENTION_DAYS: ${ETIS_NETWORK_RETENTION_DAYS:-30}
+    volumes:
+      - ./ml/models/deployed_char.joblib:/app/ml/models/deployed_char.joblib:ro
+      - ./ml/models/deployment_model.json:/app/ml/models/deployment_model.json:ro
+      - ./ml/models/url_host_v3.joblib:/app/ml/models/url_host_v3.joblib:ro
+      - ./ml/models/url_host_deployment.json:/app/ml/models/url_host_deployment.json:ro
+      - ./data/external/public_suffix_list.dat:/app/data/external/public_suffix_list.dat:ro
+      - ./evaluation/reports/2026-10-v3/public_suffix_list.dat:/app/evaluation/reports/2026-10-v3/public_suffix_list.dat:ro
+      - ./data/attack-lock.json:/app/data/attack-lock.json:ro
     depends_on:
-      migrate: {condition: service_completed_successfully}
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - etis_db_net
+      - etis_edge_net
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live')"]
-      interval: 30s
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=3)"]
+      interval: 15s
+      timeout: 5s
       retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
   worker:
     build: .
-    environment: *api_environment
+    image: etis-backend:lan-v1
+    profiles:
+      - feeds
+    user: "10001:10001"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
+    environment:
+      DATABASE_URL: postgresql://etis:${ETIS_DB_PASSWORD:?Set ETIS_DB_PASSWORD in .env}@database:5432/etis
+      ETIS_RETENTION_DAYS: ${ETIS_RETENTION_DAYS:-30}
+      ETIS_BLACKLIST_MAX_AGE_DAYS: ${ETIS_BLACKLIST_MAX_AGE_DAYS:-30}
+      ETIS_MALWARE_RETENTION_DAYS: ${ETIS_MALWARE_RETENTION_DAYS:-30}
+      ETIS_NETWORK_RETENTION_DAYS: ${ETIS_NETWORK_RETENTION_DAYS:-30}
     command: ["python", "data/scripts/manage_intelligence.py", "--watch"]
     depends_on:
-      migrate: {condition: service_completed_successfully}
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - etis_db_net
+      - etis_feeds_net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,sys; sys.exit(0 if os.getppid() > 0 else 1)"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
   web:
     build: ./etis-frontend
+    image: etis-web:lan-v1
+    user: "1000:1000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=32m
     environment:
-      ETIS_API_KEY: ${ETIS_API_KEY}
+      ETIS_API_KEY: ${ETIS_API_KEY:?Initialize the ignored .env first}
       ETIS_BACKEND_URL: http://api:8000
-    ports: ["127.0.0.1:5173:5173"]
+      ETIS_WEB_HOST: 0.0.0.0
+      ETIS_ALLOWED_HOSTS: 127.0.0.1,localhost,${ETIS_LAN_BIND_IP:?Set ETIS_LAN_BIND_IP in .env}
+      ETIS_SECURE_COOKIE: "true"
     depends_on:
-      api: {condition: service_healthy}
+      api:
+        condition: service_healthy
+    networks:
+      - etis_edge_net
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:5173/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  reverse-proxy:
+    image: nginxinc/nginx-unprivileged:1.27.4-bookworm@sha256:9f7c8b6a5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a
+    user: "101:101"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=32m
+      - /var/cache/nginx:rw,noexec,nosuid,nodev,size=32m
+      - /var/run:rw,noexec,nosuid,nodev,size=16m
+    volumes:
+      - ./docker/nginx-lan.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./var/certs/lan-server.crt:/etc/nginx/certs/server.crt:ro
+      - ./var/certs/lan-server.key:/etc/nginx/certs/server.key:ro
+    ports:
+      - "${ETIS_LAN_BIND_IP:?Set ETIS_LAN_BIND_IP in .env}:8443:8443"
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    networks:
+      - etis_edge_net
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /var/run/nginx.pid && kill -0 $(cat /var/run/nginx.pid)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
 volumes:
-  database:
+  etis_pgdata:
+
+networks:
+  etis_db_net:
+    driver: bridge
+    internal: true
+  etis_edge_net:
+    driver: bridge
+    internal: true
+  etis_feeds_net:
+    driver: bridge

@@ -104,13 +104,54 @@ See `evaluation/README.md` for grouped data, frozen URL protocols, model compari
 sealed SMS testing and approval gates. Numeric targets remain proposals until the
 supervisor approves them. Synthetic examples never satisfy the real-message requirement.
 
-## Docker Compose
+## Docker Compose (LAN server deployment)
 
-Docker is not installed on this computer, so these files have not been executed here.
-With Docker available, initialize `.env`, then run `docker compose up --build -d`.
-Compose starts PostgreSQL, migrations, API, worker and web. Only the web port is exposed,
-on localhost. The database password is random local configuration, not a checked-in
-default. The runtime image uses the selected character model. To use BiLSTM, build with
-`INCLUDE_TENSORFLOW=true`, provide its artifact/tokenizer paths and configure its backend.
+Docker is not installed on this computer, so these files are verified here via offline
+contract tests (`backend/tests/test_docker_lan_*.py`) and require manual execution on a
+machine with Docker Engine (`docs/design/docker-lan-v1.md` §9 step 5).
 
-Stop Compose with `docker compose down`; the named database volume remains.
+1. **Generate host `.env` secrets before starting containers:**
+   ```powershell
+   python scripts/initialize.py --env-only
+   ```
+   This populates `ETIS_DB_PASSWORD`, `ETIS_API_KEY`, `ETIS_HOST_PSEUDONYM_KEY`,
+   `ETIS_MALWARE_PSEUDONYM_KEY`, `ETIS_SERVER_REF_KEY`, `ETIS_STIX_NAMESPACE`, and
+   `ETIS_LAN_BIND_IP` (default `127.0.0.1`; change to the server's RFC 1918 LAN IP for LAN
+   use; `0.0.0.0` and public IPs are rejected). Existing non-empty values are never
+   overwritten.
+2. **Place TLS server certificate and private key** in ignored `var/certs/lan-server.crt`
+   and `var/certs/lan-server.key` (mounted `:ro` into `reverse-proxy`).
+3. **Build and start the LAN stack:**
+   ```powershell
+   docker compose up --build -d
+   ```
+   Compose starts PostgreSQL (`database`, named volume `etis_pgdata`), one-shot migrations
+   (`migrate`, running `python scripts/initialize.py --db-only`), FastAPI (`api`), the
+   console server (`web`), and the pinned `nginxinc/nginx-unprivileged` TLS reverse proxy
+   (`reverse-proxy`). Only `reverse-proxy` publishes a host port
+   (`${ETIS_LAN_BIND_IP}:8443:8443`). All containers run as non-root with `read_only: true`.
+   To enable the optional outbound feed worker, pass `--profile feeds`:
+   ```powershell
+   docker compose --profile feeds up -d
+   ```
+4. **Backup, restore, and upgrades:**
+   - Back up PostgreSQL together with the `ETIS_SERVER_REF_KEY` fingerprint (and keep an
+     offline copy of `.env` so `srv:` device and account histories remain continuous):
+     ```powershell
+     python scripts/lan_backup.py --prune-expired
+     ```
+   - Restore a verified backup (refuses to restore if `.env`'s `ETIS_SERVER_REF_KEY` does
+     not match the backup manifest):
+     ```powershell
+     python scripts/lan_restore.py var/backups/etis-db-YYYYMMDDTHHMMSSZ.dump
+     ```
+   - Apply forward Alembic upgrades after pulling new code:
+     ```powershell
+     python scripts/lan_backup.py
+     docker compose build
+     docker compose run --rm migrate
+     docker compose up -d
+     ```
+
+Stop Compose with `docker compose down`; the named `etis_pgdata` database volume remains
+(never pass `-v` in production).

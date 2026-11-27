@@ -1,7 +1,56 @@
-.git
+# Secrets and local environment files (never baked into images)
 .env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+
+# Version control, virtual environments, caches, and runtime state
+.git
+.gitignore
 .venv
+.venv*
+.pytest_cache
+__pycache__
+*.pyc
 var
-etis-frontend/node_modules
+var/
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite*
+*.log
+
+# Trained models, tokenizers, and release bundles (mounted :ro at runtime)
+ml/models
+ml/models/
+ml/data
+ml/data/
+data/models
+data/models/
+release-artifacts
+release-artifacts/
+colab-bundle
+colab-bundle/
+
+# External feeds, datasets, and evaluation artifacts
+data/external
+data/external/
+data/raw
+data/raw/
+data/processed
+data/processed/
 data/private
-evaluation/review-evidence
+data/private/
+evaluation
+evaluation/
+
+# Frontend build caches, browser extension, test suites, and design docs
+etis-frontend/node_modules
+etis-frontend/dist
+browser-extension
+backend/tests
+backend/tests/
+docs
+docs/
