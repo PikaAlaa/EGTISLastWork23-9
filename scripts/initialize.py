@@ -2,14 +2,16 @@
 import argparse,json,re,secrets,subprocess,sys,os,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-PSEUDONYM_KEYS=('ETIS_HOST_PSEUDONYM_KEY','ETIS_MALWARE_PSEUDONYM_KEY')
+PSEUDONYM_KEYS=('ETIS_HOST_PSEUDONYM_KEY','ETIS_MALWARE_PSEUDONYM_KEY','ETIS_SERVER_REF_KEY')
 def ensure_env_secrets(env):
     """Add missing local secrets to an existing .env; never replace a value that is already set."""
     content=env.read_text(encoding='utf-8')
     if 'ETIS_DB_PASSWORD=' not in content:
         content=content.rstrip('\n')+'\nETIS_DB_PASSWORD='+secrets.token_hex(24)+'\n'
-    # Dedicated HMAC keys, 32 random bytes each: host pseudonyms (docs/design/host-engine-v1.md section 6.4)
-    # and malware path_ref (docs/design/malware-engine-v1.md section 7). An existing value is never replaced.
+    # Dedicated HMAC keys, 32 random bytes each: host pseudonyms (docs/design/host-engine-v1.md section 6.4),
+    # malware path_ref (docs/design/malware-engine-v1.md section 7) and the server-only key that wraps stored
+    # device and account refs to srv: (docs/design/core-v2.md section 3.2). An existing value is never replaced:
+    # rotating or losing ETIS_SERVER_REF_KEY would split every stored ref, and rotation is out of scope.
     for name in PSEUDONYM_KEYS:
         key=re.search(r'^'+name+r'=(.*)$',content,re.M)
         if key is None:

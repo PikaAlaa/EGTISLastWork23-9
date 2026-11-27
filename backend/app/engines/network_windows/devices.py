@@ -13,11 +13,10 @@ detection that could not run is `not_visible`, never "nothing found".
 """
 from __future__ import annotations
 
-import os
-import platform
 from dataclasses import replace
 from datetime import datetime
 
+from app.core.device_names import endpoint_device_ref, this_pc_name
 from app.engines.host.pseudonyms import Pseudonymizer
 from app.engines.network_windows.readers import ReadResult
 
@@ -34,8 +33,9 @@ class DeviceNameError(ValueError):
 
 
 def default_device_name() -> str | None:
-    """This PC's own name, from the environment or the platform (no lookup of any kind)."""
-    return (os.environ.get('COMPUTERNAME') or platform.node() or '').strip() or None
+    """This PC's own name through the shared helper (design core-v2 §3.2, Q17): the lower-case
+    short name from gethostname(), then COMPUTERNAME, then platform.node(). No lookup of any kind."""
+    return this_pc_name()
 
 
 def _account(pseudo: Pseudonymizer, user: str | None) -> str | None:
@@ -50,7 +50,7 @@ def pseudonymise(result: ReadResult, pseudo: Pseudonymizer, device_name: str | N
 
     Records with their own computer name (EVTX) use it; the others use `device_name`.
     """
-    fallback = pseudo.host_ref(device_name) if device_name else None
+    fallback = endpoint_device_ref(pseudo, device_name)
     needs_fallback = any(r.computer is None for r in [*result.dns, *result.connections])
     if needs_fallback and fallback is None:
         raise DeviceNameError('device_name_missing')
@@ -60,7 +60,7 @@ def pseudonymise(result: ReadResult, pseudo: Pseudonymizer, device_name: str | N
         if computer is None:
             return fallback
         if computer not in refs:
-            refs[computer] = pseudo.host_ref(computer) or fallback
+            refs[computer] = endpoint_device_ref(pseudo, computer) or fallback
         return refs[computer]
 
     result.dns = [replace(r, computer=None, device_ref=device(r.computer)) for r in result.dns]
