@@ -634,7 +634,6 @@
       "reduced": "With reduced motion, sweeps, floating and blinking stop; states change with simple fades."
     },
     "footer": "ETIS console redesign v1"
-    "footer": "ETIS console redesign v1 · preview for owner review"
   },
   "extensionPairing": {
     "title": "Local browser extension pairing (v1)",
