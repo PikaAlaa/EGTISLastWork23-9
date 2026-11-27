@@ -1,5 +1,5 @@
-# Pinned exact tag + SHA-256 manifest digest (to verify via `docker buildx imagetools inspect` before step 5; docs/design/docker-lan-v1.md §10 D1)
-FROM python:3.12.10-slim-bookworm@sha256:fd95629fc5e2b5cfb3b1a8e82b6f6a3e13a9a1b6e4a8c0e3f2d1b0a9c8e7f6a5
+# Pinned exact tag + SHA-256 manifest digest placeholder (replace TO_VERIFY_python via `docker buildx imagetools inspect` before step 5; docs/design/docker-lan-v1.md §10 D1)
+FROM python:3.12.10-slim-bookworm@sha256:TO_VERIFY_python
 WORKDIR /app
 COPY requirements-runtime.txt requirements-models.txt ./
 ARG INCLUDE_TENSORFLOW=false

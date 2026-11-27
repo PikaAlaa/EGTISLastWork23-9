@@ -1,12 +1,12 @@
-# Pinned exact tag + SHA-256 manifest digest (to verify via `docker buildx imagetools inspect` before step 5; docs/design/docker-lan-v1.md §10 D1)
-FROM node:22.12.0-bookworm-slim@sha256:65f5b3a2e6d1c8b9a0f4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2 AS build
+# Pinned exact tag + SHA-256 manifest digest placeholder (replace TO_VERIFY_node via `docker buildx imagetools inspect` before step 5; docs/design/docker-lan-v1.md §10 D1)
+FROM node:22.12.0-bookworm-slim@sha256:TO_VERIFY_node AS build
 WORKDIR /web
 COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:22.12.0-bookworm-slim@sha256:65f5b3a2e6d1c8b9a0f4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2
+FROM node:22.12.0-bookworm-slim@sha256:TO_VERIFY_node
 WORKDIR /web
 COPY --from=build /web/dist ./dist
 COPY server.mjs proxy-routes.mjs ./
