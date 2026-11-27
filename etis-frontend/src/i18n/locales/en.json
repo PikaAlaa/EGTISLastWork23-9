@@ -17,6 +17,11 @@
     "network": "Network (Windows)"
   },
   "scan": {
+    "contribution": "Contribution",
+    "engineTime": "{{value}} ms",
+    "inputHeading": "Message or URL",
+    "detailLoaded": "Detail loaded",
+    "highestSeverity": "Highest severity · {{severity}}",
     "urlLabel": "URL",
     "textLabel": "Email or message text",
     "submit": "Analyze",

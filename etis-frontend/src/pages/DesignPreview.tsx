@@ -26,7 +26,7 @@ import { createLtrCache, createRtlCache } from '../theme/rtlCache';
 import { cssVars, MOTION, TOKENS, TYPE_SCALE, type ColorMode, type VerdictKey } from '../theme/tokens';
 import { EtisBot } from '../components/EtisBot';
 import { BOT_STATES, botStateFor } from '../components/botState';
-import { ScanSurface, type ScanStatus } from '../components/ScanSurface';
+import { ScanSurface } from '../components/ScanSurface';
 import { ConsoleHeader } from '../components/ConsoleHeader';
 import { type PageKey } from '../navigation';
 
@@ -77,7 +77,7 @@ export default function DesignPreview() {
   const [reduced, setReduced] = useState(() => new URLSearchParams(location.search).get('motion') === 'reduced');
   const [nav, setNav] = useState<PageKey>('scan');
   const [target, setTarget] = useState<VerdictKey>('MEDIUM');
-  const [demo, setDemo] = useState<ScanStatus>('idle');
+  const [demo, setDemo] = useState<'idle' | 'scanning' | VerdictKey>('idle');
   const timer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -279,7 +279,7 @@ export default function DesignPreview() {
 
               <Typography variant="overline" color="text.secondary" component="div" sx={{ mt: 6 }}>{t('designPreview.scan.frames')}</Typography>
               <Box sx={{ ...grid(2), mt: 3 }}>
-                {(['scanning', 'LOW', 'MEDIUM', 'HIGH'] as ScanStatus[]).map((s) => (
+                {(['scanning', 'LOW', 'MEDIUM', 'HIGH'] as const).map((s) => (
                   <ScanSurface key={s} status={s} icon={<LinkOutlinedIcon />} title={t('designPreview.scan.url')}>
                     <Typography variant="body2" sx={{ mt: 1, fontFamily: MONO, overflowWrap: 'anywhere' }} dir="ltr">example.com/account/verify</Typography>
                   </ScanSurface>

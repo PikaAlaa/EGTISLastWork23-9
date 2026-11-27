@@ -17,6 +17,11 @@
     "network": "الشبكة (ويندوز)"
   },
   "scan": {
+    "contribution": "المساهمة",
+    "engineTime": "{{value}} مللي ثانية",
+    "inputHeading": "رسالة أو رابط",
+    "detailLoaded": "تم تحميل التفاصيل",
+    "highestSeverity": "أعلى شدة · {{severity}}",
     "urlLabel": "الرابط",
     "textLabel": "نص البريد الإلكتروني أو الرسالة",
     "submit": "تحليل",
