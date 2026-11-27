@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 NODE = shutil.which('node')
 pytestmark = pytest.mark.skipif(NODE is None, reason='node is required to run the proxy')
 KEY = 'proxy-test-key'
+INVENTED_REF = 'srv:' + '0a' * 16   # invented device pseudonym, not a real device
 
 
 def free_port():
@@ -93,6 +94,9 @@ def call(port, method, path, body=None, headers=None):
     ('GET', '/api/network/windows/imports?limit=10&offset=0'), ('GET', '/api/network/windows/imports/3'),
     ('GET', '/api/network/windows/health'),
     ('GET', '/api/extension/v1/status'), ('POST', '/api/extension/v1/pairing-secret'), ('POST', '/api/extension/v1/revoke'),
+    # Core v2 (design core-v2 §2.4, §3.5): read-only, GET only.
+    ('GET', '/api/recommended-actions'), ('GET', '/api/device-risk?limit=50&offset=0'),
+    ('GET', f'/api/device-risk/detail?device_ref={INVENTED_REF}'),
 ])
 def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     Stub.seen.clear()
@@ -116,6 +120,10 @@ def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     ('GET', '/api/network/windows/imports/x', 404), ('GET', '/api/network/flows', 404),
     ('POST', '/api/extension/v1/pair', 404), ('POST', '/api/extension/v1/check', 404),
     ('DELETE', '/api/extension/v1/status', 405),
+    ('POST', '/api/recommended-actions', 405), ('DELETE', '/api/recommended-actions', 405),
+    ('POST', '/api/device-risk', 405), ('PATCH', '/api/device-risk/detail', 405), ('PUT', '/api/device-risk', 405),
+    ('GET', '/api/recommended-actions/blacklist_exact', 404), ('GET', f'/api/device-risk/{INVENTED_REF}', 404),
+    ('GET', '/api/device-risk/detail/x', 404), ('GET', '/api/devices', 404), ('GET', '/api/devices/1', 404),
 ])
 def test_unlisted_paths_and_methods_are_refused_without_forwarding(proxy, method, path, expected):
     Stub.seen.clear()
@@ -134,6 +142,6 @@ def test_host_and_origin_checks_still_apply(proxy):
 def test_console_paths_serve_the_single_page_app(proxy):
     if not (ROOT / 'etis-frontend/dist/index.html').is_file():
         pytest.skip('frontend not built yet')
-    for path in ('/incidents', '/indicators', '/attack', '/scan', '/files', '/network'):
+    for path in ('/incidents', '/indicators', '/attack', '/scan', '/files', '/network', '/devices'):
         status, text = call(proxy, 'GET', path)
         assert status == 200 and '<div id="root">' in text

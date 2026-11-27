@@ -7,6 +7,7 @@
     "subtitle": "Egypt-Specific Threat Intelligence System"
   },
   "nav": {
+    "devices": "Devices",
     "scan": "Live Analysis",
     "threats": "Threat Feed",
     "stats": "Statistics",
@@ -653,5 +654,71 @@
     "copyReal": "Copy the real value (not de-fanged). Paste it only into a security tool, never into a browser.",
     "copied": "Real value copied",
     "failed": "Could not copy"
+  },
+  "actions": {
+    "heading": "Recommended actions",
+    "column": "Recommended action",
+    "primary": "Primary",
+    "audience": {
+      "user": "For the person affected",
+      "analyst": "For the analyst"
+    },
+    "draft": "Draft, not reviewed",
+    "showEnglish": "Show in English",
+    "showArabic": "عرض بالعربية",
+    "notice": "Fixed guidance text ({{version}}) for a person to read. ETIS never blocks, deletes or changes anything on its own."
+  },
+  "devices": {
+    "intro": "Devices are shown only by a server-side pseudonym. The risk score is a fixed count of what ETIS engines reported on each device recently. It is not a verdict and nothing here acts on a device.",
+    "empty": "No device has findings yet. Findings from file scans and network imports appear here once they are attributed to a device.",
+    "listLabel": "Devices with attributed findings",
+    "device": "Device",
+    "band": "Risk band",
+    "points": "Points",
+    "engines": "Engines",
+    "lastFinding": "Last finding",
+    "notPaired": "Not paired",
+    "notPairedNote": "This device is known only from local imports and scans; it is not paired with an agent.",
+    "range": "{{from}}–{{to}} of {{total}}",
+    "bandLabel": {
+      "none": "None",
+      "low": "Low",
+      "elevated": "Elevated",
+      "high": "High"
+    },
+    "engine": {
+      "heading": "Engine",
+      "malware_files": "File scan",
+      "network_windows": "Network (Windows)",
+      "host_windows": "Host (Windows)",
+      "network_flows": "Network flows"
+    },
+    "riskTitle": "Risk for device",
+    "total": "{{points}} points, {{band}}. Computed now from findings of the last {{days}} days ({{version}}).",
+    "windows": "Window per engine:",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "counted_one": "Counted finding ({{count}})",
+    "counted_other": "Counted findings ({{count}})",
+    "noneCounted": "No finding counts toward the score.",
+    "age": "Age",
+    "pointsBeforeAfter": "Points (before → after recency)",
+    "halfWeight": "Half weight (older than 7 days)",
+    "incident": "Incident",
+    "repeats_one": "{{count}} repeat not counted",
+    "repeats_other": "{{count}} repeats not counted",
+    "revoked": "From a revoked device",
+    "crossEngine": "+{{points}}: {{domains}} findings on this device in the same week.",
+    "and": " and ",
+    "notCounted_one": "Not counted ({{count}})",
+    "notCounted_other": "Not counted ({{count}})",
+    "reason": {
+      "outside_window": "outside the {{days}}-day window",
+      "repeat": "repeat of a counted finding",
+      "incident_resolved_benign": "excluded: incident resolved benign",
+      "incident_resolved_false_positive": "excluded: incident resolved false positive"
+    },
+    "aboutHeading": "What this score is",
+    "about": "A count of what ETIS engines reported on this device recently, weighted by severity and confidence. It is not a probability that the device is compromised, it does not include checks ETIS did not run, and a score of 0 does not mean the device is safe. Its weights are fixed design choices, not fitted to data. A device that is itself compromised can report false findings about itself."
   }
 }
