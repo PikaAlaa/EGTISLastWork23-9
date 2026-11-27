@@ -141,7 +141,8 @@ its image, `compose.yaml` bind-mounts only the required runtime artifacts **read
 | `./ml/models/deployment_model.json` | `/app/ml/models/deployment_model.json` | `:ro` | Frozen text deployment metadata |
 | `./ml/models/url_host_v3.joblib` | `/app/ml/models/url_host_v3.joblib` | `:ro` | Frozen v4 URL model artifact (`ee0ba9f0077c1fd140aa`) |
 | `./ml/models/url_host_deployment.json` | `/app/ml/models/url_host_deployment.json` | `:ro` | Frozen v4 URL deployment metadata |
-| `./evaluation/reports/2026-10-v3/public_suffix_list.dat` | `/app/evaluation/reports/2026-10-v3/public_suffix_list.dat` | `:ro` | Offline Public Suffix List snapshot read by `app/engines/url_model.py` (**verified** at line 14 of `url_model.py`) |
+| `./data/external/public_suffix_list.dat` | `/app/data/external/public_suffix_list.dat` | `:ro` | Offline Public Suffix List snapshot bind-mounted read-only (§7 Q3; kept out of git and out of images) |
+| `./evaluation/reports/2026-10-v3/public_suffix_list.dat` | `/app/evaluation/reports/2026-10-v3/public_suffix_list.dat` | `:ro` | Offline Public Suffix List snapshot path referenced by `app/engines/url_model.py` (**verified** at line 14 of `url_model.py`) |
 | `./data/attack-lock.json` | `/app/data/attack-lock.json` | `:ro` | ATT&CK v20.0 lock file (also mounted `:ro` into `migrate`) |
 | `./data/external/attack` | `/app/data/external/attack` | `:ro` | Optional pinned ATT&CK v20.0 STIX files (mounted into `migrate` for catalogue loading; if absent, platform degrades honestly to "catalogue not installed", core v1 §4.1) |
 
@@ -290,7 +291,7 @@ PostgreSQL 16 and Docker Compose documentation (§10 P1–P3, D2).
 
 ---
 
-## 7. Open questions
+## 7. Open questions (resolved 27 November 2026)
 
 1. **Q1. Reverse-proxy implementation choice:** Should TLS termination and `/agent/v1/*` vs
    `/` + `/api/*` routing use a dedicated pinned **`nginxinc/nginx-unprivileged`** (or
@@ -298,21 +299,29 @@ PostgreSQL 16 and Docker Compose documentation (§10 P1–P3, D2).
    should `etis-frontend/server.mjs` itself listen via Node's built-in `node:https` when
    `ETIS_TLS_CERT_FILE` and `ETIS_TLS_KEY_FILE` are set (avoiding a third runtime base image
    while keeping one reverse proxy container)?
+   - **Owner answer (27 November 2026):** Option A — a dedicated `nginxinc/nginx-unprivileged`
+     proxy container, pinned by exact tag AND `@sha256:` digest.
 2. **Q2. Outbound internet access for `worker` (feed refresh) on the company LAN:** On the
    LAN server, should the hourly feed worker (`manage_intelligence.py --watch`, which fetches
    PhishTank and OpenPhish over HTTPS) be enabled by default on an external-egress network,
    or should the LAN server default to **offline / manual feed sync** (`profiles: ["feeds"]`)
    so that every container in the default stack runs on `internal: true` networks with zero
    internet access?
+   - **Owner answer (27 November 2026):** Yes — the feed worker goes behind an opt-in profile
+     `"feeds"` (`profiles: ["feeds"]`); the default LAN stack stays on the internal network.
 3. **Q3. Location of the offline Public Suffix List file (`public_suffix_list.dat`):**
    `backend/app/engines/url_model.py` currently reads
    `evaluation/reports/2026-10-v3/public_suffix_list.dat` (**verified**). Since `evaluation/`
-   never goes into an image, should `compose.yaml` bind-mount that single file `:ro` at
-   runtime (§3.2), or should a small preparation step copy/read it from `backend/app/resources/`?
+   and `data/external/` never go into an image, how should `public_suffix_list.dat` be provided
+   at runtime?
+   - **Owner answer (27 November 2026):** Bind-mount `data/external/public_suffix_list.dat`
+     read-only (`:ro`); keep it out of git and out of images.
 4. **Q4. Local availability of Docker Desktop / Docker Engine:** `SETUP.md` notes that Docker
    is not installed on the current graduation-project Windows PC. Will the implementation
    steps be verified in this checkout via static Compose/Dockerfile/config contract tests in
    `pytest` (and on a machine or CI runner with Docker installed before release)?
+   - **Owner answer (27 November 2026):** Yes — `pytest` tests stay offline static/contract
+     tests; `docker compose build` / `up` is verified by hand in step 5.
 
 ---
 
@@ -382,7 +391,8 @@ Each step is a separate small commit after this design is reviewed and the open 
 | 1 | `chore: pin Docker base images and harden .dockerignore` | Verify exact tags and `@sha256:` digests (§10 D1); update `.dockerignore`, `Dockerfile` and `etis-frontend/Dockerfile` (remove `COPY ml/models` and `COPY ml/data`, add non-root `USER`, pin digests). | `pytest backend/tests/test_docker_lan_config.py -k "dockerfile or dockerignore"`: asserts digests, non-root `USER`, no baked models/datasets/secrets, and complete `.dockerignore` coverage. |
 | 2 | `feat: split host env generation from read-only container db init` | Add `--env-only` and `--db-only` flags to `scripts/initialize.py` (with `ETIS_LAN_BIND_IP` locality check and all core v1/v2 secret keys) so `migrate` runs on a `read_only: true` rootfs without touching `.env`. | `pytest backend/tests/test_docker_lan_init.py`: tests `--env-only` idempotence and locality validation, and `--db-only` on a read-only directory. |
 | 3 | `feat: harden compose.yaml for LAN-only TLS, non-root and read-only services` | Update `compose.yaml` (and reverse-proxy config per §7 Q1): pinned digests, `read_only: true`, `tmpfs`, `no-new-privileges`, `cap_drop`, per-service healthchecks, `:ro` runtime model/cert mounts, internal networks, named volume `etis_pgdata`, and least-privilege secret injection. | `pytest backend/tests/test_docker_lan_config.py` and `pytest backend/tests/test_proxy_routes.py`: validates every Compose security invariant, port binding, `:ro` mount and proxy route rule. |
-| 4 | `feat: add PostgreSQL LAN backup, restore and key-fingerprint verification scripts` | Add `scripts/lan_backup.py` and `scripts/lan_restore.py` (wrapping `pg_dump` / `pg_restore` and checking a non-secret HMAC fingerprint of `ETIS_SERVER_REF_KEY` so a backup cannot be accidentally restored under a different server ref key) and update `SETUP.md`. | `pytest backend/tests/test_docker_lan_backup.py`: tests command generation, key-fingerprint mismatch refusal, backup retention cleanup, and non-zero dump verification with mocked subprocess calls. |
+| 4 | `feat: add PostgreSQL LAN backup, restore and key-fingerprint verification scripts` | Add `scripts/lan_backup.py` and `scripts/lan_restore.py` (wrapping `pg_dump` / `pg_restore` and checking a non-secret HMAC fingerprint of `ETIS_SERVER_REF_KEY` so a backup cannot be accidentally restored under a different server ref key) and update `SETUP.md` and `.env.example`. | `pytest backend/tests/test_docker_lan_backup.py`: tests command generation, key-fingerprint mismatch refusal, backup retention cleanup, and non-zero dump verification with mocked subprocess calls. |
+| 5 | Manual live Docker verification (on a Docker host) | Verify `docker compose build`, `docker compose run --rm migrate`, `docker compose up -d`, container healthchecks, and HTTPS reverse-proxy routing on a machine with Docker Engine installed. | Manual `docker compose ps`, `curl --cacert var/certs/lan-server.crt https://<ETIS_LAN_BIND_IP>:8443/healthz`, and backup/restore round-trip check. |
 
 ---
 
