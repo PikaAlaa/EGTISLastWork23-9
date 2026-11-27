@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import './design/motion.css';
 
 * {
   box-sizing: border-box;
@@ -6,4 +7,23 @@
 
 body {
   margin: 0;
+}
+
+.etis-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  margin-block: 16px 24px;
+}
+
+@media (max-width: 599px) {
+  .etis-filters { padding: 16px; }
+  .etis-filters > .MuiFormControl-root { flex: 1 1 140px; min-width: 0; }
+  .etis-filters > .MuiTypography-root { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .MuiCircularProgress-root, .MuiCircularProgress-circle { animation: none !important; }
 }

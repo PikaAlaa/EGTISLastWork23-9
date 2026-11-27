@@ -1,8 +1,8 @@
 # ETIS console redesign v1
 
-Status: **step 1, preview only. Waiting for owner review.** The live console pages still use
-`src/theme/theme.ts` and look the same as before. No backend code, API contract or response shape
-changes.
+**Approved and implemented.** The eight console pages share the preview’s theme, navigation and motion.
+The step 2 screenshots use local sample responses at 390 px and 1366 px in both languages and themes.
+They are in [screenshots/step2](../../etis-frontend/design-preview/screenshots/step2/).
 
 - Preview route: `/design-preview` (`npm run dev`, or `npm run build` then `npx vite preview`).
   You can set these query parameters for review: `?theme=light|dark`, `?lang=ar|en`, `?motion=reduced`.

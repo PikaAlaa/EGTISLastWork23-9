@@ -134,26 +134,29 @@ export function IncidentsPage() {
   const rangeEnd = Math.min(offset + PAGE_SIZE, total);
 
   return (
-    <Box sx={{ py: 4, maxWidth: 1100, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>
+    <Box>
+      <Typography variant="h1" component="h1" gutterBottom>
         {t('nav.incidents')}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+      <Typography color="text.secondary" sx={{ mb: 5 }}>
         {t('incidents.intro')}
       </Typography>
 
-      <Stack direction="row" useFlexGap sx={{ my: 2, gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Paper variant="outlined" className="etis-filters">
         <TextField select size="small" label={t('incidents.status')} value={filters.status} sx={{ minWidth: 150 }}
+          slotProps={{ select: { displayEmpty: true }, inputLabel: { shrink: true } }}
           onChange={(e) => setFilter('status', e.target.value as Filters['status'])}>
           <MenuItem value="">{t('incidents.any')}</MenuItem>
           {STATUSES.map((s) => <MenuItem key={s} value={s}>{t(`soc.status.${s}`)}</MenuItem>)}
         </TextField>
         <TextField select size="small" label={t('incidents.severity')} value={filters.severity} sx={{ minWidth: 140 }}
+          slotProps={{ select: { displayEmpty: true }, inputLabel: { shrink: true } }}
           onChange={(e) => setFilter('severity', e.target.value as Filters['severity'])}>
           <MenuItem value="">{t('incidents.any')}</MenuItem>
           {SEVERITIES.map((s) => <MenuItem key={s} value={s}>{t(`soc.severity.${s}`)}</MenuItem>)}
         </TextField>
         <TextField select size="small" label={t('incidents.domain')} value={filters.domain} sx={{ minWidth: 140 }}
+          slotProps={{ select: { displayEmpty: true }, inputLabel: { shrink: true } }}
           onChange={(e) => setFilter('domain', e.target.value as Filters['domain'])}>
           <MenuItem value="">{t('incidents.any')}</MenuItem>
           {DOMAINS.map((d) => <MenuItem key={d} value={d}>{t(`soc.domain.${d}`)}</MenuItem>)}
@@ -168,7 +171,7 @@ export function IncidentsPage() {
           <Box component="span" sx={{ fontFamily: MONO_FONT }}>{total.toLocaleString()}</Box>{' '}
           {t('threats.totalMatching')}
         </Typography>
-      </Stack>
+      </Paper>
 
       {suggestions.length > 0 && (
         <Alert severity="info" sx={{ mb: 2 }}>
@@ -192,17 +195,17 @@ export function IncidentsPage() {
       )}
 
       {!loading && !error && incidents.length === 0 && (
-        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ p: 6, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">{t('incidents.noResults')}</Typography>
         </Paper>
       )}
 
       {!loading && !error && incidents.length > 0 && (
         <>
-          <Paper variant="outlined" sx={{ borderRadius: 3, overflowX: 'auto' }}>
+          <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
             <Table size="small">
               <TableHead>
-                <TableRow sx={{ bgcolor: 'action.hover' }}>
+                <TableRow>
                   <TableCell sx={{ fontWeight: 600 }}>#</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('incidents.title')}</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('incidents.severity')}</TableCell>
@@ -231,7 +234,7 @@ export function IncidentsPage() {
               </TableBody>
             </Table>
           </Paper>
-          <Stack direction="row" spacing={2} sx={{ mt: 2, alignItems: 'center' }}>
+          <Stack direction="row" useFlexGap spacing={3} sx={{ mt: 4, flexWrap: 'wrap', alignItems: 'center' }}>
             <Button size="small" disabled={offset === 0} onClick={() => setOffset((o) => Math.max(0, o - PAGE_SIZE))}>
               {t('threats.previous')}
             </Button>
@@ -254,8 +257,8 @@ export function IncidentsPage() {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <Box sx={{ mt: 3 }}>
-      <Typography variant="subtitle1" component="h3" sx={{ fontWeight: 600, mb: 1 }}>{title}</Typography>
+    <Box sx={{ mt: 10 }}>
+      <Typography variant="h4" component="h3" sx={{ mb: 3 }}>{title}</Typography>
       {children}
     </Box>
   );
@@ -316,7 +319,7 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
 
   const trimmedNote = note.trim() || undefined;
   return (
-    <Paper variant="outlined" sx={{ mt: 3, p: { xs: 2, sm: 3 }, borderRadius: 3 }} aria-live="polite">
+    <Paper variant="outlined" sx={{ mt: 8, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }} aria-live="polite">
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Typography variant="h6" component="h2" sx={{ marginInlineEnd: 1 }}>
           {t('incidents.detailHeading', { id: detail.id })}
@@ -406,10 +409,10 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
             {t('incidents.expired', { count: detail.expired_findings })}
           </Alert>
         )}
-        <Paper variant="outlined" sx={{ borderRadius: 2, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small">
             <TableHead>
-              <TableRow sx={{ bgcolor: 'action.hover' }}>
+              <TableRow>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.observed')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.kind')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.severity')}</TableCell>
@@ -439,10 +442,10 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
 
       <Section title={t('incidents.indicators', { count: detail.indicators.length })}>
         <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 1 }}>{t('incidents.indicatorPrivacy')}</Typography>
-        <Paper variant="outlined" sx={{ borderRadius: 2, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small">
             <TableHead>
-              <TableRow sx={{ bgcolor: 'action.hover' }}>
+              <TableRow>
                 <TableCell sx={{ fontWeight: 600 }}>{t('soc.indicatorType')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.value')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.roles')}</TableCell>

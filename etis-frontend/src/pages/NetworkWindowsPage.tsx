@@ -31,6 +31,9 @@ import type {
   NetworkImportDetail,
   NetworkImportSummary,
 } from '../api/networkTypes';
+import DetailIcon from '@mui/icons-material/Lan';
+import { ScanSurface } from '../components/ScanSurface';
+import { detailStatus } from '../components/detailStatus';
 import { InertValue } from '../components/InertValue';
 import { SeverityChip, Timestamp } from '../components/SocChips';
 
@@ -98,11 +101,10 @@ export function NetworkWindowsPage() {
 
   return (
     <Box sx={{ py: 4, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>{t('nav.network')}</Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>{t('network.intro')}</Typography>
+      <Typography variant="h1" component="h1" gutterBottom>{t('nav.network')}</Typography>
+      <Typography color="text.secondary" sx={{ mb: 5 }}>{t('network.intro')}</Typography>
 
       {health && <HealthBanner health={health} />}
-      <HelpPanel />
 
       {loading && <CircularProgress size={24} aria-label={t('scan.loading')} />}
       {error && (
@@ -112,14 +114,14 @@ export function NetworkWindowsPage() {
       )}
 
       {!loading && !error && imports.length === 0 && (
-        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ p: 5, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">{t('network.noImports')}</Typography>
           <Box sx={{ mt: 1 }}><InertValue value={IMPORT_COMMAND} /></Box>
         </Paper>
       )}
 
       {imports.length > 0 && (
-        <Paper variant="outlined" sx={{ borderRadius: 3, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small" aria-label={t('network.imports')}>
             <TableHead>
               <TableRow sx={{ bgcolor: 'action.hover' }}>
@@ -145,7 +147,7 @@ export function NetworkWindowsPage() {
               ))}
             </TableBody>
           </Table>
-          <Stack direction="row" sx={{ p: 1, gap: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Stack direction="row" sx={{ p: 3, gap: 2, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Typography variant="body2" color="text.secondary">
               {t('network.range', { from: offset + 1, to: offset + imports.length, total })}
             </Typography>
@@ -160,6 +162,7 @@ export function NetworkWindowsPage() {
       )}
 
       {selected !== null && <ImportDetailPanel key={selected} id={selected} />}
+      <HelpPanel />
     </Box>
   );
 }
@@ -168,7 +171,7 @@ function HealthBanner({ health }: { health: NetworkHealth }) {
   const { t } = useTranslation();
   const severity = !health.available ? 'error' : health.reasons.length ? 'warning' : 'success';
   return (
-    <Alert severity={severity} sx={{ mb: 2 }}>
+    <Alert severity={severity} sx={{ mb: 4 }}>
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <span>{health.available ? t('network.health.available') : t('network.health.unavailable')}</span>
         {health.reasons.map((reason) => (
@@ -186,7 +189,7 @@ function HealthBanner({ health }: { health: NetworkHealth }) {
 function HelpPanel() {
   const { t } = useTranslation();
   return (
-    <Paper variant="outlined" sx={{ p: 2, mb: 2, borderRadius: 3 }}>
+    <Paper variant="outlined" sx={{ p: 4, mt: 12 }}>
       <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{t('network.help.title')}</Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{t('network.help.ownerOnly')}</Typography>
       <Stack sx={{ gap: 1 }}>
@@ -240,10 +243,20 @@ function ImportDetailPanel({ id }: { id: number }) {
   }, [id]);
 
   if (failed) return <Alert severity="error" sx={{ mt: 2 }}>{t('error.requestFailed')}</Alert>;
-  if (!detail) return <CircularProgress size={24} sx={{ mt: 2 }} aria-label={t('scan.loading')} />;
+  const { severity, status } = detailStatus(detail);
   return (
-    <Paper variant="outlined" sx={{ mt: 3, p: 3, borderRadius: 3 }}>
-      <Typography variant="h6" gutterBottom>{t('network.importTitle', { id: detail.id })}</Typography>
+    <Box sx={{ mt: 8 }}>
+      <ScanSurface status={status} variant="radar" icon={<DetailIcon />} title={t('network.importTitle', { id })}
+        statusLabel={severity ? t('scan.highestSeverity', { severity: t(`soc.severity.${severity}`) }) : undefined} />
+      {detail && <ImportDetail detail={detail} />}
+    </Box>
+  );
+}
+
+function ImportDetail({ detail }: { detail: NetworkImportDetail }) {
+  const { t } = useTranslation();
+  return (
+    <Paper variant="outlined" sx={{ mt: 3, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }}>
       <Stack direction="row" useFlexGap sx={{ gap: 2, flexWrap: 'wrap', mb: 1 }}>
         <Field label={t('network.started')}><Timestamp value={detail.started_at} /></Field>
         <Field label={t('network.span')}>
@@ -308,7 +321,7 @@ function FindingCard({ finding }: { finding: NetworkFinding }) {
   const { t } = useTranslation();
   const values = Object.entries(finding.values ?? {});
   return (
-    <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
+    <Paper variant="outlined" sx={{ p: 4, overflowWrap: 'anywhere' }}>
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center', mb: 1.5 }}>
         <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{t(`soc.kind.${finding.kind}`)}</Typography>
         <SeverityChip severity={finding.severity} />

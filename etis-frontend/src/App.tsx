@@ -1,20 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CacheProvider } from '@emotion/react';
-import {
-  ThemeProvider,
-  CssBaseline,
-  AppBar,
-  Toolbar,
-  Typography,
-  Tabs,
-  Tab,
-  Container,
-  Button,
-  Box,
-} from '@mui/material';
-
-import { createEtisTheme } from './theme/theme';
+import { ThemeProvider, CssBaseline, Container, useMediaQuery } from '@mui/material';
+import { ConsoleHeader } from './components/ConsoleHeader';
+import { pageFromPath, type PageKey } from './navigation';
+import { createConsoleTheme } from './theme/consoleTheme';
+import type { ColorMode } from './theme/tokens';
 import { createRtlCache, createLtrCache } from './theme/rtlCache';
 import { ScanPage } from './pages/ScanPage';
 import { ThreatFeedPage } from './pages/ThreatFeedPage';
@@ -25,15 +16,26 @@ import { AttackPage } from './pages/AttackPage';
 import { FileScansPage } from './pages/FileScansPage';
 import { NetworkWindowsPage } from './pages/NetworkWindowsPage';
 
-const PAGES = ['scan', 'threats', 'stats', 'incidents', 'files', 'network', 'indicators', 'attack'] as const;
-type PageKey = (typeof PAGES)[number];
+const THEME_KEY = 'etis-console-theme';
+
+function storedMode(): ColorMode | null {
+  try {
+    const mode = localStorage.getItem(THEME_KEY);
+    return mode === 'light' || mode === 'dark' ? mode : null;
+  } catch {
+    return null;
+  }
+}
 
 export default function App() {
-  const { t, i18n } = useTranslation();
-  const [activePage, setActivePage] = useState<PageKey>(() => PAGES.includes(location.pathname.slice(1) as PageKey) ? location.pathname.slice(1) as PageKey : 'scan');
+  const { i18n } = useTranslation();
+  const [activePage, setActivePage] = useState(pageFromPath);
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)', { noSsr: true });
+  const [override, setOverride] = useState(storedMode);
+  const mode = override ?? (prefersDark ? 'dark' : 'light');
 
   useEffect(() => {
-    const update = () => setActivePage(PAGES.includes(location.pathname.slice(1) as PageKey) ? location.pathname.slice(1) as PageKey : 'scan');
+    const update = () => setActivePage(pageFromPath());
     window.addEventListener('popstate', update);
     return () => window.removeEventListener('popstate', update);
   }, []);
@@ -41,9 +43,7 @@ export default function App() {
   const isRtl = i18n.language === 'ar';
   const direction = isRtl ? 'rtl' : 'ltr';
 
-  // Theme and emotion cache both depend on direction, so both are
-  // recreated together when the language toggle flips it.
-  const theme = useMemo(() => createEtisTheme(direction), [direction]);
+  const theme = useMemo(() => createConsoleTheme(mode, direction), [mode, direction]);
   const cache = useMemo(() => (isRtl ? createRtlCache() : createLtrCache()), [isRtl]);
 
   useEffect(() => {
@@ -51,51 +51,36 @@ export default function App() {
     document.documentElement.lang = i18n.language;
   }, [direction, i18n.language]);
 
-  function toggleLanguage() {
-    i18n.changeLanguage(isRtl ? 'en' : 'ar');
+  function navigate(page: PageKey) {
+    history.pushState(null, '', '/' + page);
+    setActivePage(page);
+  }
+
+  function toggleMode() {
+    const next = mode === 'light' ? 'dark' : 'light';
+    setOverride(next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch {
+      // Storage can be unavailable in a private browsing context.
+    }
   }
 
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" color="primary">
-          <Toolbar sx={{ gap: 2 }}>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              {t('app.title')}
-            </Typography>
-            <Button color="inherit" onClick={toggleLanguage}>
-              {isRtl ? 'English' : 'العربية'}
-            </Button>
-          </Toolbar>
-        </AppBar>
-
-        <Container maxWidth="lg" component="main">
-          <Tabs aria-label={t('common.navigation')}
-            value={activePage}
-            onChange={(_, value: PageKey) => { history.pushState(null, '', '/' + value); setActivePage(value); }}
-            sx={{ borderBottom: 1, borderColor: 'divider', mt: 1 }}
-          >
-            <Tab value="scan" label={t('nav.scan')} />
-            <Tab value="threats" label={t('nav.threats')} />
-            <Tab value="stats" label={t('nav.stats')} />
-            <Tab value="incidents" label={t('nav.incidents')} />
-            <Tab value="files" label={t('nav.files')} />
-            <Tab value="network" label={t('nav.network')} />
-            <Tab value="indicators" label={t('nav.indicators')} />
-            <Tab value="attack" label={t('nav.attack')} />
-          </Tabs>
-
-          <Box>
-            {activePage === 'scan' && <ScanPage />}
-            {activePage === 'threats' && <ThreatFeedPage />}
-            {activePage === 'stats' && <StatsPage />}
-            {activePage === 'incidents' && <IncidentsPage />}
-            {activePage === 'files' && <FileScansPage />}
-            {activePage === 'network' && <NetworkWindowsPage />}
-            {activePage === 'indicators' && <IndicatorsPage />}
-            {activePage === 'attack' && <AttackPage />}
-          </Box>
+        <ConsoleHeader page={activePage} mode={mode} onNavigate={navigate} onToggleMode={toggleMode} />
+        <Container key={activePage} maxWidth="lg" component="main" className="etis-page-in"
+          sx={{ px: { xs: 4, sm: 6 }, pt: { xs: 5, sm: 8 }, pb: 12 }}>
+          {activePage === 'scan' && <ScanPage />}
+          {activePage === 'threats' && <ThreatFeedPage />}
+          {activePage === 'stats' && <StatsPage />}
+          {activePage === 'incidents' && <IncidentsPage />}
+          {activePage === 'files' && <FileScansPage />}
+          {activePage === 'network' && <NetworkWindowsPage />}
+          {activePage === 'indicators' && <IndicatorsPage />}
+          {activePage === 'attack' && <AttackPage />}
         </Container>
       </ThemeProvider>
     </CacheProvider>

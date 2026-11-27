@@ -65,11 +65,12 @@
   --scan-color: var(--etis-accent);
   transition: border-color var(--etis-slow) var(--etis-ease), background-color var(--etis-slow) var(--etis-ease);
 }
+.etis-scan[data-status='INCOMPLETE'], .etis-scan[data-status='loaded'] { --scan-color: var(--etis-incomplete); --scan-tint: var(--etis-surface2); }
 .etis-scan[data-status='scanning'] { --scan-border: var(--etis-accent); --scan-tint: var(--etis-accent-soft); }
 .etis-scan[data-status='LOW'] { --scan-border: var(--etis-low-border); --scan-tint: var(--etis-low-tint); --scan-color: var(--etis-low); }
 .etis-scan[data-status='MEDIUM'] { --scan-border: var(--etis-medium-border); --scan-tint: var(--etis-medium-tint); --scan-color: var(--etis-medium); }
 .etis-scan[data-status='HIGH'] { --scan-border: var(--etis-high-border); --scan-tint: var(--etis-high-tint); --scan-color: var(--etis-high); }
-.etis-scan[data-status='LOW'], .etis-scan[data-status='MEDIUM'], .etis-scan[data-status='HIGH'] { animation: etis-scan-settle 700ms var(--etis-ease) 1; }
+.etis-scan[data-status='LOW'], .etis-scan[data-status='MEDIUM'], .etis-scan[data-status='HIGH'], .etis-scan[data-status='INCOMPLETE'], .etis-result { animation: etis-scan-settle 700ms var(--etis-ease) 1; }
 
 .etis-scan__edge { position: absolute; inset-block: 0; inset-inline-start: 0; width: 4px; background: var(--scan-color); opacity: 0; transition: opacity var(--etis-slow) var(--etis-ease), background-color var(--etis-slow) var(--etis-ease); }
 .etis-scan:not([data-status='idle']) .etis-scan__edge { opacity: 1; }
@@ -103,6 +104,7 @@
   .etis-bot__float, .etis-bot__shadow, .etis-bot__blink, .etis-bot__look { animation: none !important; }
   .etis-bot__node { animation: none !important; }
   .etis-bot[data-state='scanning'] .etis-bot__node { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; }
+  .etis-result { animation: etis-fade-in var(--etis-base) linear both; }
   .etis-scan, .etis-scan[data-status] { animation: none !important; }
   .etis-scan[data-status='scanning'] .etis-scan__sweep { animation: etis-fade-pulse 1.6s ease-in-out infinite alternate !important; background: color-mix(in srgb, var(--etis-accent) 12%, transparent); }
   .etis-scan__sweep::before, .etis-scan__sweep::after { display: none; }

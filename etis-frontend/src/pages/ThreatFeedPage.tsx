@@ -75,16 +75,17 @@ export function ThreatFeedPage() {
   const rangeEnd = Math.min(offset + PAGE_SIZE, totalMatching);
 
   return (
-    <Box sx={{ py: 4, maxWidth: 900, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>
+    <Box>
+      <Typography variant="h1" component="h1" gutterBottom>
         {t('nav.threats')}
       </Typography>
 
-      <Stack direction="row" spacing={2} sx={{ my: 2, alignItems: 'center' }}>
+      <Paper variant="outlined" className="etis-filters">
         <TextField
           select
           label={t('threats.source')}
           size="small"
+          slotProps={{ select: { displayEmpty: true }, inputLabel: { shrink: true } }}
           value={source}
           onChange={(e) => {
             setOffset(0);
@@ -104,13 +105,13 @@ export function ThreatFeedPage() {
           </Box>{' '}
           {t('threats.totalMatching')}
         </Typography>
-      </Stack>
+      </Paper>
 
       {loading && <CircularProgress size={24} aria-label={t('scan.loading')} />}
       {error && <Alert severity="error" action={<Button color="inherit" onClick={() => setRetry(r => r + 1)}>{t('common.retry')}</Button>}>{t(`error.${error}`)}</Alert>}
 
       {!loading && !error && entries.length === 0 && (
-        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ p: 6, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">
             {t('threats.noResults')}
           </Typography>
@@ -119,10 +120,10 @@ export function ThreatFeedPage() {
 
       {!loading && !error && entries.length > 0 && (
         <>
-          <Paper variant="outlined" sx={{ borderRadius: 3, overflowX: 'auto' }}>
+          <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
             <Table size="small">
               <TableHead>
-                <TableRow sx={{ bgcolor: 'action.hover' }}>
+                <TableRow>
                   <TableCell sx={{ fontWeight: 600 }}>{t('threats.domain')}</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('threats.source')}</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>{t('threats.brandTarget')}</TableCell>
@@ -134,16 +135,16 @@ export function ThreatFeedPage() {
               <TableBody>
                 {entries.map((entry) => (
                   <TableRow key={entry.id} hover>
-                    <TableCell sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.domain}</TableCell>
+                    <TableCell dir="ltr" sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.domain}</TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>{entry.brand_target ?? '—'}</TableCell>
-                    <TableCell sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.reputation_score}</TableCell>
-                    <TableCell sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.last_seen}</TableCell>
+                    <TableCell dir="ltr" sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.reputation_score}</TableCell>
+                    <TableCell dir="ltr" sx={{ fontFamily: MONO_FONT, fontSize: '0.8rem' }}>{entry.last_seen}</TableCell>
                     <TableCell>
                       <Chip
                         size="small"
                         label={entry.is_active ? t('threats.active') : t('threats.inactive')}
-                        color={entry.is_active ? 'success' : 'default'}
+                        color={entry.is_active ? 'primary' : 'default'}
                       />
                     </TableCell>
                   </TableRow>
@@ -152,7 +153,7 @@ export function ThreatFeedPage() {
             </Table>
           </Paper>
 
-          <Stack direction="row" spacing={2} sx={{ mt: 2, alignItems: 'center' }}>
+          <Stack direction="row" useFlexGap spacing={3} sx={{ mt: 4, flexWrap: 'wrap', alignItems: 'center' }}>
             <Button size="small" disabled={!canGoPrev} onClick={() => setOffset((o) => Math.max(0, o - PAGE_SIZE))}>
               {t('threats.previous')}
             </Button>

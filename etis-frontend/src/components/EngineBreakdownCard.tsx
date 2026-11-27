@@ -2,8 +2,12 @@ import type { ReactNode } from 'react';
 import { Paper, Stack, Typography, Chip, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import type { Verdict } from '../api/types';
+import { VERDICT_STYLE } from '../theme/verdictPalette';
+
 interface EngineBreakdownCardProps {
   icon: ReactNode;
+  verdict?: Verdict;
   title: string;
   /** Null when the engine didn't run for this input (e.g. blacklist on a text-only submission). */
   applicable: boolean;
@@ -43,6 +47,7 @@ export function EngineBreakdownCard({
   icon,
   title,
   applicable,
+  verdict,
   notApplicableReason,
   score,
   contribution,
@@ -51,20 +56,23 @@ export function EngineBreakdownCard({
 }: EngineBreakdownCardProps) {
   const { t } = useTranslation();
 
+  const tone = verdict && VERDICT_STYLE[verdict];
   return (
     <Paper
       variant="outlined"
+      className="etis-result"
       sx={{
-        p: 2,
-        borderRadius: 3,
+        '--scan-color': tone?.accent ?? 'var(--etis-accent)',
+        p: 4,
+        bgcolor: tone?.bg ?? 'background.paper',
+        borderColor: tone?.border ?? 'divider',
         height: '100%',
-        opacity: applicable ? 1 : 0.55,
         display: 'flex',
         flexDirection: 'column',
       }}
     >
-      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
-        {icon}
+      <Stack direction="row" spacing={3} sx={{ alignItems: 'center', mb: 1 }}>
+        <Box sx={{ display: 'grid', placeItems: 'center', p: 2, bgcolor: 'background.paper', borderRadius: 1, color: tone?.accent ?? 'primary.main' }}>{icon}</Box>
         <Typography variant="subtitle2" sx={{ fontWeight: 600, flexGrow: 1 }}>
           {title}
         </Typography>
@@ -72,15 +80,15 @@ export function EngineBreakdownCard({
 
       {applicable ? (
         <>
-          <Stack direction="row" spacing={1} sx={{ mb: 1.5, flexWrap: 'wrap' }}>
+          <Stack direction="row" useFlexGap spacing={2} sx={{ mt: 2, mb: 2, flexWrap: 'wrap' }}>
             {score !== undefined && (
-              <Chip size="small" variant="outlined" label={`${t('scan.score')}: ${score}/100`} />
+              <Chip size="small" variant="outlined" label={<>{t('scan.score')} · <bdi dir="ltr">{score}/100</bdi></>} />
             )}
             {contribution !== undefined && (
-              <Chip size="small" variant="outlined" label={`${t('scan.contribution')}: +${contribution}`} />
+              <Chip size="small" variant="outlined" label={<>{t('scan.contribution')} · <bdi dir="ltr">+{contribution}</bdi></>} />
             )}
             {timingMs !== undefined && timingMs !== null && (
-              <Chip size="small" variant="outlined" label={`${t('scan.timingLabel')}: ${timingMs}ms`} />
+              <Chip size="small" variant="outlined" label={<>{t('scan.timingLabel')} · {t('scan.engineTime', { value: timingMs })}</>} />
             )}
           </Stack>
           <Box sx={{ flexGrow: 1 }}>{children}</Box>

@@ -20,6 +20,9 @@ import {
 
 import { getMalwareHealth, getMalwareScan, getMalwareScans } from '../api/client';
 import type { MalwareFinding, MalwareHealth, MalwareScanDetail, MalwareScanSummary, YaraRuleMatch } from '../api/malwareTypes';
+import DetailIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { ScanSurface } from '../components/ScanSurface';
+import { detailStatus } from '../components/detailStatus';
 import { InertValue } from '../components/InertValue';
 import { SeverityChip, Timestamp } from '../components/SocChips';
 
@@ -69,12 +72,12 @@ export function FileScansPage() {
 
   return (
     <Box sx={{ py: 4, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h5" component="h1" gutterBottom>{t('nav.files')}</Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>{t('files.intro')}</Typography>
+      <Typography variant="h1" component="h1" gutterBottom>{t('nav.files')}</Typography>
+      <Typography color="text.secondary" sx={{ mb: 5 }}>{t('files.intro')}</Typography>
 
       {health && <HealthBanner health={health} />}
 
-      <Alert severity="info" variant="outlined" sx={{ mb: 2 }}>
+      <Alert severity="info" variant="outlined" sx={{ mb: 4 }}>
         {t('files.findHelp')}{' '}
         <InertValue value={FIND_COMMAND} />
       </Alert>
@@ -87,14 +90,14 @@ export function FileScansPage() {
       )}
 
       {!loading && !error && scans.length === 0 && (
-        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, textAlign: 'center' }}>
+        <Paper variant="outlined" sx={{ p: 5, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">{t('files.noScans')}</Typography>
           <Box sx={{ mt: 1 }}><InertValue value="python data/scripts/scan_files.py --path <folder> --recursive" /></Box>
         </Paper>
       )}
 
       {scans.length > 0 && (
-        <Paper variant="outlined" sx={{ borderRadius: 3, overflowX: 'auto' }}>
+        <Paper variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table size="small" aria-label={t('files.scans')}>
             <TableHead>
               <TableRow sx={{ bgcolor: 'action.hover' }}>
@@ -118,7 +121,7 @@ export function FileScansPage() {
               ))}
             </TableBody>
           </Table>
-          <Stack direction="row" sx={{ p: 1, gap: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Stack direction="row" sx={{ p: 3, gap: 2, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Typography variant="body2" color="text.secondary">
               {t('files.range', { from: offset + 1, to: offset + scans.length, total })}
             </Typography>
@@ -141,7 +144,7 @@ function HealthBanner({ health }: { health: MalwareHealth }) {
   const { t } = useTranslation();
   const severity = !health.available ? 'error' : health.reasons.length ? 'warning' : 'success';
   return (
-    <Alert severity={severity} sx={{ mb: 2 }}>
+    <Alert severity={severity} sx={{ mb: 4 }}>
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <span>{health.available ? t('files.health.available') : t('files.health.unavailable')}</span>
         {health.reasons.map((reason) => <Chip key={reason} size="small" variant="outlined" label={t(`files.health.${reason}`)} />)}
@@ -174,11 +177,21 @@ function ScanDetailPanel({ id }: { id: number }) {
   }, [id]);
 
   if (failed) return <Alert severity="error" sx={{ mt: 2 }}>{t('error.requestFailed')}</Alert>;
-  if (!detail) return <CircularProgress size={24} sx={{ mt: 2 }} aria-label={t('scan.loading')} />;
+  const { severity, status } = detailStatus(detail);
+  return (
+    <Box sx={{ mt: 8 }}>
+      <ScanSurface status={status} icon={<DetailIcon />} title={t('files.scanTitle', { id })}
+        statusLabel={severity ? t('scan.highestSeverity', { severity: t(`soc.severity.${severity}`) }) : undefined} />
+      {detail && <ScanDetail detail={detail} />}
+    </Box>
+  );
+}
+
+function ScanDetail({ detail }: { detail: MalwareScanDetail }) {
+  const { t } = useTranslation();
   const walk = detail.counts.walk ?? {};
   return (
-    <Paper variant="outlined" sx={{ mt: 3, p: 3, borderRadius: 3 }}>
-      <Typography variant="h6" gutterBottom>{t('files.scanTitle', { id: detail.id })}</Typography>
+    <Paper variant="outlined" sx={{ mt: 3, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }}>
       <Stack direction="row" useFlexGap sx={{ gap: 2, flexWrap: 'wrap', mb: 1 }}>
         <Field label={t('files.started')}><Timestamp value={detail.started_at} /></Field>
         <Field label={t('files.finished')}><Timestamp value={detail.finished_at} /></Field>
@@ -189,7 +202,7 @@ function ScanDetailPanel({ id }: { id: number }) {
           <Chip key={key} size="small" variant="outlined" label={`${t(`files.count.${key}`)}: ${walk[key] ?? 0}`} />
         ))}
       </Stack>
-      <Divider sx={{ mb: 2 }} />
+      <Divider sx={{ mb: 4 }} />
       {detail.findings.length === 0 && <Typography variant="body2" color="text.secondary">{t('files.noFindings')}</Typography>}
       <Stack sx={{ gap: 2 }}>
         {detail.findings.map((finding) => <FindingCard key={finding.id} finding={finding} />)}
@@ -211,7 +224,7 @@ function FindingCard({ finding }: { finding: MalwareFinding }) {
   const { t } = useTranslation();
   const model = finding.layers.model as MalwareFinding['layers']['model'] & { status?: string };
   return (
-    <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
+    <Paper variant="outlined" sx={{ p: 4, overflowWrap: 'anywhere' }}>
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center', mb: 1.5 }}>
         <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{t(`soc.kind.${finding.kind}`)}</Typography>
         <SeverityChip severity={finding.severity} />

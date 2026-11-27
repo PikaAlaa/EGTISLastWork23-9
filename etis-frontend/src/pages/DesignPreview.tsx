@@ -1,21 +1,14 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactElement, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CacheProvider } from '@emotion/react';
 import {
-  AppBar, Box, Button, Card, CardContent, Chip, Container, CssBaseline, FormControlLabel, IconButton,
-  Stack, Switch, Tab, Tabs, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Tooltip, Typography,
+  Box, Button, Card, CardContent, Chip, Container, CssBaseline, FormControlLabel,
+  Stack, Switch, ThemeProvider, ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material';
 import RadarIcon from '@mui/icons-material/Radar';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import LanIcon from '@mui/icons-material/Lan';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import TranslateIcon from '@mui/icons-material/Translate';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
@@ -33,8 +26,9 @@ import { createLtrCache, createRtlCache } from '../theme/rtlCache';
 import { cssVars, MOTION, TOKENS, TYPE_SCALE, type ColorMode, type VerdictKey } from '../theme/tokens';
 import { EtisBot } from '../components/EtisBot';
 import { BOT_STATES, botStateFor } from '../components/botState';
-import { ScanSurface, type ScanStatus } from '../components/ScanSurface';
-import '../design/motion.css';
+import { ScanSurface } from '../components/ScanSurface';
+import { ConsoleHeader } from '../components/ConsoleHeader';
+import { type PageKey } from '../navigation';
 
 /**
  * /design-preview — console redesign v1 review page (docs/design/console-redesign-v1.md).
@@ -46,11 +40,6 @@ const VERDICTS: VerdictKey[] = ['LOW', 'MEDIUM', 'HIGH'];
 const VERDICT_ICON: Record<VerdictKey, ReactNode> = {
   LOW: <GppGoodOutlinedIcon />, MEDIUM: <GppMaybeOutlinedIcon />, HIGH: <GppBadOutlinedIcon />,
 };
-const NAV: [string, ReactNode][] = [
-  ['scan', <RadarIcon key="i" />], ['threats', <DynamicFeedIcon key="i" />], ['stats', <InsightsOutlinedIcon key="i" />],
-  ['incidents', <ReportOutlinedIcon key="i" />], ['files', <FingerprintIcon key="i" />], ['network', <LanIcon key="i" />],
-  ['indicators', <ManageSearchIcon key="i" />], ['attack', <AccountTreeOutlinedIcon key="i" />],
-];
 
 function initialMode(): ColorMode {
   const q = new URLSearchParams(location.search).get('theme');
@@ -86,9 +75,9 @@ export default function DesignPreview() {
   const { t, i18n } = useTranslation();
   const [mode, setMode] = useState<ColorMode>(initialMode);
   const [reduced, setReduced] = useState(() => new URLSearchParams(location.search).get('motion') === 'reduced');
-  const [nav, setNav] = useState('scan');
+  const [nav, setNav] = useState<PageKey>('scan');
   const [target, setTarget] = useState<VerdictKey>('MEDIUM');
-  const [demo, setDemo] = useState<ScanStatus>('idle');
+  const [demo, setDemo] = useState<'idle' | 'scanning' | VerdictKey>('idle');
   const timer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -119,31 +108,8 @@ export default function DesignPreview() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box style={cssVars(mode) as CSSProperties} data-motion={reduced ? 'reduced' : 'full'} sx={{ minHeight: '100%', pb: 16 }}>
-          <AppBar position="static">
-            <Toolbar sx={{ gap: 2, flexWrap: 'wrap', py: 2 }}>
-              <Stack direction="row" spacing={2} sx={{ alignItems: 'center', flexGrow: 1, minWidth: 0 }}>
-                <EtisBot size={30} decorative />
-                <Box sx={{ minWidth: 0 }}>
-                  <Typography variant="h6" component="div" sx={{ lineHeight: 1.2 }}>{t('app.title')}</Typography>
-                  <Typography variant="caption" sx={{ opacity: 0.8, display: { xs: 'none', sm: 'block' } }}>{t('app.subtitle')}</Typography>
-                </Box>
-              </Stack>
-              <Tooltip title={t(mode === 'light' ? 'designPreview.controls.dark' : 'designPreview.controls.light')}>
-                <IconButton color="inherit" onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                  aria-label={t(mode === 'light' ? 'designPreview.controls.dark' : 'designPreview.controls.light')}>
-                  {mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-                </IconButton>
-              </Tooltip>
-              <Button color="inherit" startIcon={<TranslateIcon />} onClick={() => i18n.changeLanguage(isRtl ? 'en' : 'ar')}>
-                {isRtl ? 'English' : 'العربية'}
-              </Button>
-            </Toolbar>
-            <Tabs value={nav} onChange={(_, v: string) => setNav(v)} variant="scrollable" scrollButtons="auto"
-              aria-label={t('common.navigation')} textColor="inherit"
-              sx={{ px: 2, '& .MuiTabs-indicator': { bgcolor: tok.accentOnNavy, height: 3, borderRadius: 3 } }}>
-              {NAV.map(([key, icon]) => <Tab key={key} value={key} icon={icon as ReactElement} iconPosition="start" label={t(`nav.${key}`)} />)}
-            </Tabs>
-          </AppBar>
+          <ConsoleHeader page={nav} mode={mode} onNavigate={setNav}
+            onToggleMode={() => setMode(mode === 'light' ? 'dark' : 'light')} />
 
           <Container maxWidth="lg" component="main" className="etis-page-in" key={`${mode}-${direction}`} sx={{ pt: 10, px: { xs: 4, sm: 6 } }}>
             {/* Hero */}
@@ -313,7 +279,7 @@ export default function DesignPreview() {
 
               <Typography variant="overline" color="text.secondary" component="div" sx={{ mt: 6 }}>{t('designPreview.scan.frames')}</Typography>
               <Box sx={{ ...grid(2), mt: 3 }}>
-                {(['scanning', 'LOW', 'MEDIUM', 'HIGH'] as ScanStatus[]).map((s) => (
+                {(['scanning', 'LOW', 'MEDIUM', 'HIGH'] as const).map((s) => (
                   <ScanSurface key={s} status={s} icon={<LinkOutlinedIcon />} title={t('designPreview.scan.url')}>
                     <Typography variant="body2" sx={{ mt: 1, fontFamily: MONO, overflowWrap: 'anywhere' }} dir="ltr">example.com/account/verify</Typography>
                   </ScanSurface>
