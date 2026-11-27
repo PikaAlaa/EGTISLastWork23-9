@@ -17,10 +17,12 @@ from app.models import (FindingAttack, FindingDevice, FindingIndicator, FindingR
 
 MALWARE_ENGINE = 'malware.files'
 NETWORK_WINDOWS_ENGINE = 'network.windows'
-# (source kind, source name) of sightings that exist only because of a scan; None matches any name.
-SCAN_DERIVED_SIGHTINGS = (('scan', None), ('import', MALWARE_ENGINE), ('import', NETWORK_WINDOWS_ENGINE))
+HOST_ENGINE = 'host.windows'
 # Sightings of agent-submitted Findings (source kind `sensor`, design windows-agent-lan-v1 §7.3).
-AGENT_SENSOR_SIGHTINGS = (('sensor', 'host.windows'), ('sensor', MALWARE_ENGINE), ('sensor', NETWORK_WINDOWS_ENGINE))
+AGENT_SENSOR_SIGHTINGS = (('sensor', HOST_ENGINE), ('sensor', MALWARE_ENGINE), ('sensor', NETWORK_WINDOWS_ENGINE))
+# (source kind, source name) of sightings that exist only because of a scan, an import or an agent batch;
+# None matches any name. A hash-only indicator seen only through these is removed with its last Finding.
+SCAN_DERIVED_SIGHTINGS = (('scan', None), ('import', MALWARE_ENGINE), ('import', NETWORK_WINDOWS_ENGINE))     + AGENT_SENSOR_SIGHTINGS
 
 
 def derived_condition(derived=SCAN_DERIVED_SIGHTINGS):

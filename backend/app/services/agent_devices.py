@@ -34,7 +34,7 @@ from app.core.settings import settings
 from app.models import (AgentBatch, Device, DevicePairingToken, FindingDevice, FindingRecord, Incident)
 from app.services import agent_privacy
 from app.services.agent_schemas import (BATCH_SCHEMA, HEARTBEAT_SCHEMA, PAIR_SCHEMA, AgentRequestError)
-from app.services.finding_expiry import AGENT_SENSOR_SIGHTINGS, SCAN_DERIVED_SIGHTINGS, expire_findings
+from app.services.finding_expiry import expire_findings
 from app.services.findings import ACTIVE_STATUSES, AGENT_SOURCE_PREFIX, record_findings
 
 log = logging.getLogger(__name__)
@@ -370,8 +370,7 @@ def purge_findings(db, device_id: int, since: datetime, reason: str) -> dict:
     from_device = FindingRecord.source_ref.startswith(_agent_prefix(device), autoescape=True)
     window = or_(FindingRecord.observed_at >= cutoff, FindingRecord.source_ref.in_(refs)) if refs \
         else FindingRecord.observed_at >= cutoff
-    findings, indicators = expire_findings(db, finding_filter=from_device & window,
-                                           derived=SCAN_DERIVED_SIGHTINGS + AGENT_SENSOR_SIGHTINGS)
+    findings, indicators = expire_findings(db, finding_filter=from_device & window)
     for batch in batches:
         db.delete(batch)
     db.commit()

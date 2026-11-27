@@ -19,6 +19,9 @@ class Settings:
     # Network import-derived Findings and import records, shared by network.flows and network.windows
     # (design network-windows-v1 §0.1, §7).
     network_retention_days: int = int(os.getenv('ETIS_NETWORK_RETENTION_DAYS', '30'))
+    # host.windows Findings (design host-engine-v1 §7); also the window for agent-submitted host Findings
+    # (windows-agent-lan-v1 §7.3, owner decision Q2: the existing per-engine settings, no agent setting).
+    host_retention_days: int = int(os.getenv('ETIS_HOST_RETENTION_DAYS', '30'))
     blacklist_max_age_days: int = int(os.getenv('ETIS_BLACKLIST_MAX_AGE_DAYS', '30'))
     # LAN agent pairing bundle (design windows-agent-lan-v1 §4.1, §4.2, Q5): SHA-256 of the server's DER leaf
     # certificate and an optional next one for rotation. Not secrets; empty means not configured.
