@@ -88,6 +88,16 @@ Public redistribution: Not performed. Project policy: do not commit the `.evtx` 
 
 Stored only under ignored data/external/evtx-attack-samples/. Download only the commit pinned in data/evtx-attack-samples-lock.json with data/scripts/fetch_evtx_samples.py. It keeps only the 278 `.evtx` files, `LICENSE.GPL` and `README.md`, refuses unsafe paths and oversized members, and keeps the extraction only when exactly the pinned files are present with matching SHA-256. GitHub-generated archives are not guaranteed byte-stable, so the per-file hashes are the authority. The repository's scripts and its `evtx_data.csv` (an event-level dump of the samples) are not kept. These are public lab recordings of attack tools: an exposed development set, not evidence about Egyptian users' PCs.
 
+Also used by network.windows (design network-windows-v1 §3.2, §9 step 6, 2026-11-27) through path labels only: `evaluation/reports/2026-11-network-windows-v1/expected_detections.json` derives expected detections from the host engine's frozen path-only technique manifest and design §5; no sample was parsed for it. The copy in the main checkout's ignored folder was checked read-only on 2026-11-27 (all 280 pinned files match size and SHA-256; bytes hashed only, nothing written there). No new acquisition.
+
+### umudga
+
+Source: UMUDGA — University of Murcia Domain Generation Algorithm Dataset, Mendeley Data, DOI 10.17632/y8ph45msv8.1 (version 1, 24 February 2020); data paper in Data in Brief (2020), DOI 10.1016/j.dib.2020.105400. Candidate labelled DGA list for network.windows N5 (design §3.2, §11 S2).
+
+Licence/terms: the dataset page shows "MIT" (read 2026-11-27); the article itself is CC BY 4.0. The article describes the bundle as including DGA executables and source code, raw domain lists (TXT) and feature files (ARFF/CSV), plus one million "legitimate" domain names whose source and licence are not stated.
+
+Status: **not used: contains executables.** The bundle includes DGA executables, so it is not downloaded (owner decision of 2026-11-27). Nothing was fetched. Consequence: N5 (DGA) has no labelled sample and, like the other rules, ships `unvalidated_on_samples`, a stated limitation (`evaluation/reports/2026-11-network-windows-v1/README.md`).
+
 ### ember2024
 
 Source: [joyce8/EMBER2024 on Hugging Face, revision 3d23efef7c0f0b702c5024400cfff4c3744a3832 (2025-08-22)](https://huggingface.co/datasets/joyce8/EMBER2024/tree/3d23efef7c0f0b702c5024400cfff4c3744a3832): only `Dot_Net_train.zip`, `Win64_train.zip` and `Win32_train.zip` (pre-extracted features and labels; no binaries). Citation: Joyce et al., "EMBER2024 - A Benchmark Dataset for Holistic Evaluation of Malware Classifiers", KDD 2025, DOI [10.1145/3711896.3737431](https://doi.org/10.1145/3711896.3737431).

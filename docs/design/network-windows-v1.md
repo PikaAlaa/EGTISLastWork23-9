@@ -192,8 +192,8 @@ sources on (§1.1), waits, then exports. The span actually covered is recorded.
 | Source | Use | Licence | Status |
 | --- | --- | --- | --- |
 | Invented logs generated at test time (DNS EVTX through the host engine's test-only EVTX writer, firewall text, Sysmon 3/22) | Positive and negative tests at every constant of N1–N9 | ETIS's own | Always |
-| EVTX-ATTACK-SAMPLES (already pinned for the host engine) | Files that contain Sysmon 3 or 22 events (N1–N9 where applicable) | GPL-3.0 (already recorded in `docs/data-licences.md`) | **To verify (§11 S1):** which files contain events 3/22 and what they show |
-| A public labelled DGA domain list (candidate: UMUDGA on Zenodo) | Domain strings only, as inert input to N5 | **To verify (§11 S2)** | Candidate; used only if its licence allows |
+| EVTX-ATTACK-SAMPLES (already pinned for the host engine) | Files that contain Sysmon 3 or 22 events (N1–N9 where applicable) | GPL-3.0 (already recorded in `docs/data-licences.md`) | **Used through path labels (step 6, 27 November 2026):** no sample carries a §5 gate technique; see §11 S1 |
+| A public labelled DGA domain list (candidate: UMUDGA, on Mendeley Data, not Zenodo) | Domain strings only, as inert input to N5 | MIT on the dataset page (§11 S2) | **Not used: contains executables** (owner decision, 27 November 2026) |
 | A public DNS-tunnelling sample in Windows log form | N8 | **To verify (§11 S3)**; public tunnelling samples are usually PCAP, which v1 does not read | Probably none; N8 then ships `unvalidated_on_samples` |
 | Blocklist hits | N1/N2 exact matching is proven by unit tests with invented lists; no live malicious traffic is ever generated or replayed | — | Unit tests only |
 
@@ -527,7 +527,7 @@ owner's explicit approval first. All steps run on Windows; none needs Linux.
 | 3 | `feat: device pseudonyms and network coverage report` (reuses the host key) |
 | 4 | `feat: network-lite detections N1-N9` (§8.3; invented records) |
 | 5 | `chore: network blocklists fetch, lock and licence entries` (Feodo Tracker and SSL Blacklist only; formats per §11 L1–L2). **Done 27 November 2026 with Feodo Tracker alone** (§2.2 note) |
-| 6 | `chore: network sample sources and expected-detection manifest` (only sources §11 S1–S3 confirm) |
+| 6 | `chore: network sample sources and expected-detection manifest` (only sources §11 S1–S3 confirm). **Done 27 November 2026:** `evaluation/reports/2026-11-network-windows-v1/expected_detections.json`, no rule has an expected sample |
 | 7 | `docs: freeze network-windows selection rule` (§4 with SHA-256, before any measurement) |
 | 8 | `chore: owner-PC benign network aggregates` (owner turns sources on, waits, exports; aggregates only) |
 | 9 | `feat: network-windows gates and shipped-item manifest` |
@@ -572,9 +572,9 @@ The sealed test (§4.9) is not a step of this plan.
 | L3 | URLhaus: host-list format and matching unit (terms: not-for-profit, §3.1–3.2) | https://urlhaus.abuse.ch/api/ | only if a later amendment proposes it |
 | L4 | ThreatFox and any other feed: terms | the feed's own terms page | only if proposed |
 | L5 | Local Tranco snapshot: list date and licence (recorded in `docs/data-licences.md` as not established) | https://tranco-list.eu/ and the repository entry | 4 |
-| S1 | EVTX-ATTACK-SAMPLES files containing Sysmon 3 or 22 events and what they show | https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES (already pinned for the host engine) | 6 |
-| S2 | UMUDGA (or another labelled DGA list): licence, content, size | its Zenodo record | 6 |
-| S3 | Any DNS-tunnelling sample available as Windows logs, with licence | to search; none known | 6 |
+| S1 | **Done (27 November 2026), by the host method (host-engine-v1 §3.2, §4.7 item 3):** expected detections come from the host engine's frozen path-only technique manifest and the §5 map (gate techniques N5 `T1568.002`, N7 `T1571`, N8 `T1071.004`; exact match); no sample was parsed. No sample carries a gate technique, so **no rule has an expected sample**; 9 samples carry §5 "not mapped" techniques (`T1572`, `T1090.001`, `T1105`), listed without obligation. All 280 pinned files verified read-only (size, SHA-256). Which files contain events 3/22 was deliberately not inspected. | `evaluation/reports/2026-11-network-windows-v1/` | 6 |
+| S2 | **Verified (27 November 2026):** hosted on Mendeley Data (DOI 10.17632/y8ph45msv8.1), not Zenodo; licence shown "MIT"; over 30 million domains of 50 malware variants as TXT lists, ARFF/CSV features, and DGA executables and source. **Not used: contains executables** (owner decision). | https://data.mendeley.com/datasets/y8ph45msv8/1 and the Data in Brief article (PMC7090278) | 6 |
+| S3 | **Searched (27 November 2026): none found.** Public DNS-tunnelling datasets (for example CTU DNS-Threats, Mendeley tunnelling query sets) are PCAP or CSV, which v1 does not read. N8 has no sample. | web search | 6 |
 
 ## Sources
 

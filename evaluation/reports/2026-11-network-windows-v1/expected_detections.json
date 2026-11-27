@@ -1,0 +1,214 @@
+{
+ "description": "Expected detections of network.windows rules per EVTX-ATTACK-SAMPLES file, from path-derived ATT&CK techniques (frozen host manifest) and the rule-to-technique map of design §5 only. Written before any detection was run on any sample. Exposed development evidence.",
+ "design": "docs/design/network-windows-v1.md §3.2, §4.6 gate 2, §5",
+ "method": "host-engine-v1 §3.2 and §4.7 item 3 (exact technique match), unchanged",
+ "source": "sbousseaden/EVTX-ATTACK-SAMPLES",
+ "commit": "4ceed2f4706daf601c212a8f91c113dd85349a2c",
+ "attack_version": "20.0",
+ "split_rule": "last hex digit of the content SHA-256: even -> development, odd -> report",
+ "inputs": {
+  "evaluation/reports/2026-11-host-v1/technique_manifest.json": {
+   "sha256_lf": "c712a26d7944c201fbcef0028d234acfad712b89bcebc6c45783d535311f4c74"
+  },
+  "data/evtx-attack-samples-lock.json": {
+   "sha256_lf": "52f72bb1fe3e7df7f67b4435c1db79d593935ed243f7bfbbc36b73491d1c4d4e"
+  }
+ },
+ "sources": {
+  "S1": {
+   "name": "EVTX-ATTACK-SAMPLES",
+   "status": "used",
+   "basis": "pinned commit 4ceed2f4706daf601c212a8f91c113dd85349a2c, GPL-3.0, files stay under ignored data/external/; per-file techniques from the frozen host path-only manifest"
+  },
+  "S2": {
+   "name": "UMUDGA (Mendeley Data 10.17632/y8ph45msv8.1)",
+   "status": "not_used",
+   "basis": "not used: contains executables (the bundle includes DGA executables); owner decision of 2026-11-27. Licence shown on the dataset page: MIT. Not downloaded."
+  },
+  "S3": {
+   "name": "DNS-tunnelling sample in Windows log form",
+   "status": "none_found",
+   "basis": "searched 2026-11-27: public DNS-tunnelling datasets found are PCAP/CSV, which v1 does not read"
+  }
+ },
+ "counts": {
+  "samples": 277,
+  "labelled": 243,
+  "development": 136,
+  "report": 141,
+  "rules_with_expected_development_files": 0,
+  "samples_with_network_techniques_not_mapped": 9
+ },
+ "rules": {
+  "N1": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "list hits are proven by unit tests with invented lists only; no live malicious traffic (§3.2)"
+  },
+  "N2": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "inactive",
+   "reason": "inactive in v1: no list provides hosts (§2.1, §10 decision 1)"
+  },
+  "N3": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "design §5 maps no ATT&CK technique to this rule, so no sample label can oblige it"
+  },
+  "N4": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "design §5 maps no ATT&CK technique to this rule, so no sample label can oblige it"
+  },
+  "N5": {
+   "gate_techniques": [
+    "T1568.002"
+   ],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "no development-half sample carries a gate technique"
+  },
+  "N6": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "design §5 maps no ATT&CK technique to this rule, so no sample label can oblige it"
+  },
+  "N7": {
+   "gate_techniques": [
+    "T1571"
+   ],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "no development-half sample carries a gate technique"
+  },
+  "N8": {
+   "gate_techniques": [
+    "T1071.004"
+   ],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "no development-half sample carries a gate technique"
+  },
+  "N9": {
+   "gate_techniques": [],
+   "expected_development": [],
+   "expected_report": [],
+   "gate_2": "invented_tests_then_unvalidated_on_samples",
+   "reason": "each sample is its own import with baseline: none, so N9 emits nothing on samples (§4.3)"
+  }
+ },
+ "not_mapped_network_techniques_seen": {
+  "note": "Listed for transparency only; design §5 maps none of these to any rule, so they create no obligation.",
+  "samples": [
+   {
+    "sha256": "0269326ab0e308192181a470bd588550d524e7cffd13a60373b29b24c32b1ead",
+    "paths": [
+     "Execution/windows_bits_4_59_60_lolbas desktopimgdownldr.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1105"
+    ]
+   },
+   {
+    "sha256": "1d1eb55d1b7c785db26e19b0d50b9eb4a7928671e4edeb82ea5182cb834c874a",
+    "paths": [
+     "Command and Control/DE_sysmon-3-rdp-tun.evtx"
+    ],
+    "split": "development",
+    "techniques": [
+     "T1572"
+    ]
+   },
+   {
+    "sha256": "25853cab2d474dd52159d45e8c7b139c27b55767be558447ccbc6f494daec786",
+    "paths": [
+     "Command and Control/DE_RDP_Tunnel_5156.evtx"
+    ],
+    "split": "development",
+    "techniques": [
+     "T1572"
+    ]
+   },
+   {
+    "sha256": "2668d3d7f0505ad453affcb9e2b7206617cf1ec1e5a212bd8f191eb8523c0ab1",
+    "paths": [
+     "Command and Control/DE_RDP_Tunneling_4624.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1572"
+    ]
+   },
+   {
+    "sha256": "59c28ff11e4b9b329ee6b0859a5514f772913e95ef9ba8f94c46e02c4d78be17",
+    "paths": [
+     "Credential Access/sysmon_3_10_Invoke-Mimikatz_hosted_Github.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1105"
+    ]
+   },
+   {
+    "sha256": "9ca0c561593fbd30956437d566e51e5e913829ba2aec30c0d867d739d4b3f3f8",
+    "paths": [
+     "Defense Evasion/de_portforward_netsh_rdp_sysmon_13_1.evtx"
+    ],
+    "split": "development",
+    "techniques": [
+     "T1090.001"
+    ]
+   },
+   {
+    "sha256": "b9d6d1a3af56501120d1d6b4dbe3d1fc600d88844f255208b4eff0f1e250b00f",
+    "paths": [
+     "Command and Control/DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1572"
+    ]
+   },
+   {
+    "sha256": "d7e75b35f9db32c91dc0d066ee935b382253fb56659f19c05833c964f8217469",
+    "paths": [
+     "Command and Control/tunna_iis_rdp_smb_tunneling_sysmon_3.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1572"
+    ]
+   },
+   {
+    "sha256": "f63ea09964ad1b6cc1d1dab6d8203a96f4eae71dd4cddc5408719afdc6e861af",
+    "paths": [
+     "Execution/sysmon_11_1_lolbas_downldr_desktopimgdownldr.evtx"
+    ],
+    "split": "report",
+    "techniques": [
+     "T1105"
+    ]
+   }
+  ]
+ },
+ "limitations": [
+  "No rule has an expected development-half sample: every shipped rule passes gate 2 only through its invented tests and ships unvalidated_on_samples, with confidence capped at single_signal.",
+  "N5 (DGA) would be validated by a labelled DGA list; UMUDGA is not used because it contains executables.",
+  "N8 (DNS tunnelling) has no public sample in Windows log form.",
+  "Labels are coarse: a name says what the lab exercised, not that every event is malicious."
+ ]
+}
