@@ -245,3 +245,119 @@ def test_reopen_requires_note(seeded, incident_id):
 def test_unknown_incident(seeded):
     with pytest.raises(LookupError):
         transition_incident(seeded, 999, 'investigating')
+
+
+# ---------------------------------------------------------------- device attribution (design core-v2 §3.2, step 7b)
+
+import json  # noqa: E402
+import logging  # noqa: E402
+
+from app.core import device_names as dn  # noqa: E402
+from app.engines.host.pseudonyms import Pseudonymizer  # noqa: E402
+from app.models import FindingDevice  # noqa: E402
+
+HOST_KEY = bytes(range(40, 72))
+ENDPOINT_PC = Pseudonymizer(HOST_KEY).host_ref('invented-pc')
+ENDPOINT_OTHER = Pseudonymizer(HOST_KEY).host_ref('other-pc')
+ENDPOINT_ACCOUNT = Pseudonymizer(HOST_KEY).account_ref(name='invented-user', domain='invented')
+
+
+def device_finding(engine='network.windows', domain='network', kind='beaconing', details=None, refs=(),
+                   source_ref='network_windows_imports:1', at=T0):
+    return Finding.model_validate(dict(
+        engine={'name': engine, 'version': 'test'}, domain=domain, kind=kind, severity='high',
+        confidence='corroborated', indicators=list(refs), evidence={'reasons': ['periodic_beaconing'],
+                                                                   'details': details or {}},
+        observed_at=at, created_at=at, source={'kind': 'import', 'ref': source_ref}))
+
+
+def stored_rows(db):
+    dump = [json.dumps(r.evidence) for r in db.query(FindingRecord)]
+    dump += [f'{r.finding_id}|{r.device_ref}|{r.attributed_by}' for r in db.query(FindingDevice)]
+    return '\n'.join(dump)
+
+
+def test_device_network_windows_ref_stored_as_srv_in_details_and_finding_devices(seeded):
+    rec, = record(seeded, device_finding(details={'detection': 'N6', 'device_ref': ENDPOINT_PC}))
+    stored = dn.wrap_ref(ENDPOINT_PC, 'device', dn.load_server_key())
+    assert rec.evidence['details']['device_ref'] == stored and rec.evidence['details']['detection'] == 'N6'
+    row = seeded.get(FindingDevice, rec.id)
+    assert (row.device_ref, row.attributed_by) == (stored, 'engine_details')
+    assert 'hmac:' not in stored_rows(seeded)
+
+
+def test_device_account_ref_wrapped_and_well_known_sid_kept(seeded):
+    sysmon = device_finding(details={'device_ref': ENDPOINT_PC, 'account_ref': ENDPOINT_ACCOUNT})
+    system = device_finding(details={'device_ref': ENDPOINT_PC, 'account_ref': 'sid:S-1-5-18'})
+    first, second = record(seeded, sysmon, system)
+    key = dn.load_server_key()
+    assert first.evidence['details']['account_ref'] == dn.wrap_ref(ENDPOINT_ACCOUNT, 'account', key)
+    assert first.evidence['details']['account_ref'] != dn.wrap_ref(ENDPOINT_ACCOUNT, 'device', key)
+    assert second.evidence['details']['account_ref'] == 'sid:S-1-5-18'
+    assert 'hmac:' not in stored_rows(seeded)
+
+
+@pytest.mark.parametrize('field', ['device_ref', 'host_ref', 'account_ref'])
+def test_device_srv_ref_arriving_is_rejected(seeded, field, caplog):
+    bad = device_finding(details={field: 'srv:' + '1' * 32})
+    with pytest.raises(dn.RefError, match='^ref_prefix_invalid$'):
+        record_findings(seeded, [bad])
+    seeded.rollback()
+    assert seeded.query(FindingRecord).count() == 0 and seeded.query(FindingDevice).count() == 0
+
+
+def test_device_conflicting_device_and_host_refs_rejected_without_values(seeded, caplog):
+    caplog.set_level(logging.DEBUG)
+    good = device_finding(details={'device_ref': ENDPOINT_PC})
+    bad = device_finding(details={'device_ref': ENDPOINT_PC, 'host_ref': ENDPOINT_OTHER})
+    with pytest.raises(dn.RefError, match='^device_ref_conflict$'):
+        record_findings(seeded, [good, bad])
+    seeded.rollback()
+    assert seeded.query(FindingRecord).count() == 0, 'checked before anything is written'
+    assert ENDPOINT_PC not in caplog.text and ENDPOINT_OTHER not in caplog.text
+    assert any(getattr(r, 'reason', None) == 'device_ref_conflict' for r in caplog.records)
+
+
+def test_device_missing_server_key_stores_no_device_or_account_ref(seeded, monkeypatch, caplog):
+    caplog.set_level(logging.DEBUG)
+    monkeypatch.setattr('app.services.findings.server_key_or_none', lambda: None)
+    rec, = record(seeded, device_finding(details={'device_ref': ENDPOINT_PC, 'account_ref': ENDPOINT_ACCOUNT,
+                                                  'detection': 'N6'}))
+    assert rec.evidence['details'] == {'detection': 'N6'}
+    assert seeded.query(FindingDevice).count() == 0 and 'hmac:' not in stored_rows(seeded)
+    assert caplog.text.count('server_ref_key_missing') == 1
+
+
+def test_device_agent_shaped_malware_finding_attributed_as_agent(seeded):
+    agent = dn.attach_device_ref(device_finding(engine='malware.files', domain='malware', kind='known_bad_hash',
+                                                source_ref='agent_devices:3:batch-1'), HOST_KEY, 'INVENTED-PC')
+    rec, = record(seeded, agent)
+    assert seeded.get(FindingDevice, rec.id).attributed_by == 'agent'
+
+
+def test_device_one_pc_one_srv_ref_across_standalone_and_agent_paths(seeded):
+    standalone = device_finding(details={'device_ref': Pseudonymizer(HOST_KEY).host_ref(
+        dn.local_device_name('INVENTED-PC.corp.example'))})
+    agent = dn.attach_device_ref(device_finding(engine='malware.files', domain='malware', kind='known_bad_hash',
+                                                source_ref='agent_devices:3:batch-1'), HOST_KEY, ' invented-pc ')
+    host_shaped = device_finding(engine='host.windows', domain='host', kind='persistence',
+                                 details={'host_ref': Pseudonymizer(HOST_KEY).host_ref(dn.local_device_name('Invented-PC'))})
+    record(seeded, standalone, agent, host_shaped)
+    assert len({r.device_ref for r in seeded.query(FindingDevice)}) == 1
+    assert seeded.query(FindingDevice).count() == 3
+
+
+def test_device_refs_never_create_or_join_incidents(seeded):
+    # Same device, no shared indicator: two separate incidents (pseudonyms never pivot).
+    a = device_finding(details={'device_ref': ENDPOINT_PC}, refs=[ref('ip', '203.0.113.10', 'remote_endpoint')])
+    b = device_finding(details={'device_ref': ENDPOINT_PC}, refs=[ref('ip', '198.51.100.20', 'remote_endpoint')])
+    first, second = record(seeded, a, b)
+    assert first.incident_id and second.incident_id and first.incident_id != second.incident_id
+    # A device ref alone (no indicator) opens no incident.
+    lone, = record(seeded, device_finding(details={'device_ref': ENDPOINT_PC}))
+    assert lone.incident_id is None
+
+
+def test_device_phishing_findings_without_refs_are_unchanged(seeded):
+    rec, = record(seeded, finding(*link('https://lure.example/a')))
+    assert rec.evidence['details'] == {'verdict': 'HIGH'} and seeded.query(FindingDevice).count() == 0

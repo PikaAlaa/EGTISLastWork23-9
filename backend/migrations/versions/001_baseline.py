@@ -7,7 +7,9 @@ revision='001_baseline';down_revision=None;branch_labels=None;depends_on=None
 # Core v1 tables are created only by their own migrations (004+). Creating them here from
 # live models would, on PostgreSQL, reference scan_requests before this baseline creates it.
 CORE_V1_TABLES={'indicators','indicator_sightings','correlation_stoplist','findings','finding_indicators',
-    'finding_attack','incidents','incident_indicators','incident_links','incident_events','campaigns','attack_techniques'}
+    'finding_attack','incidents','incident_indicators','incident_links','incident_events','campaigns','attack_techniques',
+    # Core v2 (docs/design/core-v2.md section 3.2): created only by 009_finding_devices, after findings.
+    'finding_devices'}
 def upgrade():
     bind=op.get_bind()
     for table in Base.metadata.sorted_tables:

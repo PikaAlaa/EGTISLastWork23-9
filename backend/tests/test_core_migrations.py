@@ -17,7 +17,8 @@ PRE_CORE_HEAD = '003_feed_observations'
 CORE_TABLES = {'004_indicators': ['indicators', 'indicator_sightings', 'correlation_stoplist'],
                '005_findings_incidents': ['campaigns', 'incidents', 'findings', 'finding_indicators', 'finding_attack',
                                           'incident_indicators', 'incident_links', 'incident_events'],
-               '006_attack_catalogue': ['attack_techniques']}
+               '006_attack_catalogue': ['attack_techniques'],
+               '009_finding_devices': ['finding_devices']}
 ALL_CORE = [t for tables in CORE_TABLES.values() for t in tables]
 LEGACY_TABLES = ['blacklist_entries', 'feed_observations', 'feed_snapshots', 'feed_updates', 'scan_requests',
                  'scan_results', 'community_reports', 'egyptian_brands', 'brand_domains']
@@ -120,3 +121,26 @@ def test_preexisting_table_with_wrong_columns_is_refused(tmp_path):
     with pytest.raises(subprocess.CalledProcessError) as error:
         migrate(db, 'upgrade', 'head')
     assert 'indicators_exists_with_unexpected_columns' in error.value.stderr
+
+
+def test_009_finding_devices_fresh_and_upgrade_from_008(tmp_path):
+    """Core v2 §3.2: 009 adds only finding_devices; fresh and upgraded schemas are identical."""
+    fresh, upgraded = tmp_path / 'fresh.db', tmp_path / 'from008.db'
+    migrate(fresh, 'upgrade', 'head')
+    migrate(upgraded, 'upgrade', '008_network_windows_imports')
+    assert 'finding_devices' not in tables(upgraded), 'baseline and 004-008 must not create finding_devices'
+    before = {t: columns('sqlite:///' + upgraded.as_posix(), t) for t in tables(upgraded)}
+    migrate(upgraded, 'upgrade', 'head')
+    migrate(upgraded, 'upgrade', 'head')  # idempotent re-run
+    metadata_engine = create_engine('sqlite://')
+    Base.metadata.create_all(metadata_engine)
+    expected = columns(metadata_engine, 'finding_devices')
+    assert expected == [('attributed_by', 'VARCHAR(32)', False), ('device_ref', 'VARCHAR(37)', False),
+                        ('finding_id', 'VARCHAR(36)', False)]
+    assert columns('sqlite:///' + fresh.as_posix(), 'finding_devices') == expected
+    assert columns('sqlite:///' + upgraded.as_posix(), 'finding_devices') == expected
+    after = {t: columns('sqlite:///' + upgraded.as_posix(), t) for t in before}
+    assert after == before, 'no existing table changes'
+    engine = create_engine('sqlite:///' + upgraded.as_posix())
+    assert {i['name'] for i in inspect(engine).get_indexes('finding_devices')} == {'ix_finding_devices_device_ref'}
+    engine.dispose()

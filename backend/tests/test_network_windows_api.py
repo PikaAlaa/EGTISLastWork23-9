@@ -73,7 +73,8 @@ def test_import_detail_carries_findings_attribution_and_incident_links(client, s
     assert n1['lists'] == [{'list': 'feodo_tracker', 'title': 'abuse.ch Feodo Tracker IP blocklist',
                             'version': n1['lists'][0]['version'], 'licence': 'CC0 (abuse.ch terms of use §3.4)',
                             'link': 'https://feodotracker.abuse.ch/blocklist/'}]
-    assert n1['device_ref'].startswith('hmac:') and n1['attack'] == [] and n1['values'] == {}
+    # Stored refs are always the server-wrapped srv: form (design core-v2 §3.2).
+    assert n1['device_ref'].startswith('srv:') and n1['attack'] == [] and n1['values'] == {}
     assert (n3['severity'], n3['detection']) == ('medium', 'N3') and n3['incident_id'] is not None
     assert client.get(f"/incidents/{n3['incident_id']}").status_code == 200
     assert client.get('/network/windows/imports/999').status_code == 404
