@@ -454,7 +454,8 @@
       "blocklists_missing": "قوائم الحظر غير موجودة",
       "blocklists_stale": "قوائم الحظر أقدم من 7 أيام",
       "indicator_store_empty": "مخزن المؤشرات فارغ",
-      "url_model_unavailable": "نموذج الروابط غير متاح (تم تخطي N4)"
+      "url_model_unavailable": "نموذج الروابط غير متاح (تم تخطي N4)",
+      "blocklist_source_stale": "لم يُحدِّث الناشر مصدر قائمة الحظر منذ أكثر من 30 يومًا (للعلم فقط)"
     },
     "rulesDetail": {
       "shipped_manifest_missing": "لا يوجد بيان قواعد معتمدة بعد (القاعدة لم تُجمَّد ولم تُقَس)",

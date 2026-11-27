@@ -446,7 +446,8 @@
       "blocklists_missing": "Blocklists missing",
       "blocklists_stale": "Blocklists older than 7 days",
       "indicator_store_empty": "Indicator store empty",
-      "url_model_unavailable": "URL model unavailable (N4 skipped)"
+      "url_model_unavailable": "URL model unavailable (N4 skipped)",
+      "blocklist_source_stale": "Blocklist source not updated by its publisher for over 30 days (information only)"
     },
     "rulesDetail": {
       "shipped_manifest_missing": "No shipped-item manifest yet (the rule is not frozen and measured)",

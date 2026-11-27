@@ -117,9 +117,17 @@ def test_n1_uses_the_loaded_lists(tmp_path):
     assert alert.reasons == {'blocklist_ip_connection'}
 
 
-def test_repository_ships_no_lock_or_lists_and_ignores_the_folder():
-    assert not (ROOT / 'data' / 'network-blocklists-lock.json').exists()
+def test_repository_ships_a_feodo_only_lock_and_ignores_the_list_folder():
+    # Design §2.2 note of 27 November 2026: Feodo Tracker alone; the SSL Blacklist IP list is deprecated.
     assert blocklists.LOCK == ROOT / 'data' / 'network-blocklists-lock.json'
+    specs, lock_sha = read_lock(blocklists.LOCK, ROOT)
+    assert [s.name for s in specs] == ['feodo_tracker'] and len(lock_sha) == 64
+    (feodo,) = specs
+    assert feodo.url == 'https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt'
+    assert feodo.format == 'ip_lines' and feodo.list_last_updated is not None
+    lock = json.loads(blocklists.LOCK.read_text(encoding='utf-8'))
+    assert lock['destination'] == 'data/external/network-blocklists' and 'CC0' in lock['licence']
+    assert set(lock['not_fetched']) == {'ssl_blacklist'}
     assert 'data/external/network-blocklists/' in (ROOT / '.gitignore').read_text(encoding='utf-8').splitlines()
     text = Path(blocklists.__file__).read_text(encoding='utf-8')
     for forbidden in ('urllib', 'requests', 'http.client', 'socket', 'subprocess', 'urlopen'):
