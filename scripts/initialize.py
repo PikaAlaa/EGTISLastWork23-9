@@ -1,5 +1,5 @@
 """Initialize only the configured local project database; never connect to a previous checkout implicitly."""
-import argparse,json,re,secrets,subprocess,sys,os
+import argparse,json,re,secrets,subprocess,sys,os,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PSEUDONYM_KEYS=('ETIS_HOST_PSEUDONYM_KEY','ETIS_MALWARE_PSEUDONYM_KEY')
@@ -16,6 +16,12 @@ def ensure_env_secrets(env):
             content=content.rstrip('\n')+'\n'+name+'='+secrets.token_hex(32)+'\n'
         elif not key.group(1).strip():
             content=content[:key.start()]+name+'='+secrets.token_hex(32)+content[key.end():]
+    # Per-installation namespace for deterministic STIX ids (docs/design/core-v2.md section 1.6). Never replaced.
+    stix=re.search(r'^ETIS_STIX_NAMESPACE=(.*)$',content,re.M)
+    if stix is None:
+        content=content.rstrip('\n')+'\nETIS_STIX_NAMESPACE='+str(uuid.uuid4())+'\n'
+    elif not stix.group(1).strip():
+        content=content[:stix.start()]+'ETIS_STIX_NAMESPACE='+str(uuid.uuid4())+content[stix.end():]
     env.write_text(content,encoding='utf-8')
 def initialize(seed=False):
     env=ROOT/'.env'

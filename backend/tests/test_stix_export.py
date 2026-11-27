@@ -259,3 +259,438 @@ def test_objects_empty_lists_are_reported():
 
 def test_objects_builders_are_deterministic():
     assert json.dumps(sample_objects(), sort_keys=True) == json.dumps(sample_objects(), sort_keys=True)
+
+# ================================================================ step 4: offline export command
+# Selectors: command, privacy, scope, licence. Every incident, feed row, list and value is invented.
+import hashlib
+import importlib.util
+import io
+import json
+import socket
+import uuid
+from datetime import date, datetime
+from pathlib import Path
+
+import pytest
+from sqlalchemy.orm import sessionmaker
+
+from app.core.indicators import normalize
+from app.core.url_utils import url_hash
+from app.engines.network_windows import blocklists
+from app.models import (AttackTechnique, BlacklistEntry, CommunityReport, FeedObservation, FeedSnapshot,
+                        FindingAttack, FindingIndicator, FindingRecord, Incident, IncidentEvent, Indicator,
+                        IndicatorSighting)
+from app.services import stix_export as sx
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _load(name, relative):
+    spec = importlib.util.spec_from_file_location(name, ROOT / relative)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+command = _load('etis_export_stix', 'data/scripts/export_stix.py')
+initialize = _load('etis_initialize_stix', 'scripts/initialize.py')
+
+CMD_NS = '7d3c1b2a-4e5f-4a6b-8c7d-9e0f1a2b3c4d'
+NOW = datetime(2026, 11, 28, 12, 0, 0)
+CMD_T0 = datetime(2026, 11, 20, 9, 0, 0)
+MARK_FEED = 'marker-openphish-5521'
+MARK_NOTE = 'marker-analyst-note-5521'
+MARK_DETAIL = 'marker-evidence-detail-5521'
+MARK_PSEUDO = 'hmac:' + 'ab' * 16
+C2 = '203.0.113.66'
+UNLISTED_IP = '198.51.100.9'
+SHARED = {
+    'analyst_domain': ('domain', 'analyst-own.example', [('feed', 'manual')]),
+    'analyst_url': ('url', 'https://own-investigation.example/kit', [('analyst', 'own_investigation')]),
+    'declared_openphish': ('url', 'https://declared-op.example/x', [('analyst', 'openphish')]),
+    'domain_overlap': ('domain', 'overlap-domain.example', [('feed', 'manual')]),
+    'observation_overlap': ('url', 'https://observed-op.example/login', [('feed', 'manual')]),
+    'snapshot_overlap': ('url', 'https://snapshot-pt.example/login', [('feed', 'manual')]),
+    'mixed': ('url', 'https://mixed.example/a', [('feed', 'manual'), ('feed', 'openphish')]),
+    'openphish_only': ('url', f'https://{MARK_FEED}.example/a', [('feed', 'openphish')]),
+    'phishtank_only': ('domain', 'phishtank-only.example', [('feed', 'phishtank')]),
+    'community': ('domain', 'community-report.example', [('community', 'community_reports')]),
+    'analyst_phone': ('phone', '+201000000001', [('analyst', 'own_investigation')]),
+}
+
+
+def sessions(db):
+    return sessionmaker(bind=db.get_bind(), expire_on_commit=False)
+
+
+def env_file(tmp_path, namespace=CMD_NS):
+    path = tmp_path / '.env'
+    path.write_text(f'ETIS_STIX_NAMESPACE={namespace}\n', encoding='utf-8')
+    return path
+
+
+def add_indicator(db, kind, value, sightings, *, plaintext=True, hash_algo=None):
+    n = normalize(kind, value, hash_algo)
+    row = Indicator(type=n.type, value_hash=n.value_hash, value=n.value if plaintext else None, hash_algo=n.hash_algo,
+                    first_seen=CMD_T0, last_seen=CMD_T0)
+    db.add(row)
+    db.flush()
+    for source_kind, source_name in sightings:
+        ref = None
+        if source_kind == 'community':
+            report = CommunityReport(reported_value=value, status='confirmed', reviewed_at=CMD_T0)
+            db.add(report)
+            db.flush()
+            ref = f'community_reports:{report.id}'
+        db.add(IndicatorSighting(indicator_id=row.id, source_kind=source_kind, source_name=source_name,
+                                 first_seen=CMD_T0, last_seen=CMD_T0, active=True, ref=ref))
+    return row
+
+
+def add_finding(db, incident, indicators, *, engine='phishing.analyze', kind='url_phishing', reasons=('blacklist_exact',),
+                details=None, attack=()):
+    finding = FindingRecord(id=str(uuid.uuid4()), schema_version='finding-v1', engine_name=engine,
+                            engine_version='test-v1', domain=incident.domain, kind=kind, severity='high',
+                            confidence='corroborated', evidence={'reasons': list(reasons), 'details': details or {}},
+                            observed_at=CMD_T0, created_at=CMD_T0, source_kind='import', source_ref='test:1',
+                            incident_id=incident.id)
+    db.add(finding)
+    db.flush()
+    for row in indicators:
+        db.add(FindingIndicator(finding_id=finding.id, indicator_id=row.id, role='delivery_link'))
+    for technique_id, matrix, basis in attack:
+        db.add(FindingAttack(finding_id=finding.id, technique_id=technique_id, matrix=matrix, attack_version='20.0',
+                             basis=basis))
+    return finding
+
+
+def add_incident(db, title='url phishing', status='open', resolution=None, domain='phishing', last=CMD_T0):
+    incident = Incident(title=title, domain=domain, severity='high', status=status, resolution=resolution,
+                        opened_at=CMD_T0, last_activity_at=last)
+    db.add(incident)
+    db.flush()
+    return incident
+
+
+@pytest.fixture
+def world(db):
+    """One open incident holding every source kind of §1.4, plus restricted feed records."""
+    db.add(BlacklistEntry(url='https://overlap-domain.example/old', url_hash=url_hash('https://overlap-domain.example/old'),
+                          domain='overlap-domain.example', source='openphish', is_active=False,
+                          first_seen=date(2026, 1, 1), last_seen=date(2026, 1, 2)))
+    db.add(FeedObservation(url_hash=url_hash('https://observed-op.example/login'), source='openphish',
+                           last_seen=date(2026, 2, 1)))
+    db.add(FeedSnapshot(source='phishtank', version='pt-rejected-1', captured_at=datetime(2026, 3, 1), row_count=1,
+                        accepted=False, payload=['https://snapshot-pt.example/login']))
+    db.add(AttackTechnique(technique_id='T1660', matrix='mobile', attack_version='20.0', name='Phishing',
+                           tactics=['initial-access'], platforms=['Android'],
+                           stix_id='attack-pattern--00000000-0000-4000-8000-000000000001',
+                           url='https://attack.mitre.org/techniques/T1660'))
+    incident = add_incident(db)
+    rows = {key: add_indicator(db, kind, value, sightings) for key, (kind, value, sightings) in SHARED.items()}
+    rows['scan_hash_only'] = add_indicator(db, 'domain', 'scan-only.example', [('scan', 'scan_requests')],
+                                           plaintext=False)
+    rows['malware'] = add_indicator(db, 'hash', 'aa' * 32, [('import', 'malware_scans')], plaintext=False,
+                                    hash_algo='sha256')
+    add_finding(db, incident, [rows[k] for k in rows], details={'note': MARK_DETAIL, 'device_ref': MARK_PSEUDO},
+                attack=[('T1660', 'mobile', 'sms_text_present'), ('T9999', 'enterprise', 'uncatalogued_basis')])
+    network = add_incident(db, title='known bad destination', domain='network')
+    rows['c2'] = add_indicator(db, 'ip', C2, [('import', 'network_windows_imports')], plaintext=False)
+    rows['unlisted'] = add_indicator(db, 'ip', UNLISTED_IP, [('import', 'network_windows_imports')], plaintext=False)
+    add_finding(db, network, [rows['c2'], rows['unlisted']], engine='network.windows', kind='known_bad_destination',
+                reasons=('blocklist_ip_connection',))
+    db.add(IncidentEvent(incident_id=incident.id, actor='local-operator', action='note', note=MARK_NOTE, at=CMD_T0))
+    db.commit()
+    return {'incident': incident, 'network': network, 'rows': rows}
+
+
+class FakeLists:
+    def __init__(self, ips):
+        self.ips = ips
+        self.lists = {'feodo_tracker': object()} if ips else {}
+
+
+def run(db, tmp_path, *args, lists=None, now=NOW, env=None, name='out.json'):
+    out = io.StringIO()
+    target = tmp_path / name
+    code = command.main([*args, '--out', str(target)], session_factory=sessions(db),
+                        env_file=env or env_file(tmp_path), out=out, lists_loader=lambda: lists, now=now)
+    return code, target, out.getvalue()
+
+
+def bundle_of(path):
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def patterns(data):
+    return sorted(o['pattern'] for o in data['objects'] if o['type'] == 'indicator')
+
+
+# ---------------------------------------------------------------- licence filter
+
+def test_licence_filter_exports_only_redistributable_values(db, tmp_path, world):
+    code, path, printed = run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    assert code == 0
+    data = bundle_of(path)
+    assert sx.validate_bundle(data) == []
+    assert patterns(data) == sorted([
+        "[domain-name:value = 'analyst-own.example']",
+        "[url:value = 'https://own-investigation.example/kit']",
+        f"[ipv4-addr:value = '{C2}']",
+    ])
+    report = json.loads(printed)
+    assert report['indicators_exported'] == 3
+    assert report['not_exported_by_reason'] == {
+        'community_licence_not_accepted': 1, 'hash_only': 3, 'phone_no_pattern': 1,
+        'restricted_feed': 2, 'restricted_feed_overlap': 5}
+
+
+def test_licence_q14_overlap_with_any_stored_restricted_record(db, tmp_path, world):
+    """Declared source, inactive blacklist domain, feed observation, rejected snapshot, and a mixed sighting."""
+    code, path, _ = run(db, tmp_path)
+    text = path.read_text(encoding='utf-8')
+    for host in ('declared-op.example', 'overlap-domain.example', 'observed-op.example', 'snapshot-pt.example',
+                 'mixed.example'):
+        assert host not in text
+
+
+def test_licence_sources_name_only_allowed_sources(db, tmp_path, world):
+    _, path, _ = run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    sources = {o['pattern']: o['x_etis_sources'] for o in bundle_of(path)['objects'] if o['type'] == 'indicator'}
+    assert sources[f"[ipv4-addr:value = '{C2}']"] == ['list:feodo_tracker']
+    assert sources["[domain-name:value = 'analyst-own.example']"] == ['analyst:manual']
+    assert sources["[url:value = 'https://own-investigation.example/kit']"] == ['analyst:own_investigation']
+    assert not any('openphish' in s or 'phishtank' in s for v in sources.values() for s in v)
+
+
+def test_licence_list_not_installed_counts_n1_ips(db, tmp_path, world):
+    code, path, printed = run(db, tmp_path, lists=None)
+    assert code == 0 and C2 not in path.read_text(encoding='utf-8')
+    assert json.loads(printed)['not_exported_by_reason']['list_not_installed'] == 2
+
+
+def _write_list(tmp_path, ips, *, sha=None):
+    dest = tmp_path / 'lists'
+    dest.mkdir(exist_ok=True)
+    body = ('# invented list\n' + '\n'.join(ips) + '\n').encode('utf-8')
+    (dest / 'feodo.txt').write_bytes(body)
+    lock = {'destination': 'lists', 'lists': [{
+        'name': 'feodo_tracker', 'url': 'https://feodotracker.abuse.ch/downloads/ipblocklist.txt',
+        'fetched_at': '2026-11-27T00:00:00Z', 'file': 'feodo.txt', 'size': len(body),
+        'sha256': sha or hashlib.sha256(body).hexdigest(), 'rows': len(ips), 'format': 'ip_lines'}]}
+    (tmp_path / 'lock.json').write_text(json.dumps(lock), encoding='utf-8')
+    return lambda: blocklists.load(tmp_path / 'lock.json', tmp_path)
+
+
+def test_licence_verified_local_list_recovers_only_listed_ips(db, tmp_path, world):
+    out = io.StringIO()
+    code = command.main(['--out', str(tmp_path / 'a.json')], session_factory=sessions(db), env_file=env_file(tmp_path),
+                        out=out, lists_loader=_write_list(tmp_path, [C2]), now=NOW)
+    text = (tmp_path / 'a.json').read_text(encoding='utf-8')
+    assert code == 0 and f"'{C2}'" in text and UNLISTED_IP not in text
+
+
+def test_licence_list_with_wrong_lock_hash_is_not_used(db, tmp_path, world):
+    out = io.StringIO()
+    code = command.main(['--out', str(tmp_path / 'b.json')], session_factory=sessions(db), env_file=env_file(tmp_path),
+                        out=out, lists_loader=_write_list(tmp_path, [C2], sha='0' * 64), now=NOW)
+    assert code == 0 and C2 not in (tmp_path / 'b.json').read_text(encoding='utf-8')
+    assert json.loads(out.getvalue())['not_exported_by_reason']['list_not_installed'] == 2
+
+
+def test_licence_community_requires_cc0_acceptance_and_q18_overlap(db, tmp_path, world, monkeypatch):
+    monkeypatch.setattr(command, 'community_accepted', lambda db_, s: True)
+    _, path, _ = run(db, tmp_path, name='accepted.json')
+    assert "[domain-name:value = 'community-report.example']" in patterns(bundle_of(path))
+    db.add(BlacklistEntry(url='https://community-report.example/p', url_hash=url_hash('https://community-report.example/p'),
+                          domain='community-report.example', source='phishtank', is_active=True,
+                          first_seen=date(2026, 1, 1), last_seen=date(2026, 1, 1)))
+    db.commit()
+    _, path2, printed = run(db, tmp_path, name='overlap.json')
+    assert 'community-report.example' not in path2.read_text(encoding='utf-8')
+    assert json.loads(printed)['not_exported_by_reason']['restricted_feed_overlap'] == 6
+
+
+def test_licence_exportable_sources_constant_is_pinned():
+    assert set(command.EXPORTABLE_SOURCES) == {'analyst', 'community', 'list:feodo_tracker', 'list:ssl_blacklist'}
+    assert command.RESTRICTED_FEEDS == ('openphish', 'phishtank')
+
+
+def test_licence_feed_tables_unchanged_by_export(db, tmp_path, world):
+    def snapshot():
+        return (sorted((r.url_hash, r.source, r.is_active) for r in db.query(BlacklistEntry)),
+                sorted((r.url_hash, r.source) for r in db.query(FeedObservation)),
+                sorted((r.version, r.accepted) for r in db.query(FeedSnapshot)),
+                sorted((r.indicator_id, r.source_kind, r.source_name, r.active) for r in db.query(IndicatorSighting)),
+                sorted((r.id, r.value) for r in db.query(Indicator)))
+    before = snapshot()
+    run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    db.expire_all()
+    assert snapshot() == before
+    assert db.query(Indicator).filter_by(value=C2).count() == 0
+
+
+# ---------------------------------------------------------------- privacy
+
+def test_privacy_markers_never_written_or_printed(db, tmp_path, world):
+    _, path, printed = run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    text = path.read_text(encoding='utf-8')
+    for marker in (MARK_FEED, MARK_NOTE, MARK_DETAIL, MARK_PSEUDO, 'scan-only.example', 'aa' * 32):
+        assert marker not in text and marker not in printed
+    hash_only = [world['rows'][k].value_hash for k in ('scan_hash_only', 'malware', 'unlisted')]
+    assert not any(h in text for h in hash_only)
+
+
+def test_privacy_terminal_prints_counts_and_path_only(db, tmp_path, world):
+    _, path, printed = run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    for value in ('analyst-own.example', 'own-investigation.example', C2):
+        assert value not in printed
+    assert set(json.loads(printed)) == {'written', 'tlp', 'incidents', 'objects', 'indicators_exported',
+                                        'not_exported_by_reason', 'not_exported_by_type'}
+
+
+def test_privacy_note_defangs_values_and_patterns_stay_real(db, tmp_path, world):
+    _, path, _ = run(db, tmp_path, lists=FakeLists({C2: ('feodo_tracker',)}))
+    data = bundle_of(path)
+    note = next(o for o in data['objects'] if o['type'] == 'note')
+    assert 'analyst-own[.]example' in note['content'] and 'hxxps://own-investigation[.]example/kit' in note['content']
+    assert '203.0.113[.]66' in note['content'] and 'analyst-own.example' not in note['content']
+    assert 'Values below are de-fanged' in note['content'] and sx.ATTACK_NOTICE in note['content']
+    assert all('[.]' not in p for p in patterns(data))
+
+
+def test_privacy_no_details_pseudonyms_notes_or_confidence(db, tmp_path, world):
+    _, path, _ = run(db, tmp_path)
+    data = bundle_of(path)
+    for obj in data['objects']:
+        assert 'confidence' not in obj and 'details' not in json.dumps(obj)
+    sightings = [o for o in data['objects'] if o['type'] == 'sighting']
+    assert sightings and all(o['x_etis_reasons'] == ['blacklist_exact'] for o in sightings)
+
+
+def test_privacy_attack_patterns_and_uncatalogued_ids(db, tmp_path, world):
+    _, path, _ = run(db, tmp_path)
+    data = bundle_of(path)
+    ap = [o for o in data['objects'] if o['type'] == 'attack-pattern']
+    assert [a['external_references'][0]['external_id'] for a in ap] == ['T1660']
+    inc = next(o for o in data['objects'] if o['type'] == 'incident' and o['name'] == 'url phishing')
+    assert inc['x_etis_attack_ids'] == ['enterprise:T9999']
+    rel_types = {(o['relationship_type'], o['target_ref'].split('--')[0]) for o in data['objects']
+                 if o['type'] == 'relationship'}
+    assert {('related-to', 'indicator'), ('related-to', 'attack-pattern'), ('indicates', 'attack-pattern')} <= rel_types
+
+
+# ---------------------------------------------------------------- scope
+
+def _incident_names(path):
+    return sorted(o['name'] for o in bundle_of(path)['objects'] if o['type'] == 'incident')
+
+
+def test_scope_default_is_open_and_investigating(db, tmp_path, world):
+    add_incident(db, title='closed true positive', status='resolved', resolution='true_positive')
+    add_incident(db, title='investigating one', status='investigating')
+    db.commit()
+    _, path, _ = run(db, tmp_path)
+    assert _incident_names(path) == ['investigating one', 'known bad destination', 'url phishing']
+
+
+def test_scope_resolved_benign_excluded_unless_flag(db, tmp_path, world):
+    benign = add_incident(db, title='benign one', status='resolved', resolution='benign')
+    fp = add_incident(db, title='false positive one', status='resolved', resolution='false_positive')
+    db.commit()
+    ids = ['--incident', str(benign.id), '--incident', str(fp.id), '--incident', str(world['incident'].id)]
+    _, path, _ = run(db, tmp_path, *ids, name='a.json')
+    assert _incident_names(path) == ['url phishing']
+    _, path, _ = run(db, tmp_path, *ids, '--include-resolved-benign', name='b.json')
+    assert _incident_names(path) == ['benign one', 'false positive one', 'url phishing']
+
+
+def test_scope_since_uses_last_activity(db, tmp_path, world):
+    add_incident(db, title='recent resolved', status='resolved', resolution='true_positive', last=datetime(2026, 11, 27))
+    db.commit()
+    _, path, _ = run(db, tmp_path, '--since', '2026-11-25')
+    assert _incident_names(path) == ['recent resolved']
+
+
+def test_scope_empty_is_refused(db, tmp_path):
+    code, path, _ = run(db, tmp_path, '--since', '2030-01-01')
+    assert code == 2 and not path.exists()
+
+
+# ---------------------------------------------------------------- command
+
+def test_command_refuses_to_overwrite(db, tmp_path, world):
+    target = tmp_path / 'out.json'
+    target.write_text('keep', encoding='utf-8')
+    code, _, _ = run(db, tmp_path)
+    assert code == 2 and target.read_text(encoding='utf-8') == 'keep'
+    assert not list(tmp_path.glob('.out.json.*.tmp'))
+
+
+def test_command_runs_with_sockets_blocked(db, tmp_path, world, monkeypatch):
+    def refuse(*args, **kwargs):
+        raise OSError('socket_blocked_in_test')
+    monkeypatch.setattr(socket, 'socket', refuse)
+    monkeypatch.setattr(socket, 'create_connection', refuse)
+    monkeypatch.setattr(socket, 'getaddrinfo', refuse)
+    code, path, _ = run(db, tmp_path)
+    assert code == 0 and path.exists()
+
+
+def test_command_output_deterministic_apart_from_bundle_id(db, tmp_path, world):
+    lists = FakeLists({C2: ('feodo_tracker',)})
+    _, first, _ = run(db, tmp_path, lists=lists, name='1.json')
+    _, second, _ = run(db, tmp_path, lists=lists, name='2.json')
+    a, b = bundle_of(first), bundle_of(second)
+    assert a['id'] != b['id']
+    a.pop('id'), b.pop('id')
+    assert a == b
+
+
+def test_command_ids_stable_across_runs_and_namespaces(db, tmp_path, world):
+    _, first, _ = run(db, tmp_path, name='1.json', now=datetime(2026, 11, 28))
+    _, second, _ = run(db, tmp_path, name='2.json', now=datetime(2026, 11, 29))
+    other = tmp_path / 'other'
+    other.mkdir()
+    other_env = env_file(other, namespace='1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d')
+    _, third, _ = run(db, tmp_path, name='3.json', env=other_env)
+    ids = [sorted(o['id'] for o in bundle_of(p)['objects'] if o['type'] != 'note') for p in (first, second, third)]
+    assert ids[0] == ids[1] and set(ids[0]) - set(ids[2]) != set()
+
+
+def test_command_tlp_choice_marks_every_object(db, tmp_path, world):
+    _, path, printed = run(db, tmp_path, '--tlp', 'white')
+    data = bundle_of(path)
+    assert all(o['object_marking_refs'] == [sx.TLP['white']] for o in data['objects'] if o['type'] != 'marking-definition')
+    assert json.loads(printed)['tlp'] == 'white'
+    with pytest.raises(SystemExit):
+        command.parse_args(['--tlp', 'clear'])
+    assert 'TLP 2.0 calls it CLEAR' in command.TLP_HELP
+
+
+def test_command_refuses_without_namespace(db, tmp_path, world, monkeypatch):
+    monkeypatch.delenv('ETIS_STIX_NAMESPACE', raising=False)
+    empty = tmp_path / 'empty.env'
+    empty.write_text('', encoding='utf-8')
+    code, path, _ = run(db, tmp_path, env=empty)
+    assert code == 2 and not path.exists()
+    code, path, _ = run(db, tmp_path, env=env_file(tmp_path, namespace='00abedb4-aa42-466c-9c01-fed23315a9b7'))
+    assert code == 2 and not path.exists()
+
+
+def test_command_default_path_under_var_exports(monkeypatch):
+    args = command.parse_args([])
+    path = command.output_path(args, datetime(2026, 11, 28, 12, 0, 5))
+    assert path == ROOT / 'var' / 'exports' / 'etis-stix-20261128T120005Z.json'
+    assert 'var/' in (ROOT / '.gitignore').read_text(encoding='utf-8')
+
+
+def test_command_initialize_generates_namespace_once(tmp_path):
+    env = tmp_path / '.env'
+    env.write_text('ETIS_API_KEY=x\n', encoding='utf-8')
+    initialize.ensure_env_secrets(env)
+    first = env.read_text(encoding='utf-8')
+    value = next(line.split('=', 1)[1] for line in first.splitlines() if line.startswith('ETIS_STIX_NAMESPACE='))
+    assert uuid.UUID(value).version == 4
+    initialize.ensure_env_secrets(env)
+    assert env.read_text(encoding='utf-8') == first
