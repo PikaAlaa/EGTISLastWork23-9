@@ -526,5 +526,104 @@
       "import": "Then import the exported files:",
       "privacy": "Exported DNS and firewall logs are personal data (browsing history). Keep them private and never share them."
     }
+  },
+  "mascot": {
+    "state": {
+      "idle": "ETIS bot: on watch",
+      "scanning": "ETIS bot: scanning",
+      "safe": "ETIS bot: no known warning signs",
+      "warning": "ETIS bot: needs verification",
+      "danger": "ETIS bot: strong warning"
+    },
+    "tips": {
+      "idle": "Paste a message or link to check it. Links are never opened.",
+      "scanning": "Checking with every available engine…",
+      "safe": "No known warning signs. Still never share codes or passwords.",
+      "warning": "Verify through the official app or number before you act.",
+      "danger": "Do not open the link or reply. Report it to the real sender."
+    }
+  },
+  "designPreview": {
+    "badge": "Design preview · v1",
+    "title": "A calm console for security work",
+    "intro": "Proposed look for the ETIS console: navy and slate base, one teal accent, verdict colours used only for meaning. Live pages are unchanged until the owner approves.",
+    "sample": "Illustrative sample, not real data or a real SMS.",
+    "controls": {
+      "dark": "Switch to dark theme",
+      "light": "Switch to light theme",
+      "reducedMotion": "Reduce motion (fades only)"
+    },
+    "palette": {
+      "title": "Palette",
+      "leadLight": "Light theme values. Toggle the theme to see dark values.",
+      "leadDark": "Dark theme values. Toggle the theme to see light values.",
+      "base": "Base and accent",
+      "verdicts": "Verdict colours (meaning only)",
+      "bg": "Background",
+      "surface": "Surface",
+      "surface2": "Raised surface",
+      "border": "Border",
+      "text": "Text",
+      "muted": "Secondary text",
+      "navy": "Navy (app bar)",
+      "accent": "Teal accent",
+      "verdictText": "Text",
+      "verdictSolid": "Graphic",
+      "verdictTint": "Tint",
+      "contrast": "Every text colour meets WCAG AA (at least 4.5:1) on its surface and tint."
+    },
+    "type": {
+      "title": "Typography",
+      "lead": "Cairo for Arabic and Latin in one family; IBM Plex Mono for scores, hashes and times.",
+      "heading": "Threat intelligence · استخبارات التهديدات",
+      "body": "Body text stays at 15 px with generous line height so Arabic and English read comfortably."
+    },
+    "cards": {
+      "title": "Cards",
+      "lead": "Flat outlined surfaces with a soft lift on hover. Numbers below are sample values.",
+      "openIncidents": "Open incidents",
+      "scansToday": "Scans today",
+      "highAlerts": "HIGH verdicts",
+      "engines": "Engines online",
+      "verdictLOW": "No engine found a known warning sign.",
+      "verdictMEDIUM": "One signal needs checking before you act.",
+      "verdictHIGH": "Corroborated signals point to phishing."
+    },
+    "engines": {
+      "phishing": "Phishing",
+      "host": "Host",
+      "malware": "Malware",
+      "network": "Network",
+      "available": "Available"
+    },
+    "bot": {
+      "title": "ETIS bot",
+      "lead": "An original shield character that mirrors scan state. It is not a chatbot: no input and no generated text, only fixed tips."
+    },
+    "scan": {
+      "title": "Scan animation",
+      "lead": "A scan line sweeps the item (a radar for network imports) and the frame settles into the verdict colour when the result arrives.",
+      "resultLabel": "Demo result",
+      "run": "Run demo scan",
+      "scanning": "Scanning…",
+      "ready": "Ready",
+      "message": "Message",
+      "messageSample": "Your parcel is waiting. Confirm delivery at example.com/track",
+      "file": "File",
+      "url": "Link",
+      "network": "Network import",
+      "networkSample": "Windows import · 1,204 connections (sample)",
+      "frames": "State frames"
+    },
+    "motion": {
+      "title": "Motion",
+      "lead": "Short, eased transitions. Nothing flashes or glitches.",
+      "fast": "Hover, press, focus",
+      "base": "Cards and state changes",
+      "slow": "Pages and verdict colour",
+      "scanCycle": "One scan sweep",
+      "reduced": "With reduced motion, sweeps, floating and blinking stop; states change with simple fades."
+    },
+    "footer": "ETIS console redesign v1 · preview for owner review"
   }
 }
