@@ -92,6 +92,7 @@ def call(port, method, path, body=None, headers=None):
     ('GET', '/api/malware/scans?limit=10&offset=0'), ('GET', '/api/malware/scans/3'), ('GET', '/api/malware/health'),
     ('GET', '/api/network/windows/imports?limit=10&offset=0'), ('GET', '/api/network/windows/imports/3'),
     ('GET', '/api/network/windows/health'),
+    ('GET', '/api/extension/v1/status'), ('POST', '/api/extension/v1/pairing-secret'), ('POST', '/api/extension/v1/revoke'),
 ])
 def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     Stub.seen.clear()
@@ -113,6 +114,8 @@ def test_listed_routes_are_forwarded_with_server_key(proxy, method, path):
     ('POST', '/api/network/windows/imports', 405), ('DELETE', '/api/network/windows/imports/1', 405),
     ('PUT', '/api/network/windows/health', 405), ('POST', '/api/network/windows/import', 404),
     ('GET', '/api/network/windows/imports/x', 404), ('GET', '/api/network/flows', 404),
+    ('POST', '/api/extension/v1/pair', 404), ('POST', '/api/extension/v1/check', 404),
+    ('DELETE', '/api/extension/v1/status', 405),
 ])
 def test_unlisted_paths_and_methods_are_refused_without_forwarding(proxy, method, path, expected):
     Stub.seen.clear()

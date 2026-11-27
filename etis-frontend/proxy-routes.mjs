@@ -24,6 +24,10 @@ const ROUTES = [
   [/^\/api\/network\/windows\/imports$/, ['GET']],
   [/^\/api\/network\/windows\/imports\/\d{1,10}$/, ['GET']],
   [/^\/api\/network\/windows\/health$/, ['GET']],
+  // Browser extension operator pairing controls (design browser-extension-v1 §2.3, §9 #2); /pair and /check stay direct loopback only.
+  [/^\/api\/extension\/v1\/status$/, ['GET']],
+  [/^\/api\/extension\/v1\/pairing-secret$/, ['POST']],
+  [/^\/api\/extension\/v1\/revoke$/, ['POST']],
 ];
 
 // Returns 'allowed', 'method_not_allowed' or 'not_found'.

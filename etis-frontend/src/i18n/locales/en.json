@@ -626,5 +626,19 @@
       "reduced": "With reduced motion, sweeps, floating and blinking stop; states change with simple fades."
     },
     "footer": "ETIS console redesign v1 · preview for owner review"
+  },
+  "extensionPairing": {
+    "title": "Local browser extension pairing (v1)",
+    "description": "Paste the 32-character extension ID (lowercase letters a–p) from chrome://extensions to issue a one-use local pairing secret. Checked tab URLs are evaluated statelessly on 127.0.0.1:8000 and are never stored or logged.",
+    "extensionIdLabel": "Extension ID (32 letters a–p)",
+    "extensionIdHelp": "Must be exactly 32 lowercase characters from a to p.",
+    "generateSecret": "Issue one-use pairing secret",
+    "revoke": "Revoke pairing",
+    "secretIssuedNote": "Copy this one-use secret into the ETIS browser extension popup (valid for 5 minutes):",
+    "statusPaired": "Paired",
+    "statusRevoked": "Revoked",
+    "statusUnpaired": "Not paired",
+    "invalidExtensionId": "Extension ID must be exactly 32 lowercase letters a–p.",
+    "pairingFailed": "Could not update local extension pairing."
   }
 }
