@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ETIS Local Link Check",
+  "version": "0.1.0",
+  "description": "User-initiated, stateless local URL check against local ETIS on 127.0.0.1:8000.",
+  "incognito": "not_allowed",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*"
+  ],
+  "action": {
+    "default_title": "Check current tab with local ETIS"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  }
+}
