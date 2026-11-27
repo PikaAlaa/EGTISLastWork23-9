@@ -486,11 +486,36 @@ is shown by its short stored ref (`srv:3f9a…`).
 
 ### 3.3 Inputs
 
-For one `device_ref`, the score uses every Finding attributed to it with `observed_at` in
-the last **30 days** at read time, **except** findings whose incident is resolved
+For one `device_ref`, the score uses every Finding attributed to it with `observed_at`
+inside the **score window** at read time, **except** findings whose incident is resolved
 `false_positive` or `benign`. Excluded findings are still listed, with the reason. For each
 finding it reads only `engine_name`, `domain`, `kind`, `severity`, `confidence`,
 `observed_at` and the incident's resolution. No evidence detail or indicator value is used.
+
+**Score window.** Findings live only as long as their engine's retention setting allows, and
+the agent design adds no setting of its own: `ETIS_AGENT_RETENTION_DAYS` does not exist
+([windows-agent-lan-v1](windows-agent-lan-v1.md) §7.3, owner decision Q2 there). Agent
+`sensor` Findings and standalone imports expire under the same per-engine settings:
+
+| Engine | Retention setting (default) | State in code |
+| --- | --- | --- |
+| `malware.files` | `ETIS_MALWARE_RETENTION_DAYS` (30) | exists (`settings.malware_retention_days`) |
+| `network.windows` | `ETIS_NETWORK_RETENTION_DAYS` (30) | exists (`settings.network_retention_days`) |
+| `host.windows` | `ETIS_HOST_RETENTION_DAYS` (30) | named by host-engine-v1 §7 and the agent design; added with the host engine. Until then the host window is 30 days. |
+
+The score window is therefore **min(30, each contributing engine's retention)** days. Each
+engine's findings are read only inside its own window, `min(30, that engine's retention)`.
+The step 2 recency halves (0–7 and 8–30 days) apply inside it. A window shorter than 7 days
+leaves no half-weight period. The Risk panel states each engine's window (§3.5).
+
+**Revoked devices.** Findings from a device whose agent token was revoked, and that the
+operator has not purged, **still count** (windows-agent-lan-v1 §4.1 and §5.3, owner decision
+Q3 there). Revoking stops new submissions; it does not make earlier evidence untrue. Purging
+is an explicit operator action (`POST /devices/{id}/purge-findings`), never automatic, and
+purged findings are simply gone from the inputs. Once `010_agent_devices` lands,
+`/device-risk/detail` joins `devices.status` on the `srv:` `device_ref` and marks every
+contribution row of a revoked device **"from a revoked device"**. Until then no device can be
+revoked, so the join is absent and nothing is marked.
 
 ### 3.4 Formula (`device-risk-v1`)
 
@@ -505,7 +530,7 @@ finding it reads only `engine_name`, `domain`, `kind`, `severity`, `confidence`,
 | info | 0 | 0 | 0 | 0 |
 
 **Step 2 — recency:** findings 0–7 days old count in full. Findings 8–30 days old count half,
-rounded up. Older findings are not inputs.
+rounded up. Findings outside their engine's window (§3.3) are not inputs.
 
 **Step 3 — no inflation by repetition:** for each `(engine_name, kind)` on the device, only
 the finding with the most points counts. Others are listed as "repeat — not counted (n)".
@@ -561,14 +586,17 @@ in the agent's `devices` table) are listed too, marked "not paired". The device 
 a **Risk** panel:
 
 1. **The total line.** For example: "13 points — high. Computed now from findings of the
-   last 30 days (`device-risk-v1`)."
+   last 30 days (`device-risk-v1`)." Below it, **each engine's window**, for example
+   "malware 30 days · network 14 days (`ETIS_NETWORK_RETENTION_DAYS`) · host 30 days", so a
+   shortened retention is visible rather than silent (§3.3).
 2. **A contribution table** with one row per counted finding: engine, kind, severity,
    confidence, age, points before and after recency, a link to its incident, and its primary
    recommended action (§2).
 3. **The cross-engine line**, for example: "+3 — malware and network findings on this device
    in the same week".
-4. **Not counted:** repeats, findings older than 30 days (count only) and excluded findings,
-   each with its reason.
+4. **Not counted:** repeats, findings outside their engine's window (count only) and
+   excluded findings, each with its reason. A row from a revoked device stays counted and
+   carries the badge "from a revoked device" (§3.3).
 5. **A fixed "What this score is" text** (AR/EN, reviewed like §2.1): "A count of what ETIS
    engines reported on this device recently, weighted by severity and confidence. It is not
    a probability that the device is compromised, it does not include checks ETIS did not
@@ -585,8 +613,9 @@ return `database_unavailable` without echoing input.
 
 ### 3.6 Fit with the Windows agent's `device_ref` (FR-11)
 
-Read from [windows-agent-lan-v1](windows-agent-lan-v1.md), merged into `origin/main` at
-`bf67aae` and identical to `origin/feat/agent-lan-design`:
+Read from [windows-agent-lan-v1](windows-agent-lan-v1.md) **agent-design-v1.1**, on branch
+`origin/feat/agent-design-v1.1` at `fbeeec5`, read with `git show` on 28 November 2026 and not yet
+merged into `main`. The first version merged at `bf67aae` is superseded by it.
 
 | Point | Agent design | Core v2 | Fit |
 | --- | --- | --- | --- |
@@ -597,34 +626,28 @@ Read from [windows-agent-lan-v1](windows-agent-lan-v1.md), merged into `origin/m
 | Host name source | Agent uses `socket.gethostname()`. | One shared helper, `local_device_name()` (owner decision Q17), applied to `gethostname()`, `COMPUTERNAME`, `--device-name` and the EVTX `Computer` field. Source order for "this PC": `gethostname()`, then `COMPUTERNAME`, then `platform.node()` (§3.2). | Fits. Residual risk: an EVTX `Computer` value or an operator-typed `--device-name` that is a truncated NetBIOS name still differs (V12). |
 | Migration number | Agent plans `009_agent_devices` "or next free number" (§7.1). | `009_finding_devices` (owner decision). | **Conflict, resolved by the owner's numbering:** the agent migration moves to `010` (or the next free number when it lands), and its "upgrade from `008`" test becomes "from `009`". |
 | Console | `/devices` tab and `/devices/{id}` detail. | Risk panel inside that tab; separate `/device-risk` API (§3.5). | Fits, once the tab ownership in §3.5 is followed. |
-| Retention | Agent findings expire after `ETIS_AGENT_RETENTION_DAYS` (default 30). | 30-day score window. | Fits. A shorter retention silently shortens the window, so the Risk panel states the effective window ("findings of the last N days still held"). |
-| Revoked device | Agent §11 question 3: whether findings from a revoked device stay. | The score is computed from whatever findings remain. A revoked device shows a "revoked" badge beside its band. | Depends on the agent's answer. No change is needed in core v2. |
+| Retention | No agent setting (`ETIS_AGENT_RETENTION_DAYS` removed). Agent Findings expire under the per-engine settings `ETIS_HOST_RETENTION_DAYS`, `ETIS_MALWARE_RETENTION_DAYS` and `ETIS_NETWORK_RETENTION_DAYS`, each defaulting to 30 (§7.3). | Score window = min(30, each engine's retention); the Risk panel states each engine's window (§3.3, §3.5). | Fits. |
+| Revoked device | Existing Findings are kept and marked "from a revoked device" (`device_revoked: true`); an optional, never-automatic purge deletes them on or after a chosen time (§4.1, §5.3, Q3). | Unpurged findings from a revoked device still count. Once `010_agent_devices` lands, `/device-risk/detail` joins `devices.status` and marks them "from a revoked device" (§3.3). | Fits. |
 | Compromised endpoint | It can fabricate findings for its own `device_ref` (§2 A4). | Its own score can be raised or padded; no other device's score is affected, because scores are per device and repeats do not add (§3.4 step 3). | Fits. Stated as a limit in the "What this score is" text. |
 
-**Changes the agent design needs in its step 1** (migration and models). They are recorded
-here; `windows-agent-lan-v1.md` itself is not edited in this branch.
+**Agent changes: applied.** The seven changes this section asked of the agent design are now
+applied in `windows-agent-lan-v1.md` (agent-design-v1.1, §1.3, §2, §4.1, §5.2, §5.3, §7.1,
+§10, §11.1):
 
-1. The migration is `010_agent_devices`, or the next free number, and its upgrade test
-   starts from `009`.
-2. `devices.device_ref` stores the `srv:` form. Pairing receives the endpoint's `hmac:` ref,
-   validates `^hmac:[0-9a-f]{32}$`, wraps it with the same `wrap_ref(ref, "device")` that
-   `record_findings` uses, and stores only the result. The pairing response should not
-   echo a `device_ref`, because the endpoint has no use for the `srv:` form.
-3. The batch check (§5.2 rule 3) compares `wrap(incoming hmac:)` with the stored `srv:` value
-   (a step 2 test). The evidence allowlist keeps accepting only `hmac:` on the wire.
-4. `ETIS_SERVER_REF_KEY` is generated by `scripts/initialize.py` on the server, never sent
-   to an agent, and listed in its threat model (§2 A5): with the server key separate, a
-   leaked company host key alone does not let anyone confirm guessed names against stored
-   refs. Initialize never overwrites an existing key, and rotation is out of scope (§3.2,
-   key lifetime).
-5. The agent's runner uses `local_device_name()` and `attach_device_ref()` from
-   `app/core/device_names.py` (step 5).
-6. Console and API show and accept `srv:` refs only (§7.2 table, `GET /devices`), for both
-   devices and accounts.
-7. Agent §11 question 1 is answered for `device_ref`, `host_ref` and `account_ref`: all are
-   wrapped to `srv:` at the single wrap point in `record_findings` (owner decisions Q13 and
-   Q19). The agent's evidence allowlist keeps accepting `hmac:` (and the well-known `sid:`
-   forms) on the wire.
+1. migration `010_agent_devices`, with its upgrade test starting from `009`;
+2. `devices.device_ref` stores only `srv:`; pairing validates the wire `hmac:`, wraps it with
+   `wrap_ref(ref, "device")` and does not echo a `device_ref`;
+3. the batch check compares `wrap_ref(incoming hmac:)` with the stored `srv:` value, and only
+   `hmac:` is accepted on the wire;
+4. `ETIS_SERVER_REF_KEY` is generated on the server only when absent, never sent to an
+   agent, and listed in the threat model; rotation is out of scope;
+5. the agent runner uses `local_device_name()` and `attach_device_ref()` from
+   `app/core/device_names.py`;
+6. console and API show and accept `srv:` refs only, for devices and accounts;
+7. agent §11 question 1 is answered for `device_ref`, `host_ref` and `account_ref`, all
+   wrapped at the single wrap point in `record_findings`.
+
+They take effect in `main` when `feat/agent-design-v1.1` is merged.
 
 ## 4. De-fanged indicators everywhere in the console
 
@@ -712,7 +735,7 @@ proposed for merge. No sealed final test is run.
 | 6 | `feat: recommended action selection per finding` | Pure `recommended_actions(finding)`, `recommended_actions` in incident detail, `GET /recommended-actions` | `pytest backend/tests/test_recommended_actions.py -k selection` and `pytest backend/tests/test_soc_api.py -k incident`: phishing decisive reason first; `rank` order for an alphabetically sorted `network.windows` reason list (e.g. N1 `blocklist_ip_connection` with `blocklist_ip_dns_answer`); at most 3 actions, de-duplicated; kind default; fallback, so every Finding gets an action (FR-14); draft hidden unless the flag is set; no endpoint with a write method under `/recommended-actions`. |
 | 7a | `feat: shared device names and server-side ref wrap` | `app/core/device_names.py`; `ETIS_SERVER_REF_KEY` in initialize; `network_windows/devices.py` uses `local_device_name()` | `pytest backend/tests/test_device_names.py`: `local_device_name` gives the same result for `PC-01`, `pc-01.corp.example`, `PC-01.` and ` pc-01 ` (EVTX `Computer`, `COMPUTERNAME` and `gethostname()` shapes); empty → `None`; source order `gethostname()` → `COMPUTERNAME` → `platform.node()`; `wrap_ref` is deterministic, gives `srv:` + 32 hex (36 characters), differs under another server key and between the `device` and `account` purposes for the same input, rejects input that is not `hmac:`, and leaves a well-known `sid:` account ref unchanged; a missing or short `ETIS_SERVER_REF_KEY` raises a fixed reason code; `initialize.py` creates the key when `.env` has none and leaves an existing key byte-identical on a second run (isolated temporary `.env`). `pytest backend/tests/test_network_windows_devices.py` for the default-name change. |
 | 7b | `feat: device attribution for findings` | Migration **009**, `finding_devices`, `record_findings` wraps device and account refs then attributes, `scan_files.py` attaches `device_ref` through `attach_device_ref`, one-off `data/scripts/rewrap_device_refs.py` (Q20) | `pytest backend/tests/test_core_migrations.py -k 009`: fresh-vs-upgrade schema equality from `008`. `pytest backend/tests/test_correlation.py -k device`: a `network.windows` finding is stored with `srv:` in both `details.device_ref` and `finding_devices`; no `hmac:` device or account ref appears in any stored row (marker test over `findings.evidence` and `finding_devices`); a `network.windows` Sysmon finding stores `account_ref` as `srv:` and a `sid:S-1-5-18` account ref unchanged; a Finding arriving with `srv:` in any ref is rejected (`ref_prefix_invalid`); a missing server key stores the Finding without device or account refs; differing `device_ref`/`host_ref` → `device_ref_conflict` logged without values; an agent-shaped malware finding (`source_ref` `agent_devices:…`) is attributed as `agent`; the same PC through a standalone import and an agent-shaped batch gets **one** `srv:` ref; device refs never create or join incidents. `pytest backend/tests/test_malware_scan_command.py -k device`: the standalone scan attaches the endpoint ref, stored as `srv:`; a missing host key → no device while the scan still succeeds. `pytest backend/tests/test_rewrap_device_refs.py`: invented findings stored with `hmac:` refs are rewritten to `srv:` and get `finding_devices` rows; **a second run changes nothing** (row-by-row equality of `findings.evidence` and `finding_devices` before and after); refuses without the server key; prints counts only. `/analyze` gate: `test_findings_parity.py`, targeted. |
-| 8 | `feat: device-risk-v1 score and device-risk API` | Pure `device_risk(findings, now)`, `/device-risk` routers | `pytest backend/tests/test_device_risk.py`: every cell of the points table; recency boundaries at 7/8 and 30/31 days; repeat rule; cross-engine +3 and +6 cap, not given for a domain below 3 points or older than 7 days; resolved benign/false positive excluded and listed; the worked example of §3.4 gives 13 → high; band edges 0/1/4/5/9/10; N9 `info` scores 0. `pytest backend/tests/test_soc_api.py -k device_risk`: auth; `srv:` accepted, `hmac:` and other forms rejected with `invalid_input`; no echo; read-only. |
+| 8 | `feat: device-risk-v1 score and device-risk API` | Pure `device_risk(findings, now)`, `/device-risk` routers | `pytest backend/tests/test_device_risk.py`: every cell of the points table; recency boundaries at 7/8 and 30/31 days; repeat rule; cross-engine +3 and +6 cap, not given for a domain below 3 points or older than 7 days; resolved benign/false positive excluded and listed; the worked example of §3.4 gives 13 → high; band edges 0/1/4/5/9/10; N9 `info` scores 0; each engine's window is min(30, its retention setting) and is reported per engine; findings from a revoked device still count (the "from a revoked device" mark is tested once `010_agent_devices` exists). `pytest backend/tests/test_soc_api.py -k device_risk`: auth; `srv:` accepted, `hmac:` and other forms rejected with `invalid_input`; no echo; read-only. |
 | 9 | `feat: de-fanged indicator display in the console` | `defang.ts`, `IndicatorValue`, pages of §4.4, `format-detection` meta, copy button | `node --experimental-strip-types --test etis-frontend/tests/defang.test.mts` over `defang-cases.json` (Node 22.12 is installed; the flag is **to verify**, V9); static check script for raw indicator rendering; frontend build and `oxlint` on changed files. |
 | 10 | `feat: recommended actions and device risk in the console` | Incident detail actions; Devices tab with Risk panel (created here, or added to the agent's tab if that has landed, §3.5); i18n keys AR/EN; proxy allowlist for `/api/device-risk*` and `/api/recommended-actions` | Frontend build, `oxlint`, an i18n key parity check (every new key in both `ar.json` and `en.json`), `pytest backend/tests/test_proxy_routes.py` for the allowlist; manual RTL and 390-pixel check as recorded today. |
 | 11 | `docs: core v2 implementation notes` | README / LOCAL-IMPLEMENTATION status, `docs/api-v2.md`, `docs/engine-authors.md` (declare `REASON_CODES`, add catalogue entries, set device ref) | none (docs only) |
