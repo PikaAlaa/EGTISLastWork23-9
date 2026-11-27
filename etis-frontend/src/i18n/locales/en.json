@@ -1,5 +1,8 @@
 {
   "app": {
+    "darkTheme": "Switch to dark theme",
+    "lightTheme": "Switch to light theme",
+    "switchLanguage": "العربية",
     "title": "ETIS",
     "subtitle": "Egypt-Specific Threat Intelligence System"
   },

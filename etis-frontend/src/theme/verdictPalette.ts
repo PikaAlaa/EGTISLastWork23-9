@@ -1,7 +1,15 @@
 import type { Verdict } from '../api/types';
-export const VERDICT_STYLE: Record<Verdict, {bg: string; accent: string; chipColor: 'success'|'warning'|'error'|'default'}> = {
- LOW: {bg:'#eafbf1',accent:'#24663e',chipColor:'success'},
- MEDIUM: {bg:'#fdf3e3',accent:'#805300',chipColor:'warning'},
- HIGH: {bg:'#fdecea',accent:'#a52b20',chipColor:'error'},
- INCOMPLETE: {bg:'#edf1f6',accent:'#37475e',chipColor:'default'},
+
+interface VerdictStyle {
+  bg: string;
+  accent: string;
+  border: string;
+  chipColor: 'success' | 'warning' | 'error' | 'default';
+}
+
+export const VERDICT_STYLE: Record<Verdict, VerdictStyle> = {
+  LOW: { bg: 'var(--etis-low-tint)', accent: 'var(--etis-low-text)', border: 'var(--etis-low-border)', chipColor: 'success' },
+  MEDIUM: { bg: 'var(--etis-medium-tint)', accent: 'var(--etis-medium-text)', border: 'var(--etis-medium-border)', chipColor: 'warning' },
+  HIGH: { bg: 'var(--etis-high-tint)', accent: 'var(--etis-high-text)', border: 'var(--etis-high-border)', chipColor: 'error' },
+  INCOMPLETE: { bg: 'var(--etis-surface2)', accent: 'var(--etis-incomplete)', border: 'var(--etis-border)', chipColor: 'default' },
 };

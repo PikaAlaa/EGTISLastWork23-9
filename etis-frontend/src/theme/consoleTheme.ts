@@ -1,10 +1,8 @@
 import { createTheme, type Direction } from '@mui/material/styles';
-import { MOTION, RADIUS, TOKENS, TYPE_SCALE, type ColorMode } from './tokens';
+import { cssVars, MOTION, RADIUS, TOKENS, TYPE_SCALE, type ColorMode } from './tokens';
 
 /**
  * Console redesign v1 theme (docs/design/console-redesign-v1.md).
- * Used by /design-preview only until the owner approves the look;
- * the live console keeps theme.ts until step 2.
  */
 export function createConsoleTheme(mode: ColorMode, direction: Direction) {
   const t = TOKENS[mode];
@@ -47,6 +45,7 @@ export function createConsoleTheme(mode: ColorMode, direction: Direction) {
     components: {
       MuiCssBaseline: {
         styleOverrides: {
+          ':root': { ...cssVars(mode), colorScheme: mode },
           body: { backgroundColor: t.bg, transition: `background-color ${MOTION.slow}ms ${MOTION.easeStandard}` },
           '@media (prefers-reduced-motion: reduce)': {
             '*, *::before, *::after': { transitionDuration: `${MOTION.fast}ms !important` },
