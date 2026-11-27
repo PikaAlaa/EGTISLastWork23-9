@@ -1,4 +1,4 @@
-"""INVENTED-only scan fixtures, example.eg names, blocked sockets, isolated DBs."""
+"""INVENTED-only scan fixtures, example.com names, blocked sockets, isolated DBs."""
 from datetime import timedelta
 import hashlib
 import importlib.util
