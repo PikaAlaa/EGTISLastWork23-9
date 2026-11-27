@@ -1,4 +1,4 @@
-"""INVENTED-only endpoint fixtures using inert example.eg URLs. No real SMS."""
+"""INVENTED-only endpoint fixtures using inert example.com URLs. No real SMS."""
 from dataclasses import replace
 from functools import partial
 
