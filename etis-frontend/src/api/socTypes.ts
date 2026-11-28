@@ -53,6 +53,19 @@ export interface IncidentFinding {
   reasons: string[];
   verdict: string | null;
   attack: { technique_id: string; matrix: AttackMatrix }[];
+  /** Design core-v2 §2.3: read-only text, never executed. Empty while every text is still draft. */
+  recommended_actions?: RecommendedAction[];
+}
+
+/** One recommended action (design core-v2 §2.3, catalogue recommended-actions-v1). Text only. */
+export interface RecommendedAction {
+  reason_code: string | null;
+  source: 'reason' | 'kind_default' | 'fallback';
+  audience: 'user' | 'analyst';
+  status: 'reviewed' | 'draft';
+  en: string;
+  ar: string;
+  catalogue_version: string;
 }
 
 export interface IncidentIndicator {
@@ -92,6 +105,8 @@ export interface IncidentDetail extends IncidentSummary {
   techniques: IncidentTechnique[];
   events: IncidentEvent[];
   links: { incident_id: number; related_incident_id: number; relation: 'related' | 'merged_into' }[];
+  /** Primary actions of the highest-severity findings, de-duplicated (design core-v2 §2.4). */
+  recommended_actions?: RecommendedAction[];
 }
 
 export interface IncidentUpdate {

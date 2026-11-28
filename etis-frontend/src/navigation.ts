@@ -4,12 +4,13 @@ import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import LanIcon from '@mui/icons-material/Lan';
+import DevicesOtherOutlinedIcon from '@mui/icons-material/DevicesOtherOutlined';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 
 export const NAV = [
   ['scan', RadarIcon], ['threats', DynamicFeedIcon], ['stats', InsightsOutlinedIcon],
-  ['incidents', ReportOutlinedIcon], ['files', FingerprintIcon], ['network', LanIcon],
+  ['incidents', ReportOutlinedIcon], ['files', FingerprintIcon], ['network', LanIcon], ['devices', DevicesOtherOutlinedIcon],
   ['indicators', ManageSearchIcon], ['attack', AccountTreeOutlinedIcon],
 ] as const;
 

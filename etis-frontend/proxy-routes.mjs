@@ -28,6 +28,10 @@ const ROUTES = [
   [/^\/api\/extension\/v1\/status$/, ['GET']],
   [/^\/api\/extension\/v1\/pairing-secret$/, ['POST']],
   [/^\/api\/extension\/v1\/revoke$/, ['POST']],
+  // Core v2 (design core-v2 §2.4, §3.5): read-only recommended-action catalogue and device-risk score.
+  [/^\/api\/recommended-actions$/, ['GET']],
+  [/^\/api\/device-risk$/, ['GET']],
+  [/^\/api\/device-risk\/detail$/, ['GET']],
 ];
 
 // Returns 'allowed', 'method_not_allowed' or 'not_found'.
@@ -39,4 +43,4 @@ export function routeDecision(pathname, method) {
 }
 
 export const BODY_METHODS = new Set(['POST', 'PATCH']);
-export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack', '/files', '/network']);
+export const SPA_PATHS = new Set(['/', '/scan', '/threats', '/stats', '/incidents', '/indicators', '/attack', '/files', '/network', '/devices']);

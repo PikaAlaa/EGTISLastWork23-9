@@ -15,6 +15,7 @@ import { IndicatorsPage } from './pages/IndicatorsPage';
 import { AttackPage } from './pages/AttackPage';
 import { FileScansPage } from './pages/FileScansPage';
 import { NetworkWindowsPage } from './pages/NetworkWindowsPage';
+import { DevicesPage } from './pages/DevicesPage';
 
 const THEME_KEY = 'etis-console-theme';
 
@@ -79,6 +80,7 @@ export default function App() {
           {activePage === 'incidents' && <IncidentsPage />}
           {activePage === 'files' && <FileScansPage />}
           {activePage === 'network' && <NetworkWindowsPage />}
+          {activePage === 'devices' && <DevicesPage />}
           {activePage === 'indicators' && <IndicatorsPage />}
           {activePage === 'attack' && <AttackPage />}
         </Container>

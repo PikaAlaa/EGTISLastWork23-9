@@ -11,7 +11,7 @@ import { EtisBot } from '../components/EtisBot';
 import { botStateFor } from '../components/botState';
 import { VerdictChip } from '../components/VerdictChip';
 import { EngineBreakdownCard } from '../components/EngineBreakdownCard';
-import { InertValue } from '../components/InertValue';
+import { IndicatorValue } from '../components/IndicatorValue';
 import { VerdictCard } from '../components/VerdictCard';
 import { ExtensionPairingPanel } from '../components/ExtensionPairingPanel';
 
@@ -64,7 +64,7 @@ export function ScanPage() {
    {!result.saved&&<Alert severity="warning">{t('scan.notSaved')}</Alert>}
    {result.checked_links.length>0&&<Typography variant="h6" component="h2">{t('scan.checkedLinks',{count:result.checked_links.length})}</Typography>}
    {result.checked_links.map((link,index)=><Paper variant="outlined" key={link.url+':'+index} sx={{p:4,overflowWrap:'anywhere'}}>
-    <InertValue value={link.host} />
+    <IndicatorValue value={link.host} />
     {!link.analysis_complete&&<VerdictChip verdict="INCOMPLETE" />}
     {link.brand.decisive&&<Typography sx={{mt:1}}>{t('scan.impersonates')}: {link.brand.matched_brand}</Typography>}
     {link.brand.official_contact&&result.verdict!=='LOW'&&<Typography sx={{mt:1}}>

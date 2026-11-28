@@ -7,6 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "test": "node --experimental-strip-types --test tests/defang.test.mts tests/check-indicators.test.mjs tests/i18n-parity.test.mjs",
+    "check:i18n": "node scripts/check-i18n-parity.mjs",
+    "check:indicators": "node scripts/check-indicator-rendering.mjs",
     "preview": "vite preview",
     "start": "node server.mjs"
   },

@@ -43,6 +43,8 @@ import type {
 } from '../api/socTypes';
 import { shortHash } from '../api/inert';
 import { InertValue } from '../components/InertValue';
+import { IndicatorValue } from '../components/IndicatorValue';
+import { RecommendedActions } from '../components/RecommendedActions';
 import { SeverityChip, StatusChip, Timestamp } from '../components/SocChips';
 
 const PAGE_SIZE = 20;
@@ -318,6 +320,8 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
   if (!detail) return <CircularProgress size={24} sx={{ mt: 3 }} aria-label={t('scan.loading')} />;
 
   const trimmedNote = note.trim() || undefined;
+  // The action column appears only when the backend sent a displayable action (design core-v2 §2.3).
+  const showActions = detail.findings.some((f) => (f.recommended_actions?.length ?? 0) > 0);
   return (
     <Paper variant="outlined" sx={{ mt: 8, p: { xs: 4, sm: 5 }, overflowWrap: 'anywhere' }} aria-live="polite">
       <Stack direction="row" useFlexGap sx={{ gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -335,6 +339,14 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
         {detail.reopened_from && <> · {t('incidents.reopenedFrom')} <Button size="small" onClick={() => onOpen(detail.reopened_from!)}>#{detail.reopened_from}</Button></>}
       </Typography>
       <Alert severity="info" variant="outlined" sx={{ mt: 2 }}>{t('incidents.verdictNotice')}</Alert>
+
+      {(detail.recommended_actions?.length ?? 0) > 0 && (
+        <Section title={t('actions.heading')}>
+          <Paper variant="outlined" sx={{ p: { xs: 3, sm: 4 } }}>
+            <RecommendedActions actions={detail.recommended_actions} />
+          </Paper>
+        </Section>
+      )}
 
       <Section title={t('incidents.actions')}>
         {actionError && <Alert severity="error" sx={{ mb: 2 }}>{t(actionError)}</Alert>}
@@ -418,6 +430,7 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.severity')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.confidence')}</TableCell>
                 <TableCell sx={{ fontWeight: 600 }}>{t('incidents.reasons')}</TableCell>
+                {showActions && <TableCell sx={{ fontWeight: 600, minWidth: 220 }}>{t('actions.column')}</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -433,6 +446,7 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
                         label={t(`reason.${r}`, { defaultValue: r })} />)}
                     </Stack>
                   </TableCell>
+                  {showActions && <TableCell><RecommendedActions actions={f.recommended_actions} compact /></TableCell>}
                 </TableRow>
               ))}
             </TableBody>
@@ -457,7 +471,7 @@ function IncidentDetailPanel({ id, onChanged, onOpen }: { id: number; onChanged:
                 <TableRow key={i.id}>
                   <TableCell>{t(`soc.type.${i.type}`)}</TableCell>
                   <TableCell>
-                    {i.value ? <InertValue value={i.value} /> : <InertValue value={`sha256 ${shortHash(i.value_hash)}`} muted />}
+                    {i.value ? <IndicatorValue type={i.type} value={i.value} copyable /> : <InertValue value={`sha256 ${shortHash(i.value_hash)}`} muted />}
                   </TableCell>
                   <TableCell>{i.roles.map((r) => t(`soc.role.${r}`, { defaultValue: r })).join(', ')}</TableCell>
                   <TableCell>{i.sources.map((s) => t(`soc.sourceKind.${s}`, { defaultValue: s })).join(', ')}</TableCell>

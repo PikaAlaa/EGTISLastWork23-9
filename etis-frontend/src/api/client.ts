@@ -23,6 +23,7 @@ import type {
 } from './socTypes';
 import type { MalwareHealth, MalwareScanDetail, MalwareScansResponse } from './malwareTypes';
 import type { NetworkHealth, NetworkImportDetail, NetworkImportsResponse } from './networkTypes';
+import type { DeviceRiskDetail, DeviceRiskList } from './deviceRiskTypes';
 
 const BASE_URL = '/api';
 
@@ -202,6 +203,16 @@ export function getMalwareScan(id: number): Promise<MalwareScanDetail> {
 
 export function getMalwareHealth(): Promise<MalwareHealth> {
   return request<MalwareHealth>('/malware/health');
+}
+
+// ---- Device risk (design core-v2 §3.5): read-only; devices are srv: pseudonyms only ----
+
+export function getDeviceRiskList(limit = 100, offset = 0): Promise<DeviceRiskList> {
+  return request<DeviceRiskList>(`/device-risk${buildQueryString({ limit, offset })}`);
+}
+
+export function getDeviceRiskDetail(deviceRef: string): Promise<DeviceRiskDetail> {
+  return request<DeviceRiskDetail>(`/device-risk/detail${buildQueryString({ device_ref: deviceRef })}`);
 }
 
 // ---- network.windows imports (design network-windows-v1 §6.7): read-only; imports start only from the local command ----
