@@ -28,3 +28,5 @@ from app.models.attack import AttackTechnique
 
 from app.models.malware import MalwareScan
 from app.models.network_windows import NetworkWindowsImport
+
+from app.models.agent_device import AgentBatch, Device, DevicePairingToken
